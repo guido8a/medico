@@ -168,7 +168,7 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/proyecto.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>
+                    <asset:image src="apli/paciente.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 220px">
                     <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Pacientes</span></h2>
