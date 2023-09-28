@@ -65,6 +65,14 @@
         cargarTablaEmpresa();
     });
 
+    $("#criterio").keydown(function (ev) {
+        if (ev.keyCode === 13) {
+            cargarTablaEmpresa();
+            return false;
+        }
+        return true;
+    });
+
     cargarTablaEmpresa();
 
     function cargarTablaEmpresa() {
@@ -137,8 +145,14 @@
                         log(parts[1], "success");
                         cargarTablaEmpresa();
                     }else{
-                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                        return false;
+                        if(parts[0] === 'err'){
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }else{
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }
+
                     }
                 }
             });

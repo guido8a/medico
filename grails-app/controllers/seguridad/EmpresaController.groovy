@@ -85,21 +85,29 @@ class EmpresaController {
 
     def saveEmpresa_ajax() {
         def empresa
+        def ruc = false
 
         if(params.id){
             empresa = Empresa.get(params.id)
+            ruc = Empresa.findAllByRucAndIdNotEqual(params.ruc, empresa.id)
         }else{
+            ruc = Empresa.findAllByRuc(params.ruc)
             empresa = new Empresa()
             empresa.fechaInicio = new Date()
         }
 
-        empresa.properties = params
-
-        if(!empresa.save(flush: true)){
-            println("error al crear la empresa " + empresa.errors)
-            render "no_Error al crear la empresa"
+        if(ruc){
+            render "err_El RUC ya se encuentra ingresado"
+            return false
         }else{
-            render "ok_Empresa guardada correctamente"
+            empresa.properties = params
+
+            if(!empresa.save(flush: true)){
+                println("error al crear la empresa " + empresa.errors)
+                render "no_Error al crear la empresa"
+            }else{
+                render "ok_Empresa guardada correctamente"
+            }
         }
     }
 
@@ -113,6 +121,11 @@ class EmpresaController {
                 println("error al borrar la empresa"  + empresa.errors)
             render "no_Error al borrar la empresa"
         }
+    }
+
+    def show_ajax () {
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa]
     }
 
 }

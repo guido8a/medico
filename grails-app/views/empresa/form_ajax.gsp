@@ -148,23 +148,23 @@
         });
     }
 
-    $(function () {
-        $("#ruc").blur(function () {
-            $.ajax({
-                type: 'POST',
-                url: '${createLink(controller: 'empresa', action: 'validarRuc_ajax')}',
-                data:{
-                    ruc: $("#ruc").val(),
-                    id: "${empresa?.id}"
-                },
-                success: function (msg) {
-                    if(msg === "false"){
-                        bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> El número de RUC ya se encuentra ingresado")
-                    }
-                }
-            });
-        });
-    });
+    %{--$(function () {--}%
+    %{--    $("#ruc").blur(function () {--}%
+    %{--        $.ajax({--}%
+    %{--            type: 'POST',--}%
+    %{--            url: '${createLink(controller: 'empresa', action: 'validarRuc_ajax')}',--}%
+    %{--            data:{--}%
+    %{--                ruc: $("#ruc").val(),--}%
+    %{--                id: "${empresa?.id}"--}%
+    %{--            },--}%
+    %{--            success: function (msg) {--}%
+    %{--                if(msg === "false"){--}%
+    %{--                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> El número de RUC ya se encuentra ingresado")--}%
+    %{--                }--}%
+    %{--            }--}%
+    %{--        });--}%
+    %{--    });--}%
+    %{--});--}%
 
 
     $("#frmSave-Proveedor").validate({

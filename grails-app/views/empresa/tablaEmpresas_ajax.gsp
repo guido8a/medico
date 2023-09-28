@@ -49,6 +49,31 @@
     $(".btn-delete").click(function (){
         var id = $(this).data("id");
         deleteRow(id);
+    });
+
+    $(".btn-show").click(function (){
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'empresa', action:'show_ajax')}",
+            data    : {
+                id : id
+            },
+            success : function (msg) {
+                bootbox.dialog({
+                    title   : "Datos de la Empresa",
+                    message : msg,
+                    buttons : {
+                        ok : {
+                            label     : "Aceptar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    }
+                });
+            }
+        });
     })
 
 </script>
