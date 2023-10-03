@@ -50,6 +50,7 @@
 
 
 <script type="text/javascript">
+    var di
 
     $(".btnNuevaEmpresa").click(function () {
         createEditRow();
@@ -199,6 +200,134 @@
             }
         });
     }
+
+    function cargarImagenesEmpresa(id) {
+        $.ajax({
+            type    : "POST",
+            %{--url     : "${createLink(controller: 'empresa', action:'imagenesEmpresa_ajax')}",--}%
+            url     : "${createLink(controller: 'empresa', action:'logoEmpresa_ajax')}",
+            data    : {
+                id:id
+            },
+            success : function (msg) {
+               di = bootbox.dialog({
+                    id      : "dlgImas",
+                    title   : "Logo de la empresa",
+                    // class : "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-gris",
+                            callback  : function () {
+
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function cerrarDialogoImagen () {
+        di.modal("hide");
+    }
+
+    function createContextMenu(node) {
+        var $tr = $(node);
+
+        var items = {
+            header: {
+                label: "Acciones",
+                header: true
+            }
+        };
+
+        var id = $tr.data("id");
+
+        var ver = {
+            label: " Ver",
+            icon: "fa fa-search",
+            action: function () {
+                $.ajax({
+                    type    : "POST",
+                    url     : "${createLink(controller: 'empresa', action:'show_ajax')}",
+                    data    : {
+                        id : id
+                    },
+                    success : function (msg) {
+                        bootbox.dialog({
+                            title   : "Empresa",
+                            message : msg,
+                            buttons : {
+                                ok : {
+                                    label     : "Aceptar",
+                                    className : "btn-primary",
+                                    callback  : function () {
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+        var editar = {
+            label: " Editar",
+            icon: "fa fa-edit",
+            action: function () {
+                createEditRow(id)
+            }
+        };
+
+        var contabilidad = {
+            label: " Contabilidad",
+            icon: "fa fa-book",
+            separator_before : true,
+            action: function () {
+                // createEditRowCont(id)
+            }
+        };
+
+        var usuarios = {
+            label: " Usuarios",
+            icon: "fa fa-user",
+            separator_before : true,
+            action: function () {
+                location.href="${createLink(controller: 'persona', action: 'list')}/" + id;
+
+            }
+        };
+
+        var imagenes = {
+            label: " Logo",
+            icon: "fa fa-images",
+            separator_before : true,
+            action: function () {
+                cargarImagenesEmpresa(id);
+            }
+        };
+
+        var eliminar = {
+            label: " Eliminar",
+            icon: "fa fa-trash",
+            separator_before : true,
+            action: function () {
+                deleteRow(id);
+            }
+        };
+
+        items.ver = ver;
+        items.editar = editar;
+        items.contabilidad = contabilidad;
+        items.usuarios = usuarios;
+        items.imagenes = imagenes;
+        items.eliminar = eliminar;
+
+        return items
+    }
+
 
 </script>
 
