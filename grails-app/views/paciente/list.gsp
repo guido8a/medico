@@ -4,16 +4,16 @@
 <head>
     <meta name="layout" content="main">
     <title>
-        Lista de Empresas
+        Lista de Pacientes
     </title>
 </head>
 <body>
 
 <div class="row" style="margin-bottom: 10px">
     <div class="span9 btn-group" role="navigation">
-        <a href="#" class="btn btn-success btnNuevaEmpresa">
-            <i class="fa fa-building"></i>
-            Nueva  Empresa
+        <a href="#" class="btn btn-success btnNuevoPaciente">
+            <i class="fa fa-user"></i>
+            Nuevo Paciente
         </a>
     </div>
 </div>
@@ -24,8 +24,13 @@
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
                 <span class="col-md-2">
+                    <label class="control-label text-info">Empresa</label>
+                    <g:select name="empresa" class="empresa col-md-12 form-control" from="${seguridad.Empresa.list().sort{it.nombre}}" noSelection="[0: 'Todos']" value="${empresa ? empresa?.id : 0}" optionKey="id"
+                              optionValue="nombre"/>
+                </span>
+                <span class="col-md-2">
                     <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'RUC', 2: 'Nombre']}" optionKey="key"
+                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Cédula', 2: 'Apellido', 3: 'Nombre']}" optionKey="key"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-2">
@@ -43,57 +48,59 @@
     </fieldset>
 
     <fieldset class="borde" style="border-radius: 4px">
-        <div id="divTablaEmpresas" >
+        <div id="divTablaPacientes" >
         </div>
     </fieldset>
 </div>
 
 
 <script type="text/javascript">
-    var di
+    var di;
 
-    $(".btnNuevaEmpresa").click(function () {
+    $(".btnNuevoPaciente").click(function () {
         createEditRow();
     });
 
     $("#btnLimpiar").click(function  () {
         $("#buscarPor").val(1);
         $("#criterio").val('');
-        cargarTablaEmpresa();
+        $("#empresa").val(0);
+        cargarTablaPacientes();
     });
 
     $("#btnBuscarEmpresa").click(function () {
-        cargarTablaEmpresa();
+        cargarTablaPacientes();
     });
 
     $("#criterio").keydown(function (ev) {
         if (ev.keyCode === 13) {
-            cargarTablaEmpresa();
+            cargarTablaPacientes();
             return false;
         }
         return true;
     });
 
-    cargarTablaEmpresa();
+    cargarTablaPacientes();
 
-    function cargarTablaEmpresa() {
+    function cargarTablaPacientes() {
         var d = cargarLoader("Cargando...");
         var buscarPor = $("#buscarPor option:selected").val();
         var criterio = $("#criterio").val();
+        var empresa = $("#empresa").val();
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'empresa', action: 'tablaEmpresas_ajax')}',
+            url: '${createLink(controller: 'paciente', action: 'tablaPacientes_ajax')}',
             data:{
                 buscarPor: buscarPor,
-                criterio: criterio
+                criterio: criterio,
+                empresa: empresa
             },
             success: function (msg){
                 d.modal("hide");
-                $("#divTablaEmpresas").html(msg)
+                $("#divTablaPacientes").html(msg)
             }
         })
     }
-
 
     function createEditRow(id) {
         var title = id ? "Editar " : "Crear ";
@@ -105,8 +112,8 @@
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({
-                    id      : "dlgCreateEdit",
-                    title   : title + " Empresa",
+                    id      : "dlgCreateEditPaciente",
+                    title   : title + " Paciente",
                     class: "modal-lg",
                     message : msg,
                     buttons : {
@@ -121,7 +128,7 @@
                             label     : "<i class='fa fa-save'></i> Guardar",
                             className : "btn-success",
                             callback  : function () {
-                                return submitFormEmpresa();
+                                return submitFormPaciente();
                             } //callback
                         } //guardar
                     } //buttons
@@ -130,8 +137,8 @@
         }); //ajax
     } //createEdit
 
-    function submitFormEmpresa() {
-        var $form = $("#frmEmpresa");
+    function submitFormPaciente() {
+        var $form = $("#frmPaciente");
         if ($form.valid()) {
             var data = $form.serialize();
             var dialog = cargarLoader("Guardando...");
@@ -144,7 +151,7 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
-                        cargarTablaEmpresa();
+                        cargarTablaPacientes();
                     }else{
                         if(parts[0] === 'err'){
                             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
@@ -165,7 +172,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar esta empresa? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este paciente? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -180,7 +187,7 @@
                         var v = cargarLoader("Eliminando...");
                         $.ajax({
                             type    : "POST",
-                            url     : '${createLink(action:'borrarEmpresa_ajax')}',
+                            url     : '${createLink(action:'borrarPaciente_ajax')}',
                             data    : {
                                 id : itemId
                             },
@@ -189,7 +196,7 @@
                                 var parts = msg.split("_");
                                 if(parts[0] === 'ok'){
                                     log(parts[1],"success");
-                                    cargarTablaEmpresa();
+                                    cargarTablaPacientes();
                                 }else{
                                     log(parts[1],"error")
                                 }
@@ -201,32 +208,30 @@
         });
     }
 
-    function cargarImagenesEmpresa(id) {
-        $.ajax({
-            type    : "POST",
-            %{--url     : "${createLink(controller: 'empresa', action:'imagenesEmpresa_ajax')}",--}%
-            url     : "${createLink(controller: 'empresa', action:'logoEmpresa_ajax')}",
-            data    : {
-                id:id
-            },
-            success : function (msg) {
-               di = bootbox.dialog({
-                    id      : "dlgImas",
-                    title   : "Logo de la empresa",
-                    // class : "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-gris",
-                            callback  : function () {
+    function cargarImagenePaciente(id) {
+        %{--$.ajax({--}%
+        %{--    type    : "POST",--}%
+        %{--    url     : "${createLink(controller: 'empresa', action:'logoEmpresa_ajax')}",--}%
+        %{--    data    : {--}%
+        %{--        id:id--}%
+        %{--    },--}%
+        %{--    success : function (msg) {--}%
+        %{--        di = bootbox.dialog({--}%
+        %{--            id      : "dlgImas",--}%
+        %{--            title   : "Logo de la empresa",--}%
+        %{--            message : msg,--}%
+        %{--            buttons : {--}%
+        %{--                cancelar : {--}%
+        %{--                    label     : "<i class='fa fa-times'></i> Cerrar",--}%
+        %{--                    className : "btn-gris",--}%
+        %{--                    callback  : function () {--}%
 
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
+        %{--                    }--}%
+        %{--                }--}%
+        %{--            } //buttons--}%
+        %{--        }); //dialog--}%
+        %{--    } //success--}%
+        %{--}); //ajax--}%
     } //createEdit
 
     function cerrarDialogoImagen () {
@@ -251,7 +256,7 @@
             action: function () {
                 $.ajax({
                     type    : "POST",
-                    url     : "${createLink(controller: 'empresa', action:'show_ajax')}",
+                    url     : "${createLink(controller: 'paciente', action:'show_ajax')}",
                     data    : {
                         id : id
                     },
@@ -281,8 +286,8 @@
             }
         };
 
-        var contabilidad = {
-            label: " Contabilidad",
+        var historia = {
+            label: "Historia",
             icon: "fa fa-book",
             separator_before : true,
             action: function () {
@@ -290,22 +295,12 @@
             }
         };
 
-        var usuarios = {
-            label: " Pacientes",
-            icon: "fa fa-user",
-            separator_before : true,
-            action: function () {
-                location.href="${createLink(controller: 'paciente', action: 'list')}/" + id;
-
-            }
-        };
-
-        var imagenes = {
-            label: " Logo",
+        var foto = {
+            label: "Foto",
             icon: "fa fa-images",
             separator_before : true,
             action: function () {
-                cargarImagenesEmpresa(id);
+                cargarImagenePaciente(id);
             }
         };
 
@@ -320,9 +315,8 @@
 
         items.ver = ver;
         items.editar = editar;
-        items.contabilidad = contabilidad;
-        items.usuarios = usuarios;
-        items.imagenes = imagenes;
+        items.historia = historia;
+        items.foto = foto;
         items.eliminar = eliminar;
 
         return items

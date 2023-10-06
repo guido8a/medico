@@ -6,7 +6,6 @@
             <th style="width: 35%">Nombre</th>
             <th style="width: 30%">Tipo de Empresa</th>
             <th style="width: 15%">Provincia</th>
-%{--            <th style="width: 10%">Acciones</th>--}%
         </tr>
         </thead>
     </table>
@@ -21,18 +20,6 @@
                 <td style="width: 35%">${empresa.emprnmbr}</td>
                 <td style="width: 30%">${seguridad.TipoEmpresa.get(empresa.tpem__id)}</td>
                 <td style="width: 15%">${geografia.Canton.get(empresa.cntn__id)?.provincia?.nombre}</td>
-%{--                <td style="width: 10%">--}%
-%{--                    <a class="btn btn-xs btn-show btn-info" href="#" rel="tooltip" title="Ver" data-id="${empresa.empr__id}">--}%
-%{--                        <i class="fa fa-search"></i>--}%
-%{--                    </a>--}%
-%{--                    <a class="btn btn-xs btn-edit btn-success" href="#" rel="tooltip" title="Editar" data-id="${empresa.empr__id}">--}%
-%{--                        <i class="fa fa-edit"></i>--}%
-%{--                    </a>--}%
-
-%{--                    <a class="btn btn-xs btn-delete btn-danger" href="#" rel="tooltip" title="Eliminar" data-id="${empresa.empr__id}">--}%
-%{--                        <i class="fa fa-trash"></i>--}%
-%{--                    </a>--}%
-%{--                </td>--}%
             </tr>
         </g:each>
         </tbody>
@@ -40,8 +27,6 @@
 </div>
 
 <script type="text/javascript">
-
-
 
     $("tr").contextMenu({
         items  : createContextMenu,
@@ -52,40 +37,5 @@
             $(".trHighlight").removeClass("trHighlight");
         }
     });
-
-    %{--$(".btn-edit").click(function () {--}%
-    %{--    var id = $(this).data("id");--}%
-    %{--    createEditRow(id);--}%
-    %{--});--}%
-
-    %{--$(".btn-delete").click(function (){--}%
-    %{--    var id = $(this).data("id");--}%
-    %{--    deleteRow(id);--}%
-    %{--});--}%
-
-    %{--$(".btn-show").click(function (){--}%
-    %{--    var id = $(this).data("id");--}%
-    %{--    $.ajax({--}%
-    %{--        type    : "POST",--}%
-    %{--        url     : "${createLink(controller: 'empresa', action:'show_ajax')}",--}%
-    %{--        data    : {--}%
-    %{--            id : id--}%
-    %{--        },--}%
-    %{--        success : function (msg) {--}%
-    %{--            bootbox.dialog({--}%
-    %{--                title   : "Datos de la Empresa",--}%
-    %{--                message : msg,--}%
-    %{--                buttons : {--}%
-    %{--                    ok : {--}%
-    %{--                        label     : "Aceptar",--}%
-    %{--                        className : "btn-primary",--}%
-    %{--                        callback  : function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            });--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--})--}%
 
 </script>
