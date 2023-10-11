@@ -22,6 +22,8 @@ class Paciente {
     String direccion
     String referencia
     String antecedentes
+    String antecedentesPatologicosFam
+    String antecedentesGinecobstreticos
 
     static mapping = {
         table 'pcnt'
@@ -47,6 +49,8 @@ class Paciente {
             direccion column: 'pcntdire'
             referencia column: 'pcntrefe'
             antecedentes column: 'pcntantc'
+            antecedentesPatologicosFam column: 'pcntanfm'
+            antecedentesGinecobstreticos column: 'pcntango'
         }
     }
 
@@ -68,5 +72,7 @@ class Paciente {
         direccion(size: 0..255,  blank: true, nullable: true)
         referencia(size: 0..255,  blank: true, nullable: true)
         antecedentes(size: 0..255,  blank: true, nullable: true)
+        antecedentesPatologicosFam(size: 0..255,  blank: true, nullable: true)
+        antecedentesGinecobstreticos(size: 0..255,  blank: true, nullable: true)
     }
 }

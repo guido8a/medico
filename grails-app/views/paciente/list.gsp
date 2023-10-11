@@ -238,89 +238,89 @@
         di.modal("hide");
     }
 
-    function createContextMenu(node) {
-        var $tr = $(node);
+    %{--function createContextMenu(node) {--}%
+    %{--    var $tr = $(node);--}%
 
-        var items = {
-            header: {
-                label: "Acciones",
-                header: true
-            }
-        };
+    %{--    var items = {--}%
+    %{--        header: {--}%
+    %{--            label: "Acciones",--}%
+    %{--            header: true--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var id = $tr.data("id");
+    %{--    var id = $tr.data("id");--}%
 
-        var ver = {
-            label: " Ver",
-            icon: "fa fa-search",
-            action: function () {
-                $.ajax({
-                    type    : "POST",
-                    url     : "${createLink(controller: 'paciente', action:'show_ajax')}",
-                    data    : {
-                        id : id
-                    },
-                    success : function (msg) {
-                        bootbox.dialog({
-                            title   : "Empresa",
-                            message : msg,
-                            buttons : {
-                                ok : {
-                                    label     : "Aceptar",
-                                    className : "btn-primary",
-                                    callback  : function () {
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        };
+    %{--    var ver = {--}%
+    %{--        label: " Ver",--}%
+    %{--        icon: "fa fa-search",--}%
+    %{--        action: function () {--}%
+    %{--            $.ajax({--}%
+    %{--                type    : "POST",--}%
+    %{--                url     : "${createLink(controller: 'paciente', action:'show_ajax')}",--}%
+    %{--                data    : {--}%
+    %{--                    id : id--}%
+    %{--                },--}%
+    %{--                success : function (msg) {--}%
+    %{--                    bootbox.dialog({--}%
+    %{--                        title   : "Empresa",--}%
+    %{--                        message : msg,--}%
+    %{--                        buttons : {--}%
+    %{--                            ok : {--}%
+    %{--                                label     : "Aceptar",--}%
+    %{--                                className : "btn-primary",--}%
+    %{--                                callback  : function () {--}%
+    %{--                                }--}%
+    %{--                            }--}%
+    %{--                        }--}%
+    %{--                    });--}%
+    %{--                }--}%
+    %{--            });--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var editar = {
-            label: " Editar",
-            icon: "fa fa-edit",
-            action: function () {
-                createEditRow(id)
-            }
-        };
+    %{--    var editar = {--}%
+    %{--        label: " Editar",--}%
+    %{--        icon: "fa fa-edit",--}%
+    %{--        action: function () {--}%
+    %{--            createEditRow(id)--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var historia = {
-            label: "Historia",
-            icon: "fa fa-book",
-            separator_before : true,
-            action: function () {
-                // createEditRowCont(id)
-            }
-        };
+    %{--    var historia = {--}%
+    %{--        label: "Historia",--}%
+    %{--        icon: "fa fa-book",--}%
+    %{--        separator_before : true,--}%
+    %{--        action: function () {--}%
+    %{--            // createEditRowCont(id)--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var foto = {
-            label: "Foto",
-            icon: "fa fa-images",
-            separator_before : true,
-            action: function () {
-                cargarImagenePaciente(id);
-            }
-        };
+    %{--    var foto = {--}%
+    %{--        label: "Foto",--}%
+    %{--        icon: "fa fa-images",--}%
+    %{--        separator_before : true,--}%
+    %{--        action: function () {--}%
+    %{--            cargarImagenePaciente(id);--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var eliminar = {
-            label: " Eliminar",
-            icon: "fa fa-trash",
-            separator_before : true,
-            action: function () {
-                deleteRow(id);
-            }
-        };
+    %{--    var eliminar = {--}%
+    %{--        label: " Eliminar",--}%
+    %{--        icon: "fa fa-trash",--}%
+    %{--        separator_before : true,--}%
+    %{--        action: function () {--}%
+    %{--            deleteRow(id);--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        items.ver = ver;
-        items.editar = editar;
-        items.historia = historia;
-        items.foto = foto;
-        items.eliminar = eliminar;
+    %{--    items.ver = ver;--}%
+    %{--    items.editar = editar;--}%
+    %{--    items.historia = historia;--}%
+    %{--    items.foto = foto;--}%
+    %{--    items.eliminar = eliminar;--}%
 
-        return items
-    }
+    %{--    return items--}%
+    %{--}--}%
 
 
 </script>

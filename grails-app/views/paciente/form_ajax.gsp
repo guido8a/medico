@@ -31,7 +31,7 @@
                 Apellido
             </label>
             <span class="col-md-4">
-                <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.nombre}"/>
+                <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.apellido}"/>
             </span>
         </span>
         <span class="grupo">

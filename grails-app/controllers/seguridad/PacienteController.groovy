@@ -137,5 +137,16 @@ class PacienteController {
         return[paciente:paciente]
     }
 
+    def datos() {
+        def paciente
+        if(params.id){
+            paciente = Paciente.get(params.id)
+
+        }else{
+            paciente = new Paciente()
+        }
+        return[paciente:paciente]
+    }
+
 
 }
