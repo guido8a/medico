@@ -148,5 +148,27 @@ class PacienteController {
         return[paciente:paciente]
     }
 
+    def antecedentes_ajax(){
+        def paciente = Paciente.get(params.id)
+        return [paciente: paciente]
+    }
+
+    def cambiarEstado_ajax(){
+        def paciente = Paciente.get(params.id)
+
+        if(paciente.activo == 1){
+            paciente.activo = 0
+        }else{
+            paciente.activo = 1
+        }
+
+        if(!paciente.save(flush: true)){
+            render "no"
+            println("error al cambiar el estado " + paciente.errors)
+        }else{
+            render "ok"
+        }
+    }
+
 
 }

@@ -3,7 +3,16 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Paciente: ${paciente?.apellido + " " + paciente?.nombre} </title>
+    <title>
+
+        <g:if test="${paciente?.id}">
+            Paciente:  ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '')}
+        </g:if>
+        <g:else>
+            Nuevo paciente
+        </g:else>
+
+    </title>
 
     <style type="text/css">
     .mediano {
@@ -27,50 +36,55 @@
     .izquierda{
         margin-left: 4px;
     }
+
+    .arriba{
+        display: block;
+        top: 10px;
+        left: 0px;
+    }
+
     </style>
 
 </head>
 
 <body>
 
-<h3>Paciente: <strong style="font-style: italic"> ${paciente?.apellido + " " + paciente?.nombre}</strong></h3>
+<h3>
+    <g:if test="${paciente?.id}">
+        Paciente: <strong style="font-style: italic"> ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '')}</strong>
+    </g:if>
+    <g:else>
+        Nuevo paciente
+    </g:else>
+</h3>
 
 <div class="panel panel-primary col-md-12">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; text-align: center">
-        <a href="${createLink(controller: 'buscarBase', action: 'busquedaBase')}" id="btnConsultarBase"
-           class="btn btn-sm btn-info" title="Consultar artículo">
-            <i class="fas fa-clipboard-check"></i> Base de Conocimiento
+        <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a búsqueda de pacientes">
+            <i class="fas fa-arrow-left"></i> Regresar
         </a>
-        <a href="${createLink(controller: 'documento', action: 'listProyecto')}" id="btnConsultar"
-           class="btn btn-sm btn-info" title="Consultar documentos del proyecto">
-            <i class="fas fa-book-reader"></i> Biblioteca
-        </a>
-        <a href="#" id="btnFinanciamiento" class="btn btn-sm btn-info" title="Nuevo financiamiento">
-            <i class="fa fa-dollar-sign"></i> Financiamiento
-        </a>
-        <g:if test="${proy?.fechaRegistro}">
-            <a href="#" id="btnEstado" class="btn btn-sm btn-warning" title="Cambiar de estado al proyecto">
-                <i class="fa fa-check"></i> Desregistrar
+        <g:if test="${paciente?.id}">
+            <a href="${createLink(controller: 'documento', action: 'listProyecto')}" id="btnConsultar"
+               class="btn btn-sm btn-info" title="Historial del paciente">
+                <i class="fas fa-book-reader"></i> Historia
+            </a>
+            <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">
+                <i class="fa fa-clipboard"></i> Antecedentes
+            </a>
+            <a href="#" id="btnVerCronograma" class="btn btn-sm btn-info" title="Citas médicas">
+                <i class="fa fa-calendar-alt"></i> Citas
+            </a>
+            <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
+                <i class="fa fa-image"></i> Foto
+            </a>
+            <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">
+                <i class="fa fa-bullseye"></i> Estado
+            </a>
+            <a href="#" id="btnBorrarPaciente" class="btn btn-sm btn-info"  title="Borrar Paciente">
+                <i class="fa fa-trash"></i> Eliminar
             </a>
         </g:if>
-        <g:else>
-            <a href="#" id="btnEstado" class="btn btn-sm btn-info" title="Cambiar de estado al proyecto">
-                <i class="fa fa-check"></i> Estado
-            </a>
-        </g:else>
-        <a href="#" id="btnVerMarco" class="btn btn-sm btn-info" title="Ver marco lógico">
-            <i class="fa fa-search"></i> Ver Marco Lógico
-        </a>
-        <a href="#" id="editMrlg" class="btn btn-sm btn-info" title="Editar marco lógico">
-            <i class="fa fa-clipboard"></i> Editar Marco Lógico
-        </a>
-        <a href="#" id="btnVerCronograma" class="btn btn-sm btn-info" title="Ver cronograma">
-            <i class="fa fa-calendar-alt"></i> Ver Cronograma
-        </a>
-        <a href="#" id="btnMeta" class="btn btn-sm btn-info"  title="Ver metas">
-            <i class="fa fa-bullseye"></i> Metas
-        </a>
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" title="Guardar información">
             <i class="fa fa-save"></i> Guardar
         </a>
@@ -84,9 +98,16 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Empresa</span>
-
                         <span class="col-md-4">
                             <g:select name="empresa" from="${seguridad.Empresa.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" noSelection="[null : 'Ninguna']"/>
+                        </span>
+
+                        <span class="col-md-3 mediano"></span>
+                        <span class="col-md-1 label label-primary text-info mediano">Estado</span>
+                        <span class="grupo">
+                            <span class="col-md-2">
+                                <g:textField name="act" class="form-control" readonly="" style="background-color:  ${paciente?.activo == 1 ? '#67a153' : '#e22b0c'} " value=" ${paciente?.activo == 1 ? 'ACTIVO' : 'INACTIVO'}"/>
+                            </span>
                         </span>
                     </div>
                 </div>
@@ -94,7 +115,6 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Cédula</span>
-
                         <span class="col-md-3">
                             <g:textField name="cedula" maxlength="10" minlength="10" required="" class="form-control required allCaps"  value="${paciente?.cedula}"/>
                         </span>
@@ -106,8 +126,7 @@
                         <span class="col-md-2 label label-primary text-info mediano">Apellido</span>
                         <span class="grupo">
                             <span class="col-md-3">
-                                <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.nombre}"/>
-                                %{--                                            <p class="help-block ui-helper-hidden"></p>--}%
+                                <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.apellido}"/>
                             </span>
                         </span>
                         <span class="col-md-1 mediano"></span>
@@ -115,7 +134,6 @@
                         <span class="grupo">
                             <span class="col-md-3">
                                 <g:textField name="nombre" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.nombre}"/>
-                                %{--                                            <p class="help-block ui-helper-hidden"></p>--}%
                             </span>
                         </span>
                     </div>
@@ -176,132 +194,29 @@
                     </div>
                 </div>
 
-                <div class="row izquierda">
+                <div class="row izquierda" style="margin-bottom: 15px">
                     <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Fecha de nacimiento</span>
-                        <span class="grupo">
-                            <span class="col-md-3">
+                        <span class="col-md-2 label label-primary text-info mediano" style="margin-top: 10px">Fecha de nacimiento</span>
+                        <span class="grupo" >
+                            <span class="col-md-3 arriba" >
                                 <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' class="form-control" value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
                         <span class="col-md-1 mediano"></span>
                         <span class="col-md-1 label label-primary text-info mediano">Sexo</span>
                         <span class="grupo">
-                            <span class="col-md-3">
+                            <span class="col-md-2">
                                 <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
+                            </span>
+                        </span>
+                        <span class="col-md-1 label label-primary text-info mediano">Grupo Sanguineo</span>
+                        <span class="grupo">
+                            <span class="col-md-2">
+                                <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control " value="${paciente?.grupoSanguineo?.id}"/>
                             </span>
                         </span>
                     </div>
                 </div>
-
-
-
-
-            %{--                <div class="row izquierda">--}%
-            %{--                    <div class="col-md-12 input-group">--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Nombre</span>--}%
-
-            %{--                        <div class="col-md-10">--}%
-            %{--                            <span class="grupo">--}%
-            %{--                                <g:textField name="nombre" id="nombre" class="form-control required"--}%
-            %{--                                             maxlength="255" value="${proy?.nombre}"/>--}%
-            %{--                            </span>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
-
-            %{--                <div class="row izquierda">--}%
-            %{--                    <div class="col-md-12 input-group">--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Productos</span>--}%
-
-            %{--                        <div>--}%
-            %{--                            <div class="col-md-10">--}%
-            %{--                                <span class="grupo">--}%
-            %{--                                    <g:textField name="producto" id="producto" class="form-control"--}%
-            %{--                                                 maxlength="127" value="${proy?.producto}"/>--}%
-            %{--                                </span>--}%
-            %{--                            </div>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
-
-            %{--                <div class="row izquierda">--}%
-            %{--                    <div class="col-md-12 input-group">--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Descripción</span>--}%
-
-            %{--                        <div class="col-md-10">--}%
-            %{--                            <span class="grupo">--}%
-            %{--                                <g:textArea name="descripcion" id="descripcion" class="form-control" maxlength="1023"--}%
-            %{--                                            style="height: 80px; resize: none" value="${proy?.descripcion}"/>--}%
-            %{--                            </span>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
-
-            %{--                <div class="row izquierda">--}%
-            %{--                    <div class="col-md-12 input-group">--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Problema</span>--}%
-
-            %{--                        <div class="col-md-10">--}%
-            %{--                            <g:textArea name="problema" id="problema" class="form-control required" maxlength="1023"--}%
-            %{--                                        style="height: 80px; resize: none" value="${proy?.problema}"/>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
-
-            %{--                <div class="row izquierda">--}%
-            %{--                    <div class="col-md-12 input-group">--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Justificación</span>--}%
-
-            %{--                        <div class="col-md-10">--}%
-            %{--                            <g:textArea name="justificacion" id="justificacion" class="form-control required"--}%
-            %{--                                        maxlength="1023"--}%
-            %{--                                        style="height: 80px; resize: none" value="${proy?.justificacion}"/>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
-
-            %{--                <div class="row izquierda">--}%
-            %{--                    <div class="col-md-12 input-group">--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Fecha Inicio</span>--}%
-            %{--                        <span class="grupo">--}%
-            %{--                            <div class="col-md-2 ">--}%
-            %{--                                <input name="fechaInicio" id='fechaInicio' type='text' class="form-control"--}%
-            %{--                                       value="${proy?.fechaInicio?.format("dd-MM-yyyy")}"/>--}%
-
-            %{--                                <p class="help-block ui-helper-hidden"></p>--}%
-            %{--                            </div>--}%
-            %{--                        </span>--}%
-            %{--                        <span class="col-md-2 mediano"></span>--}%
-            %{--                        <span class="col-md-2 label label-primary text-info mediano">Fecha Fin</span>--}%
-            %{--                        <span class="grupo">--}%
-            %{--                            <div class="col-md-2">--}%
-            %{--                                <input name="fechaFin" id='fechaFin' type='text' class="form-control"--}%
-            %{--                                       value="${proy?.fechaFin?.format("dd-MM-yyyy")}"/>--}%
-
-            %{--                                <p class="help-block ui-helper-hidden"></p>--}%
-            %{--                            </div>--}%
-            %{--                        </span>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
-
-            %{--                <div class="row izquierda" style="margin-bottom: 20px">--}%
-            %{--                    <div class="col-md-6 input-group">--}%
-            %{--                        <span class="col-md-4 label label-primary text-info mediano">Informar cada (meses)</span>--}%
-
-            %{--                        <div class="col-md-2">--}%
-            %{--                            <g:textField name="mes" id="mes" class="form-control" maxlength="5" value="${proy?.mes}"/>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                    <div class="col-md-6 input-group">--}%
-            %{--                        <span class="col-md-4 label label-primary text-info mediano">Monto del Proyecto</span>--}%
-
-            %{--                        <div class="col-md-4">--}%
-            %{--                            <g:textField name="monto" id="monto" class="form-control negrita" maxlength="16"--}%
-            %{--                                         value="${util.formatNumber(number: proy?.monto, maxFractionDigits: 2, minFractionDigits: 2)}"/>--}%
-            %{--                        </div>--}%
-            %{--                    </div>--}%
-            %{--                </div>--}%
             </g:form>
         </div>
     </div>
@@ -363,224 +278,193 @@
         });
     }
 
-    %{--$("#btnEstado").click(function () {--}%
-    %{--    bootbox.confirm({--}%
-    %{--        size: "small",--}%
-    %{--        title: 'Alerta',--}%
-    %{--        message: "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i> ¿Está seguro de cambiar el estado del proyecto?",--}%
-    %{--        buttons: {--}%
-    %{--            confirm: {--}%
-    %{--                label: 'Aceptar',--}%
-    %{--                className: 'btn-success'--}%
-    %{--            },--}%
-    %{--            cancel: {--}%
-    %{--                label: 'Cancelar',--}%
-    %{--                className: 'btn-primary'--}%
-    %{--            }--}%
-    %{--        },--}%
-    %{--        callback: function(result){--}%
-    %{--            if(result){--}%
-    %{--                $.ajax({--}%
-    %{--                    type: 'POST',--}%
-    %{--                    url: '${createLink(controller: 'proyecto', action: 'cambiarEstado_ajax')}',--}%
-    %{--                    data:{--}%
-    %{--                        id: '${proy?.id}'--}%
-    %{--                    },--}%
-    %{--                    success: function (msg) {--}%
-    %{--                        if(msg === 'ok'){--}%
-    %{--                            log("Estado cambiado correctamente","success");--}%
-    %{--                            setTimeout(function () {--}%
-    %{--                                location.reload(true)--}%
-    %{--                            }, 1000);--}%
-    %{--                        }else{--}%
-    %{--                            if(msg === 'er'){--}%
-    %{--                                bootbox.alert({--}%
-    %{--                                    size: "small",--}%
-    %{--                                    title: "Alerta!!!",--}%
-    %{--                                    message: "<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i>  No se puede cambiar el estado, el marco lógico ya ha sido modificado!",--}%
-    %{--                                    callback: function(){}--}%
-    %{--                                })--}%
-    %{--                            }else{--}%
-    %{--                                log("Error al cambiar de estado","error")--}%
-    %{--                            }--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                });--}%
-    %{--            }--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--});--}%
+    $("#btnAntecedentes").click(function () {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(action:'antecedentes_ajax')}",
+            data    : {
+                id: '${paciente?.id}'
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditAntecedentes",
+                    title   : "Antecedentes del paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormAntecedentes();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
-    %{--$("#btnVerCronograma").click(function () {--}%
-    %{--    location.href="${createLink(controller: 'cronograma', action: 'form')}/" + '${proy?.id}'--}%
-    %{--});--}%
+    function submitFormAntecedentes() {
+        var $form = $("#frmAntecedentes");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                    }else{
+                        if(parts[0] === 'err'){
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }else{
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
-    %{--$("#btnMeta").click(function () {--}%
-    %{--    location.href="${createLink(controller: 'meta', action: 'list')}/" + '${proy?.id}'--}%
-    %{--});--}%
+    $("#btnGuardar").click(function () {
+        submitFormPaciente();
+    });
 
-    %{--$("#btnFinanciamiento").click(function () {--}%
-    %{--    var id = '${proy?.id}';--}%
+    function submitFormPaciente() {
+        var $form = $("#frmPaciente");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        location.href="${createLink(controller: 'paciente', action: 'datos')}?id=" + '${paciente?.id}'
+                    }else{
+                        if(parts[0] === 'err'){
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }else{
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }
 
-    %{--    <g:if test="${anioActual}">--}%
-    %{--    $.ajax({--}%
-    %{--        type    : "POST",--}%
-    %{--        url     : "${createLink(controller: 'financiamiento', action:'list_ajax')}",--}%
-    %{--        data    : {--}%
-    %{--            id : id--}%
-    %{--        },--}%
-    %{--        success : function (msg) {--}%
-    %{--            bootbox.dialog({--}%
-    %{--                title   : "Presupuesto/Fuentes",--}%
-    %{--                class   : "modal-lg",--}%
-    %{--                message : msg,--}%
-    %{--                buttons : {--}%
-    %{--                    ok : {--}%
-    %{--                        label     : "Salir",--}%
-    %{--                        className : "btn-primary",--}%
-    %{--                        callback  : function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            });--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--    </g:if>--}%
-    %{--    <g:else>--}%
-    %{--    bootbox.alert( "<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i> " +--}%
-    %{--        "<span style='margin-left: 5px; font-weight: bold; font-size: 14px'> No se ha ingresado el año actual! </span>" +--}%
-    %{--        "<br/>  <span style='margin-left: 5px'> Para ingresarlo, diríjase a Parametros -> Año Fiscal </span> ");--}%
-    %{--    </g:else>--}%
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
+    $("#btnEstado").click(function () {
+        bootbox.confirm({
+            size: "small",
+            title: 'Alerta',
+            message: "<i class='fa fa-exclamation-triangle fa-2x pull-left text-warning text-shadow'></i> <strong style='font-size: 14px'> Está seguro de cambiar el estado del paciente?</strong>",
+            buttons: {
+                confirm: {
+                    label: 'Aceptar',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'Cancelar',
+                    className: 'btn-primary'
+                }
+            },
+            callback: function(result){
+                if(result){
+                    $.ajax({
+                        type: 'POST',
+                        url: '${createLink(controller: 'paciente', action: 'cambiarEstado_ajax')}',
+                        data:{
+                            id: '${paciente?.id}'
+                        },
+                        success: function (msg) {
+                            if(msg === 'ok'){
+                                log("Estado cambiado correctamente","success");
+                                setTimeout(function () {
+                                    location.reload()
+                                }, 1000);
+                            }else{
+                                bootbox.alert({
+                                    size: "small",
+                                    title: "Alerta!!!",
+                                    message: "<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i>  Error, No se puede cambiar el estado!",
+                                    callback: function(){}
+                                })
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    });
 
-    %{--});--}%
-
-    %{--$("#btnVerMarco").click(function () {--}%
-    %{--    location.href="${createLink(controller: 'marcoLogico', action: 'verMarco')}/${proy?.id}"--}%
-    %{--});--}%
-
-    %{--$("#btnBase").click(function () {--}%
-    %{--    location.href = "${createLink(controller: 'proyecto', action: 'proy')}"--}%
-    %{--});--}%
-
-    %{--$("#editMrlg").click(function () {--}%
-    %{--    location.href = "${createLink(controller: 'marcoLogico', action: 'marcoLogicoProyecto')}/${proy?.id}?list=list"--}%
-    %{--});--}%
-
-    %{--$("#btnGuardar").click(function () {--}%
-
-    %{--    var $form = $("#frmProyecto");--}%
-    %{--    var base_id = '${proy?.id}';--}%
-    %{--    $form.validate();--}%
-    %{--    // console.log('val:', $form.validate());--}%
-    %{--    // console.log('val:', $form.validate().label);--}%
-    %{--    if($form.valid()){--}%
-    %{--        var dialog = cargarLoader("Guardando...");--}%
-    %{--        $.ajax({type: 'POST',--}%
-    %{--            url: "${createLink(controller: 'proyecto', action: 'save_ajax')}",--}%
-    %{--            data:  $form.serialize(),--}%
-    %{--            success: function (msg) {--}%
-    %{--                dialog.modal('hide');--}%
-    %{--                var parte = msg.split("_");--}%
-    %{--                if(parte[0] === 'ok'){--}%
-    %{--                    log("Proyecto guardado correctamente","success");--}%
-    %{--                    setTimeout(function () {--}%
-    %{--                        reCargar(parte[1]);--}%
-    %{--                    }, 800);--}%
-    %{--                }else{--}%
-    %{--                    dialog.modal('hide');--}%
-    %{--                    log("Error al guardar el proyecto" + parte[1],"error")--}%
-    %{--                }--}%
-    %{--            }--}%
-    %{--        });--}%
-    %{--    }--}%
-    %{--});--}%
-
-    %{--function reCargar(id) {--}%
-    %{--    location.href = "${createLink(controller: 'proyecto', action: 'proy')}" + "/" + id;--}%
-    %{--}--}%
-
-    %{--/*--}%
-    %{--    $("#frmProyecto").validate({--}%
-    %{--        errorClass     : "help-block",--}%
-    %{--        errorPlacement : function (error, element) {--}%
-    %{--            if (element.parent().hasClass("input-group")) {--}%
-    %{--                error.insertAfter(element.parent());--}%
-    %{--            } else {--}%
-    %{--                error.insertAfter(element);--}%
-    %{--            }--}%
-    %{--            element.parents(".grupo").addClass('has-error');--}%
-    %{--        },--}%
-    %{--        success        : function (label) {--}%
-    %{--            label.parents(".grupo").removeClass('has-error');--}%
-    %{--            label.remove();--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--*/--}%
-
-    %{--$("#frmProyecto").validate({--}%
-    %{--    errorClass: "help-block",--}%
-    %{--    errorPlacement: function (error, element) {--}%
-    %{--        if (element.parent().hasClass("input-group")) {--}%
-    %{--            error.insertAfter(element.parent());--}%
-    %{--        } else {--}%
-    %{--            error.insertAfter(element);--}%
-    %{--        }--}%
-    %{--        element.parents(".grupo").addClass('has-error');--}%
-    %{--    },--}%
-    %{--    success: function (label) {--}%
-    %{--        label.parents(".grupo").removeClass('has-error');--}%
-    %{--        label.remove();--}%
-    %{--    },--}%
-    %{--    rules: {--}%
-    %{--        nombre: {--}%
-    %{--            remote: {--}%
-    %{--                url: "${createLink(action: 'validarNombre_ajax')}",--}%
-    %{--                type: "post"--}%
-    %{--            }--}%
-    %{--        }--}%
-    %{--    },--}%
-    %{--    messages: {--}%
-    %{--        nombre: {--}%
-    %{--            remote: "El nombre no contiene FAREPS"--}%
-    %{--        }--}%
-    %{--    }--}%
-    %{--});--}%
-
-    %{--$(".form-control").keydown(function (ev) {--}%
-    %{--    if (ev.keyCode === 13) {--}%
-    %{--        submitForm();--}%
-    %{--        return false;--}%
-    %{--    }--}%
-    %{--    return true;--}%
-    %{--});--}%
-
-
-
-
-    %{--$('#fechaInicio').datetimepicker({--}%
-    %{--    locale: 'es',--}%
-    %{--    format: 'DD-MM-YYYY',--}%
-    %{--    daysOfWeekDisabled: [0, 6],--}%
-    %{--    sideBySide: true,--}%
-    %{--    showClose: true--}%
-    %{--});--}%
-
-    %{--$('#fechaFin').datetimepicker({--}%
-    %{--    locale: 'es',--}%
-    %{--    format: 'DD-MM-YYYY',--}%
-    %{--    daysOfWeekDisabled: [0, 6],--}%
-    %{--    sideBySide: true,--}%
-    %{--    showClose: true--}%
-    %{--});--}%
-
-    %{--$("input[maxlength]").maxlength({--}%
-    %{--    alwaysShow: true,--}%
-    %{--    threshold: 10,--}%
-    %{--    warningClass: "label label-success",--}%
-    %{--    limitReachedClass: "label label-danger"--}%
-    %{--});--}%
-    %{--$("textarea[maxlength]").maxlength();--}%
+    $("#btnBorrarPaciente").click(function () {
+        bootbox.confirm({
+            size: "small",
+            title: 'Alerta',
+            message: "<i class='fa fa-exclamation-triangle fa-2x pull-left text-danger text-shadow'></i> <strong style='font-size: 14px'> Está seguro de borrar a este paciente?</strong>",
+            buttons: {
+                confirm: {
+                    label: 'Aceptar',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'Cancelar',
+                    className: 'btn-primary'
+                }
+            },
+            callback: function(result){
+                if(result){
+                    %{--$.ajax({--}%
+                    %{--    type: 'POST',--}%
+                    %{--    url: '${createLink(controller: 'paciente', action: 'cambiarEstado_ajax')}',--}%
+                    %{--    data:{--}%
+                    %{--        id: '${paciente?.id}'--}%
+                    %{--    },--}%
+                    %{--    success: function (msg) {--}%
+                    %{--        if(msg === 'ok'){--}%
+                    %{--            log("Estado cambiado correctamente","success");--}%
+                    %{--            setTimeout(function () {--}%
+                    %{--                location.reload()--}%
+                    %{--            }, 1000);--}%
+                    %{--        }else{--}%
+                    %{--            bootbox.alert({--}%
+                    %{--                size: "small",--}%
+                    %{--                title: "Alerta!!!",--}%
+                    %{--                message: "<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i>  Error, No se puede cambiar el estado!",--}%
+                    %{--                callback: function(){}--}%
+                    %{--            })--}%
+                    %{--        }--}%
+                    %{--    }--}%
+                    %{--});--}%
+                }
+            }
+        });
+    });
 
 </script>
 
