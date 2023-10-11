@@ -164,7 +164,7 @@
 
     <div class="row mbr-justify-content-center">
 
-    <a href= "${createLink(controller:'paciente', action: 'paciente')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
@@ -182,7 +182,7 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/proyecto.jpeg" title="Reportes"  width="80%" height="80%"/>
+                    <asset:image src="apli/portada.png" title="Reportes"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
                     <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
@@ -198,7 +198,7 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/proyecto.jpeg" title="Administración de pacientes"  width="80%" height="80%"/>
+                    <asset:image src="apli/configurar.jpeg" title="Administración de pacientes"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
                     <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Parámetros del Sistema</span></h2>
@@ -212,11 +212,11 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/proyecto.jpeg" title="Cantones"  width="80%" height="80%"/>
+                    <asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Cantones de la provincia Cotopaxi</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de cantones y parroquias de al provincia</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Citas médicas</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Citas médicas, seguimiento del paciente</p>
                 </div>
             </div>
         </div>
@@ -226,12 +226,12 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/portada.png" title="Aplicación móvil"  width="80%" height="80%"/>
+                    <asset:image src="apli/portada.png" title="Administración de Usuarios"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Aplicación móvil</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Apliación móvil para Android, funciona en
-                    tabletas y celulares.</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Administración de Usuarios</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Administración de Usuarios del consultorios.
+                    Asingnación de usuarios y perfiles de acceso</p>
                 </div>
             </div>
         </div>
