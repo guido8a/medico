@@ -226,7 +226,7 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/portada.png" title="Administración de Usuarios"  width="80%" height="80%"/>
+                    <asset:image src="apli/equipo.jpeg" title="Administración de Usuarios"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
                     <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Administración de Usuarios</span></h2>
