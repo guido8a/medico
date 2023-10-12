@@ -184,7 +184,7 @@ class PacienteController {
         def acceptedExt = ["jpg", "png", "jpeg"]
 
         def paciente = Paciente.get(params.id)
-        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.cedula + "/"
+        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.id + "/"
         new File(path).mkdirs()
 
         def f = request.getFile('file')  //archivo = name del input type file
@@ -210,7 +210,7 @@ class PacienteController {
 
                 def old = paciente.foto
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.cedula + "/" + old
+                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.id + "/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
@@ -251,13 +251,13 @@ class PacienteController {
     byte[] im(nombre,ext,paciente) {
         def pcnt = Paciente.get(paciente)
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${pcnt?.empresa?.id}/paciente/pac_" + pcnt?.cedula + "/" + nombre + "." + ext)), ext.toString(), baos)
+        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${pcnt?.empresa?.id}/paciente/pac_" + pcnt?.id + "/" + nombre + "." + ext)), ext.toString(), baos)
         baos.toByteArray()
     }
 
     def borrarFoto_ajax() {
         def paciente = Paciente.get(params.id)
-        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.cedula + "/${paciente.foto}"
+        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.id + "/${paciente.foto}"
 
         try{
             paciente.foto = null
