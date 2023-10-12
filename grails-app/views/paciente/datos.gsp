@@ -102,7 +102,7 @@
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Empresa</span>
                         <span class="col-md-4">
-                            <g:select name="empresa" from="${seguridad.Empresa.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" noSelection="[null : 'Ninguna']"/>
+                            <g:select name="empresa" from="${seguridad.Empresa.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
                         </span>
 
                         <span class="col-md-3 mediano"></span>
