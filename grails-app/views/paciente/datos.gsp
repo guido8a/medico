@@ -227,6 +227,8 @@
 
 <script type="text/javascript">
 
+    var di;
+
     $('#fechaNacimiento').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
@@ -255,6 +257,9 @@
             ev.keyCode === 37 || ev.keyCode === 39);
     }
 
+    $("#btnFoto").click(function () {
+        cargarFotoPaciente('${paciente?.id}');
+    });
 
     $("#cedula, #telefono").keydown(function (ev) {
         return validarNum(ev);
@@ -468,6 +473,36 @@
             }
         });
     });
+
+    function cargarFotoPaciente(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'paciente', action:'foto_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                di = bootbox.dialog({
+                    id      : "dlgFoto",
+                    title   : "Foto del paciente",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function cerrarDialogoImagen () {
+        di.modal("hide");
+    }
+
 
 </script>
 

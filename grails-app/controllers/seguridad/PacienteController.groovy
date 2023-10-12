@@ -4,6 +4,8 @@ import geografia.Canton
 import geografia.Parroquia
 import geografia.Provincia
 
+import javax.imageio.ImageIO
+
 class PacienteController {
 
     def dbConnectionService
@@ -169,6 +171,104 @@ class PacienteController {
             render "ok"
         }
     }
+
+    def foto_ajax(){
+        def paciente = Paciente.get(params.id)
+        return[paciente: paciente]
+
+    }
+
+    def uploadFile() {
+//        println "upload "+params
+
+        def acceptedExt = ["jpg", "png", "jpeg"]
+
+        def paciente = Paciente.get(params.id)
+        def path = "/var/medico/paciente/pac_" + paciente.cedula + "/"
+        new File(path).mkdirs()
+
+        def f = request.getFile('file')  //archivo = name del input type file
+        if (f && !f.empty) {
+            def fileName = f.getOriginalFilename() //nombre original del archivo
+            def ext
+            def parts = fileName.split("\\.")
+            fileName = ""
+            parts.eachWithIndex { obj, i ->
+                if (i < parts.size() - 1) {
+                    fileName += obj
+                } else {
+                    ext = obj
+                }
+            }
+            if (acceptedExt.contains(ext.toLowerCase())) {
+                fileName = fileName + "." + ext
+                def pathFile = path + fileName
+                def file = new File(pathFile)
+                println "subiendo archivo: $fileName"
+
+                f.transferTo(file)
+
+                def old = paciente.foto
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/paciente/pac_" + paciente.cedula + "/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                paciente.foto = fileName
+                paciente.save(flush: true)
+
+            } else {
+                flash.clase = "alert-error"
+                flash.message = "Error: Los formatos permitidos son: JPG, JPEG, PNG"
+            }
+        } else {
+            flash.clase = "alert-error"
+            flash.message = "Error: Seleccione un archivo JPG, JPEG, PNG"
+        }
+
+        redirect(action: "datos", params:[id: paciente?.id])
+        return
+    }
+
+    def getImage() {
+        def paciente = Paciente.get(params.id)
+
+        def nombreArchivo = paciente?.foto?.split("\\.")[0]
+        def extensionArchivo = paciente?.foto?.split("\\.")[1]
+
+        byte[] imageInBytes = im(nombreArchivo, extensionArchivo , paciente?.cedula)
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/${extensionArchivo}" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] im(nombre,ext,paciente) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        ImageIO.write(ImageIO.read(new File("/var/medico/paciente/pac_" + paciente + "/" + nombre + "." + ext)), ext.toString(), baos)
+        baos.toByteArray()
+    }
+
+    def borrarFoto_ajax() {
+        def paciente = Paciente.get(params.id)
+        def path = "/var/medico/paciente/pac_" + paciente.cedula + "/${paciente.foto}"
+
+        try{
+            paciente.foto = null
+            paciente.save(flush: true)
+            def file = new File(path).delete()
+            render "ok"
+        }catch(e){
+            println("error al borrar la foto " + e)
+            render "no"
+        }
+    }
+
 
 
 }

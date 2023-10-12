@@ -21,6 +21,7 @@ class Paciente {
     String sexo
     String direccion
     String referencia
+    String foto
     String antecedentes
     String antecedentesPatologicosFam
     String antecedentesGinecobstreticos
@@ -51,6 +52,7 @@ class Paciente {
             antecedentes column: 'pcntantc'
             antecedentesPatologicosFam column: 'pcntanfm'
             antecedentesGinecobstreticos column: 'pcntango'
+            foto column: 'pcntfoto'
         }
     }
 
@@ -74,5 +76,6 @@ class Paciente {
         antecedentes(size: 0..255,  blank: true, nullable: true)
         antecedentesPatologicosFam(size: 0..255,  blank: true, nullable: true)
         antecedentesGinecobstreticos(size: 0..255,  blank: true, nullable: true)
+        foto(size: 0..255, blank: true, nullable: true)
     }
 }
