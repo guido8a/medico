@@ -64,20 +64,25 @@
         <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a búsqueda de pacientes">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>
+        <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">
+            <i class="fa fa-save"></i> Guardar
+        </a>
         <g:if test="${paciente?.id}">
-            <a href="${createLink(controller: 'documento', action: 'listProyecto')}" id="btnConsultar"
-               class="btn btn-sm btn-info" title="Historial del paciente">
-                <i class="fas fa-book-reader"></i> Historia
+            <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
+                <i class="fa fa-image"></i> Foto
             </a>
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">
                 <i class="fa fa-clipboard"></i> Antecedentes
             </a>
+            <a href="${createLink(controller: 'documento', action: 'listProyecto')}" id="btnConsultar"
+               class="btn btn-sm btn-info" title="Historial del paciente">
+                <i class="fas fa-book-reader"></i> Historia
+            </a>
+
             <a href="#" id="btnVerCronograma" class="btn btn-sm btn-info" title="Citas médicas">
                 <i class="fa fa-calendar-alt"></i> Citas
             </a>
-            <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
-                <i class="fa fa-image"></i> Foto
-            </a>
+
             <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">
                 <i class="fa fa-bullseye"></i> Estado
             </a>
@@ -85,9 +90,7 @@
                 <i class="fa fa-trash"></i> Eliminar
             </a>
         </g:if>
-        <a href="#" id="btnGuardar" class="btn btn-sm btn-success" title="Guardar información">
-            <i class="fa fa-save"></i> Guardar
-        </a>
+
     </div>
 
     <div class="tab-content">
