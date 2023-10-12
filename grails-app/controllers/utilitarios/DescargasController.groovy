@@ -5,7 +5,7 @@ class DescargasController {
     def manual() {
         println "manual: $params"
         def nombre = 'manual.pdf'
-        def path = '/var/rkch/manual.pdf'
+        def path = '/var/medico/manual.pdf'
         def file = new File(path)
         def b = file.getBytes()
         response.setContentType('pdf')
