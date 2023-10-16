@@ -63,7 +63,7 @@ class Paciente {
             habitos column: 'pcnthbto'
             foto column: 'pcntfoto'
             responsable column: 'pcbtrspn'
-            antecedentesOcupacionales column: 'pcnthbto'
+            antecedentesOcupacionales column: 'pcntocup'
             antecedentesAntesdeNacer column: 'pcntannc'
             antecedentesDespuesdeNacer column: 'pcntnacm'
         }
