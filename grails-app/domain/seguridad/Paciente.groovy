@@ -1,6 +1,7 @@
 package seguridad
 
 import geografia.Parroquia
+import medico.EstadoCivil
 import medico.GrupoSanguineo
 
 class Paciente {
@@ -8,6 +9,7 @@ class Paciente {
     Empresa empresa
     Parroquia parroquia
     GrupoSanguineo grupoSanguineo
+    EstadoCivil estadoCivil
     String cedula
     String nombre
     String apellido
@@ -22,9 +24,14 @@ class Paciente {
     String direccion
     String referencia
     String foto
+    String responsable
     String antecedentes
     String antecedentesPatologicosFam
     String antecedentesGinecobstreticos
+    String habitos
+    String antecedentesOcupacionales
+    String antecedentesAntesdeNacer
+    String antecedentesDespuesdeNacer
 
     static mapping = {
         table 'pcnt'
@@ -36,6 +43,7 @@ class Paciente {
             empresa column: 'empr__id'
             parroquia column: 'parr__id'
             grupoSanguineo column: 'grsn__id'
+            estadoCivil column: 'edcv__id'
             cedula column: 'pcntcdla'
             nombre column: 'pcntnmbr'
             apellido column: 'pcntapll'
@@ -52,7 +60,12 @@ class Paciente {
             antecedentes column: 'pcntantc'
             antecedentesPatologicosFam column: 'pcntanfm'
             antecedentesGinecobstreticos column: 'pcntango'
+            habitos column: 'pcnthbto'
             foto column: 'pcntfoto'
+            responsable column: 'pcbtrspn'
+            antecedentesOcupacionales column: 'pcnthbto'
+            antecedentesAntesdeNacer column: 'pcntannc'
+            antecedentesDespuesdeNacer column: 'pcntnacm'
         }
     }
 
@@ -60,6 +73,7 @@ class Paciente {
         empresa(blank: true, nullable: true)
         parroquia(blank: true, nullable: true)
         grupoSanguineo(blank: true, nullable: true)
+        estadoCivil(blank: true, nullable: true)
         cedula(size:0..10,blank: false, nullable: false)
         nombre(size: 0..31, blank: false, nullable: false)
         apellido(size: 0..31, blank: false, nullable: false)
@@ -77,5 +91,10 @@ class Paciente {
         antecedentesPatologicosFam(size: 0..255,  blank: true, nullable: true)
         antecedentesGinecobstreticos(size: 0..255,  blank: true, nullable: true)
         foto(size: 0..255, blank: true, nullable: true)
+        responsable(size: 0..63, blank: true, nullable: true)
+        habitos(size: 0..255, blank: true, nullable: true)
+        antecedentesAntesdeNacer(size: 0..255, blank: true, nullable: true)
+        antecedentesDespuesdeNacer(size: 0..255, blank: true, nullable: true)
+        antecedentesOcupacionales(size: 0..255, blank: true, nullable: true)
     }
 }
