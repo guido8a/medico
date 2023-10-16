@@ -13,7 +13,7 @@
     <div class="span9 btn-group" role="navigation">
         <a href="#" class="btn btn-success btnNuevaEmpresa">
             <i class="fa fa-building"></i>
-            Nueva  Empresa
+            Nuevo Consultorio
         </a>
     </div>
 </div>
@@ -106,7 +106,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Empresa",
+                    title   : title + " Consultorio",
                     class: "modal-lg",
                     message : msg,
                     buttons : {
@@ -257,7 +257,7 @@
                     },
                     success : function (msg) {
                         bootbox.dialog({
-                            title   : "Empresa",
+                            title   : "Consultorio",
                             message : msg,
                             buttons : {
                                 ok : {

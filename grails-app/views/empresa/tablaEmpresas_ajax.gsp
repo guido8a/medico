@@ -4,7 +4,7 @@
         <tr>
             <th style="width: 10%">RUC</th>
             <th style="width: 35%">Nombre</th>
-            <th style="width: 30%">Tipo de Empresa</th>
+            <th style="width: 30%">Tipo de Consultorio</th>
             <th style="width: 15%">Provincia</th>
         </tr>
         </thead>

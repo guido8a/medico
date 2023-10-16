@@ -24,7 +24,7 @@
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
                 <span class="col-md-2">
-                    <label class="control-label text-info">Empresa</label>
+                    <label class="control-label text-info">Consultorio</label>
                     <g:select name="empresa" class="empresa col-md-12 form-control" from="${seguridad.Empresa.list().sort{it.nombre}}" noSelection="[0: 'Todos']" value="${empresa ? empresa?.id : 0}" optionKey="id"
                               optionValue="nombre"/>
                 </span>

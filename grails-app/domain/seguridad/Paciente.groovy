@@ -17,7 +17,7 @@ class Paciente {
     Date fechaFin
     String titulo
     String mail
-    int activo
+    int activo = 1
     Date fechaNacimiento
     String telefono
     String sexo
