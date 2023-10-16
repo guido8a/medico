@@ -60,7 +60,7 @@
 
 <div class="panel panel-primary col-md-12">
 
-    <div class="panel-heading" style="padding: 3px; margin-top: 2px; text-align: center">
+    <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
         <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a búsqueda de pacientes">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>
@@ -93,7 +93,7 @@
 
     </div>
 
-    <div class="tab-content">
+    <div class="tab-content" style="margin-top: 10px">
         <div id="home" class="tab-pane fade in active">
             <g:form class="form-horizontal" name="frmPaciente" controller="paciente" action="savePaciente_ajax">
                 <g:hiddenField name="id" value="${paciente?.id}"/>
@@ -206,12 +206,23 @@
                             </span>
                         </span>
                         <span class="col-md-1 mediano"></span>
-                        <span class="col-md-1 label label-primary text-info mediano">Sexo</span>
+                        <span class="col-md-1 label label-primary text-info mediano">Estado Civil</span>
                         <span class="grupo">
                             <span class="col-md-2">
+                                <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row izquierda" style="margin-bottom: 15px">
+                    <div class="col-md-12 input-group">
+                        <span class="col-md-2 label label-primary text-info mediano">Sexo</span>
+                        <span class="grupo">
+                            <span class="col-md-3">
                                 <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
                             </span>
                         </span>
+                        <span class="col-md-1 mediano"></span>
                         <span class="col-md-1 label label-primary text-info mediano">Grupo Sanguineo</span>
                         <span class="grupo">
                             <span class="col-md-2">
@@ -368,7 +379,7 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
-                        location.href="${createLink(controller: 'paciente', action: 'datos')}?id=" + '${paciente?.id}'
+                        location.href="${createLink(controller: 'paciente', action: 'datos')}?id=" + parts[2]
                     }else{
                         if(parts[0] === 'err'){
                             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');

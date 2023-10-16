@@ -64,7 +64,7 @@ class PacienteController {
 
     def savePaciente_ajax () {
 
-        println("params " + params)
+//        println("params " + params)
 
         def paciente
 
@@ -73,6 +73,7 @@ class PacienteController {
         }else{
             paciente = new Paciente()
             paciente.fechaInicio = new Date()
+            paciente.activo = 0
         }
 
        if(params.fechaNacimiento){
@@ -91,7 +92,7 @@ class PacienteController {
             println("error al guardar el paciente " + paciente.errors)
             render"no_Error al guardar el paciente"
         }else{
-            render "ok_Paciente guardado correctamente"
+            render "ok_Paciente guardado correctamente_${paciente?.id}"
         }
     }
 
