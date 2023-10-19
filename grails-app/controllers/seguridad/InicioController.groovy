@@ -30,8 +30,8 @@ class InicioController {
 
     }
 
-
     /** carga datos desde un CSV - utf-8: si ya existe lo actualiza
+     * delimitador de campos con tabulador
      * */
     def leeCSV() {
 //        println ">>leeCSV.."
@@ -52,9 +52,9 @@ class InicioController {
         def tipo = 'prod'
 
         if (grails.util.Environment.getCurrent().name == 'development') {
-            directorio = '/home/guido/proyectos/monitor/data/'
+            directorio = '/home/guido/proyectos/médicos/data/'
         } else {
-            directorio = '/home/obras/data/'
+            directorio = '/var/medico/data/'
         }
 
         if (tipo == 'prueba') { //botón: Cargar datos Minutos
@@ -81,17 +81,17 @@ class InicioController {
                 print "Cargando datos desde: $ar "
                 while ((line = reader.readLine()) != null) {
                     println ">>${line}"
-                    if(cuenta == 0){
+                    if (cuenta == 0) {
                         rgst = line.split('\t')
                         rgst = rgst*.trim()
 //                        println "ultimo: ${rgst[-1]}"
                         fechas = poneFechas(rgst)
                         cuenta++
-                    } else if(cuenta < procesa && line?.size() > 20) {
+                    } else if (cuenta < procesa && line?.size() > 20) {
                         rgst = line.split('\t')
                         rgst = rgst*.trim()
                         println "***** $rgst"
-                        if(rgst[6]) {
+                        if (rgst[6]) {
                             inserta = cargaData(rgst, fechas)
                             cont += inserta.insertados
                             repetidos += inserta.repetidos
@@ -108,6 +108,251 @@ class InicioController {
         render "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
     }
 
+    /** carga datos desde un CSV - utf-8: si ya existe lo actualiza
+     * delimitador de campos con tabulador
+     * */
+    def leeDiag() {
+//        println ">>leeCSV.."
+        def contador = 0
+        def cn = dbConnectionService.getConnection()
+        def estc
+        def rgst = []
+        def cont = 0
+        def repetidos = 0
+        def procesa = 5
+        def crea_log = false
+        def inserta
+        def directorio
+        def tipo = 'prueba'
+//        def tipo = 'prod'
+
+        if (grails.util.Environment.getCurrent().name == 'development') {
+            directorio = '/home/guido/proyectos/médicos/data/'
+        } else {
+            directorio = '/var/medico/data/'
+        }
+
+        if (tipo == 'prueba') { //botón: Cargar datos Minutos
+            procesa = 5
+            crea_log = false
+        } else {
+            procesa = 100000000000
+            crea_log = true
+        }
+
+        def arch = new File("${directorio}diagnosticos.csv")
+        def cuenta = 0
+        def line
+        arch.withReader('UTF-8') { reader ->
+            print "Cargando datos desde: $arch "
+            while ((line = reader.readLine()) != null) {
+                println ">>${line}"
+                if (cuenta == 0) {
+                    rgst = line.split('\t')
+                    rgst = rgst*.trim()
+                    cuenta++
+                } else if (cuenta < procesa && line?.size() > 5) {
+                    rgst = line.split('\t')
+                    rgst = rgst*.trim()
+                    println "***** $rgst"
+                    if (rgst[1]) {
+                        inserta = cargaDataDiag(rgst)
+                        cont += inserta.insertados
+                        repetidos += inserta.repetidos
+                        cuenta++
+                    }
+                } else {
+                    break
+                }
+            }
+        }
+        println "---> archivo: ${arch.toString()} --> cont: $cont, repetidos: $repetidos"
+
+//        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
+        render "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
+    }
+
+
+    def cargaDataDiag(rgst) {
+        def errores = ""
+        def cnta = 0
+        def insertados = 0
+        def repetidos = 0
+        def cn = dbConnectionService.getConnection()
+        def sqlParr = ""
+        def sql = ""
+        def cntn = 0
+        def tx = ""
+        def fcds = ""
+        def fchs = ""
+        def zona = ""
+        def nombres
+        def nmbr = "", apll = "", login = "", orden = 0
+        def id = 0
+        def resp = 0
+
+        println "\ninicia cargado de datos para $rgst"
+        cnta = 0
+        if (rgst[0].toString().size() > 0) {
+            tx = rgst[1]
+
+            sql = "select count(*) nada from diag where diagcdgo = '${rgst[0]}'"
+            cnta = cn.rows(sql.toString())[0]?.nada
+
+            if (cnta == 0) {
+
+                def i = 0
+
+                sql = "insert into diag (diag__id, diagcdgo, diagdscr) " +
+                        "values(default, '${rgst[0]}', '${rgst[1]}') "
+                "returning diag__id"
+                println "sql ---> ${sql}"
+
+                try {
+                    cn.eachRow(sql.toString()) { d ->
+                        id = d.diag__id
+                        insertados++
+                        orden++
+                    }
+                    println "---> id: ${id}"
+                } catch (Exception ex) {
+                    repetidos++
+                    println "Error principal $ex"
+                    println "sql: $sql"
+                }
+                i++
+            }
+        }
+        return [errores: errores, insertados: insertados, repetidos: repetidos]
+    }
+
+    /** carga datos desde un CSV - utf-8: si ya existe lo actualiza
+     * delimitador de campos con tabulador
+     * */
+    def leeMedicinas() {
+        def rgst = []
+        def cont = 0
+        def repetidos = 0
+        def procesa = 5
+        def crea_log = false
+        def inserta
+        def directorio
+//        def tipo = 'prueba'
+        def tipo = 'prod'
+
+        if (grails.util.Environment.getCurrent().name == 'development') {
+            directorio = '/home/guido/proyectos/médicos/data/'
+        } else {
+            directorio = '/var/medico/data/'
+        }
+
+        if (tipo == 'prueba') { //botón: Cargar datos Minutos
+            procesa = 5
+            crea_log = false
+        } else {
+            procesa = 100000000000
+            crea_log = true
+        }
+
+        def arch = new File("${directorio}medicinas.csv")
+        def cuenta = 0
+        def line
+        arch.withReader('UTF-8') { reader ->
+            print "Cargando datos desde: $arch "
+            while ((line = reader.readLine()) != null) {
+                println ">>${line}"
+                if (cuenta == 0) {
+                    rgst = line.split('\t')
+                    rgst = rgst*.trim()
+                    cuenta++
+                } else if (cuenta < procesa && line?.size() > 5) {
+                    rgst = line.split('\t')
+                    rgst = rgst*.trim()
+                    println "***** $rgst"
+                    if (rgst[1]) {
+                        inserta = cargaDataMdcn(rgst)
+                        cont += inserta.insertados
+                        repetidos += inserta.repetidos
+                        cuenta++
+                    }
+                } else {
+                    break
+                }
+            }
+        }
+        println "---> archivo: ${arch.toString()} --> cont: $cont, repetidos: $repetidos"
+
+//        return "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
+        render "Se han cargado ${cont} líneas de datos y han existido : <<${repetidos}>> repetidos"
+    }
+
+
+    def cargaDataMdcn(rgst) {
+        def errores = ""
+        def cnta = 0
+        def insertados = 0
+        def repetidos = 0
+        def cn = dbConnectionService.getConnection()
+        def sql1 = ""
+        def sql = ""
+        def tx = ""
+        def zona = ""
+        def nombres
+        def cdgo = "", pdre = 0, orden = 0
+        def id = 0
+        def resp = 0
+
+        println "\ninicia cargado de datos para $rgst"
+        cnta = 0
+        if (rgst[0].toString().size() > 0) {
+            tx = rgst[1]
+            pdre = 0
+            //verifica si hay padre
+            sql1 = "select coalesce(mdcn__id, 0) nada from mdcn where mdcncdgo = '${rgst[2]}'"
+            println "sql: $sql1"
+            pdre = cn.rows(sql1.toString())[0]?.nada
+            println "....1"
+            if (!pdre) {
+                cdgo = rgst[0].split('-')[0]
+                sql1 = "insert into mdcn(mdcn__id, mdcnpdre, mdcncdgo, mdcndscr, mdcnfrma, " +
+                        "mdcncnct, mdcnetdo, mdcntipo, mdcnobsr) " +
+                        "values (default, null, '${cdgo}', '${rgst[3]}', '${rgst[4]}'," +
+                        "'${rgst[5]}', '${rgst[7][0]}', '${rgst[8]}', '${rgst[9]}') returning mdcn__id"
+                    cn.eachRow(sql1.toString()) { d ->
+                        pdre = d.mdcn__id
+                    }
+                    println "pdre --> $pdre"
+                }
+            sql = "select count(*) nada from mdcn where mdcncdgo = '${rgst[0]}'"
+            cnta = cn.rows(sql.toString())[0]?.nada
+            if (cnta == 0 && pdre) {
+
+                def i = 0
+
+                sql = "insert into mdcn (mdcn__id, mdcnpdre, mdcncdgo, mdcndscr, mdcnfrma, " +
+                        "mdcncnct, mdcnetdo, mdcntipo, mdcnobsr) " +
+                        "values (default, ${pdre}, '${rgst[0]}', '${rgst[3]}', '${rgst[4]}'," +
+                        "'${rgst[5]}', '${rgst[7][0]}', '${rgst[8]}', '${rgst[9]}') "
+                "returning mdcn__id"
+                println "sql ---> ${sql}"
+
+                try {
+                    cn.eachRow(sql.toString()) { d ->
+                        id = d.diag__id
+                        insertados++
+                        orden++
+                    }
+                    println "---> id: ${id}"
+                } catch (Exception ex) {
+                    repetidos++
+                    println "Error principal $ex"
+                    println "sql: $sql"
+                }
+                i++
+            }
+        }
+        return [errores: errores, insertados: insertados, repetidos: repetidos]
+    }
 
     def cargaData(rgst, fechas) {
         def errores = ""
@@ -163,8 +408,8 @@ class InicioController {
                     fcds = new Date().parse("yyyy-MM-dd", tx[0]).format('yyyy-MM-dd')
                     fchs = new Date().parse("yyyy-MM-dd", tx[1]).format('yyyy-MM-dd')
                     sql = "insert into smfr (smfr__id, cntn__id, smfrcolr, smfrdsde, smfrhsta) " +
-                        "values(default, '${cntn}', ${rgst[4+i]}, '${fcds}', '${fchs}') "
-                        "returning smfr__id"
+                            "values(default, '${cntn}', ${rgst[4 + i]}, '${fcds}', '${fchs}') "
+                    "returning smfr__id"
                     println "sql ---> ${sql}"
 
                     try {
@@ -193,7 +438,7 @@ class InicioController {
         def ddds = 0, mmds = 0, ddhs = 0, mmhs = 0, data = []
         def lsFecha = []
 //        println "==>${fechas}"
-        fechas.each {f ->
+        fechas.each { f ->
             data = f.split(' ')
             ddds = data[0]
             mmds = meses(data[1])
@@ -209,7 +454,7 @@ class InicioController {
 
     def meses(mes) {
         def mess = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
-          'noviembre', 'diciembre']
+                    'noviembre', 'diciembre']
         return mess.indexOf(mes) + 1
     }
 
@@ -269,7 +514,6 @@ class InicioController {
 //        println "sql2: $sql"
         cn.rows(sql.toString())[0].prsn__id
     }
-
 
     /** carga datos desde un CSV - utf-8: si ya existe lo actualiza
      * */
@@ -473,7 +717,6 @@ class InicioController {
                     println "sql: $sql"
                 }
             }
-
 
 //            println "sql: $sql"
 
