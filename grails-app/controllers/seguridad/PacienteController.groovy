@@ -73,7 +73,7 @@ class PacienteController {
         }else{
             paciente = new Paciente()
             paciente.fechaInicio = new Date()
-            paciente.activo = 0
+            paciente.activo = 1
         }
 
        if(params.fechaNacimiento){
