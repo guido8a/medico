@@ -39,6 +39,8 @@
         $("#padre").val(id);
         $("#nombrePadre").val(descripcion);
 
+        cerrarPadre();
+
         return false;
     });
 

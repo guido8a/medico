@@ -98,13 +98,15 @@
 
 <script type="text/javascript">
 
+    var dp;
+
     $(".btnBuscarPadre").click(function () {
         $.ajax({
             type    : "POST",
             url: "${createLink(action:'buscarPadre_ajax')}",
             data    : {},
             success : function (msg) {
-                var b = bootbox.dialog({
+                dp = bootbox.dialog({
                     id      : "dlgBuscarPadre",
                     title   : "Buscar",
                     message : msg,
@@ -120,6 +122,10 @@
             } //success
         }); //ajax
     });
+
+    function cerrarPadre(){
+        dp.modal("hide");
+    }
 
     $("#frmMedicina").validate({
         errorClass     : "help-block",
