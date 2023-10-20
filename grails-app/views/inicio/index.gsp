@@ -178,49 +178,51 @@
         </div>
     </a>
 
-    <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'medicina', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/portada.png" title="Reportes"  width="80%" height="80%"/>
+                    <asset:image src="apli/medicinas.jpeg" title="Medicinas"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Reportes de datos de los pacientes registrados en el
-                        sistema, migración de datos a una hoja de cálculo.<br>
-                    Datos por pacientes de toda la ficha</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
+                        y formas<br>
+                    </p>
                 </div>
             </div>
         </div>
     </a>
 
-    <a href= "${createLink(controller:'inicio', action: 'parametros')}" style="text-decoration: none">
+        <a href= "${createLink(controller:'canton', action: 'arbol')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Citas médicas</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Citas médicas, seguimiento del paciente</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href= "${createLink(controller:'inicio', action: 'parametros')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/configurar.jpeg" title="Administración de pacientes"  width="80%" height="80%"/>
+                    <asset:image src="apli/diagnóstico.jpeg" title="Diagnóticos"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Parámetros del Sistema</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Parámetros del sistema</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
+                    10ª revisión</p>
                 </div>
             </div>
         </div>
     </a>
 
-    <a href= "${createLink(controller:'canton', action: 'arbol')}" style="text-decoration: none">
-        <div class="col-lg-6 mbr-col-md-10">
-            <div class="wrap">
-                <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>
-                </div>
-                <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Citas médicas</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Citas médicas, seguimiento del paciente</p>
-                </div>
-            </div>
-        </div>
-    </a>
 
     <a href= "${createLink(controller:'descargas', action: 'aplicacion')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
@@ -237,9 +239,25 @@
         </div>
     </a>
 
+        <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/portada.png" title="Reportes"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Reportes de datos de los pacientes registrados en el
+                        sistema, migración de datos a una hoja de cálculo.<br>
+                            Datos por pacientes de toda la ficha</p>
+                    </div>
+                </div>
+            </div>
+        </a>
 
 
-</div>
+
+    </div>
 <script type="text/javascript">
     $(".fuera").hover(function () {
         var d = $(this).find(".imagen,.imagen2")

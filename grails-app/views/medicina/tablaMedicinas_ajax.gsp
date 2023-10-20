@@ -2,12 +2,12 @@
     <table class="table table-bordered table-striped table-condensed table-hover">
         <thead>
         <tr>
-            <th style="width: 10%">Tipo</th>
-            <th style="width: 15%">Código</th>
-            <th style="width: 35%">Descripción</th>
-            <th style="width: 15%">Concentración</th>
-            <th style="width: 15%">Firma</th>
-            <th style="width: 10%">Estado</th>
+            <th style="width: 10%">Código</th>
+            <th style="width: 25%">Descripción</th>
+            <th style="width: 25%">Forma</th>
+            <th style="width: 30%">Concentración</th>
+            <th style="width: 5%">Estado</th>
+            <th style="width: 5%">Tipo</th>
         </tr>
         </thead>
     </table>
@@ -18,12 +18,12 @@
         <tbody>
         <g:each in="${datos}" status="i" var="medicina">
             <tr data-id="${medicina.mdcn__id}">
-                <td style="width: 10%">${medicina.mdcntipo}</td>
-                <td style="width: 15%">${medicina.mdcncdgo}</td>
-                <td style="width: 35%">${medicina.mdcndscr}</td>
-                <td style="width: 15%">${medicina.mdcncnct}</td>
-                <td style="width: 15%">${medicina.mdcnfrma}</td>
-                <td style="width: 10%">${medicina.mdcnetdo}</td>
+                <td style="width: 10%">${medicina.mdcncdgo}</td>
+                <td style="width: 25%">${medicina.mdcndscr}</td>
+                <td style="width: 25%">${medicina.mdcnfrma}</td>
+                <td style="width: 30%">${medicina.mdcncnct}</td>
+                <td style="width: 5%">${medicina.mdcnetdo}</td>
+                <td style="width: 5%">${medicina.mdcntipo}</td>
             </tr>
         </g:each>
         </tbody>

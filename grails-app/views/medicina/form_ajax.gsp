@@ -9,7 +9,7 @@
             <label for="padre" class="col-md-2 control-label text-info">
                 Padre
             </label>
-            <span class="col-md-4">
+            <span class="col-md-8">
                 <g:textField name="nombrePadre" class="form-control required allCaps" readonly=""  value="${medico.Medicina.get(medicina.padre)?.descripcion ?: ''}"/>
             </span>
             <span class="col-md-1">
@@ -26,10 +26,10 @@
                 Tipo
             </label>
             <span class="col-md-2">
-                <g:textField name="tipo" maxlength="4" class="form-control allCaps"  value="${medicina?.tipo}"/>
+                <g:textField name="tipo" maxlength="4" class="form-control allCaps"  value="${medicina?.tipo?:'CNMB'}"/>
             </span>
         </span>
-        <span class="col-md-1"></span>
+        <span class="col-md-3">(Cuadro nacional de medicamentos básicos)</span>
         <span class="grupo">
             <label for="estado" class="col-md-2 control-label text-info">
                 Estado
@@ -56,8 +56,19 @@
             <label for="descripcion" class="col-md-2 control-label text-info">
                 Descripción
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textField name="descripcion" maxlength="255" minlenght="10" required="" class="form-control required" value="${medicina?.descripcion}"/>
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group ${hasErrors(bean: medicina, field: 'forma', 'error')} ">
+        <span class="grupo">
+            <label for="forma" class="col-md-2 control-label text-info">
+                Forma
+            </label>
+            <span class="col-md-6">
+                <g:textField name="forma" maxlength="255"  class="form-control required" value="${medicina?.forma}"/>
             </span>
         </span>
     </div>
@@ -67,19 +78,8 @@
             <label for="concentracion" class="col-md-2 control-label text-info">
                 Concentración
             </label>
-            <span class="col-md-6">
-                <g:textField name="concentracion" maxlength="15" class="form-control" value="${medicina?.concentracion}"/>
-            </span>
-        </span>
-    </div>
-
-    <div class="form-group ${hasErrors(bean: medicina, field: 'firma', 'error')} ">
-        <span class="grupo">
-            <label for="firma" class="col-md-2 control-label text-info">
-                Empresa
-            </label>
-            <span class="col-md-6">
-                <g:textField name="firma" maxlength="255"  class="form-control" value="${medicina?.firma}"/>
+            <span class="col-md-10">
+                <g:textField name="concentracion" maxlength="15" class="form-control required" value="${medicina?.concentracion}"/>
             </span>
         </span>
     </div>
@@ -89,7 +89,7 @@
             <label for="observaciones" class="col-md-2 control-label text-info">
                 Observaciones
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textArea name="observaciones" maxlength="255" style="resize: none"  class="form-control" value="${medicina?.observaciones}"/>
             </span>
         </span>

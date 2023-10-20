@@ -36,7 +36,7 @@ class MedicinaController {
         def select = "select * from mdcn "
         def txwh = " where mdcn__id  is not null and " +
                 " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by mdcndscr ".toString()
+        sqlTx = "${select} ${txwh} order by mdcndscr limit 100".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
