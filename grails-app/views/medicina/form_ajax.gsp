@@ -1,6 +1,24 @@
+<%@ page import="medico.Medicina" %>
 
 <g:form class="form-horizontal" name="frmMedicina" role="form" controller="medicina" action="saveMedicina_ajax" method="POST">
     <g:hiddenField name="id" value="${medicina?.id}" />
+    <g:hiddenField name="padre" value="${medicina?.padre ?: ''}" />
+
+    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} required">
+        <span class="grupo">
+            <label for="padre" class="col-md-2 control-label text-info">
+                Padre
+            </label>
+            <span class="col-md-4">
+                <g:textField name="nombrePadre" class="form-control required allCaps" readonly=""  value="${medico.Medicina.get(medicina.padre)?.descripcion ?: ''}"/>
+            </span>
+            <span class="col-md-1">
+                <a href="#" class="btn btn-xs btn-warning btnBuscarPadre" title="Buscar Padre">
+                    <i class="fas fa-search"></i> Buscar
+                </a>
+            </span>
+        </span>
+    </div>
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipo', 'error')} ">
         <span class="grupo">
@@ -79,6 +97,29 @@
 </g:form>
 
 <script type="text/javascript">
+
+    $(".btnBuscarPadre").click(function () {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(action:'buscarPadre_ajax')}",
+            data    : {},
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgBuscarPadre",
+                    title   : "Buscar",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
     $("#frmMedicina").validate({
         errorClass     : "help-block",
