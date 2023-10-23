@@ -2,7 +2,7 @@ package medico
 
 class Medicina {
 
-    int padre
+    Medicina padre
     String tipo
     String descripcion
     String codigo
