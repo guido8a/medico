@@ -86,4 +86,9 @@ class MedicinaController {
         [datos: datos]
     }
 
+    def show_ajax () {
+        def medicina = Medicina.get(params.id)
+        return[medicina:medicina]
+    }
+
 }

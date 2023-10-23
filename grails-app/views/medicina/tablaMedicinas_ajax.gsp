@@ -4,8 +4,9 @@
         <tr>
             <th style="width: 10%">Código</th>
             <th style="width: 25%">Descripción</th>
+            <th style="width: 20%">Padre</th>
             <th style="width: 25%">Forma</th>
-            <th style="width: 30%">Concentración</th>
+            <th style="width: 10%">Concentración</th>
             <th style="width: 5%">Estado</th>
             <th style="width: 5%">Tipo</th>
         </tr>
@@ -20,9 +21,10 @@
             <tr data-id="${medicina.mdcn__id}">
                 <td style="width: 10%">${medicina.mdcncdgo}</td>
                 <td style="width: 25%">${medicina.mdcndscr}</td>
+                <td style="width: 20%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>
                 <td style="width: 25%">${medicina.mdcnfrma}</td>
-                <td style="width: 30%">${medicina.mdcncnct}</td>
-                <td style="width: 5%">${medicina.mdcnetdo}</td>
+                <td style="width: 10%">${medicina.mdcncnct}</td>
+                <td style="width: 5%; background-color:  ${medicina.mdcnetdo == 'A' ? '#b5e898' : '#E22B0C'}">${medicina.mdcnetdo == 'A' ? 'Activo' : 'Inactivo'}</td>
                 <td style="width: 5%">${medicina.mdcntipo}</td>
             </tr>
         </g:each>

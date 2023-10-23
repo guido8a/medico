@@ -37,7 +37,7 @@
         var descripcion = $(this).data("nombre");
 
         $("#padre").val(id);
-        $("#nombrePadre").val(descripcion);
+        $("#nombrePadre").val(codigo + " - " + descripcion);
 
         cerrarPadre();
 

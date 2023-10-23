@@ -2,23 +2,23 @@
 
 <g:form class="form-horizontal" name="frmMedicina" role="form" controller="medicina" action="saveMedicina_ajax" method="POST">
     <g:hiddenField name="id" value="${medicina?.id}" />
-    <g:hiddenField name="padre" value="${medicina?.padre ?: ''}" />
+    <g:hiddenField name="padre" value="${medicina?.padre?.id}" />
 
-    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} required">
-        <span class="grupo">
-            <label for="padre" class="col-md-2 control-label text-info">
-                Padre
-            </label>
-            <span class="col-md-8">
-                <g:textField name="nombrePadre" class="form-control required allCaps" readonly=""  value="${medico.Medicina.get(medicina.padre)?.descripcion ?: ''}"/>
+        <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} required">
+            <span class="grupo">
+                <label for="padre" class="col-md-2 control-label text-info">
+                    Padre
+                </label>
+                <span class="col-md-8">
+                    <g:textField name="nombrePadre" class="form-control required allCaps" readonly=""  value="${ medicina?.padre ?  (medicina?.padre?.codigo + " - "  + medicina.padre?.descripcion) : ''}"/>
+                </span>
+                <span class="col-md-1">
+                    <a href="#" class="btn btn-xs btn-warning btnBuscarPadre" title="Buscar Padre">
+                        <i class="fas fa-search"></i> Buscar
+                    </a>
+                </span>
             </span>
-            <span class="col-md-1">
-                <a href="#" class="btn btn-xs btn-warning btnBuscarPadre" title="Buscar Padre">
-                    <i class="fas fa-search"></i> Buscar
-                </a>
-            </span>
-        </span>
-    </div>
+        </div>
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipo', 'error')} ">
         <span class="grupo">
@@ -35,7 +35,7 @@
                 Estado
             </label>
             <span class="col-md-3">
-                <g:select name="estado" class="form-control" from="${[1: 'Activo', 0: 'Inactivo']}" optionValue="value" optionKey="key" value="${medicina?.estado}"/>
+                <g:select name="estado" class="form-control" from="${['A': 'Activo', 'B': 'Inactivo']}" optionValue="value" optionKey="key" value="${medicina?.estado}"/>
             </span>
         </span>
     </div>

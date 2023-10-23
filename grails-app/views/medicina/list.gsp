@@ -162,7 +162,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar esta empresa? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea dar de baja esta medicina? </p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -247,13 +247,13 @@
             action: function () {
                 $.ajax({
                     type    : "POST",
-                    url     : "${createLink(controller: 'empresa', action:'show_ajax')}",
+                    url     : "${createLink(controller: 'medicina', action:'show_ajax')}",
                     data    : {
                         id : id
                     },
                     success : function (msg) {
                         bootbox.dialog({
-                            title   : "Consultorio",
+                            title   : "Medicina",
                             message : msg,
                             buttons : {
                                 ok : {
@@ -277,36 +277,8 @@
             }
         };
 
-        var contabilidad = {
-            label: " Contabilidad",
-            icon: "fa fa-book",
-            separator_before : true,
-            action: function () {
-                // createEditRowCont(id)
-            }
-        };
-
-        var usuarios = {
-            label: " Pacientes",
-            icon: "fa fa-user",
-            separator_before : true,
-            action: function () {
-                location.href="${createLink(controller: 'paciente', action: 'list')}/" + id;
-
-            }
-        };
-
-        var imagenes = {
-            label: " Logo",
-            icon: "fa fa-images",
-            separator_before : true,
-            action: function () {
-                cargarImagenesEmpresa(id);
-            }
-        };
-
         var eliminar = {
-            label: " Eliminar",
+            label: " Dar de baja",
             icon: "fa fa-trash",
             separator_before : true,
             action: function () {
@@ -316,10 +288,7 @@
 
         items.ver = ver;
         items.editar = editar;
-        items.contabilidad = contabilidad;
-        items.usuarios = usuarios;
-        items.imagenes = imagenes;
-        items.eliminar = eliminar;
+        // items.eliminar = eliminar;
 
         return items
     }
