@@ -35,7 +35,7 @@ class HistorialController {
             historial = Historial.get(params.id)
         }else{
             historial = new Historial()
-            historial.diagnostico = Diagnostico.get(4457);
+            historial.diagnostico = Diagnostico.get(4438);
         }
 
         if(params.fecha){
