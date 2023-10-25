@@ -75,7 +75,7 @@
 
 </head>
 
-<body style="padding-top: 60px">
+<body style="padding-top: 60px; background-color: #ddd">
 
 
 %{--<div id="modalTableGray"></div>--}%

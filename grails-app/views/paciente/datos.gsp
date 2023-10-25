@@ -23,16 +23,6 @@
         text-align: right;
     }
 
-    .sobrepuesto {
-        position: absolute;
-        top: 3px;
-        font-size: 14px;
-    }
-
-    .negrita {
-        font-weight: bold;
-    }
-
     .izquierda{
         margin-left: 4px;
     }
@@ -79,7 +69,7 @@
                 <i class="fas fa-book-reader"></i> Historia
             </a>
 
-            <a href="#" id="btnVerCronograma" class="btn btn-sm btn-info" title="Citas médicas">
+            <a href="#" id="btnCitas" class="btn btn-sm btn-info" title="Citas médicas">
                 <i class="fa fa-calendar-alt"></i> Citas
             </a>
 
@@ -441,6 +431,7 @@
         });
     });
 
+
     $("#btnBorrarPaciente").click(function () {
         bootbox.confirm({
             size: "small",
@@ -518,6 +509,30 @@
         location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'
     });
 
+    $("#btnCitas").click(function () {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'paciente', action:'buscarCitas')}",
+            data    : {
+                tipo: 1
+            },
+            success : function (msg) {
+                bcpc = bootbox.dialog({
+                    id      : "dlgBuscarCPC",
+                    title   : "Buscar Código Compras Públicas",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
 </script>
 

@@ -14,7 +14,7 @@
                 <th style="width: 20%">Empresa</th>
                 <th style="width: 20%">Provincia</th>
                 <th style="width: 10%">Estado</th>
-                <th style="width: 10%">Acciones</th>
+                <th style="width: 10%">Ir a Paciente</th>
             </tr>
             </thead>
         </table>

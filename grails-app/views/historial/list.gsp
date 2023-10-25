@@ -16,11 +16,17 @@
 </h3>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="span9 btn-group" role="navigation">
-        <a href="#" class="btn btn-success btnNuevaCita">
-            <i class="fa fa-file"></i>
-            Nueva cita
+    <div class="btn-group" role="navigation">
+        <a href="${createLink(controller: 'paciente', action: 'datos', id: '1')}" class="btn btn-primary btnNuevaCita">
+            <i class="fa fa-arrow-left"></i>
+            Regresar a Paciente
         </a>
+        <div class="col-md-2">
+            <a href="#" class="btn btn-success btnNuevaCita">
+                <i class="fa fa-file"></i>
+                Nueva cita
+            </a>
+        </div>
     </div>
 </div>
 

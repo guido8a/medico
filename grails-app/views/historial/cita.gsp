@@ -23,16 +23,6 @@
         text-align: right;
     }
 
-    .sobrepuesto {
-        position: absolute;
-        top: 3px;
-        font-size: 14px;
-    }
-
-    .negrita {
-        font-weight: bold;
-    }
-
     .izquierda{
         margin-left: 4px;
     }
@@ -93,10 +83,16 @@
                         <span class="col-md-4">
                             <g:textField name="nombrePaciente" class="form-control" readonly="" value=" ${paciente?.apellido + ' ' + paciente?.nombre + " - " + paciente?.cedula}"/>
                         </span>
-                        <span class="col-md-2 label label-primary text-info mediano" >Fecha de la cita</span>
+                        <span class="col-md-1 label label-primary text-info mediano" >Fecha de la cita</span>
                         <span class="grupo" >
                             <span class="col-md-2 " >
                                 <input aria-label="" name="fecha" id='fecha' type='text' class="form-control" value="${historial?.fecha?.format("dd-MM-yyyy")}" />
+                            </span>
+                        </span>
+                        <span class="col-md-1 label label-primary text-info mediano" >Próxima cita</span>
+                        <span class="grupo" >
+                            <span class="col-md-2 " >
+                                <input aria-label="" name="proximaCita" id='proximaCita' type='text' class="form-control" value="${historial?.proximaCita?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
                     </div>
@@ -156,16 +152,7 @@
                     </div>
                 </div>
 
-                <div class="row izquierda" style="margin-bottom: 20px">
-                    <div class="col-md-12 input-group">
-                            <span class="col-md-2 label label-primary text-info mediano" >Fecha de la próxima cita</span>
-                        <span class="grupo" >
-                            <span class="col-md-2 arriba" >
-                                <input aria-label="" name="proximaCita" id='proximaCita' type='text' class="form-control" value="${historial?.proximaCita?.format("dd-MM-yyyy")}" />
-                            </span>
-                        </span>
-                    </div>
-                </div>
+
 
             </g:form>
         </div>

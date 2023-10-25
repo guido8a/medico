@@ -3,6 +3,7 @@ package seguridad
 import geografia.Canton
 import geografia.Parroquia
 import geografia.Provincia
+import medico.Historial
 
 import javax.imageio.ImageIO
 
@@ -271,6 +272,33 @@ class PacienteController {
         }
     }
 
+    def buscarCitas () {
+        def cita = Historial
+        def listaCitas = [1: 'Fecha', 2: 'Motivo', 3: 'Diagnóstico']
+        return  [listaCitas: listaCitas, tipo: params.tipo]
+    }
 
+    def tablaCitas(){
+        println("params " + params)
+        def cn = dbConnectionService.getConnection()
+        def datos;
+        def sqlTx = ""
+        def listaItems = ['hsclfcha::text', 'hsclmotv', 'diagdscr']
+        def bsca
+        if(params.buscarPor){
+            bsca = listaItems[params.buscarPor?.toInteger()-1]
+        }else{
+            bsca = listaItems[0]
+        }
+
+        def select = "select hscl__id, hscl.diag__id, diagdscr, hsclfcha, hsclmotv, hsclobsr from hscl, diag " +
+                "where diag.diag__id = hscl.diag__id "
+        def txwh = " and $bsca ilike '%${params.criterio}%'"
+        sqlTx = "${select} ${txwh} order by hsclfcha limit 30 ".toString()
+
+        println "sql: $sqlTx"
+        datos = cn.rows(sqlTx)
+        [data: datos, tipo: params.tipo]
+    }
 
 }
