@@ -74,7 +74,7 @@
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">
                 <i class="fa fa-clipboard"></i> Antecedentes
             </a>
-            <a href="${createLink(controller: 'documento', action: 'listProyecto')}" id="btnConsultar"
+            <a href="#" id="btnHistoria"
                class="btn btn-sm btn-info" title="Historial del paciente">
                 <i class="fas fa-book-reader"></i> Historia
             </a>
@@ -513,6 +513,10 @@
     function cerrarDialogoImagen () {
         di.modal("hide");
     }
+
+    $("#btnHistoria").click(function (){
+        location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'
+    });
 
 
 </script>

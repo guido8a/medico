@@ -43,16 +43,3 @@
     </div>
 </g:else>
 
-<script type="text/javascript">
-
-    // $("tr").contextMenu({
-    //     items  : createContextMenu,
-    //     onShow : function ($element) {
-    //         $element.addClass("trHighlight");
-    //     },
-    //     onHide : function ($element) {
-    //         $(".trHighlight").removeClass("trHighlight");
-    //     }
-    // });
-
-</script>
