@@ -291,7 +291,7 @@ class PacienteController {
             bsca = listaItems[0]
         }
 
-        def select = "select hscl__id, hscl.diag__id, diagdscr, hsclfcha, hsclmotv, hsclobsr from hscl, diag " +
+        def select = "select hscl__id, hscl.pcnt__id, hscl.diag__id, diagdscr, hsclfcha, hsclmotv, hsclobsr from hscl, diag " +
                 "where diag.diag__id = hscl.diag__id "
         def txwh = " and $bsca ilike '%${params.criterio}%'"
         sqlTx = "${select} ${txwh} order by hsclfcha limit 30 ".toString()

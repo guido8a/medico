@@ -17,7 +17,7 @@
                 <td style="width: 10%">${dt.hsclfcha}</td>
                 <td style="width: 68%">${dt.hsclmotv}</td>
                 <td style="width: 13%">
-                    <div style="text-align: center" class="selecciona" id="reg_${i}" data-desc="${dt?.hsclmotv}" data-codigo="${dt?.diag__id}" data-id="${dt?.hscl__id}">
+                    <div style="text-align: center" class="btnCita" id="reg_${i}" data-desc="${dt?.hsclmotv}" data-paciente="${dt?.pcnt__id}" data-codigo="${dt?.diag__id}" data-id="${dt?.hscl__id}">
                         <button class="btn btn-xs btn-success"><i class="fa fa-check"></i></button>
                     </div></td>
             </tr>
@@ -26,18 +26,9 @@
 </div>
 
 <script type="text/javascript">
-    $(".selecciona").click(function () {
-        var idCPC = $(this).data("id");
-        var codigo = $(this).data("codigo");
-        var nombre = $(this).data("desc");
-        $("#codigoComprasPublicas").val(idCPC);
-        $("#item_codigo").val(codigo);
-        <g:if test="${tipo == '1'}">
-        $("#item_cpac").val(idCPC);
-        </g:if>
-        <g:else>
-        $("#item_desc").val(nombre);
-        </g:else>
-        cerrarBuscadorCPC();
+    $(".btnCita").click(function () {
+        var id = $(this).data("id");
+        var paciente = $(this).data("paciente");
+        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + paciente + "&id=" + id
     });
 </script>

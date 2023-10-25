@@ -51,7 +51,7 @@
 <div class="panel panel-primary col-md-12">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
-        <a href="${createLink(controller: 'historial', action: 'list')}?id=${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
+        <a href="${createLink(controller: 'paciente', action: 'datos')}?id=${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">
@@ -61,9 +61,9 @@
             <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Documentos del paciente">
                 <i class="fa fa-image"></i> Documentos
             </a>
-            <a href="#" id="btnDiagnostico" class="btn btn-sm btn-info" title="Diagnóstico del paciente">
-                <i class="fa fa-clipboard"></i> Diagnóstico
-            </a>
+%{--            <a href="#" id="btnDiagnostico" class="btn btn-sm btn-info" title="Diagnóstico del paciente">--}%
+%{--                <i class="fa fa-clipboard"></i> Diagnóstico--}%
+%{--            </a>--}%
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Tratamiento del paciente">
                 <i class="fa fa-clipboard"></i> Tratamiento
             </a>
@@ -145,15 +145,27 @@
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
+                        <span class="col-md-2 label label-primary text-info mediano">Diagnóstico</span>
+                        <span class="col-md-8">
+                            <g:hiddenField name="diagnostico" value="${historial?.diagnostico?.id}"/>
+                            <g:textArea name="diagnosticoNombre" maxlength="255" class="form-control" readonly="" style="resize: none; height: 60px;"  value="${historial?.diagnostico?.codigo + " - " + historial?.diagnostico?.descripcion}"/>
+                        </span>
+                        <span class="col-md-2">
+                            <a href="#" id="btnBuscarDiagnostico" class="btn btn-sm btn-info" style="" title="Buscar diagnóstico">
+                                <i class="fa fa-search"></i> Buscar
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row izquierda">
+                    <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Observaciones</span>
                         <span class="col-md-10">
                             <g:textArea name="observaciones" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.observaciones}"/>
                         </span>
                     </div>
                 </div>
-
-
-
             </g:form>
         </div>
     </div>
@@ -162,6 +174,7 @@
 <script type="text/javascript">
 
     var di;
+    var dp;
 
     $('#fecha, #proximaCita').datetimepicker({
         locale: 'es',
@@ -271,10 +284,36 @@
     }
 
 
-    $("#btnHistoria").click(function (){
-        location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'
+    %{--$("#btnHistoria").click(function (){--}%
+    %{--    location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'--}%
+    %{--});--}%
+
+    $("#btnBuscarDiagnostico").click(function () {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(action:'buscarDiagnostico_ajax')}",
+            data    : {},
+            success : function (msg) {
+                dp = bootbox.dialog({
+                    id      : "dlgBuscarDiagnostico",
+                    title   : "Buscar",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
     });
 
+    function cerrarBusqueda(){
+        dp.modal("hide");
+    }
 
 </script>
 

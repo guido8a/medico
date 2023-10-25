@@ -505,9 +505,9 @@
         di.modal("hide");
     }
 
-    $("#btnHistoria").click(function (){
-        location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'
-    });
+    %{--$("#btnHistoria").click(function (){--}%
+    %{--    location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'--}%
+    %{--});--}%
 
     $("#btnCitas").click(function () {
         $.ajax({
@@ -519,7 +519,7 @@
             success : function (msg) {
                 bcpc = bootbox.dialog({
                     id      : "dlgBuscarCPC",
-                    title   : "Buscar Código Compras Públicas",
+                    title   : "Buscar Cita",
                     message : msg,
                     buttons : {
                         cancelar : {
