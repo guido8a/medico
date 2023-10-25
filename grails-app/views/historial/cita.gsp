@@ -114,8 +114,8 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Motivo</span>
-                        <span class="col-md-8">
-                            <g:textArea name="motivo" maxlength="255" style="resize: none; height: 80px;" class="form-control"  value="${historial?.motivo}"/>
+                        <span class="col-md-10">
+                            <g:textArea name="motivo" maxlength="255" style="resize: none; height: 60px;" class="form-control"  value="${historial?.motivo}"/>
                         </span>
                     </div>
                 </div>
@@ -123,8 +123,8 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Información actual</span>
-                        <span class="col-md-8">
-                            <g:textArea name="actual" maxlength="255" class="form-control" style="resize: none; height: 80px;"  value="${historial?.actual}"/>
+                        <span class="col-md-10">
+                            <g:textArea name="actual" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.actual}"/>
                         </span>
                     </div>
                 </div>
@@ -132,8 +132,8 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>
-                        <span class="col-md-8">
-                            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 80px;"  value="${historial?.tratamiento}"/>
+                        <span class="col-md-10">
+                            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.tratamiento}"/>
                         </span>
                     </div>
                 </div>
@@ -141,8 +141,8 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Exámenes</span>
-                        <span class="col-md-8">
-                            <g:textArea name="examenes" maxlength="255" class="form-control" style="resize: none; height: 80px;"  value="${historial?.examenes}"/>
+                        <span class="col-md-10">
+                            <g:textArea name="examenes" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.examenes}"/>
                         </span>
                     </div>
                 </div>
@@ -150,8 +150,8 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Observaciones</span>
-                        <span class="col-md-8">
-                            <g:textArea name="observaciones" maxlength="255" class="form-control" style="resize: none; height: 80px;"  value="${historial?.observaciones}"/>
+                        <span class="col-md-10">
+                            <g:textArea name="observaciones" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.observaciones}"/>
                         </span>
                     </div>
                 </div>
