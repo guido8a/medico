@@ -91,15 +91,17 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Empresa</span>
-                        <span class="col-md-4">
-                            <g:select name="empresa" from="${seguridad.Empresa.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
+                        <span class="col-md-6">
+                            <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
                         </span>
 
-                        <span class="col-md-3 mediano"></span>
+
                         <span class="col-md-1 label label-primary text-info mediano">Estado</span>
                         <span class="grupo">
                             <span class="col-md-2">
-                                <g:textField name="act" class="form-control" readonly="" style="background-color:  ${paciente?.activo == 1 ? '#67a153' : '#e22b0c'} " value=" ${paciente?.activo == 1 ? 'ACTIVO' : 'INACTIVO'}"/>
+                                <g:textField name="act" class="form-control" readonly="" style="background-color:
+                                ${paciente?.activo == 1 ? '#67a153' : '#e22b0c'}; text-align: center "
+                                             value=" ${paciente?.activo == 1 ? 'ACTIVO' : 'INACTIVO'}"/>
                             </span>
                         </span>
                     </div>
@@ -108,29 +110,26 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Cédula</span>
-                        <span class="col-md-3">
+                        <span class="col-md-2">
                             <g:textField name="cedula" maxlength="10" minlength="10" required="" class="form-control required allCaps"  value="${paciente?.cedula}"/>
                         </span>
-                    </div>
-                </div>
-
-                <div class="row izquierda">
-                    <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Apellido</span>
-                        <span class="grupo">
-                            <span class="col-md-3">
-                                <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.apellido}"/>
-                            </span>
-                        </span>
-                        <span class="col-md-1 mediano"></span>
                         <span class="col-md-1 label label-primary text-info mediano">Nombre</span>
                         <span class="grupo">
                             <span class="col-md-3">
                                 <g:textField name="nombre" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.nombre}"/>
                             </span>
                         </span>
+                        <span class="col-md-1 label label-primary text-info mediano">Apellido</span>
+                        <span class="grupo">
+                            <span class="col-md-3">
+                                <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.apellido}"/>
+                            </span>
+                        </span>
+
                     </div>
                 </div>
+
+
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
@@ -154,7 +153,7 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Dirección</span>
-                        <span class="col-md-8">
+                        <span class="col-md-9">
                             <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.direccion}"/>
                         </span>
                     </div>
@@ -163,7 +162,7 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Referencia</span>
-                        <span class="col-md-8">
+                        <span class="col-md-9">
                             <g:textField name="referencia" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>
                         </span>
                     </div>
@@ -171,7 +170,7 @@
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Teléfono</span>
+                        <span class="col-md-2 label label-primary text-info mediano">Teléfonos</span>
                         <span class="grupo">
                             <span class="col-md-3">
                                 <g:textField name="telefono" maxlength="31" class="number form-control" value="${paciente?.telefono}"/>
@@ -191,11 +190,11 @@
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano" style="margin-top: 10px">Fecha de nacimiento</span>
                         <span class="grupo" >
-                            <span class="col-md-3 arriba" >
+                            <span class="col-md-2 arriba" >
                                 <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' class="form-control" value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
-                        <span class="col-md-1 mediano"></span>
+                        <span class="col-md-2 mediano"></span>
                         <span class="col-md-1 label label-primary text-info mediano">Estado Civil</span>
                         <span class="grupo">
                             <span class="col-md-2">
@@ -208,11 +207,11 @@
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Sexo</span>
                         <span class="grupo">
-                            <span class="col-md-3">
+                            <span class="col-md-2">
                                 <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
                             </span>
                         </span>
-                        <span class="col-md-1 mediano"></span>
+                        <span class="col-md-2 mediano"></span>
                         <span class="col-md-1 label label-primary text-info mediano">Grupo Sanguineo</span>
                         <span class="grupo">
                             <span class="col-md-2">
@@ -510,12 +509,11 @@
     %{--});--}%
 
     $("#btnCitas").click(function () {
+        var pcnt = "${paciente?.id}"
         $.ajax({
             type    : "POST",
             url: "${createLink(controller: 'paciente', action:'buscarCitas')}",
-            data    : {
-                tipo: 1
-            },
+            data    : {pcnt: pcnt},
             success : function (msg) {
                 bcpc = bootbox.dialog({
                     id      : "dlgBuscarCPC",

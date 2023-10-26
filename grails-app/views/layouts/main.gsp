@@ -75,13 +75,13 @@
 
 </head>
 
-<body style="padding-top: 60px; background-color: #ddd">
+<body style="padding-top: 60px; background-color: #dfdfdf">
 
 
 %{--<div id="modalTableGray"></div>--}%
 
 %{--<g:if test="${session?.usuario}">--}%
-   <mn:menu title="${g.layoutTitle(default: 'Monitor')}"/>
+   <mn:menu title="${g.layoutTitle(default: 'Médicos')}"/>
 %{--</g:if>--}%
 
 <div class="container" style="min-width: 1000px !important; margin-top: 0px; overflow-y: hidden">

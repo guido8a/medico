@@ -39,13 +39,15 @@
     function buscarCPC() {
         var buscarPor = $("#buscarPor option:selected").val();
         var criterio = $("#criterioCriterio").val();
+        var pcnt = "${params.pcnt}"
         $.ajax({
             type: "POST",
             url: "${createLink(controller: 'paciente', action:'tablaCitas')}",
             data: {
                 buscarPor: buscarPor,
                 criterio: criterio,
-                tipo: '${tipo}'
+                tipo: '${tipo}',
+                pcnt: pcnt
             },
             success: function (msg) {
                 $("#divTablaCPC").html(msg);

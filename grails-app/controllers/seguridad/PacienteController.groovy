@@ -273,15 +273,16 @@ class PacienteController {
     }
 
     def buscarCitas () {
+        println "citas: $params"
         def cita = Historial
         def listaCitas = [1: 'Fecha', 2: 'Motivo', 3: 'Diagnóstico']
-        return  [listaCitas: listaCitas, tipo: params.tipo]
+        return  [listaCitas: listaCitas, pcnt: params.pcnt]
     }
 
     def tablaCitas(){
-        println("params " + params)
+        println("tablaCitas " + params)
         def cn = dbConnectionService.getConnection()
-        def datos;
+        def datos
         def sqlTx = ""
         def listaItems = ['hsclfcha::text', 'hsclmotv', 'diagdscr']
         def bsca
@@ -292,7 +293,7 @@ class PacienteController {
         }
 
         def select = "select hscl__id, hscl.pcnt__id, hscl.diag__id, diagdscr, hsclfcha, hsclmotv, hsclobsr from hscl, diag " +
-                "where diag.diag__id = hscl.diag__id "
+                "where pcnt__id = ${params.pcnt} and diag.diag__id = hscl.diag__id "
         def txwh = " and $bsca ilike '%${params.criterio}%'"
         sqlTx = "${select} ${txwh} order by hsclfcha limit 30 ".toString()
 
