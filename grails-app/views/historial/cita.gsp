@@ -86,7 +86,7 @@
                         <span class="col-md-1 label label-primary text-info mediano" >Fecha de la cita</span>
                         <span class="grupo" >
                             <span class="col-md-2 " >
-                                <input aria-label="" name="fecha" id='fecha' type='text' class="form-control" value="${historial?.fecha?.format("dd-MM-yyyy")}" />
+                                <input aria-label="" name="fecha" id='fecha' required type='text' class="form-control required" value="${historial?.fecha?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
 

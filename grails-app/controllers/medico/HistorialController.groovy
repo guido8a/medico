@@ -39,7 +39,7 @@ class HistorialController {
             historial = Historial.get(params.id)
         }else{
             historial = new Historial()
-            historial.diagnostico = Diagnostico.get(4438);
+            params.diagnostico = Diagnostico.get(4438);
         }
 
         if(params.fecha){
@@ -114,6 +114,7 @@ class HistorialController {
 
     def makeTreeNode(params) {
         println "makeTreeNode.. $params"
+        def paciente = Paciente.get(params.id)
         def cn = dbConnectionService.getConnection()
         def id = params.id
         def tipo = ""
