@@ -99,5 +99,106 @@ class HistorialController {
         }
     }
 
+    def arbolCitas() {
+        def paciente = Paciente.get(params.id)
+        return[paciente:paciente]
+    }
+
+    def loadTreePart_ajax() {
+        render(makeTreeNode(params))
+    }
+
+    def makeTreeNode(params) {
+        println "makeTreeNode.. $params"
+        def paciente = Paciente.get(params.paciente)
+        def id = params.id
+        def tipo = ""
+        def liId = ""
+        def ico = ""
+
+        if(id.contains("_")) {
+            id = params.id.split("_")[1]
+            tipo = params.id.split("_")[0]
+        }
+
+        if (!params.order) {
+            params.order = "asc"
+        }
+
+        String tree = "", clase = "", rel = ""
+        def padre
+        def hijos = []
+
+//        println "---> id: $id, tipo: $tipo, es #: ${id == '#'}"
+
+        if (id == "#") {
+            //root
+//            def hh = Provincia.count()
+            def hh = Historial.findAllByPaciente(paciente)
+            if (hh.size() > 0) {
+                clase = "hasChildren jstree-closed"
+            }
+
+            tree = "<li id='root' class='root ${clase}' data-jstree='{\"type\":\"root\"}' data-level='0' >" +
+                    "<a href='#' class='label_arbol'>Paciente</a>" +
+                    "</li>"
+        } else {
+
+            if(id == 'root'){
+//                hijos = Provincia.findAll().sort{it.nombre}
+                hijos = Historial.findAllByPaciente(paciente)
+
+                def data = ""
+                ico = ", \"icon\":\"fa fa-parking text-success\""
+                hijos.each { hijo ->
+//                println "procesa ${hijo.nombre}"
+                    clase = Canton.findByProvincia(hijo) ? "jstree-closed hasChildren" : "jstree-closed"
+
+//                    tree += "<ul>"
+                    tree += "<li id='prov_" + hijo.id + "' class='" + clase + "' ${data} data-jstree='{\"type\":\"${"principal"}\" ${ico}}' >"
+                    tree += "<a href='#' class='label_arbol'>" + hijo?.nombre + "</a>"
+                    tree += "</li>"
+                }
+            }else{
+                switch(tipo) {
+                    case "prov":
+                        hijos = Canton.findAllByProvincia(Provincia.get(id), [sort: params.sort])
+                        liId = "cntn_"
+//                    println "tipo: $tipo, ${hijos.size()}"
+                        ico = ", \"icon\":\"fa fa-copyright text-info\""
+                        hijos.each { h ->
+//                        println "procesa $h"
+//                            clase = Parroquia.findByCanton(h)? "jstree-closed hasChildren" : ""
+                            clase = "jstree-closed hasChildren"
+                            tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-jstree='{\"type\":\"${"canton"}\" ${ico}}'>"
+                            tree += "<a href='#' class='label_arbol'>" + h.nombre + "</a>"
+                            tree += "</li>"
+                        }
+                        break
+                    case "cntn":
+                        hijos = Parroquia.findAllByCanton(Canton.get(id), [sort: params.sort])
+                        liId = "parr_"
+//                    println "tipo: $tipo, ${hijos.size()}"
+                        ico = ", \"icon\":\"fa fa-registered text-danger\""
+                        hijos.each { h ->
+//                        println "procesa $h"
+//                        clase = Comunidad.findByParroquia(h)? "jstree-closed hasChildren" : ""
+                            clase = ""
+                            tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-jstree='{\"type\":\"${"parroquia"}\" ${ico}}'>"
+                            tree += "<a href='#' class='label_arbol'>" + h.nombre + "</a>"
+                            tree += "</li>"
+                        }
+                        break
+                }
+            }
+
+
+
+        }
+
+//        println "arbol: $tree"
+        return tree
+    }
+
 
 }

@@ -504,9 +504,9 @@
         di.modal("hide");
     }
 
-    %{--$("#btnHistoria").click(function (){--}%
-    %{--    location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'--}%
-    %{--});--}%
+    $("#btnHistoria").click(function (){
+        location.href="${createLink(controller: 'historial', action: 'arbolCitas')}?id=" + '${paciente?.id}'
+    });
 
     $("#btnCitas").click(function () {
         var pcnt = "${paciente?.id}"
