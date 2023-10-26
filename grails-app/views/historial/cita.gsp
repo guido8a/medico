@@ -148,7 +148,7 @@
                         <span class="col-md-2 label label-primary text-info mediano">Diagnóstico</span>
                         <span class="col-md-8">
                             <g:hiddenField name="diagnostico" value="${historial?.diagnostico?.id}"/>
-                            <g:textArea name="diagnosticoNombre" maxlength="255" class="form-control" readonly="" style="resize: none; height: 60px;"  value="${historial?.diagnostico?.codigo + " - " + historial?.diagnostico?.descripcion}"/>
+                            <g:textArea name="diagnosticoNombre" maxlength="255" class="form-control" readonly="" style="resize: none; height: 60px;"  value="${historial?.diagnostico ? (historial?.diagnostico?.codigo + " - " + historial?.diagnostico?.descripcion) : ''}"/>
                         </span>
                         <span class="col-md-2">
                             <a href="#" id="btnBuscarDiagnostico" class="btn btn-sm btn-info" style="" title="Buscar diagnóstico">

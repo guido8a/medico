@@ -70,7 +70,11 @@
             </a>
 
             <a href="#" id="btnCitas" class="btn btn-sm btn-info" title="Citas médicas">
-                <i class="fa fa-calendar-alt"></i> Citas
+                <i class="fa fa-list"></i> Citas
+            </a>
+
+            <a href="#" id="btnNuevaCita" class="btn btn-sm btn-info" title="Nueva Cita médica">
+                <i class="fa fa-calendar-alt"></i> Nueva Cita
             </a>
 
             <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">
@@ -256,6 +260,11 @@
             ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
             ev.keyCode === 37 || ev.keyCode === 39);
     }
+
+    $("#btnNuevaCita").click(function () {
+        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}'
+    });
+
 
     $("#btnFoto").click(function () {
         cargarFotoPaciente('${paciente?.id}');

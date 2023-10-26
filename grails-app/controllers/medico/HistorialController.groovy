@@ -147,16 +147,19 @@ class HistorialController {
             if(id == 'root'){
 //                hijos = Provincia.findAll().sort{it.nombre}
                 hijos = Historial.findAllByPaciente(paciente)
+                println("hijos " + hijos)
 
                 def data = ""
                 ico = ", \"icon\":\"fa fa-parking text-success\""
                 hijos.each { hijo ->
-//                println "procesa ${hijo.nombre}"
-                    clase = Canton.findByProvincia(hijo) ? "jstree-closed hasChildren" : "jstree-closed"
+//                    def h = Historial.
+                println "procesa ${hijo.diagnostico}"
+//                    clase = Canton.findByProvincia(hijo) ? "jstree-closed hasChildren" : "jstree-closed"
+                    clase = Diagnostico.get(h.diagnostico.id) ? "jstree-closed hasChildren" : "jstree-closed"
 
 //                    tree += "<ul>"
                     tree += "<li id='prov_" + hijo.id + "' class='" + clase + "' ${data} data-jstree='{\"type\":\"${"principal"}\" ${ico}}' >"
-                    tree += "<a href='#' class='label_arbol'>" + hijo?.nombre + "</a>"
+                    tree += "<a href='#' class='label_arbol'>" + hijo?.diagnostico?.descripcion + "</a>"
                     tree += "</li>"
                 }
             }else{
