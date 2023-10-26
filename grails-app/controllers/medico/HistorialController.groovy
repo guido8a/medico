@@ -1,5 +1,9 @@
 package medico
 
+import apli.DbConnectionService
+import geografia.Canton
+import geografia.Parroquia
+import geografia.Provincia
 import seguridad.Paciente
 
 class HistorialController {
@@ -110,6 +114,109 @@ class HistorialController {
 
     def makeTreeNode(params) {
         println "makeTreeNode.. $params"
+        def cn = dbConnectionService.getConnection()
+        def id = params.id
+        def tipo = ""
+        def liId = ""
+        def ico = ""
+        def sql = ""
+
+        if(id.contains("_")) {
+            id = params.id.split("_")[1]
+            tipo = params.id.split("_")[0]
+        }
+
+        if (!params.order) {
+            params.order = "asc"
+        }
+
+        String tree = "", clase = "", rel = ""
+        def padre
+        def hijos = []
+
+//        println "---> id: $id, tipo: $tipo, es #: ${id == '#'}"
+
+        if (id == "#") {
+            //root
+//            def hh = Provincia.countByZonaIsNull()
+            def hh = Provincia.count()
+            if (hh > 0) {
+                clase = "hasChildren jstree-closed"
+            }
+
+            tree = "<li id='root' class='root ${clase}' data-jstree='{\"type\":\"root\"}' data-level='0' >" +
+                    "<a href='#' class='label_arbol'>Paciente</a>" +
+                    "</li>"
+        } else {
+//            println "---- no es raiz... procesa: $tipo"
+
+            if(id == 'root'){
+                //hijos = Provincia.findAll().sort{it.nombre}
+                hijos = [['nombre': 'Uno']]
+                sql = "select hscl.diag__id id, diagdscr nombre from hscl, diag where diag.diag__id = hscl.diag__id " +
+                        "group by hscl.diag__id, diagdscr"
+                println "sql: $sql"
+                hijos = cn.rows(sql.toString())
+                println "hijos: ${hijos}"
+                def data = ""
+                ico = ", \"icon\":\"fa fa-parking text-success\""
+                hijos.each { hijo ->
+//                println "procesa ${hijo.nombre}"
+                    //clase = Canton.findByProvincia(hijo) ? "jstree-closed hasChildren" : "jstree-closed"
+                    clase = "jstree-closed hasChildren"
+
+                    tree += "<li id='prov_" + hijo.id + "' class='" + clase + "' ${data} data-jstree='{\"type\":\"${"principal"}\" ${ico}}' >"
+                    tree += "<a href='#' class='label_arbol'>" + hijo?.nombre + "</a>"
+                    tree += "</li>"
+                }
+            }else{
+                switch(tipo) {
+                    case "prov":
+                        //hijos = Canton.findAllByProvincia(Provincia.get(id), [sort: params.sort])
+                        sql = "select hscl.hscl__id id, hsclfcha, hsclmotv nombre from hscl where diag__id = $id " +
+                                "order by hsclfcha desc"
+                        println "sql: $sql"
+                        hijos = cn.rows(sql.toString())
+
+                        liId = "cntn_"
+//                    println "tipo: $tipo, ${hijos.size()}"
+                        ico = ", \"icon\":\"fa fa-copyright text-info\""
+                        hijos.each { h ->
+//                        println "procesa $h"
+//                            clase = Parroquia.findByCanton(h)? "jstree-closed hasChildren" : ""
+                            clase = "jstree-closed hasChildren"
+                            tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-jstree='{\"type\":\"${"canton"}\" ${ico}}'>"
+                            tree += "<a href='#' class='label_arbol'>" + h.nombre + "</a>"
+                            tree += "</li>"
+                        }
+                        break
+/*                    case "cntn":
+                        hijos = Parroquia.findAllByCanton(Canton.get(id), [sort: params.sort])
+                        liId = "parr_"
+                        ico = ", \"icon\":\"fa fa-registered text-danger\""
+                        hijos.each { h ->
+                            clase = ""
+                            tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-jstree='{\"type\":\"${"parroquia"}\" ${ico}}'>"
+                            tree += "<a href='#' class='label_arbol'>" + h.nombre + "</a>"
+                            tree += "</li>"
+                        }
+                        break
+*/
+                }
+            }
+
+
+
+        }
+
+//        println "arbol: $tree"
+        return tree
+    }
+
+
+    def makeTreeNodeHH(params) {
+        println "makeTreeNode.. $params"
+        def cn = DbConnectionService
         def paciente = Paciente.get(params.paciente)
         def id = params.id
         def tipo = ""
@@ -132,9 +239,9 @@ class HistorialController {
 //        println "---> id: $id, tipo: $tipo, es #: ${id == '#'}"
 
         if (id == "#") {
-            //root
-//            def hh = Provincia.count()
-            def hh = Historial.findAllByPaciente(paciente)
+            println "pasa por root"
+            def hh = Provincia.count()
+//            def hh = Historial.findAllByPaciente(paciente)
             if (hh.size() > 0) {
                 clase = "hasChildren jstree-closed"
             }
@@ -145,8 +252,8 @@ class HistorialController {
         } else {
 
             if(id == 'root'){
-//                hijos = Provincia.findAll().sort{it.nombre}
-                hijos = Historial.findAllByPaciente(paciente)
+                hijos = Provincia.findAll().sort{it.nombre}
+//                hijos = Historial.findAllByPaciente(paciente)
                 println("hijos " + hijos)
 
                 def data = ""

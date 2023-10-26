@@ -89,12 +89,7 @@
                                 <input aria-label="" name="fecha" id='fecha' type='text' class="form-control" value="${historial?.fecha?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
-                        <span class="col-md-1 label label-primary text-info mediano" >Próxima cita</span>
-                        <span class="grupo" >
-                            <span class="col-md-2 " >
-                                <input aria-label="" name="proximaCita" id='proximaCita' type='text' class="form-control" value="${historial?.proximaCita?.format("dd-MM-yyyy")}" />
-                            </span>
-                        </span>
+
                     </div>
                 </div>
 
@@ -103,6 +98,13 @@
                         <span class="col-md-2 label label-primary text-info mediano">Especialista</span>
                         <span class="col-md-4">
                             <g:select name="persona" from="${seguridad.Persona.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control " value="${historial?.persona?.id}" />
+                        </span>
+
+                        <span class="col-md-1 label label-primary text-info mediano" >Próxima cita</span>
+                        <span class="grupo" >
+                            <span class="col-md-2 " >
+                                <input aria-label="" name="proximaCita" id='proximaCita' type='text' class="form-control" value="${historial?.proximaCita?.format("dd-MM-yyyy")}" />
+                            </span>
                         </span>
                     </div>
                 </div>
