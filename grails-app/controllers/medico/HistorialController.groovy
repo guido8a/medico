@@ -114,13 +114,15 @@ class HistorialController {
 
     def makeTreeNode(params) {
         println "makeTreeNode.. $params"
-        def paciente = Paciente.get(params.id)
+        def paciente = Paciente.get(params.paciente)
         def cn = dbConnectionService.getConnection()
         def id = params.id
         def tipo = ""
         def liId = ""
         def ico = ""
         def sql = ""
+        println "Paciente: $paciente"
+        def titulo = "Paciente: ${paciente.nombre} ${paciente.apellido}"
 
         if(id.contains("_")) {
             id = params.id.split("_")[1]
@@ -146,7 +148,7 @@ class HistorialController {
             }
 
             tree = "<li id='root' class='root ${clase}' data-jstree='{\"type\":\"root\"}' data-level='0' >" +
-                    "<a href='#' class='label_arbol'>Paciente</a>" +
+                    "<a href='#' class='label_arbol'><strong>$titulo</strong></a>" +
                     "</li>"
         } else {
 //            println "---- no es raiz... procesa: $tipo"
