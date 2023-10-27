@@ -43,7 +43,7 @@
             success : function (msg) {
                 dp = bootbox.dialog({
                     id      : "dlgBuscarDiagnostico",
-                    title   : "Buscar",
+                    title   : "Buscar diagnóstico",
                     message : msg,
                     buttons : {
                         cancelar : {

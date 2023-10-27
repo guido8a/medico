@@ -41,6 +41,11 @@
                     <i class="fa fa-arrow-left"></i> Regresar
                 </a>
             </div>
+            <div class="btn-group">
+                <a href="#" class="btn btn-sm btn-success" id="btnIrPaciente" title="Volver a paciente">
+                    <i class="fa fa-user"></i> Paciente
+                </a>
+            </div>
         </div>
     </div>
 
@@ -97,6 +102,10 @@
 <script type="text/javascript">
 
     $("#btnRegresar").click(function () {
+        location.href="${createLink(controller: 'paciente', action: 'datos')}?id=" + "${paciente?.id}"
+    });
+
+    $("#btnIrPaciente").click(function () {
         location.href="${createLink(controller: 'paciente', action: 'datos')}?id=" + "${paciente?.id}"
     });
 

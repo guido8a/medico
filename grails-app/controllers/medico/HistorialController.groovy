@@ -162,7 +162,8 @@ class HistorialController {
                 hijos = cn.rows(sql.toString())
                 println "hijos: ${hijos}"
                 def data = ""
-                ico = ", \"icon\":\"fa fa-parking text-success\""
+//                ico = ", \"icon\":\"fa fa-parking text-success\""
+                ico = ", \"icon\":\"fa fa-scroll text-success\""
                 hijos.each { hijo ->
 //                println "procesa ${hijo.nombre}"
                     //clase = Canton.findByProvincia(hijo) ? "jstree-closed hasChildren" : "jstree-closed"

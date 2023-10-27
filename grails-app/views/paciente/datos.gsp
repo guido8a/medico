@@ -80,9 +80,9 @@
             <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">
                 <i class="fa fa-bullseye"></i> Estado
             </a>
-            <a href="#" id="btnBorrarPaciente" class="btn btn-sm btn-info"  title="Borrar Paciente">
-                <i class="fa fa-trash"></i> Eliminar
-            </a>
+%{--            <a href="#" id="btnBorrarPaciente" class="btn btn-sm btn-info"  title="Borrar Paciente">--}%
+%{--                <i class="fa fa-trash"></i> Eliminar--}%
+%{--            </a>--}%
         </g:if>
 
     </div>

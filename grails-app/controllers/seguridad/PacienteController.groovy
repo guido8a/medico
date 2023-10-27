@@ -273,8 +273,6 @@ class PacienteController {
     }
 
     def buscarCitas () {
-        println "citas: $params"
-        def cita = Historial
         def listaCitas = [1: 'Fecha', 2: 'Motivo', 3: 'Diagnóstico']
         return  [listaCitas: listaCitas, pcnt: params.pcnt]
     }

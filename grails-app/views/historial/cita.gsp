@@ -59,13 +59,10 @@
         </a>
         <g:if test="${historial?.id}">
             <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Documentos del paciente">
-                <i class="fa fa-image"></i> Documentos
+                <i class="fa fa-image"></i> Exámenes
             </a>
-%{--            <a href="#" id="btnDiagnostico" class="btn btn-sm btn-info" title="Diagnóstico del paciente">--}%
-%{--                <i class="fa fa-clipboard"></i> Diagnóstico--}%
-%{--            </a>--}%
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Tratamiento del paciente">
-                <i class="fa fa-clipboard"></i> Tratamiento
+                <i class="fa fa-stethoscope"></i> Tratamiento
             </a>
         </g:if>
 
@@ -111,9 +108,9 @@
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Motivo</span>
+                        <span class="col-md-2 label label-primary text-info mediano">Motivo de la cita</span>
                         <span class="col-md-10">
-                            <g:textArea name="motivo" maxlength="255" style="resize: none; height: 60px;" class="form-control"  value="${historial?.motivo}"/>
+                            <g:textArea name="motivo" maxlength="255" required="" style="resize: none; height: 60px;" class="form-control required"  value="${historial?.motivo}"/>
                         </span>
                     </div>
                 </div>
