@@ -195,7 +195,7 @@
                         <span class="col-md-2 label label-primary text-info mediano" style="margin-top: 10px">Fecha de nacimiento</span>
                         <span class="grupo" >
                             <span class="col-md-2 arriba" >
-                                <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' class="form-control" value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
+                                <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required" value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
                         <span class="col-md-2 mediano"></span>
