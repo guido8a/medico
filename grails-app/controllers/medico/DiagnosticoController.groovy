@@ -23,7 +23,7 @@ class DiagnosticoController {
         def select = "select * from diag "
         def txwh = " where diag__id  is not null and " +
                 " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by diagcdgo ".toString()
+        sqlTx = "${select} ${txwh} order by diagcdgo limit 100".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 

@@ -120,7 +120,7 @@
 
                     <a href="#" id="btnFincaExcel" class="btn btn-info btn-ajax example_c item" texto="fnca">
                         <i class="fa fa-file-excel fa-4x text-success"></i>
-                        <br/> Datos de Fincas
+                        <br/> Datos de Pacientes
                     </a>
 %{--                    <a href="#" id="btnSocios" class="btn btn-info btn-ajax example_c item" texto="dire">--}%
 %{--                        <i class="fa fa-users fa-4x text-success"></i>--}%

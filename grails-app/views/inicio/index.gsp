@@ -194,7 +194,7 @@
         </div>
     </a>
 
-        <a href= "${createLink(controller:'canton', action: 'arbol')}" style="text-decoration: none">
+        <a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px">
@@ -208,7 +208,7 @@
             </div>
         </a>
 
-        <a href= "${createLink(controller:'inicio', action: 'parametros')}" style="text-decoration: none">
+        <a href= "${createLink(controller:'diagnostico', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
@@ -224,7 +224,7 @@
     </a>
 
 
-    <a href= "${createLink(controller:'descargas', action: 'aplicacion')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'persona', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 140px">
