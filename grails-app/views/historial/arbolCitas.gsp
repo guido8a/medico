@@ -43,7 +43,7 @@
             </div>
             <div class="btn-group">
                 <a href="#" class="btn btn-sm btn-success" id="btnIrPaciente" title="Volver a paciente">
-                    <i class="fa fa-user"></i> Paciente
+                    <i class="fa fa-user"></i> Ir a Paciente
                 </a>
             </div>
         </div>
