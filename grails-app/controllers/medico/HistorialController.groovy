@@ -217,6 +217,25 @@ class HistorialController {
         return tree
     }
 
+    def examenes_ajax(){
+        def historial = Historial.get(params.cita)
+        def examenes = ExamenComplementario.findAllByHistorial(historial)
+        return [historial: historial, examenes: examenes]
+    }
 
+    def formExamenes_ajax(){
+        def historial = Historial.get(params.cita)
+        def examen
+        if(params.id){
+            examen = ExamenComplementario.get(params.id)
+        }else{
+            examen = new ExamenComplementario()
+        }
+        return [examen: examen, historial: historial]
+    }
+
+    def saveExamen_ajax(){
+
+    }
 
 }

@@ -58,7 +58,7 @@
             <i class="fa fa-save"></i> Guardar
         </a>
         <g:if test="${historial?.id}">
-            <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Documentos del paciente">
+            <a href="#" id="btnCargarExamenes" class="btn btn-sm btn-info" title="Documentos del paciente">
                 <i class="fa fa-image"></i> Exámenes
             </a>
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Tratamiento del paciente">
@@ -314,6 +314,31 @@
         dp.modal("hide");
     }
 
+    $("#btnCargarExamenes").click(function () {
+        var cita = "${historial?.id}";
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'historial', action:'examenes_ajax')}",
+            data    : {
+                cita: cita
+            },
+            success : function (msg) {
+                bcpc = bootbox.dialog({
+                    id      : "dlgExamenes",
+                    title   : "Exámenes de la cita",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 </script>
 
 </body>
