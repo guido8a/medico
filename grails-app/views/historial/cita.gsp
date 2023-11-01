@@ -326,6 +326,7 @@
                 bcpc = bootbox.dialog({
                     id      : "dlgExamenes",
                     title   : "Exámenes de la cita",
+                    class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {

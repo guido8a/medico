@@ -6,6 +6,8 @@ import geografia.Parroquia
 import geografia.Provincia
 import seguridad.Paciente
 
+import javax.imageio.ImageIO
+
 class HistorialController {
 
     def dbConnectionService
@@ -235,7 +237,258 @@ class HistorialController {
     }
 
     def saveExamen_ajax(){
+        println("params save examen" + params)
+        def historial = Historial.get(params.historial)
+        def examen
+        if (params.id) {
+            examen = ExamenComplementario.get(params.id)
+        }//es edit
+        else {
+            examen = new ExamenComplementario()
+        } //es create
 
+        if(params.fechaExamen){
+            params.fecha = new Date().parse("dd-MM-yyyy", params.fechaExamen)
+        }
+
+        examen.properties = params
+
+//        /***************** file upload ************************************************/
+//
+//
+//
+//            def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/"
+//            new File(path).mkdirs()
+//            def f = request.getFile('file')  //archivo = name del input type file
+//
+//        if(!f && examen?.path){
+//
+//        }else{
+//            if (f && !f.empty) {
+//                def fileName = f.getOriginalFilename() //nombre original del archivo
+//
+//                def accepted = ["jpg", 'png', "jpeg", "pdf"]
+//                def ext = ''
+//
+//                def parts = fileName.split("\\.")
+//                fileName = ""
+//                parts.eachWithIndex { obj, i ->
+//                    if (i < parts.size() - 1) {
+//                        fileName += obj
+//                    } else {
+//                        ext = obj
+//                    }
+//                }
+//
+//                ext = ext.toLowerCase()
+//                if (!accepted.contains(ext)) {
+//                    render "err_El archivo tiene que ser de tipo jpg, png, jpeg o pdf"
+//                    return
+//                }
+//
+//                fileName = fileName.tr(/áéíóúñÑÜüÁÉÍÓÚàèìòùÀÈÌÒÙÇç .!¡¿?&#°"'/, "aeiounNUuAEIOUaeiouAEIOUCc_")
+//                def archivo = fileName
+//                fileName = fileName + "." + ext
+//
+//                def i = 0
+//                def pathFile = path + File.separatorChar + fileName
+//                def src = new File(pathFile)
+//
+//                while (src.exists()) { // verifica si existe un archivo con el mismo nombre
+//                    fileName = archivo + "_" + i + "." + ext
+//                    pathFile = path + File.separatorChar + fileName
+//                    src = new File(pathFile)
+//                    i++
+//                }
+//
+//                f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
+//                examen.path = fileName
+//            }
+////            else{
+////                render "err_Error al guardar el documento. No se ha cargado ningún archivo!"
+////                return
+////            }
+////        }
+//
+//            /***************** file upload ************************************************/
+//
+
+
+        if (!examen.save(flush: true)) {
+            println("Error al guardar el examen" +  examen.errors)
+            render "no_Error al guardar el examen"
+        }else{
+            render "ok_Examen guardado correctamente"
+        }
+    }
+
+    def formDocExamenes_ajax(){
+        def examen = ExamenComplementario.get(params.id)
+        return[examen: examen]
+    }
+
+    def uploadFileExamen() {
+//        println "upload "+params
+
+        def acceptedExt = ["jpg", "png", "jpeg", "pdf"]
+
+        def examen = ExamenComplementario.get(params.id)
+        def historial = examen.historial
+        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/"
+        new File(path).mkdirs()
+
+        def f = request.getFile('file')  //archivo = name del input type file
+        if (f && !f.empty) {
+            def fileName = f.getOriginalFilename() //nombre original del archivo
+            def ext
+            def parts = fileName.split("\\.")
+            fileName = ""
+            parts.eachWithIndex { obj, i ->
+                if (i < parts.size() - 1) {
+                    fileName += obj
+                } else {
+                    ext = obj
+                }
+            }
+            if (acceptedExt.contains(ext.toLowerCase())) {
+                fileName = fileName + "." + ext
+                def pathFile = path + fileName
+                def file = new File(pathFile)
+                println "subiendo archivo: $fileName"
+
+                f.transferTo(file)
+
+                def old = examen.path
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                examen.path = fileName
+                examen.save(flush: true)
+
+            } else {
+                render "no_Seleccione un archivo JPG, JPEG, PNG, PDF"
+                return
+            }
+        } else {
+            render "no_Seleccione un archivo JPG, JPEG, PNG, PDF"
+            return
+        }
+
+        render "ok_Subido correctamente"
+    }
+
+    def tablaExamenes_ajax(){
+        def historial = Historial.get(params.id)
+        def examenes = ExamenComplementario.findAllByHistorial(historial)
+        return [historial: historial, examenes: examenes]
+    }
+
+    def borrarExamen_ajax(){
+        def examen = ExamenComplementario.get(params.id)
+        def historial = examen.historial
+
+        if(examen){
+            try{
+
+                def old = examen.path
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                examen.delete(flush:true)
+                render "ok_Examen borrado correctamente"
+
+            }catch(e){
+                println("error al borrar el examen " + examen.errors)
+                render "no_Error al borrar el examen"
+            }
+        }else{
+            render "no_No se encontró el examen"
+        }
+    }
+
+    def borrarDocExamen_ajax(){
+        def examen = ExamenComplementario.get(params.id)
+        def historial = examen.historial
+
+        if(examen){
+            try{
+
+                def old = examen.path
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                examen.path = null
+                examen.save(flush:true)
+                render "ok_Documento borrado correctamente"
+
+            }catch(e){
+                println("error al borrar el examen " + examen.errors)
+                render "no_Error al borrar el documento"
+            }
+        }else{
+            render "no_No se encontró el examen"
+        }
+    }
+
+    def downloadFile() {
+        def examen = ExamenComplementario.get(params.id)
+        def historial = examen.historial
+        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + examen.path
+
+        def file = new File(path)
+        if (file.exists()) {
+            def b = file.getBytes()
+
+            def ext = examen.path.split("\\.")
+            ext = ext[ext.size() - 1]
+
+            response.setContentType(ext == 'pdf' ? "application/pdf" : "image/" + ext)
+            response.setHeader("Content-disposition", "attachment; filename=" + examen.path)
+            response.setContentLength(b.length)
+            response.getOutputStream().write(b)
+        } else {
+            flash.clase = "alert-error"
+            flash.message = "No se encontró el archivo " + " '" + examen.path + "'"
+            redirect(action: "errores")
+        }
+    }
+
+    def getImage() {
+        def examen = ExamenComplementario.get(params.id)
+        def nombreArchivo = examen?.path?.split("\\.")[0]
+        def extensionArchivo = examen?.path?.split("\\.")[1]
+
+        byte[] imageInBytes = im(nombreArchivo, extensionArchivo , examen?.id)
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/${extensionArchivo}" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] im(nombre,ext,examenId) {
+        def examen = ExamenComplementario.get(examenId)
+        def historial = examen.historial
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+//        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${pcnt?.empresa?.id}/paciente/pac_" + pcnt?.id + "/" + nombre + "." + ext)), ext.toString(), baos)
+        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + nombre + "." + ext)), ext.toString(), baos)
+        baos.toByteArray()
     }
 
 }

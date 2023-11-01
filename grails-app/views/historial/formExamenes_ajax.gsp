@@ -5,6 +5,17 @@
         <g:hiddenField name="id" value="${examen?.id}"/>
         <g:hiddenField name="historial" value="${historial.id}"/>
 
+        <div class="form-group ${hasErrors(bean: examen, field: 'fecha', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-2 control-label text-info">
+                    Fecha
+                </label>
+                <span class="col-md-4">
+                    <input aria-label="" name="fechaExamen" id='fechaExamen' type='text' class="form-control" value="${examen?.fecha?.format("dd-MM-yyyy")}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'examen', 'error')} ">
             <span class="grupo">
@@ -31,29 +42,39 @@
             </span>
         </div>
 
-        <div class="form-group ${hasErrors(bean: examen, field: 'path', 'error')} ">
-            <span class="grupo">
-                <label class="col-md-2 control-label text-info">
-                    Archivo
-                </label>
-                <span class="col-md-8">
-                    <g:if test="${examen?.path}">
-                        <span class="text-success">
-                            ${examen?.path ? examen?.path : 'No se encuentra cargado ningún archivo' }
-                        </span>
-                    </g:if>
-                    <g:else>
-                        <input type="file" id="archivo" name="archivo" class='required'/>
-                    </g:else>
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-            </span>
-        </div>
+%{--        <div class="form-group ${hasErrors(bean: examen, field: 'path', 'error')} ">--}%
+%{--            <span class="grupo">--}%
+%{--                <label class="col-md-2 control-label text-info">--}%
+%{--                    Archivo--}%
+%{--                </label>--}%
+%{--                <span class="col-md-8">--}%
+%{--                    <g:if test="${examen?.path}">--}%
+%{--                        <span class="text-success">--}%
+%{--                            ${examen?.path ? examen?.path : 'No se encuentra cargado ningún archivo' }--}%
+%{--                        </span>--}%
+%{--                    </g:if>--}%
+%{--                    <g:else>--}%
+%{--                        <input type="file" id="file" name="file" multiple accept=".jpeg, .jpg, .png, pdf"/>--}%
+%{--                    </g:else>--}%
+%{--                    <p class="help-block ui-helper-hidden"></p>--}%
+%{--                </span>--}%
+%{--            </span>--}%
+%{--        </div>--}%
 
     </g:uploadForm>
 </div>
 
 <script type="text/javascript">
+
+    $('#fechaExamen').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY',
+        sideBySide: true,
+        icons: {
+        }
+    });
+
+
     $("#frmExamen").validate({
         errorClass     : "help-block",
         errorPlacement : function (error, element) {
