@@ -59,10 +59,10 @@
         </a>
         <g:if test="${historial?.id}">
             <a href="#" id="btnCargarExamenes" class="btn btn-sm btn-info" title="Documentos del paciente">
-                <i class="fa fa-image"></i> Exámenes
+                <i class="fa fa-stethoscope"></i> Exámenes
             </a>
-            <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Tratamiento del paciente">
-                <i class="fa fa-stethoscope"></i> Tratamiento
+            <a href="#" id="btnTratamiento" class="btn btn-sm btn-info" title="Tratamiento del paciente">
+                <i class="fa fa-medkit"></i> Tratamiento
             </a>
         </g:if>
 
@@ -340,6 +340,35 @@
             } //success
         }); //ajax
     });
+
+    $("#btnTratamiento").click(function () {
+        var cita = "${historial?.id}";
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'tratamiento', action:'tratamiento_ajax')}",
+            data    : {
+                cita: cita
+            },
+            success : function (msg) {
+                bcpc = bootbox.dialog({
+                    id      : "dlgTratamiento",
+                    title   : "Tratamiento de la cita",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+
 </script>
 
 </body>

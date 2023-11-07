@@ -4,25 +4,25 @@
             <span class="grupo">
                 <span class="col-md-4">
                     <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPorDiagnostico" class="buscarPorDiagnostico col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código']}" optionKey="key"
+                    <g:select name="buscarPorMedicina" class="buscarPorMedicina col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código']}" optionKey="key"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-5">
                     <label class="control-label text-info">Criterio</label>
-                    <g:textField name="criterioDiagnostico" id="criterioDiagnostico" class="form-control"/>
+                    <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
                 </span>
             </span>
             <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-info" id="btnBuscarListaDiagnostico"><i class="fa fa-search"></i></button>
+                <button class="btn btn-info" id="btnBuscarListaMedicina"><i class="fa fa-search"></i></button>
             </div>
             <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-warning" id="btnLimpiarDiagnostico" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+                <button class="btn btn-warning" id="btnLimpiarListaMedicina" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
             </div>
         </div>
     </fieldset>
 
     <fieldset class="borde" style="border-radius: 4px">
-        <div id="divTablaDiagnosticos" >
+        <div id="divTablaMedicina" >
         </div>
     </fieldset>
 
@@ -35,35 +35,34 @@
 
 <script type="text/javascript">
 
-    cargarDiagnosticos();
+    cargarMedicinas();
 
-    $("#btnBuscarListaDiagnostico").click(function () {
-        cargarDiagnosticos();
+    $("#btnBuscarListaMedicina").click(function () {
+        cargarMedicinas();
     });
 
-    $("#btnLimpiarDiagnostico").click(function () {
-        $("#criterioDiagnostico").val('');
-        $("#buscarPorDiagnostico").val(1);
-        cargarDiagnosticos();
+    $("#btnLimpiarListaMedicina").click(function () {
+        $("#criterioMedicina").val('');
+        $("#buscarPorMedicina").val(1);
+        cargarMedicinas();
     });
 
-    function cargarDiagnosticos(){
+    function cargarMedicinas(){
         var e = cargarLoader("Cargando...");
-        var buscarPor = $("#buscarPorDiagnostico option:selected").val();
-        var criterio = $("#criterioDiagnostico").val();
+        var buscarPor = $("#buscarPorMedicina option:selected").val();
+        var criterio = $("#criterioMedicina").val();
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'historial', action: 'tablaBuscarDiagnostico_ajax')}',
+            url: '${createLink(controller: 'tratamiento', action: 'tablaMedicina_ajax')}',
             data:{
                 buscarPor: buscarPor,
                 criterio: criterio
             },
             success: function (msg){
                 e.modal("hide");
-                $("#divTablaDiagnosticos").html(msg)
+                $("#divTablaMedicina").html(msg)
             }
         })
     }
-
 
 </script>
