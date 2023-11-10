@@ -64,6 +64,9 @@
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">
                 <i class="fa fa-clipboard"></i> Antecedentes
             </a>
+            <a href="#" id="btnExFisico" class="btn btn-sm btn-info" title="Exámenes físicos del paciente">
+                <i class="fa fa-user"></i> Examen Físico
+            </a>
             <a href="#" id="btnHistoria"
                class="btn btn-sm btn-info" title="Historial del paciente">
                 <i class="fas fa-book-reader"></i> Historia
@@ -80,9 +83,9 @@
             <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">
                 <i class="fa fa-bullseye"></i> Estado
             </a>
-%{--            <a href="#" id="btnBorrarPaciente" class="btn btn-sm btn-info"  title="Borrar Paciente">--}%
-%{--                <i class="fa fa-trash"></i> Eliminar--}%
-%{--            </a>--}%
+        %{--            <a href="#" id="btnBorrarPaciente" class="btn btn-sm btn-info"  title="Borrar Paciente">--}%
+        %{--                <i class="fa fa-trash"></i> Eliminar--}%
+        %{--            </a>--}%
         </g:if>
 
     </div>
@@ -518,7 +521,7 @@
     });
 
     $("#btnCitas").click(function () {
-        var pcnt = "${paciente?.id}"
+        var pcnt = "${paciente?.id}";
         $.ajax({
             type    : "POST",
             url: "${createLink(controller: 'paciente', action:'buscarCitas')}",
@@ -527,6 +530,34 @@
                 bcpc = bootbox.dialog({
                     id      : "dlgBuscarCPC",
                     title   : "Buscar Cita",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+
+    $("#btnExFisico").click(function () {
+        var id = "${paciente?.id}";
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'examenFisico', action:'list')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                bcpc = bootbox.dialog({
+                    id      : "dlgExamenesFisicos",
+                    title   : "Exámenes Físicos",
+                    // class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {
