@@ -64,9 +64,6 @@
             <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">
                 <i class="fa fa-clipboard"></i> Antecedentes
             </a>
-            <a href="#" id="btnExFisico" class="btn btn-sm btn-info" title="Exámenes físicos del paciente">
-                <i class="fa fa-user"></i> Examen Físico
-            </a>
             <a href="#" id="btnHistoria"
                class="btn btn-sm btn-info" title="Historial del paciente">
                 <i class="fas fa-book-reader"></i> Historia

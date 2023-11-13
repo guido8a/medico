@@ -59,7 +59,10 @@
         </a>
         <g:if test="${historial?.id}">
             <a href="#" id="btnCargarExamenes" class="btn btn-sm btn-info" title="Documentos del paciente">
-                <i class="fa fa-stethoscope"></i> Exámenes
+                <i class="fa fa-flask"></i> Exámenes de laboratorio
+            </a>
+            <a href="#" id="btnExFisico" class="btn btn-sm btn-info" title="Exámenes físicos del paciente">
+                <i class="fa fa-stethoscope"></i> Examen Físico
             </a>
             <a href="#" id="btnTratamiento" class="btn btn-sm btn-info" title="Tratamiento del paciente">
                 <i class="fa fa-medkit"></i> Tratamiento
@@ -367,6 +370,77 @@
             } //success
         }); //ajax
     });
+
+    $("#btnExFisico").click(function () {
+        createEditRowExamenFisico();
+    });
+
+    function createEditRowExamenFisico(id) {
+        var title = id ? "Editar " : "Crear ";
+        var data = {
+            id: id,
+            historial: '${historial?.id}'
+        };
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'examenFisico',  action:'form_ajax')}",
+            data    : data,
+            success : function (msg) {
+                cf = bootbox.dialog({
+                    id      : "dlgCreateEditExamenFisico",
+                    title   : title + " Examen Físico",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormExamenFisico();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormExamenFisico() {
+        var $form = $("#frmExamenFisico");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                    }else{
+                        if(parts[0] === 'err'){
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }else{
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
 
 </script>

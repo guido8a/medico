@@ -2,7 +2,8 @@
 <div class="span" role="main">
     <g:uploadForm class="form-horizontal" method="post" name="frmExamenFisico" action="saveExamenFisico_ajax">
         <g:hiddenField name="id" value="${examen?.id}"/>
-        <g:hiddenField name="paciente" value="${paciente.id}"/>
+%{--        <g:hiddenField name="paciente" value="${paciente.id}"/>--}%
+        <g:hiddenField name="historial" value="${historial.id}"/>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'fecha', 'error')} required">
             <span class="grupo">

@@ -4,7 +4,7 @@ import seguridad.Paciente
 
 class ExamenFisico {
 
-    Paciente paciente
+    Historial historial
     Date fecha
     String cabeza
     String cuello
@@ -34,7 +34,7 @@ class ExamenFisico {
         id generator: 'identity'
         version false
         columns {
-            paciente column: 'pcnt__id'
+            historial column: 'hscl__id'
             fecha column: 'exfsfcha'
             cabeza column: 'exfscbza'
             cuello column: 'exfscllo'
@@ -60,7 +60,7 @@ class ExamenFisico {
     }
 
     static constraints = {
-        paciente(blank: false, nullable: false)
+        historial(blank: false, nullable: false)
         fecha(blank: false, nullable: false)
         cabeza(size: 0..255, blank: true, nullable: true)
         cuello(size: 0..255, blank: true, nullable: true)
