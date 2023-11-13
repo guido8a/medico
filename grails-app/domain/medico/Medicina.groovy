@@ -39,7 +39,7 @@ class Medicina {
         forma(size:0..255,blank: true, nullable: true)
         estado(size:0..1,blank: true, nullable: true)
         observaciones(size:0..255,blank: true, nullable: true)
-        concentracion(size:0..15,blank: true, nullable: true)
+        concentracion(size:0..255,blank: true, nullable: true)
 
     }
 }

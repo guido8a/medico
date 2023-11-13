@@ -180,14 +180,14 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'sistole', 'error')} ">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
-                    Sistole
+                    Sístole
                 </label>
                 <span class="col-md-2">
                     <g:textField name="sistole" maxlength="4" class="form-control" value="${examen?.sistole ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Diastole
+                    Diástole
                 </label>
                 <span class="col-md-2">
                     <g:textField name="diastole" maxlength="4" class="form-control" value="${examen?.diastole ?: 0}" />
