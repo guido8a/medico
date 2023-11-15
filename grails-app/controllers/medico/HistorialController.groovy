@@ -196,18 +196,19 @@ class HistorialController {
                             tree += "</li>"
                         }
                         break
-/*                    case "cntn":
-                        hijos = Parroquia.findAllByCanton(Canton.get(id), [sort: params.sort])
+                    case "cntn":
+//                        hijos = Parroquia.findAllByCanton(Canton.get(id), [sort: params.sort])
+                        hijos = ExamenFisico.findByHistorial(Historial.get(id))
                         liId = "parr_"
                         ico = ", \"icon\":\"fa fa-registered text-danger\""
                         hijos.each { h ->
                             clase = ""
                             tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-jstree='{\"type\":\"${"parroquia"}\" ${ico}}'>"
-                            tree += "<a href='#' class='label_arbol'>" + h.nombre + "</a>"
+                            tree += "<a href='#' class='label_arbol'>" + "Examen Físico: " + h.fecha.format("dd-MM-yyyy") + "</a>"
                             tree += "</li>"
                         }
                         break
-*/
+
                 }
             }
 
