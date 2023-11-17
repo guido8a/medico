@@ -39,7 +39,11 @@
 
     <div>
         <div class="col-md-12">
-            <span style="margin-left: 30px">Criterio</span>
+            <a href="${createLink(controller: 'inicio', action: 'index')}" id="regresar"
+               class="btn btn-info sobrepuesto" title="Volver a la pantalla de incio">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </a>
+            <span style="margin-left: 30px">Buscar por la palabra</span>
             <div class="btn-group">
                 <input id="buscar" type="search" class="form-control" style="width: 200px">
             </div>

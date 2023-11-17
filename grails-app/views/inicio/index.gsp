@@ -256,6 +256,22 @@
         </a>
 
 
+        <a href= "${createLink(controller:'buscarBase', action: 'busquedaBase')}" style="text-decoration: none">
+            <div class="col-lg-12 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/reportes.png" title="Reportes"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Base de conocimiento</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Registro de casos y soluciones adecuadas al caso<br>
+                            Consulta por temas</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+
 
     </div>
 <script type="text/javascript">
