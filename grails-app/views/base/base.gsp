@@ -1,81 +1,281 @@
-<%@ page import="seguridad.Persona" contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Base de Conocimiento</title>
+    <title>Base de conocimiento - Artículo</title>
+
+    <ckeditor:resources/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/vendor/jquery.ui.widget.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/imgResize/load-image.min.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/imgResize/canvas-to-blob.min.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/jquery.iframe-transport.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/jquery.fileupload.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/jquery.fileupload-process.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/js/jquery.fileupload-image.js"/>
+    <asset:javascript src="/jQuery-File-Upload-9.5.6/css/jquery.fileupload.css"/>
 
     <style type="text/css">
-
-    .alinear {
-        text-align: center !important;
+    .mediano {
+        margin-top: 5px;
+        padding-top: 9px;
+        height: 30px;
+        font-size: inherit;
+        /*font-size: medium;*/
+        text-align: right;
     }
-
-    #buscar {
-        width: 400px;
-        border-color: #0c6cc2;
-    }
-
-    #limpiaBuscar {
+    .sobrepuesto {
         position: absolute;
-        right: 5px;
-        top: 0;
-        bottom: 0;
-        height: 14px;
-        margin: auto;
+        top: 1px;
         font-size: 14px;
-        cursor: pointer;
-        color: #ccc;
+    }
+
+    .nav-tabs > li > a{
+        border: medium none;
+
+    }
+    .nav-tabs > li > a:hover{
+        background-color: #475563 !important;
+        border: medium none;
+        border-radius: 0;
+        color:#fff;
+    }
+
+    .progress-bar-svt {
+        border     : 1px solid #e5e5e5;
+        width      : 100%;
+        height     : 25px;
+        background : #F5F5F5;
+        padding    : 0;
+        margin-top : 10px;
+    }
+
+    .progress-svt {
+        width            : 0;
+        height           : 23px;
+        padding-top      : 5px;
+        padding-bottom   : 2px;
+        background-color : #428BCA;
+        text-align       : center;
+        line-height      : 100%;
+        font-size        : 14px;
+        font-weight      : bold;
+
+    }
+
+    .background-image {
+        background-image  : -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 10%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+        background-image  : linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+        -webkit-animation : progress-bar-stripes-svt 2s linear infinite;
+        background-size   : 60px 60px;
+        animation         : progress-bar-stripes-svt 2s linear infinite;
+    }
+
+    @-webkit-keyframes progress-bar-stripes-svt {
+        /*el x del from tiene que ser multiplo del x del background size...... mientas mas grande mas rapida es la animacion*/
+        from {
+            background-position : 120px 0;
+        }
+        to {
+            background-position : 0 0;
+        }
+    }
+
+    @keyframes progress-bar-stripes-svt {
+        from {
+            background-position : 120px 0;
+        }
+        to {
+            background-position : 0 0;
+        }
     }
     </style>
 
 </head>
 
 <body>
-<h3 style="text-align: center; margin-top: 0px">Base de Conocimiento</h3>
-<div style="margin-top: 0px; min-height: 60px" class="vertical-container">
-    <p class="css-vertical-text">Buscar</p>
 
-    <div class="linea"></div>
+<div class="panel panel-primary col-md-12">
 
-    <div>
-        <div class="col-md-12">
-            <span style="margin-left: 30px">Criterio</span>
-            <div class="btn-group">
-                <input id="buscar" type="search" class="form-control" style="width: 250px">
+    <div class="panel-heading" style="padding: 3px; margin-top: 2px">
+
+        <a href="${createLink(controller: 'buscarBase', action: 'busquedaBase')}" id="btnConsultarr"
+           class="btn btn-sm btn-info" title="Consultar artículo">
+            <i class="fa fa-chevron-circle-left"></i> Consultar
+        </a>
+        <a href="#" id="btnGuardar" class="btn btn-sm btn-success" title="Guardar información">
+            <i class="fa fa-save"></i> Guardar
+        </a>
+        <a href="#" id="btnBase" class="btn btn-sm btn-info" title="Crear nuevo registro">
+            <i class="fa fa-file"></i> Nuevo registro
+        </a>
+        <a href="#" id="btnVer" class="btn btn-sm btn-info" title="Ver registro">
+            <i class="fa fa-search"></i> Ver
+        </a>
+        <span style="font-size: small; margin-left: 40px;" title="${base?.problema ?: ''}">
+            <i class="fa fa-pen"></i> Artículo:
+        ${base?.problema ? base?.problema?.size() < 65 ? base?.problema : base?.problema[0..64]+"..." : ''}
+        </span>
+
+    </div>
+
+
+    <div class="panel-group" style="height: 730px">
+        <div class="col-md-12" style="margin-top: 10px">
+            <ul class="nav nav-pills">
+            </ul>
+            <div style="height: 3px; background-color: #CEDDE6"></div>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+
+                    <g:form name="frmProblema" role="form" action="guardarProblema_ajax" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Tema</span>
+                                <div class="col-md-4">
+                                    <g:select name="tema" id="temaId" from="${medico.Tema.list()}" optionKey="id"
+                                              value="${base?.tema?.id}" optionValue="nombre" class="form-control"
+                                              style="color: #3d658a"/>
+                                </div>
+                                <label for="fechaInicio" class="col-md-1 control-label">
+                                    Fecha Inicio
+                                </label>
+
+                                <div class="col-md-2">
+                                    <input name="fechaInicio" id='fechaInicio' type='text' class="form-control required"
+                                           value="${''}"/>
+                                </div>
+                                <label for="fechaFin" class="col-md-1 control-label">
+                                    Fecha Fin
+                                </label>
+
+                                <div class="col-md-2">
+                                    <input name="fechaFin" id='fechaFin' type='text' class="form-control required"
+                                           value="${''}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Problema</span>
+                                <div class="col-md-10">
+                                    <span class="grupo">
+                                        <g:textArea name="problema" id="prbl" class="form-control required" maxlength="255"
+                                                    style="height: 60px; resize: none" value="${base?.problema}"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Palabras Clave</span>
+                                <div>
+                                    <div class="col-md-10">
+                                        <span class="grupo">
+                                            <g:textField name="clave" id="clve" class="form-control required"
+                                                         maxlength="127"  value="${base?.clave}" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Solución</span>
+                                <div class="col-md-10">
+                                    <span class="grupo">
+                                        <g:textArea name="solucion" id="slcn" class="form-control required" maxlength="1023" style="height: 80px; resize: none" value="${base?.solucion}"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Algoritmo / Forma de solución</span>
+                                <div class="col-md-10">
+                                    %{--<ckeditor:editor name="algoritmo" height="240px" width="100%" toolbar="Basico2">${base?.algoritmo}</ckeditor:editor>--}%
+                                    <textArea name="algoritmo" id="algoritmo" value="" />${base?.algoritmo}</textArea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Referencias</span>
+                                <div class="col-md-10">
+                                    <g:textField name="referencia" id="refe" class="form-control" maxlength="255" value="${base?.referencia}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 20px">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Observaciones</span>
+                                <div class="col-md-10">
+                                    <g:textField name="observaciones" id="obsr" class="form-control" maxlength="255" value="${base?.observacion}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </g:form>
+                </div>
+                %{--//tab imágenes--}%
+                <div id="imagenes" class="tab-pane fade">
+
+                    <g:if test="${base?.id}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label text-info" style="font-size: 14px">
+                                    Cargue imágenes referentes al tema: <strong>'${base?.problema}"</strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-6">
+                                <input type="file" name="file" id="file" title="Buscar Archivo" class="file btn btn-success" multiple accept=".jpeg, .jpg, .png">
+                            </div>
+                        </div>
+                    </g:if>
+
+                    <div style="margin-top:15px;margin-bottom: 20px" class="vertical-container" id="files">
+                        <p class="css-vertical-text" id="titulo-arch" style="display: none">Imagen</p>
+
+                        <div class="linea" id="linea-arch" style="display: none"></div>
+                    </div>
+
+
+%{--                    <div id="divCarrusel"></div>--}%
+                </div>
+
+                <div id="archivos" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label text-info" style="font-size: 14px">
+                                Archivos referentes al tema: <strong>'${base?.problema}"</strong>
+                            </label>
+                        </div>
+                    </div>
+                    <g:if test="${base?.id}">
+                        <g:uploadForm controller="base" action="subirArchivo">
+                            <g:hiddenField name="idBase" value="${base?.id}"/>
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-6">
+                                    <input type="file" name="archivo" id="archivo" title="Buscar pdf" class="file btn btn-info" multiple accept=".pdf, .xls">
+                                </div>
+                                <input type="submit" class="btn btn-success" value="Subir Archivo"/>
+                            </div>
+                        </g:uploadForm>
+                    </g:if>
+
+                    <div id="tablaArchivos" style="margin-top: 40px"></div>
+
+                </div>
             </div>
-            <a href="#" name="busqueda" id="btnBuscar" class="btn btn-info btnBusqueda btn-ajax"><i
-                    class="fas fa-search"></i> Buscar</a>
-            <a href="#" id="actualizarPlbr" class="btn btn-success btnActualizar"><i
-                    class="fa fa-redo"></i> Actualiza Buscador</a>
-            <a href="#" id="btnBase" class="btn btn-info sobrepuesto"
-               title="Crear nuevo registro">
-                <i class="fa fa-file"></i> Nueva entrada
-            </a>
         </div>
     </div>
-</div>
-
-<div style="margin-top: 30px; min-height: 450px" class="vertical-container">
-    <p class="css-vertical-text">Resultado - Buscar en la Base de Conocimiento</p>
-
-    <div class="linea"></div>
-    <table class="table table-bordered table-hover table-condensed" style="width: 1070px;background-color: #a39e9e">
-        <thead>
-        <tr>
-            <th class="alinear" style="width: 120px">Tema</th>
-            <th class="alinear" style="width: 240px">Palabras clave</th>
-            <th class="alinear" style="width: 240px">Problema</th>
-            <th class="alinear" style="width: 460px">Solución</th>
-        </tr>
-        </thead>
-    </table>
-
-    <div id="bandeja">
-    </div>
-</div>
-
-<div style="width: 100%"><strong>Nota</strong>: Si existen muchos registros que coinciden con el criterio de búsqueda, se retorna como máximo 20 <span
-        class="text-info" style="margin-left: 40px">Se ordena por grado de relevancia</span>
 </div>
 
 <div class="modal fade " id="dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -83,7 +283,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                Problema y Solución..
+                Problema y Solución
             </div>
 
             <div class="modal-body" id="dialog-body" style="padding: 15px">
@@ -97,123 +297,313 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<div id="cargando" class="text-center hidden">
-    <asset:image src="apli/spinner32.gif" style="padding: 40px;"/>
-    <div class="loading-footer">Espere por favor</div>
-</div>
-
-<script>
-    $(function () {
-        $("#limpiaBuscar").click(function () {
-            $("#buscar").val('');
-        });
-    });
-</script>
 
 <script type="text/javascript">
 
-
-    $("#btnBase").click(function () {
-        location.href="${createLink(controller: 'base', action: 'form_ajax')}"
-    });
-
-    $("#btnBuscar").click(function () {
-
-        $("#bandeja").append($("#cargando").removeClass('hidden'));
-        var buscar = $("#buscar").val();
-        var datos = "buscar=" + buscar;
-
-        $.ajax({
-            type: "POST",
-            url: "${g.createLink(controller: 'base', action: 'tablaBusquedaBase')}",
-            data: datos,
-            success: function (msg) {
-                $("#bandeja").html(msg);
-            },
-            error: function (msg) {
-                $("#bandeja").html("Ha ocurrido un error");
-            }
-        });
-
-    });
-
-    $("input").keyup(function (ev) {
-        if (ev.keyCode == 13) {
-            $(".btnBusqueda").click();
+    $('#fechaInicio, #fechaFin').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY',
+        sideBySide: true,
+        showClose: true,
+        icons: {
         }
     });
 
-    function createContextMenu(node) {
-        var $tr = $(node);
+    cargarArchivos('${base?.id}', '${lista}');
 
-        var items = {
-            header: {
-                label: "Acciones",
-                header: true
+    function cargarArchivos (id, lista) {
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'base', action: 'tablaArchivos')}',
+            data:{
+                id: id,
+                lista: lista
+            },
+            success: function (msg) {
+                $("#tablaArchivos").html(msg)
             }
-        };
-
-        var id = $tr.data("id");
-
-        var ver = {
-            label: 'Ver',
-            id: 'ver',
-            icon: "fa fa-search",
-            action: function (e) {
-                $("#dialog-body").html(spinner);
-                $.ajax({
-                    type: 'POST',
-                    url: '${createLink(controller: 'base', action: 'show_ajax')}',
-                    data: {
-                        id: id
-                    },
-                    success: function (msg) {
-                        $("#dialog-body").html(msg)
-                    }
-                });
-                $("#dialog").modal("show");
-            }
-        };
-
-        var aprobar = {
-            label: "Aprobar artículo",
-            icon: "fa fa-cogs",
-            action: function () {
-                location.href = '${createLink(controller: "base", action: "aprobar")}?id=' + id;
-            }
-        };
-
-        var anexos = {
-            label: 'Anexos: Imágenes y videos',
-            icon: "fa fa-paperclip",
-            action: function (e) {
-                location.href = '${createLink(controller: 'imagen', action: 'verAnexos')}/' + id
-            }
-        };
-
-        var editar = {
-            label: 'Editar',
-            icon: "fa fa-pen",
-            action: function (e) {
-                location.href = '${createLink(controller: 'base', action: 'base')}/' + id
-            }
-        };
-
-        items.ver = ver;
-        items.editar = editar;
-
-        return items
+        });
     }
 
-    $(".btnBorrar").click(function () {
-        $("#memorando").val("");
-        $("#asunto").val("");
-        $("#fechaRecepcion_input").val('');
-        $("#fechaBusqueda_input").val('')
+    var okContents = {
+        'image/png'  : "png",
+        'image/jpeg' : "jpeg",
+        'image/jpg'  : "jpg"
+    };
+
+    CKEDITOR.replace( 'algoritmo', {
+        height: "160px",
+        customConfig: 'config.js',
+        filebrowserBrowseUrl    : '${createLink(controller: "baseImagenes", action: "browser")}',
+        filebrowserUploadUrl    : '${createLink(controller: "baseImagenes", action: "uploader")}',
+        toolbar                 : [
+            ['FontSize', 'Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            ['Bold', 'Italic', 'Underline','Subscript', 'Superscript'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']
+        ]
     });
 
-    $("#actualizarPlbr").click(function () {
-        location.href = '${createLink(controller: 'buscarBase', action: 'actualizarPlbr')}'
+    CKEDITOR.on('instanceReady', function (ev) {
+        ev.editor.document.on('drop', function (ev) {
+            ev.data.preventDefault(true);
+        });
+    });
+
+
+    $("#btnBase").click(function () {
+        location.href="${createLink(controller: 'base', action: 'base')}"
+    });
+
+    $("#btnGuardar").click(function () {
+
+        var $form = $("#frmProblema");
+        var texto = CKEDITOR.instances.algoritmo.getData();
+        var base_id = '${base?.id}';
+
+
+        if($("#temaId").val()){
+            if($form.valid()){
+                var dialog = cargarLoader("Guardando...");
+                $.ajax({
+                    type: 'POST',
+                    url: "${createLink(controller: 'base', action: 'guardarProblema_ajax')}",
+                    data:  {
+                        id: base_id,
+                        algoritmo: texto,
+                        tema: $("#temaId").val(),
+                        problema: $("#prbl").val(),
+                        clave: $("#clve").val(),
+                        solucion: $("#slcn").val(),
+                        referencia: $("#refe").val(),
+                        observacion: $("#obsr").val()
+                    },
+                    success: function (msg) {
+                        var parte = msg.split("_");
+                        if(parte[0] === 'ok'){
+                            log("Problema guardado correctamente","success");
+                            location.href = "${createLink(controller: 'base', action: 'base')}" + "/" + parte[1];
+                            dialog.modal('hide');
+                        }else{
+                            dialog.modal('hide');
+                            log("Error al guardar el problema","error")
+                        }
+                    }
+                });
+            }
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle fa-3x text-warning"></i>' + " No existen cargados" +  '<strong>' + " temas " + '</strong>' + "para crear una entrada en la base de conocimiento")
+        }
+    });
+
+    function reCargar(id) {
+        var url = "${createLink(controller: 'base', action: 'base')}" + "/" + id;
+        location.href = url
+    }
+
+    var validator = $("#frmProblema").validate({
+        errorClass     : "help-block",
+        errorPlacement : function (error, element) {
+            if (element.parent().hasClass("input-group")) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+            element.parents(".grupo").addClass('has-error');
+        },
+        success        : function (label) {
+            label.parents(".grupo").removeClass('has-error');
+        },
+        rules         : {
+            problema : {
+                remote: {
+                    url : "${createLink(action: 'validarProblema_ajax')}",
+                    type: "post",
+                    data: {
+                        id: $("#pr").val()
+                    }
+                }
+            },
+            clave: {
+                remote: {
+                    url : "${createLink(action: 'validarClave_ajax')}",
+                    type: "post",
+                    data: {
+                        id: $("#cl").val()
+                    }
+                }
+            }
+        },
+        messages      : {
+            problema : {
+                remote: "El número mínimo de caracteres debe ser de 25"
+            },
+            clave: {
+                remote: "El número mínimo de caracteres debe ser de 3"
+            }
+        }
+    });
+
+    $(".form-control").keydown(function (ev) {
+        if (ev.keyCode == 13) {
+            submitForm();
+            return false;
+        }
+        return true;
+    });
+
+    function createContainer() {
+        var file = document.getElementById("file");
+        var next = $("#files").find(".fileContainer").size();
+        if (isNaN(next))
+            next = 1;
+        else
+            next++;
+        var ar = file.files[next - 1];
+        var div = $('<div class="fileContainer ui-corner-all d-' + next + '">');
+        var row1 = $("<div class='row resumen'>");
+        var row3 = $("<div class='row botones'  style='text-align: center'>");
+        var row4 = $("<div class='row'>");
+        row1.append("<div class='col-md-2 etiqueta' style='font-size: 14px'>Descripción</div>");
+        row1.append("<div class='col-md-5'><textarea maxlength='254' style='resize: none' class='form-control " + next + "' required id='descripcion' name='descripcion' cols='5' rows='5'></textarea></div>");
+        row3.append(" <a href='#' class='btn btn-azul subir' style='margin-left: 200px; margin-bottom: 10px' clase='" + next + "'><i class='fa fa-upload'></i> Guardar Imagen</a>");
+        div.append("<div class='row' style='margin-top: 10px; font-size: 14px'><div class='titulo-archivo col-md-10'><span style='color: #327BBA'>Archivo:</span> " + ar.name + "</div></div>");
+        div.append(row1);
+        div.append(row3);
+        $("#files").append(div);
+        if ($("#files").height() * 1 > 120) {
+            $("#titulo-arch").show();
+            $("#linea-arch").show();
+        } else {
+            $("#titulo-arch").hide();
+            $("#linea-arch").hide();
+        }
+    }
+
+    function reset() {
+        $("#files").find(".fileContainer").remove()
+    }
+
+    $("#file").change(function () {
+        reset();
+        archivos = $(this)[0].files;
+        var length = archivos.length;
+        for (i = 0; i < length; i++) {
+            createContainer();
+        }
+        boundBotones();
+    });
+
+    function boundBotones() {
+        $(".subir").unbind("click");
+        $(".subir").bind("click", function () {
+            error = false;
+            $("." + $(this).attr("clase")).each(function () {
+                if ($(this).val().trim() == "") {
+                    error = true;
+                }
+            });
+            if (error) {
+                bootbox.alert("La imagen debe tener una descripción")
+            } else {
+                /*Aqui subir*/
+                upload($(this).attr("clase") * 1 - 1);
+            }
+        });
+    }
+
+    var request = [];
+    var tam = 0;
+    function upload(indice) {
+        var base = "${base?.id}";
+        var file = document.getElementById("file");
+        var formData = new FormData();
+        tam = file.files[indice];
+        var type = tam.type;
+        if (okContents[type]) {
+            tam = tam["size"];
+            var kb = tam / 1000;
+            var mb = kb / 1000;
+            if (mb <= 5) {
+                formData.append("file", file.files[indice]);
+                formData.append("id", base);
+                $("." + (indice + 1)).each(function () {
+                    //            console.log($(this))
+                    formData.append($(this).attr("name"), $(this).val());
+                });
+                var rs = request.length;
+                $(".d-" + (indice + 1)).addClass("subiendo").addClass("rs-" + rs);
+                $(".rs-" + rs).find(".resumen").remove();
+                $(".rs-" + rs).find(".botones").remove();
+                $(".rs-" + rs).find(".claves").remove();
+                $(".rs-" + rs).append('<div class="progress-bar-svt ui-corner-all" id="p-b"><div class="progress-svt background-image" id="p-' + rs + '"></div></div>').css({
+                    height     : 100,
+                    fontWeight : "bold"
+                });
+                request[rs] = new XMLHttpRequest();
+                request[rs].open("POST", "${g.createLink(controller: 'base',action: 'subirImagen')}");
+
+
+                request[rs].upload.onprogress = function (ev) {
+                    var loaded = ev.loaded;
+                    var width = (loaded * 100 / tam);
+                    if (width > 100)
+                        width = 100;
+                    //        console.log(width)
+                    $("#p-" + rs).css({width : parseInt(width) + "%"});
+                    if ($("#p-" + rs).width() > 50) {
+                        $("#p-" + rs).html("" + parseInt(width) + "%");
+                    }
+                };
+                request[rs].send(formData);
+                request[rs].onreadystatechange = function () {
+                    //            console.log("rs??",rs)
+                    if (request[rs].readyState === 4 && request[rs].status === 200) {
+                        if ($("#files").height() * 1 > 120) {
+                            $("#titulo-arch").show();
+                            $("#linea-arch").show();
+                        } else {
+                            $("#titulo-arch").hide();
+                            $("#linea-arch").hide();
+                        }
+                        $(".rs-" + rs).html("<div class='alert alert-success'> <i class='fa fa-check' style='color:#327BBA;margin-right: 10px'></i>" + $(".rs-" + rs).find(".titulo-archivo").html() + " subido exitosamente" + '</div>').css({
+                            height     : 50,
+                            fontWeight : "bold"
+                        }).removeClass("subiendo");
+
+                        cargarCarrusel(${base?.id})
+                    }
+                };
+            } else {
+                var $div = $(".fileContainer.d-" + (indice + 1));
+                $div.addClass("bg-danger").addClass("text-danger");
+                var $p = $("<div>").addClass("alert divError").html("No puede subir archivos de más de 5 megabytes");
+                $div.prepend($p);
+                return false;
+            }
+        } else {
+            var $div = $(".fileContainer.d-" + (indice + 1));
+            $div.addClass("bg-danger").addClass("text-danger");
+            var $p = $("<div>").addClass("alert divError").html("No puede subir archivos de tipo <b>" + type + "</b>");
+            $div.prepend($p);
+            return false;
+        }
+    }
+
+    $("#btnVer").click(function () {
+        var id_base = ${base?.id}
+            $("#dialog-body").html(spinner);
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'base', action: 'show_ajax')}',
+            data: {
+                id: id_base,
+                archivos: '${lista.size()}'
+            },
+            success: function (msg) {
+                $("#dialog-body").html(msg)
+            }
+        });
+        $("#dialog").modal("show");
     });
 
 </script>

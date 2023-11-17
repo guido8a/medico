@@ -1,66 +1,121 @@
 package medico
 
-import groovy.time.TimeCategory
-
+import groovy.io.FileType
+import seguridad.Persona
 
 class BaseController {
 
-    def base(){
 
-    }
 
-    def tablaBusquedaBase(){
-//        println "buscar .... $params"
-        def persona = session.usuario?.id
-        def data = []
-        def base = []
-        def cn = dbConnectionService.getConnection()
-        def buscar = params.buscar.split(' ').toList()
-        def sql = ""
-        def inicio = new Date()
-//        println "buscar .. ${buscar}"
+    def base() {
+        def base = Base.get(params.id)
 
-        def resultado = []
-        buscar.each {pl ->
-            sql = "select base__id, sum(plbrvlor) valor from plbr where plbrplbr like '%${pl}%' group by base__id " +
-                    "order by 2"
-//            println "sql: $sql"
-            cn.eachRow(sql.toString()){d ->
-//                println "id: ${d.base__id} ${d.valor}"
-                if(data.find{ it.id == d.base__id}){
-                    data.find{it.id == d.base__id}.valor += d.valor
-                } else {
-                    data.add([id: d.base__id, valor: d.valor])
-                }
+        def list = []
+        def dir = new File("/var/medico/bitacora/${base?.id}")
+        if (dir.size() > 0) {
+            dir.eachFileRecurse(FileType.FILES) { file ->
+                list << file
             }
         }
 
-        base = data.sort{ it.valor}.reverse()
+        def partes = []
+        def contadorImas = 0
+        def contadorOtros = 0
 
-//        println "base: ${base}"
+        list.each {
+            partes = it.name.split("\\.")
+            if (partes[1] in ['jpeg', 'png', 'jpg']) {
+                contadorImas++
+            } else {
+                contadorOtros++
+            }
 
-        def msg = ""
-        if(base?.size() > 20){
-            base = base[0..19]
-            msg = "<div class='alert-danger' style='margin-top:-20px; diplay:block; height:25px;margin-bottom: 20px;'>" +
-                    " <i class='fa fa-exclamation-triangle fa-2x pull-left'></i> Su búsqueda ha generado más de 20 resultados. " +
-                    "Use más palabras para especificar mejor la búsqueda.</div>"
         }
 
-        base.each {
-            resultado += Base.get(it.id)
+        return [base: base, lista: list, contadorImas: contadorImas, contadorOtros: contadorOtros]
+    }
+
+    def tablaArchivos() {
+
+        println("params ta " + params)
+
+        def base = params.id
+        def list = []
+        def dir = new File("/var/medico/bitacora/${base}")
+        if (dir.size() > 0) {
+
+            dir.eachFileRecurse(FileType.FILES) { file ->
+                list << file.canonicalFile
+            }
         }
-
-        cn.close()
-//        println "resultado: ${resultado.id}"
-        def fin = new Date()
-        println "tiempo ejecución actualizar número tramite: ${TimeCategory.minus(fin, inicio)}"
-        return [bases: resultado, persona: persona, msg: msg]
+        return [lista: list, base: base, bandera: params.band]
     }
 
-    def form_ajax(){
+    def guardarProblema_ajax() {
 
+        def tema = Tema.get(params.tema)
+        def usuario = Persona.get(session.usuario.id)
+        def baseInstance
+        def edita = params.id ? params.id : 0
+
+        if (params.id) {
+            baseInstance = Base.get(params.id)
+        } else {
+            baseInstance = new Base()
+            baseInstance.fecha = new Date()
+            baseInstance.persona = usuario
+
+        }
+        baseInstance.properties = params
+        baseInstance.tema = tema
+
+        try {
+            baseInstance.save(flush: true)
+            baseInstance.refresh()
+            render "ok_${baseInstance.id}"
+
+        } catch (e) {
+            println("error al guardar el problema " + baseInstance.errors)
+            render "no"
+        }
     }
+
+    def show_ajax() {
+        def base = Base.get(params.id)
+        def list = []
+        def dir = new File("/var/bitacora/${base?.id}")
+        if (dir.size() > 0) {
+            dir.eachFileRecurse(FileType.FILES) { file ->
+                list << file
+            }
+        }
+        return [baseInstance: base, lista: list]
+    }
+
+    def validarProblema_ajax() {
+        def problema = params.problema
+
+        if (problema.size() < 15) {
+            render false
+            return
+        } else {
+            render true
+            return
+        }
+    }
+
+    def validarClave_ajax() {
+        def clave = params.clave
+
+        if (clave.size() < 3) {
+            render false
+            return
+        } else {
+            render true
+            return
+        }
+    }
+
 
 
 }

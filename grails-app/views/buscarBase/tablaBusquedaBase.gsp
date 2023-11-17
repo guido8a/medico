@@ -18,7 +18,7 @@ th, td {
 <g:set var="clase" value="${'principal'}"/>
 
 <div class=""  style="width: 99.7%;height: ${msg == '' ? 400 : 585}px; overflow-y: auto;float: right; margin-top: -20px">
-    <table id="tablaB" class="table-bordered table-condensed table-hover" width="1060px">
+    <table id="tablaB" class="table-bordered table-condensed table-hover" >
         <g:if test="${bases}">
             <g:each in="${bases}" var="dato" status="z">
 
@@ -42,13 +42,12 @@ th, td {
             </g:each>
         </g:if>
         <g:else>
-            <div class="alert alert-danger" style="text-align: center; font-weight: bold">
+            <div class="alert alert-danger" style="text-align: center; font-weight: bold; width: 100%">
                 <i class="fa fa-exclamation-circle fa-2x text-danger"></i> No existen resultados para su búsqueda
             </div>
         </g:else>
     </table>
 </div>
-
 
 <script type="text/javascript">
     $(function () {

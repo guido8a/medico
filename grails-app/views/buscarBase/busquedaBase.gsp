@@ -39,12 +39,7 @@
 
     <div>
         <div class="col-md-12">
-            <div class="btn-group">
-                <g:link controller="proyecto" action="proy" id="1" class="btn btn-sm btn-default">
-                    <i class="fa fa-arrow-left"></i> Regresar a proyectos
-                </g:link>
-            </div>
-            <span style="margin-left: 30px">Buscar en la base de conocimiento por:</span>
+            <span style="margin-left: 30px">Criterio</span>
             <div class="btn-group">
                 <input id="buscar" type="search" class="form-control" style="width: 200px">
             </div>
@@ -52,9 +47,9 @@
                     class="fas fa-search"></i> Buscar</a>
             <a href="#" id="actualizarPlbr" class="btn btn-success btnActualizar"><i
                     class="fa fa-redo"></i> Actualiza Buscador</a>
-            <a href="#" id="btnBase" class="btn btn-warning sobrepuesto"
+            <a href="#" id="btnBase" class="btn btn-info sobrepuesto"
                title="Crear nuevo registro">
-                <i class="fa fa-check"></i> Crear Nuevo
+                <i class="fa fa-file"></i> Crear Nuevo
             </a>
         </div>
     </div>
@@ -88,7 +83,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                %{--<h4 class="modal-title">Problema y Solución</h4>--}%
                 Problema y Solución..
             </div>
 
