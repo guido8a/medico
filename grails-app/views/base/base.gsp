@@ -119,7 +119,6 @@
 
     </div>
 
-
     <div class="panel-group" style="height: 730px">
         <div class="col-md-12" style="margin-top: 10px">
             <ul class="nav nav-pills">
@@ -133,26 +132,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <span class="col-md-2 label label-primary text-info mediano">Tema</span>
-                                <div class="col-md-4">
+                                <div class="col-md-10">
                                     <g:select name="tema" id="temaId" from="${medico.Tema.list()}" optionKey="id"
                                               value="${base?.tema?.id}" optionValue="nombre" class="form-control"
                                               style="color: #3d658a"/>
-                                </div>
-                                <label for="fechaInicio" class="col-md-1 control-label">
-                                    Fecha Inicio
-                                </label>
-
-                                <div class="col-md-2">
-                                    <input name="fechaInicio" id='fechaInicio' type='text' class="form-control required"
-                                           value="${''}"/>
-                                </div>
-                                <label for="fechaFin" class="col-md-1 control-label">
-                                    Fecha Fin
-                                </label>
-
-                                <div class="col-md-2">
-                                    <input name="fechaFin" id='fechaFin' type='text' class="form-control required"
-                                           value="${''}"/>
                                 </div>
                             </div>
                         </div>
