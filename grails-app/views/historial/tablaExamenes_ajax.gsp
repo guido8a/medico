@@ -23,7 +23,7 @@
                         </g:if>
                     </td>
                     <td style="width:20%">
-                        <a class="btn btn-success btn-xs btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${examen.id}">
+                        <a class="btn btn-success btn-xs btnEditarExamenLaboratorio btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${examen.id}">
                             <i class="fa fa-edit"></i>
                         </a>
                         <a class="btn btn-info btn-xs btnCargarDocumento" href="#" rel="tooltip" title="Subir documento" data-id="${examen.id}">
@@ -34,7 +34,7 @@
                                 <i class="fa fa-download"></i>
                             </g:link>
                         </g:if>
-                        <a class="btn btn-danger btn-xs btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${examen.id}">
+                        <a class="btn btn-danger btn-xs btnBorrarExamenLaboratorio" href="#" rel="tooltip" title="Eliminar" data-id="${examen.id}">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -53,12 +53,12 @@
     var cd;
 
 
-    $(".btn-edit").click(function () {
+    $(".btnEditarExamenLaboratorio").click(function () {
         var id = $(this).data("id");
         createEditRow(id);
     }); //click btn edit
 
-    $(".btn-delete").click(function () {
+    $(".btnBorrarExamenLaboratorio").click(function () {
         var id = $(this).data("id");
         deleteRow(id)
     });

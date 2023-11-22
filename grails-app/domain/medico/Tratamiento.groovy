@@ -23,7 +23,7 @@ class Tratamiento {
 
     static constraints = {
         historial(blank: false, nullable: false)
-        medicina(blank: false, nullable: false)
+        medicina(blank: true, nullable: true)
         descripcion(size: 0..255, blank: false, nullable: false)
         cantidad(blank: true, nullable: true)
     }

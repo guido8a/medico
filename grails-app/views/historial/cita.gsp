@@ -388,7 +388,7 @@
             success : function (msg) {
                 cf = bootbox.dialog({
                     id      : "dlgCreateEditExamenFisico",
-                    title   : title + " Examen Físico",
+                    title   : " Examen Físico",
                     class: "modal-lg",
                     message : msg,
                     buttons : {

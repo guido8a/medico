@@ -94,7 +94,7 @@
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Empresa</span>
+                        <span class="col-md-2 label label-primary text-info mediano">Consultorio</span>
                         <span class="col-md-6">
                             <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
                         </span>
@@ -195,7 +195,7 @@
                         <span class="col-md-2 label label-primary text-info mediano" style="margin-top: 10px">Fecha de nacimiento</span>
                         <span class="grupo" >
                             <span class="col-md-2 arriba" >
-                                <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required" value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
+                                <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
                         <span class="col-md-2 mediano"></span>
@@ -207,6 +207,8 @@
                         </span>
                     </div>
                 </div>
+
+
                 <div class="row izquierda" style="margin-bottom: 15px">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Sexo</span>

@@ -11,7 +11,7 @@
             </label>
             <span class="col-md-8">
                 <g:hiddenField name="medicina" value="${tratamiento?.medicina?.id}"/>
-                <g:textArea name="medicinaNombre" class="form-control required" readonly="" style="resize: none; height: 60px;"  value="${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}"/>
+                <g:textArea name="medicinaNombre" class="form-control " readonly="" style="resize: none; height: 60px;"  value="${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}"/>
             </span>
             <span class="col-md-2">
                 <a href="#" id="btnBuscarMedicina" class="btn btn-sm btn-info" style="" title="Buscar medicina">
