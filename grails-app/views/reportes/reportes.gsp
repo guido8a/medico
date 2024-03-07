@@ -204,16 +204,16 @@
 </div>
 
 <div id="fnca" style="display:none">
-    <h3>Reporte Excel de fincas</h3><br>
-    <p>Listado de todas las fincas</p>
+    <h3>Reporte Excel de pacientes</h3><br>
+    <p>Listado de todos los pacientes</p>
 </div>
 
 
 <script type="text/javascript">
 
     $("#btnFincaExcel").click(function () {
-        location.href="${createLink(controller: 'reportes', action: 'reporteFincaExcel')}"
-    })
+        %{--location.href="${createLink(controller: 'reportes', action: 'reporteFincaExcel')}"--}%
+    });
 
     function prepare() {
         $(".fa-ul li span").each(function () {
