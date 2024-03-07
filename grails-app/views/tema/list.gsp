@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="layout" content="main">
-        <title>Lista de Tema</title>
+        <title>Lista de Temas</title>
     </head>
     <body>
 
@@ -12,12 +12,12 @@
     <!-- botones -->
         <div class="btn-toolbar toolbar" style="margin-bottom: 15px">
             <div class="btn-group">
-                <g:link controller="inicio" action="parametros" class="btn btn-default">
+                <g:link controller="inicio" action="parametros" class="btn btn-primary">
                     <i class="fa fa-arrow-left"></i> Regresar
                 </g:link>
             </div>
             <div class="btn-group">
-                <g:link action="form" class="btn btn-default btnCrear">
+                <g:link action="form" class="btn btn-success btnCrear">
                     <i class="fa fa-clipboard-list"></i> Nuevo Tema
                 </g:link>
             </div>
