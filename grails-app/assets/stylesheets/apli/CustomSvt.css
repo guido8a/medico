@@ -148,6 +148,8 @@
     margin-left: -10px !important;
     margin-top: 10px !important;
     /*box-shadow: -1px -1px 1px 0 rgb(122, 221, 102), 1px 1px 10px 1px rgb(92, 162, 235);*/
-    box-shadow: -1px -1px 1px 0 rgb(140, 116, 33), 1px 1px 5px 1px rgb(140, 116, 33);
+    /*box-shadow: -1px -1px 1px 0 rgb(140, 116, 33), 1px 1px 5px 1px rgb(140, 116, 33);  !* dorado *!*/
+    /*box-shadow: -1px -1px 1px 0 rgb(120, 120, 120), 1px 1px 5px 1px rgb(120,120,120);*/
+    box-shadow: -1px -1px 1px 0 rgb(65,87,127), 2px 2px 1px 1px rgb(65,87,127);
     border-radius: 12px;
 }
