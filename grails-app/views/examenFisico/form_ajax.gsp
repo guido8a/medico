@@ -10,12 +10,13 @@
                 <label class="col-md-1 control-label text-info">
                     Fecha
                 </label>
-                <span class="col-md-4">
+                <span class="col-md-2">
                     <input aria-label="" name="fechaExamenFisico" id='fechaExamenFisico' type='text' class="form-control required" value="${examen?.fecha?.format("dd-MM-yyyy") ?: new java.util.Date().format("dd-MM-yyyy")}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
         </div>
+        <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'cabeza', 'error')} ">
             <span class="grupo">
@@ -111,6 +112,8 @@
                 </span>
             </span>
         </div>
+
+        <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores numéricos</div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'peso', 'error')} ">
             <span class="grupo">
