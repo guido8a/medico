@@ -300,4 +300,9 @@ class PacienteController {
         [data: datos, tipo: params.tipo]
     }
 
+    def citas (){
+        def paciente = Paciente.get(params.id)
+        return [paciente: paciente]
+    }
+
 }

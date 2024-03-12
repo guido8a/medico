@@ -51,7 +51,7 @@
 <div class="panel panel-primary col-md-12">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
-        <a href="${createLink(controller: 'paciente', action: 'datos')}?id=${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
+        <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">

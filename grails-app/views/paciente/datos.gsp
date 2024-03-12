@@ -58,30 +58,27 @@
             <i class="fa fa-save"></i> Guardar
         </a>
         <g:if test="${paciente?.id}">
-            <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
-                <i class="fa fa-image"></i> Foto
-            </a>
-            <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">
-                <i class="fa fa-clipboard"></i> Antecedentes
-            </a>
-            <a href="#" id="btnHistoria"
-               class="btn btn-sm btn-info" title="Historial del paciente">
-                <i class="fas fa-book-reader"></i> Historia
-            </a>
+        %{--            <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">--}%
+        %{--                <i class="fa fa-image"></i> Foto--}%
+        %{--            </a>--}%
+        %{--            <a href="#" id="btnAntecedentes" class="btn btn-sm btn-info" title="Antecedentes del paciente">--}%
+        %{--                <i class="fa fa-clipboard"></i> Antecedentes--}%
+        %{--            </a>--}%
+        %{--            <a href="#" id="btnHistoria"--}%
+        %{--               class="btn btn-sm btn-info" title="Historial del paciente">--}%
+        %{--                <i class="fas fa-book-reader"></i> Historia--}%
+        %{--            </a>--}%
 
-            <a href="#" id="btnCitas" class="btn btn-sm btn-info" title="Citas médicas">
-                <i class="fa fa-list"></i> Citas
-            </a>
+        %{--            <a href="#" id="btnCitas" class="btn btn-sm btn-info" title="Citas médicas">--}%
+        %{--                <i class="fa fa-list"></i> Citas--}%
+        %{--            </a>--}%
 
-            <a href="#" id="btnNuevaCita" class="btn btn-sm btn-info" title="Nueva Cita médica">
-                <i class="fa fa-calendar-alt"></i> Nueva Cita
-            </a>
+        %{--            <a href="#" id="btnNuevaCita" class="btn btn-sm btn-info" title="Nueva Cita médica">--}%
+        %{--                <i class="fa fa-calendar-alt"></i> Nueva Cita--}%
+        %{--            </a>--}%
 
-            <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">
-                <i class="fa fa-bullseye"></i> Estado
-            </a>
-        %{--            <a href="#" id="btnBorrarPaciente" class="btn btn-sm btn-info"  title="Borrar Paciente">--}%
-        %{--                <i class="fa fa-trash"></i> Eliminar--}%
+        %{--            <a href="#" id="btnEstado" class="btn btn-sm btn-info"  title="Cambiar el estado del paciente">--}%
+        %{--                <i class="fa fa-bullseye"></i> Estado--}%
         %{--            </a>--}%
         </g:if>
 
@@ -95,17 +92,23 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Consultorio</span>
-                        <span class="col-md-6">
+                        <span class="col-md-4">
                             <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
                         </span>
-
 
                         <span class="col-md-1 label label-primary text-info mediano">Estado</span>
                         <span class="grupo">
                             <span class="col-md-2">
-                                <g:textField name="act" class="form-control" readonly="" style="background-color:
-                                ${paciente?.activo == 1 ? '#67a153' : '#e22b0c'}; text-align: center "
-                                             value=" ${paciente?.activo == 1 ? 'ACTIVO' : 'INACTIVO'}"/>
+                                <g:select name="activo" from="${[1: 'Activo' , 0 : 'Inactivo']}" optionKey="key" optionValue="value" class="form-control " value="${paciente?.activo}" />
+                            </span>
+                        </span>
+
+                        <span class="col-md-1 label label-primary text-info mediano">Foto</span>
+                        <span class="grupo">
+                            <span class="col-md-2">
+                                <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
+                                    <i class="fa fa-image"></i> Fotografía
+                                </a>
                             </span>
                         </span>
                     </div>
@@ -132,8 +135,6 @@
 
                     </div>
                 </div>
-
-
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
@@ -208,7 +209,6 @@
                     </div>
                 </div>
 
-
                 <div class="row izquierda" style="margin-bottom: 15px">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Sexo</span>
@@ -226,6 +226,53 @@
                         </span>
                     </div>
                 </div>
+
+                <div class="row izquierda" style="margin-bottom: 15px">
+                    <div class="col-md-12 input-group">
+                        <span class="col-md-2 label label-primary text-info mediano">Hábitos</span>
+                        <span class="grupo">
+                            <span class="col-md-4">
+                                <g:textArea name="habitos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitos}"/>
+                            </span>
+                        </span>
+                        <span class="col-md-1 label label-primary text-info mediano">Antecedentes</span>
+                        <span class="grupo">
+                            <span class="col-md-4">
+                                <g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row izquierda" style="margin-bottom: 15px">
+                    <div class="col-md-12 input-group">
+                        <span class="col-md-2 label label-primary text-info mediano">Ant. Patológicos</span>
+                        <span class="grupo">
+                            <span class="col-md-4">
+                                <g:textArea name="antecedentesPatologicosFam" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesPatologicosFam}"/>
+                            </span>
+                        </span>
+                        <span class="col-md-1 label label-primary text-info mediano">Ant. Ocupacionales</span>
+                        <span class="grupo">
+                            <span class="col-md-4">
+                                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <g:if test="${paciente?.sexo == 'F'}">
+                    <div class="row izquierda" style="margin-bottom: 15px">
+                        <div class="col-md-12 input-group">
+                            <span class="col-md-2 label label-primary text-info mediano">Ant. Gineco Obstétricos</span>
+                            <span class="grupo">
+                                <span class="col-md-4">
+                                    <g:textArea name="antecedentesGinecobstreticos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesGinecobstreticos}"/>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </g:if>
             </g:form>
         </div>
     </div>
@@ -263,9 +310,9 @@
             ev.keyCode === 37 || ev.keyCode === 39);
     }
 
-    $("#btnNuevaCita").click(function () {
-        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}'
-    });
+    %{--$("#btnNuevaCita").click(function () {--}%
+    %{--    location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}'--}%
+    %{--});--}%
 
 
     $("#btnFoto").click(function () {
@@ -297,69 +344,69 @@
         });
     }
 
-    $("#btnAntecedentes").click(function () {
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(action:'antecedentes_ajax')}",
-            data    : {
-                id: '${paciente?.id}'
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgCreateEditAntecedentes",
-                    title   : "Antecedentes del paciente",
-                    class: "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
-                                return submitFormAntecedentes();
-                            } //callback
-                        } //guardar
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    });
+    %{--$("#btnAntecedentes").click(function () {--}%
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url: "${createLink(action:'antecedentes_ajax')}",--}%
+    %{--        data    : {--}%
+    %{--            id: '${paciente?.id}'--}%
+    %{--        },--}%
+    %{--        success : function (msg) {--}%
+    %{--            var b = bootbox.dialog({--}%
+    %{--                id      : "dlgCreateEditAntecedentes",--}%
+    %{--                title   : "Antecedentes del paciente",--}%
+    %{--                class: "modal-lg",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    },--}%
+    %{--                    guardar  : {--}%
+    %{--                        id        : "btnSave",--}%
+    %{--                        label     : "<i class='fa fa-save'></i> Guardar",--}%
+    %{--                        className : "btn-success",--}%
+    %{--                        callback  : function () {--}%
+    %{--                            return submitFormAntecedentes();--}%
+    %{--                        } //callback--}%
+    %{--                    } //guardar--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--});--}%
 
-    function submitFormAntecedentes() {
-        var $form = $("#frmAntecedentes");
-        if ($form.valid()) {
-            var data = $form.serialize();
-            var dialog = cargarLoader("Guardando...");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : data,
-                success : function (msg) {
-                    dialog.modal('hide');
-                    var parts = msg.split("_");
-                    if(parts[0] === 'ok'){
-                        log(parts[1], "success");
-                    }else{
-                        if(parts[0] === 'err'){
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }else{
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }
-                    }
-                }
-            });
-        } else {
-            return false;
-        }
-    }
+    // function submitFormAntecedentes() {
+    //     var $form = $("#frmAntecedentes");
+    //     if ($form.valid()) {
+    //         var data = $form.serialize();
+    //         var dialog = cargarLoader("Guardando...");
+    //         $.ajax({
+    //             type    : "POST",
+    //             url     : $form.attr("action"),
+    //             data    : data,
+    //             success : function (msg) {
+    //                 dialog.modal('hide');
+    //                 var parts = msg.split("_");
+    //                 if(parts[0] === 'ok'){
+    //                     log(parts[1], "success");
+    //                 }else{
+    //                     if(parts[0] === 'err'){
+    //                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+    //                         return false;
+    //                     }else{
+    //                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+    //                         return false;
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     $("#btnGuardar").click(function () {
         submitFormPaciente();
