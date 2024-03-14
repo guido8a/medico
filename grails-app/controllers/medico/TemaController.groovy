@@ -2,114 +2,68 @@ package medico
 
 class TemaController {
 
-    static allowedMethods = [save: "POST", delete: "POST", save_ajax: "POST", delete_ajax: "POST"]
+    def list(){
 
-    def index() {
-        redirect(action: "list", params: params)
-    } //index
-
-    def getLista(params, all) {
-        params = params.clone()
-        if (all) {
-            params.remove("offset")
-            params.remove("max")
-        }
-        def lista
-        if (params.search) {
-            def c = Tema.createCriteria()
-            lista = c.list(params) {
-                or {
-                    /* TODO: cambiar aqui segun sea necesario */
-                    ilike("codigo", "%" + params.search + "%")
-                    ilike("descripcion", "%" + params.search + "%")
-                }
-            }
-        } else {
-            lista = Tema.list(params)
-        }
-        return lista
     }
 
-    def list() {
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def temaInstanceList = getLista(params, false)
-        def temaInstanceCount = getLista(params, true).size()
-        if (temaInstanceList.size() == 0 && params.offset && params.max) {
-            params.offset = params.offset - params.max
+    def form_ajax(){
+        def tema
+        if(params.id){
+            tema = Tema.get(params.id)
+        }else{
+            tema = new Tema()
         }
-        temaInstanceList = getLista(params, false)
-        return [temaInstanceList: temaInstanceList, temaInstanceCount: temaInstanceCount, params: params]
-    } //list
+        return [tema: tema]
+    }
 
-    def show_ajax() {
-        if (params.id) {
-            def temaInstance = Tema.get(params.id)
-            if (!temaInstance) {
-                notFound_ajax()
-                return
+    def tablaTema_ajax() {
+
+        def temas
+
+        if(params.criterio != ''){
+            temas = Tema.findAllByNombreIlike('%' + params.criterio + '%')
+        }else{
+            temas = Tema.list([sort: 'nombre'])
+        }
+
+        return [temas: temas]
+    }
+
+
+    def saveTema_ajax(){
+
+        def tema
+
+        if(params.id){
+            tema = Tema.get(params.id)
+        }else{
+            tema = new Tema()
+        }
+
+        tema.properties = params
+
+        if(!tema.save(flush:true)){
+            render "no_Error al guardar el tema"
+            println("Error al guardar el tema " + tema.errors)
+        }else{
+            render "ok_Tema guardado correctamente"
+        }
+    }
+
+    def borrarTema_ajax(){
+        def tema = Tema.get(params.id)
+
+        if(tema){
+            try{
+                tema.delete(flush:true)
+                render"ok_Tema borrado correctamente"
+            }catch(e){
+                render "no_Error al borrar el tema"
+                println("Error al borrar el tema" + tema.errors)
             }
-            return [temaInstance: temaInstance]
-        } else {
-            notFound_ajax()
+        }else{
+            render "no_Error no existe el tema"
         }
-    } //show para cargar con ajax en un dialog
-
-    def form_ajax() {
-        def temaInstance = new Tema(params)
-        if (params.id) {
-            temaInstance = Tema.get(params.id)
-            if (!temaInstance) {
-                notFound_ajax()
-                return
-            }
-        }
-        return [temaInstance: temaInstance]
-    } //form para cargar con ajax en un dialog
-
-    def save_ajax() {
-        println "---> $params"
-        withForm {
-            def temaInstance = new Tema()
-            if (params.id) {
-                temaInstance = Tema.get(params.id)
-                if (!temaInstance) {
-                    notFound_ajax()
-                    return
-                }
-            } //update
-            temaInstance.properties = params
-            if (!temaInstance.save(flush: true)) {
-                def msg = "NO_No se pudo ${params.id ? 'actualizar' : 'crear'} Tema."
-                msg += renderErrors(bean: temaInstance)
-                render msg
-                return
-            }
-            render "OK_${params.id ? 'Actualización' : 'Creación'} de Tema exitosa."
-        }.invalidToken {
-            response.status = 405
-        }
-    } //save para grabar desde ajax
-
-    def delete_ajax() {
-        if (params.id) {
-            def temaInstance = Tema.get(params.id)
-            if (temaInstance) {
-                try {
-                    temaInstance.delete(flush: true)
-                    render "OK_Eliminación de Tema exitosa."
-                } catch (e) {
-                    render "NO_No se pudo eliminar Tema."
-                }
-            } else {
-                notFound_ajax()
-            }
-        } else {
-            notFound_ajax()
-        }
-    } //delete para eliminar via ajax
-
-    protected void notFound_ajax() {
-        render "NO_No se encontró Tema."
-    } //notFound para ajax
+    }
 
 }

@@ -4,7 +4,8 @@ import seguridad.Persona
 
 class Base  {
     Persona persona
-    Tema tema
+    Subtema subtema
+//    Tema tema
     Date fecha
     String clave
     String problema
@@ -24,7 +25,8 @@ class Base  {
         columns {
             id column: 'base__id'
             persona column: 'prsn__id'
-            tema    column: 'tema__id'
+            subtema column: 'sbtm__id'
+//            tema    column: 'tema__id'
             fecha column: 'basefcha'
             clave column: 'baseclve'
             problema column: 'baseprbl'
@@ -39,6 +41,7 @@ class Base  {
         problema(size: 15..255, blank: false)
         clave(size: 3..127, blank: false)
         algoritmo(blank: true, nullable: true)
+        subtema(blank: true, nullable: true)
         solucion(blank: true, nullable: true)
         referencia(size: 0..255, blank: true, nullable: true)
         observacion(size: 0..255, blank: true, nullable: true)

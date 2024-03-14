@@ -101,7 +101,7 @@
 
         <a href="${createLink(controller: 'buscarBase', action: 'busquedaBase')}" id="btnConsultarr"
            class="btn btn-sm btn-info" title="Consultar artículo">
-            <i class="fa fa-chevron-circle-left"></i> Consultar
+            <i class="fa fa-arrow-left"></i> Consultar
         </a>
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" title="Guardar información">
             <i class="fa fa-save"></i> Guardar
@@ -134,8 +134,17 @@
                                 <span class="col-md-2 label label-primary text-info mediano">Tema</span>
                                 <div class="col-md-10">
                                     <g:select name="tema" id="temaId" from="${medico.Tema.list()}" optionKey="id"
-                                              value="${base?.tema?.id}" optionValue="nombre" class="form-control"
+                                              value="${base?.subtema?.tema?.id}" optionValue="nombre" class="form-control"
                                               style="color: #3d658a"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Subtema</span>
+                                <div class="col-md-10" id="divSubtema">
+
                                 </div>
                             </div>
                         </div>
@@ -283,6 +292,28 @@
 
 <script type="text/javascript">
 
+    cargarSubtema($("#temaId option:selected").val());
+
+    $("#temaId").change(function () {
+        var tema = $(this).val();
+        cargarSubtema(tema);
+    });
+
+    function cargarSubtema(tema){
+        var base = '${base?.id}';
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'base', action: 'subtema_ajax')}',
+            data:{
+                tema: tema,
+                base: base
+            },
+            success: function (msg) {
+                $("#divSubtema").html(msg)
+            }
+        });
+    }
+
     $('#fechaInicio, #fechaFin').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
@@ -345,33 +376,38 @@
 
 
         if($("#temaId").val()){
-            if($form.valid()){
-                var dialog = cargarLoader("Guardando...");
-                $.ajax({
-                    type: 'POST',
-                    url: "${createLink(controller: 'base', action: 'guardarProblema_ajax')}",
-                    data:  {
-                        id: base_id,
-                        algoritmo: texto,
-                        tema: $("#temaId").val(),
-                        problema: $("#prbl").val(),
-                        clave: $("#clve").val(),
-                        solucion: $("#slcn").val(),
-                        referencia: $("#refe").val(),
-                        observacion: $("#obsr").val()
-                    },
-                    success: function (msg) {
-                        var parte = msg.split("_");
-                        if(parte[0] === 'ok'){
-                            log("Problema guardado correctamente","success");
-                            location.href = "${createLink(controller: 'base', action: 'base')}" + "/" + parte[1];
-                            dialog.modal('hide');
-                        }else{
-                            dialog.modal('hide');
-                            log("Error al guardar el problema","error")
+            if($("#subtema option:selected").val() !=  null){
+                if($form.valid()){
+                    var dialog = cargarLoader("Guardando...");
+                    $.ajax({
+                        type: 'POST',
+                        url: "${createLink(controller: 'base', action: 'guardarProblema_ajax')}",
+                        data:  {
+                            id: base_id,
+                            algoritmo: texto,
+                            tema: $("#temaId").val(),
+                            subtema: $("#subtema option:selected").val(),
+                            problema: $("#prbl").val(),
+                            clave: $("#clve").val(),
+                            solucion: $("#slcn").val(),
+                            referencia: $("#refe").val(),
+                            observacion: $("#obsr").val()
+                        },
+                        success: function (msg) {
+                            var parte = msg.split("_");
+                            if(parte[0] === 'ok'){
+                                log("Problema guardado correctamente","success");
+                                location.href = "${createLink(controller: 'base', action: 'base')}" + "/" + parte[1];
+                                dialog.modal('hide');
+                            }else{
+                                dialog.modal('hide');
+                                log("Error al guardar el problema","error")
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            }else{
+                bootbox.alert('<i class="fa fa-exclamation-triangle fa-3x text-warning"></i>' + '<span style="font-weight: bold; font-size: 14px; text-align: center">' + "Seleccione un subtema" + '</span>')
             }
         }else{
             bootbox.alert('<i class="fa fa-exclamation-triangle fa-3x text-warning"></i>' + " No existen cargados" +  '<strong>' + " temas " + '</strong>' + "para crear una entrada en la base de conocimiento")

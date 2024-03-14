@@ -78,153 +78,24 @@
                                 <div class="descripcion hidden">
                                     <h4>Temas</h4>
 
-                                    <p> Administración de las diferentes temas
+                                    <p> Administración de temas de la base de conocimiento
                                     </p>
                                 </div>
                             </li>
 
-                            %{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="tipoLote" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Tipo de Lote--}%
-%{--                                </g:link>--}%
+                            <li>
+                                <g:link data-info="categoria" class="over tamano" controller="subtema" action="list" >
+                                    <i class="fa-li fas fa-certificate text-info"></i> Subtemas
+                                </g:link>
 
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Tipo de Lote</h4>--}%
+                                <div class="descripcion hidden">
+                                    <h4>Subtemas</h4>
 
-%{--                                    <p>Administracion del tipo de lote</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
+                                    <p> Administración de Subtemas de la base de conocimiento
+                                    </p>
+                                </div>
+                            </li>
 
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="familia" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Familias--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Familias</h4>--}%
-
-%{--                                    <p>Administracion de los tipos de integrantes que constan en una familia</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="tipoObra" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Tipo de Obra--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Tipo de Obra</h4>--}%
-
-%{--                                    <p>Administracion del tipo de obra</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="planta" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Plantas--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Tipo de Plantas</h4>--}%
-
-%{--                                    <p>Administracion de tipos de plantas</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="enfermedad" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Enfermedades--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Enfermedades</h4>--}%
-
-%{--                                    <p>Administracion de enfermedades</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="plaga" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Plagas--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Plagas</h4>--}%
-
-%{--                                    <p>Administracion de plagas</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="siembra" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Tipo de Siembra--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Tipo de Siembra</h4>--}%
-
-%{--                                    <p>Administracion de tipo de siembra</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="animal" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Animales--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Animales</h4>--}%
-
-%{--                                    <p>Administracion de animales</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="equipo" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Instalaciones--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Instalaciones</h4>--}%
-
-%{--                                    <p>Administración de instalaciones</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="capacitacion" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Capacitaciones--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Capacitaciones</h4>--}%
-
-%{--                                    <p>Administración de capacitaciones</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
-
-%{--                            <li>--}%
-%{--                                <g:link class="over tamano" controller="cargo" action="list">--}%
-%{--                                    <i class="fa-li fas fa-scroll text-info "></i>--}%
-%{--                                    Cargos--}%
-%{--                                </g:link>--}%
-
-%{--                                <div class="descripcion hidden">--}%
-%{--                                    <h4>Cargos</h4>--}%
-
-%{--                                    <p>Administración de cargos</p>--}%
-%{--                                </div>--}%
-%{--                            </li>--}%
 
                         </ul>
                     </div>

@@ -53,7 +53,9 @@ class BaseController {
 
     def guardarProblema_ajax() {
 
-        def tema = Tema.get(params.tema)
+        println("params " + params)
+
+        def subtema = Subtema.get(params.subtema)
         def usuario = Persona.get(session.usuario.id)
         def baseInstance
         def edita = params.id ? params.id : 0
@@ -67,7 +69,7 @@ class BaseController {
 
         }
         baseInstance.properties = params
-        baseInstance.tema = tema
+        baseInstance.subtema = subtema
 
         try {
             baseInstance.save(flush: true)
@@ -116,6 +118,18 @@ class BaseController {
         }
     }
 
+    def subtema_ajax(){
+        def tema = Tema.get(params.tema)
+        def subtemas =  Subtema.findAllByTema(tema)
+        def base
 
+        if(params.base != 'null'){
+            base = Base.get(params.base)
+        }else{
+            base = new Base()
+        }
+
+        return [subtemas:subtemas, base: base]
+    }
 
 }

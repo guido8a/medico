@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Lista de Temas</title>
+    <title>Lista de Subtemas</title>
 </head>
 <body>
 
@@ -14,9 +14,9 @@
         </g:link>
     </div>
     <div class="btn-group">
-        <a href="#" class="btn btn-success btnNuevoTema">
+        <a href="#" class="btn btn-success btnNuevoSubTema">
             <i class="fa fa-file"></i>
-            Nuevo Tema
+            Nuevo Subtema
         </a>
     </div>
 </div>
@@ -25,13 +25,19 @@
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
         <div class="row-fluid">
             <span class="col-md-1">
+                <label class="control-label text-info">Tema</label>
+            </span>
+            <span class="col-md-3">
+                <g:select name="tema" from="${medico.Tema.list([sort: 'nombre'])}" optionValue="nombre" optionKey="id" class="form-control" noSelection="[null : 'Todos']"/>
+            </span>
+            <span class="col-md-1">
                 <label class="control-label text-info">Criterio</label>
             </span>
             <span class="col-md-4">
                 <g:textField name="criterio" id="criterio" class="form-control"/>
             </span>
             <div class="col-md-1">
-                <button class="btn btn-info" id="btnBuscarTema"><i class="fa fa-search"></i> Buscar</button>
+                <button class="btn btn-info" id="btnBuscarSubTema"><i class="fa fa-search"></i> Buscar</button>
             </div>
             <div class="col-md-1">
                 <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i> Limpiar</button>
@@ -40,7 +46,7 @@
     </fieldset>
 
     <fieldset class="borde" style="border-radius: 4px">
-        <div id="divTablaTema" >
+        <div id="divTablaSubTema" >
         </div>
     </fieldset>
 </div>
@@ -48,41 +54,43 @@
 <script type="text/javascript">
     var di;
 
-    $(".btnNuevoTema").click(function () {
+    $(".btnNuevoSubTema").click(function () {
         createEditRow();
     });
 
     $("#btnLimpiar").click(function  () {
         $("#criterio").val('');
-        cargarTablaTema();
+        cargarTablaSubTema();
     });
 
-    $("#btnBuscarTema").click(function () {
-        cargarTablaTema();
+    $("#btnBuscarSubTema").click(function () {
+        cargarTablaSubTema();
     });
 
     $("#criterio").keydown(function (ev) {
         if (ev.keyCode === 13) {
-            cargarTablaTema();
+            cargarTablaSubTema();
             return false;
         }
         return true;
     });
 
-    cargarTablaTema();
+    cargarTablaSubTema();
 
-    function cargarTablaTema() {
+    function cargarTablaSubTema() {
         var d = cargarLoader("Cargando...");
+        var tema = $("#tema option:selected").val();
         var criterio = $("#criterio").val();
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'tema', action: 'tablaTema_ajax')}',
+            url: '${createLink(controller: 'subtema', action: 'tablaSubtema_ajax')}',
             data:{
+                tema: tema,
                 criterio: criterio
             },
             success: function (msg){
                 d.modal("hide");
-                $("#divTablaTema").html(msg)
+                $("#divTablaSubTema").html(msg)
             }
         })
     }
@@ -93,12 +101,12 @@
 
         $.ajax({
             type    : "POST",
-            url: "${createLink(controller: 'tema',  action:'form_ajax')}",
+            url: "${createLink(controller: 'subtema',  action:'form_ajax')}",
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Tema",
+                    title   : title + " Subtema",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -112,7 +120,7 @@
                             label     : "<i class='fa fa-save'></i> Guardar",
                             className : "btn-success",
                             callback  : function () {
-                                return submitFormTema();
+                                return submitFormSubTema();
                             } //callback
                         } //guardar
                     } //buttons
@@ -121,8 +129,8 @@
         }); //ajax
     } //createEdit
 
-    function submitFormTema() {
-        var $form = $("#frmTema");
+    function submitFormSubTema() {
+        var $form = $("#frmSubtema");
         if ($form.valid()) {
             var data = $form.serialize();
             var dialog = cargarLoader("Guardando...");
@@ -135,10 +143,10 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
-                        cargarTablaTema();
+                        cargarTablaSubTema();
                     }else{
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
                     }
                 }
             });
@@ -150,7 +158,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este tema? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este subtema? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -165,7 +173,7 @@
                         var v = cargarLoader("Eliminando...");
                         $.ajax({
                             type    : "POST",
-                            url     : '${createLink(action:'borrarTema_ajax')}',
+                            url     : '${createLink(action:'borrarSubTema_ajax')}',
                             data    : {
                                 id : itemId
                             },
@@ -174,7 +182,7 @@
                                 var parts = msg.split("_");
                                 if(parts[0] === 'ok'){
                                     log(parts[1],"success");
-                                    cargarTablaTema();
+                                    cargarTablaSubTema();
                                 }else{
                                     log(parts[1],"error")
                                 }
