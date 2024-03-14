@@ -30,17 +30,6 @@
             <i class="fa fa-user"></i> Nuevo Usuario
         </g:link>
     </div>
-
-%{--    <div class="btn-group pull-right col-md-3">--}%
-%{--        <div class="input-group">--}%
-%{--            <input type="text" class="form-control span2 input-search" placeholder="Buscar" value="${params.search}">--}%
-%{--            <span class="input-group-btn">--}%
-%{--                <g:link action="list" class="btn btn-primary btn-search">--}%
-%{--                    <i class="fas fa-search"></i>&nbsp;--}%
-%{--                </g:link>--}%
-%{--            </span>--}%
-%{--        </div><!-- /input-group -->--}%
-%{--    </div>--}%
 </div>
 
 <g:set var="admin" value="${seguridad.Permiso.findByCodigo('P013')}"/>
@@ -96,10 +85,13 @@
         <g:sortableColumn property="login" title="Usuario" params="${params}"/>
         <g:sortableColumn property="nombre" title="Nombre" params="${params}"/>
         <g:sortableColumn property="apellido" title="Apellido" params="${params}"/>
-        <g:sortableColumn property="departamento" title="Departamento" params="${params}"/>
+%{--        <g:sortableColumn property="departamento" title="Departamento" params="${params}"/>--}%
         <th style="width: 220px;">
             <g:select name="perfil" from="${Prfl.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre"
                       class="form-control input-sm perfiles" noSelection="['': 'Todos los perfiles']" value="${params.perfil}"/>
+        </th>
+        <th>
+            Acciones
         </th>
     </tr>
     </thead>
@@ -132,14 +124,24 @@
             <td><elm:textoBusqueda texto='${fieldValue(bean: personaInstance, field: "login")}' search='${params.search}'/></td>
             <td><elm:textoBusqueda texto='${fieldValue(bean: personaInstance, field: "nombre")}' search='${params.search}'/></td>
             <td><elm:textoBusqueda texto='${fieldValue(bean: personaInstance, field: "apellido")}' search='${params.search}'/></td>
-            <td></td>
             <td style="font-size: 10px">
                 <g:each in="${perfiles}" var="per" status="p">
                     ${p > 0 ? ', ' : ''}<strong>${per.perfil.nombre}</strong>
-%{--                    <g:if test="${per.fechaInicio || per.fechaFin}">--}%
-%{--                        (${per.fechaInicio?.format("dd-MM-yyyy")} a ${per.fechaFin?.format("dd-MM-yyyy")})--}%
-%{--                    </g:if>--}%
                 </g:each>
+            </td>
+            <td style="width: 15%; text-align: center">
+                <a href="#" class="btn btn-xs btn-info btnVer" data-id="${personaInstance?.id}" title="Ver">
+                    <i class="fas fa-search-plus"></i>
+                </a>
+                <a href="#" class="btn btn-xs btn-success btnEditar" data-id="${personaInstance?.id}" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="#" class="btn btn-xs btn-warning btnPerfiles" data-id="${personaInstance?.id}" title="Perfiles">
+                    <i class="fas fa-book"></i>
+                </a>
+                <a href="#" class="btn btn-xs btn-danger btnEliminar" data-id="${personaInstance?.id}" title="Eliminar">
+                    <i class="fas fa-trash"></i>
+                </a>
             </td>
         </tr>
     </g:each>
@@ -150,6 +152,46 @@
 
 
 <script type="text/javascript">
+
+    $(".btnEditar").click(function () {
+        var id = $(this).data("id");
+        createEditRow(id, "persona");
+    });
+
+    $(".btnEliminar").click(function () {
+        var id = $(this).data("id");
+        deleteRow(id);
+    });
+
+    $(".btnVer").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'persona', action:'show_ajax')}",
+            data    : {
+                id : id
+            },
+            success : function (msg) {
+                bootbox.dialog({
+                    title   : "Ver Persona",
+                    message : msg,
+                    buttons : {
+                        ok : {
+                            label     : "Aceptar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    $(".btnPerfiles").click(function () {
+        var id = $(this).data("id");
+        location.href="${createLink(controller: 'persona', action: 'config')}/" + id
+    });
 
     var tramites = 0;
     function submitForm() {
@@ -363,88 +405,88 @@
         }); //ajax
     } //createEdit
 
-    function createContextMenu(node) {
-        var $tr = $(node);
+    %{--function createContextMenu(node) {--}%
+    %{--    var $tr = $(node);--}%
 
-        var items = {
-            header : {
-                label  : "Acciones",
-                header : true
-            }
-        };
+    %{--    var items = {--}%
+    %{--        header : {--}%
+    %{--            label  : "Acciones",--}%
+    %{--            header : true--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var id = $tr.data("id");
+    %{--    var id = $tr.data("id");--}%
 
-        var estaActivo = $tr.hasClass("activo");
-        var estaInactivo = $tr.hasClass("inactivo");
-        var puedeEliminar = $tr.hasClass("eliminar");
+    %{--    var estaActivo = $tr.hasClass("activo");--}%
+    %{--    var estaInactivo = $tr.hasClass("inactivo");--}%
+    %{--    var puedeEliminar = $tr.hasClass("eliminar");--}%
 
-        puedeEliminar = true;
+    %{--    puedeEliminar = true;--}%
 
-        var ver = {
-            label  : 'Ver',
-            icon   : "fa fa-search",
-            action : function () {
-                $.ajax({
-                    type    : "POST",
-                    url     : "${createLink(controller: 'persona', action:'show_ajax')}",
-                    data    : {
-                        id : id
-                    },
-                    success : function (msg) {
-                        bootbox.dialog({
-                            title   : "Ver Persona",
-                            message : msg,
-                            buttons : {
-                                ok : {
-                                    label     : "Aceptar",
-                                    className : "btn-primary",
-                                    callback  : function () {
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        };
+    %{--    var ver = {--}%
+    %{--        label  : 'Ver',--}%
+    %{--        icon   : "fa fa-search",--}%
+    %{--        action : function () {--}%
+    %{--            $.ajax({--}%
+    %{--                type    : "POST",--}%
+    %{--                url     : "${createLink(controller: 'persona', action:'show_ajax')}",--}%
+    %{--                data    : {--}%
+    %{--                    id : id--}%
+    %{--                },--}%
+    %{--                success : function (msg) {--}%
+    %{--                    bootbox.dialog({--}%
+    %{--                        title   : "Ver Persona",--}%
+    %{--                        message : msg,--}%
+    %{--                        buttons : {--}%
+    %{--                            ok : {--}%
+    %{--                                label     : "Aceptar",--}%
+    %{--                                className : "btn-primary",--}%
+    %{--                                callback  : function () {--}%
+    %{--                                }--}%
+    %{--                            }--}%
+    %{--                        }--}%
+    %{--                    });--}%
+    %{--                }--}%
+    %{--            });--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var editar = {
-            label           : 'Editar',
-            icon            : "fa fa-pen text-success",
-            separator_after : true,
-            action          : function (e) {
-                createEditRow(id, "persona");
-            }
-        };
+    %{--    var editar = {--}%
+    %{--        label           : 'Editar',--}%
+    %{--        icon            : "fa fa-pen text-success",--}%
+    %{--        separator_after : true,--}%
+    %{--        action          : function (e) {--}%
+    %{--            createEditRow(id, "persona");--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var config = {
-            label           : 'Perfiles',
-            icon            : "fa fa-address-card text-info",
-            separator_after : true,
-            url             : "${createLink(controller: 'persona', action: 'config')}/" + id
-        };
+    %{--    var config = {--}%
+    %{--        label           : 'Perfiles',--}%
+    %{--        icon            : "fa fa-address-card text-info",--}%
+    %{--        separator_after : true,--}%
+    %{--        url             : "${createLink(controller: 'persona', action: 'config')}/" + id--}%
+    %{--    };--}%
 
-        var eliminar = {
-            label            : 'Eliminar Usuario',
-            icon             : "fa fa-times-circle text-danger",
-            action           : function (e) {
-                deleteRow(id);
-            }
-        };
+    %{--    var eliminar = {--}%
+    %{--        label            : 'Eliminar Usuario',--}%
+    %{--        icon             : "fa fa-times-circle text-danger",--}%
+    %{--        action           : function (e) {--}%
+    %{--            deleteRow(id);--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        items.ver = ver;
-        items.editar = editar;
-        if (estaActivo) {
-            items.config = config;
-        }
+    %{--    items.ver = ver;--}%
+    %{--    items.editar = editar;--}%
+    %{--    if (estaActivo) {--}%
+    %{--        items.config = config;--}%
+    %{--    }--}%
 
-        if (puedeEliminar) {
-            items.eliminar = eliminar;
-        }
+    %{--    if (puedeEliminar) {--}%
+    %{--        items.eliminar = eliminar;--}%
+    %{--    }--}%
 
-        return items;
-    }
+    %{--    return items;--}%
+    %{--}--}%
 
     $(function () {
 
@@ -495,15 +537,15 @@
             return false;
         });
 
-        $("tr").contextMenu({
-            items  : createContextMenu,
-            onShow : function ($element) {
-                $element.addClass("trHighlight");
-            },
-            onHide : function ($element) {
-                $(".trHighlight").removeClass("trHighlight");
-            }
-        });
+        // $("tr").contextMenu({
+        //     items  : createContextMenu,
+        //     onShow : function ($element) {
+        //         $element.addClass("trHighlight");
+        //     },
+        //     onHide : function ($element) {
+        //         $(".trHighlight").removeClass("trHighlight");
+        //     }
+        // });
 
     });
 </script>

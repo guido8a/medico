@@ -25,12 +25,21 @@
     <thead>
     <tr>
         <th>Descripción</th>
+        <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
     <g:each in="${examenes}" status="i" var="examen">
         <tr data-id="${examen.id}">
             <td>${examen?.descripcion}</td>
+            <td style="width: 10%; text-align: center">
+                <a href="#" class="btn btn-xs btn-success btnEditarExamen" data-id="${examen?.id}" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="#" class="btn btn-xs btn-danger btnEliminarExamen" data-id="${examen?.id}" title="Eliminar">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
         </tr>
     </g:each>
     </tbody>
@@ -52,7 +61,7 @@
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
                         setTimeout(function () {
-                           location.reload()
+                            location.reload()
                         }, 800);
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
@@ -139,46 +148,23 @@
         }); //ajax
     } //createEdit
 
-    $(function () {
 
-        $(".btnCrear").click(function() {
-            createEditRow();
-            return false;
-        });
-
-        $("tbody tr").contextMenu({
-            items  : {
-                header   : {
-                    label  : "Acciones",
-                    header : true
-                },
-                editar   : {
-                    label  : "Editar",
-                    icon   : "fa fa-pen",
-                    action : function ($element) {
-                        var id = $element.data("id");
-                        createEditRow(id);
-                    }
-                },
-                eliminar : {
-                    label            : "Eliminar",
-                    icon             : "fa fa-trash",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        deleteRow(id);
-                    }
-                }
-            },
-            onShow : function ($element) {
-                $element.addClass("trHighlight");
-            },
-            onHide : function ($element) {
-                $(".trHighlight").removeClass("trHighlight");
-            }
-        });
-
+    $(".btnCrear").click(function() {
+        createEditRow();
+        return false;
     });
+
+    $(".btnEditarExamen").click(function () {
+        var id = $(this).data("id");
+        createEditRow(id);
+    });
+
+    $(".btnEliminarExamen").click(function () {
+        var id = $(this).data("id");
+        deleteRow(id);
+    });
+
+
 </script>
 
 </body>
