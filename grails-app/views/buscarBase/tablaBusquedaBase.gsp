@@ -24,7 +24,7 @@ th, td {
 
                 <tr id="${dato.id}" data-id="${dato.id}" class="${clase}">
                     <td width="120px">
-                        ${dato?.subtema}
+                        ${dato?.subtema.nombre}
                     </td>
 
                     <td width="240px" style="color:#186063">
