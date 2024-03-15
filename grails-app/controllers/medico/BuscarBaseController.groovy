@@ -43,7 +43,7 @@ class BuscarBaseController {
         buscar.each {pl ->
             sql = "select base__id, sum(plbrvlor) valor from plbr where plbrplbr like '%${pl}%' group by base__id " +
                     "order by 2"
-//            println "sql: $sql"
+            println "sql: $sql"
             cn.eachRow(sql.toString()){d ->
 //                println "id: ${d.base__id} ${d.valor}"
                 if(data.find{ it.id == d.base__id}){

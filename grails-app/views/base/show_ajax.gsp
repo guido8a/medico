@@ -79,7 +79,7 @@
             <div class="col-md-12" style="text-align: right">
                 Creado el <g:formatDate date="${baseInstance?.fecha}" format="dd-MMM-yyyy" />
                 por: ${baseInstance?.persona?.nombre} ${baseInstance?.persona?.apellido},
-                dentro del tema: <span class="texto-verde"> "${baseInstance?.tema?.encodeAsHTML()}"</span>
+                dentro del tema: <span class="texto-verde"> "${baseInstance?.subtema?.encodeAsHTML()}"</span>
             </div>
             
         </div>
