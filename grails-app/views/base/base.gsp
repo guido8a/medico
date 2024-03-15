@@ -131,7 +131,7 @@
                     <g:form name="frmProblema" role="form" action="guardarProblema_ajax" method="POST">
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="col-md-2 label label-primary text-info mediano">Tema</span>
+                                <span class="col-md-2 label label-primary text-info mediano">Especialidad Médica</span>
                                 <div class="col-md-10">
                                     <g:select name="tema" id="temaId" from="${medico.Tema.list()}" optionKey="id"
                                               value="${base?.subtema?.tema?.id}" optionValue="nombre" class="form-control"
@@ -142,7 +142,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="col-md-2 label label-primary text-info mediano">Subtema</span>
+                                <span class="col-md-2 label label-primary text-info mediano">Tipología extra</span>
                                 <div class="col-md-10" id="divSubtema">
 
                                 </div>
@@ -185,7 +185,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="col-md-2 label label-primary text-info mediano">Algoritmo / Forma de solución</span>
+                                <span class="col-md-2 label label-primary text-info mediano">Procedimiento médico</span>
                                 <div class="col-md-10">
                                     %{--<ckeditor:editor name="algoritmo" height="240px" width="100%" toolbar="Basico2">${base?.algoritmo}</ckeditor:editor>--}%
                                     <textArea name="algoritmo" id="algoritmo" value="" />${base?.algoritmo}</textArea>
