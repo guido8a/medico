@@ -66,10 +66,11 @@
     <table class="table table-bordered table-hover table-condensed" style="width: 1070px;background-color: #a39e9e">
         <thead>
         <tr>
-            <th class="alinear" style="width: 120px">Tema</th>
-            <th class="alinear" style="width: 240px">Palabras clave</th>
-            <th class="alinear" style="width: 240px">Problema</th>
-            <th class="alinear" style="width: 460px">Solución</th>
+            <th class="alinear" style="width: 25%">Tema</th>
+            <th class="alinear" style="width: 15%">Palabras clave</th>
+            <th class="alinear" style="width: 25%">Problema</th>
+            <th class="alinear" style="width: 25%">Solución</th>
+            <th class="alinear" style="width: 10%">Acciones</th>
         </tr>
         </thead>
     </table>
@@ -142,72 +143,72 @@
     });
 
     $("input").keyup(function (ev) {
-        if (ev.keyCode == 13) {
+        if (ev.keyCode === 13) {
             $(".btnBusqueda").click();
         }
     });
 
-    function createContextMenu(node) {
-        var $tr = $(node);
+    %{--function createContextMenu(node) {--}%
+    %{--    var $tr = $(node);--}%
 
-        var items = {
-            header: {
-                label: "Acciones",
-                header: true
-            }
-        };
+    %{--    var items = {--}%
+    %{--        header: {--}%
+    %{--            label: "Acciones",--}%
+    %{--            header: true--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var id = $tr.data("id");
+    %{--    var id = $tr.data("id");--}%
 
-        var ver = {
-            label: 'Ver',
-            id: 'ver',
-            icon: "fa fa-search",
-            action: function (e) {
-                $("#dialog-body").html(spinner);
-                $.ajax({
-                    type: 'POST',
-                    url: '${createLink(controller: 'base', action: 'show_ajax')}',
-                    data: {
-                        id: id
-                    },
-                    success: function (msg) {
-                        $("#dialog-body").html(msg)
-                    }
-                });
-                $("#dialog").modal("show");
-            }
-        };
+    %{--    var ver = {--}%
+    %{--        label: 'Ver',--}%
+    %{--        id: 'ver',--}%
+    %{--        icon: "fa fa-search",--}%
+    %{--        action: function (e) {--}%
+    %{--            $("#dialog-body").html(spinner);--}%
+    %{--            $.ajax({--}%
+    %{--                type: 'POST',--}%
+    %{--                url: '${createLink(controller: 'base', action: 'show_ajax')}',--}%
+    %{--                data: {--}%
+    %{--                    id: id--}%
+    %{--                },--}%
+    %{--                success: function (msg) {--}%
+    %{--                    $("#dialog-body").html(msg)--}%
+    %{--                }--}%
+    %{--            });--}%
+    %{--            $("#dialog").modal("show");--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var aprobar = {
-            label: "Aprobar artículo",
-            icon: "fa fa-cogs",
-            action: function () {
-                location.href = '${createLink(controller: "base", action: "aprobar")}?id=' + id;
-            }
-        };
+    %{--    var aprobar = {--}%
+    %{--        label: "Aprobar artículo",--}%
+    %{--        icon: "fa fa-cogs",--}%
+    %{--        action: function () {--}%
+    %{--            location.href = '${createLink(controller: "base", action: "aprobar")}?id=' + id;--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var anexos = {
-            label: 'Anexos: Imágenes y videos',
-            icon: "fa fa-paperclip",
-            action: function (e) {
-                location.href = '${createLink(controller: 'imagen', action: 'verAnexos')}/' + id
-            }
-        };
+    %{--    var anexos = {--}%
+    %{--        label: 'Anexos: Imágenes y videos',--}%
+    %{--        icon: "fa fa-paperclip",--}%
+    %{--        action: function (e) {--}%
+    %{--            location.href = '${createLink(controller: 'imagen', action: 'verAnexos')}/' + id--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var editar = {
-            label: 'Editar',
-            icon: "fa fa-pen",
-            action: function (e) {
-                location.href = '${createLink(controller: 'base', action: 'base')}/' + id
-            }
-        };
+    %{--    var editar = {--}%
+    %{--        label: 'Editar',--}%
+    %{--        icon: "fa fa-pen",--}%
+    %{--        action: function (e) {--}%
+    %{--            location.href = '${createLink(controller: 'base', action: 'base')}/' + id--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        items.ver = ver;
-        items.editar = editar;
+    %{--    items.ver = ver;--}%
+    %{--    items.editar = editar;--}%
 
-        return items
-    }
+    %{--    return items--}%
+    %{--}--}%
 
     $(".btnBorrar").click(function () {
         $("#memorando").val("");

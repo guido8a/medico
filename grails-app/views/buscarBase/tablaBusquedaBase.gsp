@@ -4,39 +4,46 @@
 
 
 <style type="text/css">
-table {
-    table-layout: fixed;
-    overflow-x: scroll;
-}
-th, td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-}
+/*table {*/
+/*    table-layout: fixed;*/
+/*    overflow-x: scroll;*/
+/*}*/
+/*th, td {*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    word-wrap: break-word;*/
+/*}*/
 </style>
 
 <g:set var="clase" value="${'principal'}"/>
 
-<div class=""  style="width: 99.7%;height: ${msg == '' ? 400 : 585}px; overflow-y: auto;float: right; margin-top: -20px">
-    <table id="tablaB" class="table-bordered table-condensed table-hover" >
+<div class=""  style="width: 99.7%;height: ${msg == '' ? 400 : 585}px; overflow-y: auto; margin-top: -20px">
+    <table id="" class="table-bordered table-condensed table-hover" >
         <g:if test="${bases}">
             <g:each in="${bases}" var="dato" status="z">
-
                 <tr id="${dato.id}" data-id="${dato.id}" class="${clase}">
-                    <td width="120px">
-                        ${dato?.subtema.nombre}
+                    <td style="width: 23%">
+                        ${dato?.subtema?.nombre}
                     </td>
 
-                    <td width="240px" style="color:#186063">
+                    <td style="color:#186063; width: 15%">
                         ${dato?.clave}
                     </td>
 
-                    <td width="240px">
+                    <td style="width: 20%">
                         ${dato.problema}
                     </td>
 
-                    <td width="460px" class="text-info">
+                    <td style="width: 25%" class="text-info">
                         ${dato.solucion}
+                    </td>
+                    <td style="width: 10%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-info btnVer" data-id="${dato.id}" title="Ver">
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                        <a href="#" class="btn btn-xs btn-success btnEditar" data-id="${dato.id}" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
                     </td>
                 </tr>
             </g:each>
@@ -50,15 +57,37 @@ th, td {
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        $("tr").contextMenu({
-            items  : createContextMenu,
-            onShow : function ($element) {
-                $element.addClass("trHighlight");
+
+
+    $(".btnVer").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'base', action: 'show_ajax')}',
+            data: {
+                id: id
             },
-            onHide : function ($element) {
-                $(".trHighlight").removeClass("trHighlight");
+            success: function (msg) {
+                $("#dialog-body").html(msg)
             }
         });
     });
+
+    $(".btnEditar").click(function () {
+        var id = $(this).data("id");
+        location.href = '${createLink(controller: 'base', action: 'base')}/' + id
+    })
+
+
+    // $(function () {
+    //     $("tr").contextMenu({
+    //         items  : createContextMenu,
+    //         onShow : function ($element) {
+    //             $element.addClass("trHighlight");
+    //         },
+    //         onHide : function ($element) {
+    //             $(".trHighlight").removeClass("trHighlight");
+    //         }
+    //     });
+    // });
 </script>
