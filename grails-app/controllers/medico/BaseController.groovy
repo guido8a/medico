@@ -83,6 +83,7 @@ class BaseController {
     }
 
     def show_ajax() {
+//        println "parms: $params"
         def base = Base.get(params.id)
         def list = []
         def dir = new File("/var/bitacora/${base?.id}")

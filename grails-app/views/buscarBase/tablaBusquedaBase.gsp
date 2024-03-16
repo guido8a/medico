@@ -2,7 +2,6 @@
 <asset:stylesheet src="/apli/lzm.context-0.5.css"/>
 <asset:javascript src="/apli/lzm.context-0.5.js"/>
 
-
 <style type="text/css">
 /*table {*/
 /*    table-layout: fixed;*/
@@ -18,11 +17,11 @@
 <g:set var="clase" value="${'principal'}"/>
 
 <div class=""  style="width: 99.7%;height: ${msg == '' ? 400 : 585}px; overflow-y: auto; margin-top: -20px">
-    <table id="" class="table-bordered table-condensed table-hover" >
+    <table id="" class="table-bordered table-condensed table-hover" style="width: 100%">
         <g:if test="${bases}">
             <g:each in="${bases}" var="dato" status="z">
                 <tr id="${dato.id}" data-id="${dato.id}" class="${clase}">
-                    <td style="width: 23%">
+                    <td style="width: 25%">
                         ${dato?.subtema?.nombre}
                     </td>
 
@@ -30,7 +29,7 @@
                         ${dato?.clave}
                     </td>
 
-                    <td style="width: 20%">
+                    <td style="width: 25%">
                         ${dato.problema}
                     </td>
 
@@ -56,21 +55,25 @@
     </table>
 </div>
 
+
 <script type="text/javascript">
 
 
     $(".btnVer").click(function () {
         var id = $(this).data("id");
+        $("#dialog-body").html(spinner);
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'base', action: 'show_ajax')}',
             data: {
-                id: id
+                id: id,
+                archivos: 0
             },
             success: function (msg) {
                 $("#dialog-body").html(msg)
             }
         });
+        $("#dialog").modal("show");
     });
 
     $(".btnEditar").click(function () {

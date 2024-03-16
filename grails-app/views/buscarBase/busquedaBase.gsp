@@ -63,7 +63,7 @@
     <p class="css-vertical-text">Resultado - Buscar en la Base de Conocimiento</p>
 
     <div class="linea"></div>
-    <table class="table table-bordered table-hover table-condensed" style="width: 1070px;background-color: #a39e9e">
+    <table class="table table-bordered table-hover table-condensed" style="width: 100%;background-color: #a39e9e">
         <thead>
         <tr>
             <th class="alinear" style="width: 25%">Tema</th>
