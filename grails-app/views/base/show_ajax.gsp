@@ -38,7 +38,7 @@
 
 
     <div class="row" style="margin-bottom: 10px">
-        <strong style="margin-left: 15px">Algoritmo:</strong>
+        <strong style="margin-left: 15px">Procedimiento médico:</strong>
         <div class="col-xs-12" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">
             <util:renderHTML html="${baseInstance.algoritmo}"/>
         </div>

@@ -21,12 +21,12 @@
         <g:if test="${bases}">
             <g:each in="${bases}" var="dato" status="z">
                 <tr id="${dato.id}" data-id="${dato.id}" class="${clase}">
-                    <td style="width: 25%">
-                        ${dato?.subtema?.nombre}
+                    <td style="width: 15%">
+                        ${dato?.subtema?.tema?.nombre}
                     </td>
 
-                    <td style="color:#186063; width: 15%">
-                        ${dato?.clave}
+                    <td style="color:#186063; width: 25%">
+                        ${dato?.subtema?.nombre}
                     </td>
 
                     <td style="width: 25%">

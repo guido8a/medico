@@ -66,8 +66,8 @@
     <table class="table table-bordered table-hover table-condensed" style="width: 100%;background-color: #a39e9e">
         <thead>
         <tr>
-            <th class="alinear" style="width: 25%">Tema</th>
-            <th class="alinear" style="width: 15%">Palabras clave</th>
+            <th class="alinear" style="width: 15%">Especialidad Médica</th>
+            <th class="alinear" style="width: 25%">Tipología</th>
             <th class="alinear" style="width: 25%">Problema</th>
             <th class="alinear" style="width: 25%">Solución</th>
             <th class="alinear" style="width: 10%">Acciones</th>
@@ -88,7 +88,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                Problema y Solución..
+                Base de conocimiento
             </div>
 
             <div class="modal-body" id="dialog-body" style="padding: 15px">
