@@ -7,7 +7,7 @@ class Historial {
 
     Persona persona
     Paciente paciente
-    Diagnostico diagnostico
+//    Diagnostico diagnostico
     Date fecha
     String motivo
     String actual
@@ -25,7 +25,7 @@ class Historial {
         columns {
             persona column: 'prsn__id'
             paciente column: 'pcnt__id'
-            diagnostico column: 'diag__id'
+//            diagnostico column: 'diag__id'
             fecha column: 'hsclfcha'
             motivo column: 'hsclmotv'
             actual column: 'hsclactl'
@@ -39,7 +39,7 @@ class Historial {
     static constraints = {
         persona(blank: false, nullable: false)
         paciente(blank: false, nullable: false)
-        diagnostico(blank: true, nullable: true)
+//        diagnostico(blank: true, nullable: true)
         fecha(blank: false, nullable: false)
         motivo(size:0..255,blank: true, nullable: true)
         actual(size:0..255,blank: true, nullable: true)
