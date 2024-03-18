@@ -282,7 +282,8 @@ class PacienteController {
         def cn = dbConnectionService.getConnection()
         def datos
         def sqlTx = ""
-        def listaItems = ['hsclfcha::text', 'hsclmotv', 'diagdscr']
+//        def listaItems = ['hsclfcha::text', 'hsclmotv', 'diagdscr']
+        def listaItems = ['hsclfcha::text', 'hsclmotv']
         def bsca
         if(params.buscarPor){
             bsca = listaItems[params.buscarPor?.toInteger()-1]
@@ -290,8 +291,8 @@ class PacienteController {
             bsca = listaItems[0]
         }
 
-        def select = "select hscl__id, hscl.pcnt__id, hscl.diag__id, diagdscr, hsclfcha, hsclmotv, hsclobsr from hscl, diag " +
-                "where pcnt__id = ${params.pcnt} and diag.diag__id = hscl.diag__id "
+        def select = "select hscl__id, hscl.pcnt__id, hsclfcha, hsclmotv, hsclobsr from hscl " +
+                "where pcnt__id = ${params.pcnt} "
         def txwh = " and $bsca ilike '%${params.criterio}%'"
         sqlTx = "${select} ${txwh} order by hsclfcha limit 30 ".toString()
 
