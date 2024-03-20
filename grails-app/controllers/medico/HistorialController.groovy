@@ -68,13 +68,15 @@ class HistorialController {
     }
 
     def buscarDiagnostico_ajax(){
-
+        def cita = Historial.get(params.cita)
+        return [cita: cita]
     }
 
     def tablaBuscarDiagnostico_ajax(){
         def listaItems = ['diagdscr', 'diagcdgo']
         def bsca
         def sqlTx = ""
+        def cita = Historial.get(params.cita)
 
         if(params.buscarPor){
             bsca = listaItems[params.buscarPor?.toInteger()-1]
@@ -88,20 +90,31 @@ class HistorialController {
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
-        [datos: datos]
+        [datos: datos, cita: cita]
     }
 
     def saveDiagnostico_ajax(){
-        def historial = Historial.get(params.id)
+        def historial = Historial.get(params.cita)
         def diagnostico = Diagnostico.get(params.diagnostico)
+        def registro
 
-        historial.diagnostico = diagnostico
+        def existe = DiagnosticoxHistorial.findAllByHistorialAndDiagnostico(historial, diagnostico)
 
-        if(!historial.save(flush:true)){
-            println("error al guardar el diagnostico " + historial.errors )
-            render "no_Error al guardar el diagnostico"
+        if(existe){
+            render "no_El diagnóstico seleccionado ya fue ingresado"
+            return false
         }else{
-            render "ok_Diagnóstico guardado correctamente"
+            registro = new DiagnosticoxHistorial()
+            registro.historial = historial
+            registro.diagnostico = diagnostico
+            registro.descripcion = ''
+
+            if(!registro.save(flush:true)){
+                println("error al guardar el diagnostico " + registro.errors )
+                render "no_Error al guardar el diagnóstico"
+            }else{
+                render "ok_Diagnóstico guardado correctamente"
+            }
         }
     }
 
@@ -490,6 +503,31 @@ class HistorialController {
 //        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${pcnt?.empresa?.id}/paciente/pac_" + pcnt?.id + "/" + nombre + "." + ext)), ext.toString(), baos)
         ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + nombre + "." + ext)), ext.toString(), baos)
         baos.toByteArray()
+    }
+
+
+    def tablaDiagnostico_ajax(){
+        def historial = Historial.get(params.cita)
+        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(historial)
+        return [diagnosticos: diagnosticos]
+    }
+
+    def borrarDiagnostico_ajax(){
+        def diagnostico = DiagnosticoxHistorial.get(params.id)
+
+        if(diagnostico){
+
+            try{
+                diagnostico.delete(flush: true)
+                render "ok_Borrado correctamente"
+            }catch(e){
+                println("error al borrar " + diagnostico.errors)
+                render "no_Error al borrar"
+            }
+
+        }else{
+            render "no_No se encontró el registro"
+        }
     }
 
 }

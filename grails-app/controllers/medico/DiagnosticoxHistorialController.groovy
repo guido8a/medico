@@ -1,0 +1,7 @@
+package medico
+
+
+class DiagnosticoxHistorialController {
+
+
+}

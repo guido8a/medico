@@ -51,12 +51,14 @@
         var e = cargarLoader("Cargando...");
         var buscarPor = $("#buscarPorDiagnostico option:selected").val();
         var criterio = $("#criterioDiagnostico").val();
+        var cita = '${cita?.id}';
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'historial', action: 'tablaBuscarDiagnostico_ajax')}',
             data:{
                 buscarPor: buscarPor,
-                criterio: criterio
+                criterio: criterio,
+                cita: cita
             },
             success: function (msg){
                 e.modal("hide");

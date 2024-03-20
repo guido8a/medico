@@ -22,6 +22,6 @@ class DiagnosticoxHistorial {
     static constraints = {
         diagnostico(blank: false, nullable: false)
         historial(blank: false, nullable: false)
-        descripcion(size: 0..255, blank: false, nullable: false)
+        descripcion(size: 0..255, blank: true, nullable: true)
     }
 }

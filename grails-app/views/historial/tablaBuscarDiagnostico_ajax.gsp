@@ -19,7 +19,7 @@
                 <td style="width: 15%;">${dato.diagcdgo}</td>
                 <td style="width: 75%;">${dato.diagdscr}</td>
                 <td style="width: 10%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-success btnSelDiagnostico" title="Seleccionar" data-id="${dato.diag__id}" data-nombre="${dato.diagdscr}" data-codigo="${dato.diagcdgo}">
+                    <a href="#" class="btn btn-xs btn-success btnSelDiagnostico" title="Seleccionar" data-id="${dato.diag__id}" data-nombre="${dato.diagdscr}" data-codigo="${dato.diagcdgo}" data-cita="${cita?.id}">
                         <i class="fa fa-check"></i>
                     </a>
                 </td>
@@ -33,15 +33,28 @@
 
     $(".btnSelDiagnostico").click(function () {
         var id = $(this).data("id");
-        var codigo = $(this).data("codigo");
-        var descripcion = $(this).data("nombre");
+        var cita = $(this).data("cita");
 
-        $("#diagnostico").val(id);
-        $("#diagnosticoNombre").val(codigo +  " - " + descripcion);
-        $("#diagnosticoCodigo").val(codigo);
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'historial', action: 'saveDiagnostico_ajax')}",
+            data    : {
+                diagnostico: id,
+                cita: cita
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                    cerrarBusqueda();
+                    cargarTablaDiagnostico();
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
 
-        cerrarBusqueda();
-
+                }
+            }
+        });
         return false;
     });
 

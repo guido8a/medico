@@ -48,7 +48,7 @@
     </g:else>
 </h3>
 
-<div class="panel panel-primary col-md-12">
+<div class="panel panel-primary col-md-12" style="height: 700px">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
         <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
@@ -89,7 +89,6 @@
                                 <input aria-label="" name="fecha" id='fecha' required type='text' class="form-control required" value="${historial?.fecha?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
-
                     </div>
                 </div>
 
@@ -148,12 +147,23 @@
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
                         <span class="col-md-2 label label-primary text-info mediano">Diagnóstico</span>
-                        <span class="col-md-8">
-                            <g:hiddenField name="diagnostico" value="${historial?.diagnostico?.id}"/>
-                            <g:textArea name="diagnosticoNombre" maxlength="255" class="form-control" readonly="" style="resize: none; height: 60px;"  value="${historial?.diagnostico ? (historial?.diagnostico?.codigo + " - " + historial?.diagnostico?.descripcion) : ''}"/>
+                        <span class="col-md-9">
+                            <table class="table table-bordered table-striped table-condensed table-hover">
+                                <thead>
+                                <tr style="width: 100%">
+                                    <th style="width: 10%">Código</th>
+                                    <th style="width: 50%">Descripción </th>
+                                    <th style="width: 30%">Observaciones </th>
+                                    <th style="width:10%">Acciones</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <span id="divDiagnosticos">
+
+                            </span>
                         </span>
-                        <span class="col-md-2">
-                            <a href="#" id="btnBuscarDiagnostico" class="btn btn-sm btn-info" style="" title="Buscar diagnóstico">
+                        <span class="col-md-1">
+                            <a href="#" id="btnBuscarDiagnostico" class="btn btn-sm btn-info" style="margin-left: -8px" title="Buscar diagnóstico">
                                 <i class="fa fa-search"></i> Buscar
                             </a>
                         </span>
@@ -186,68 +196,86 @@
         }
     });
 
-    $("#btnDiagnostico").click(function () {
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(action:'diagnostico_ajax')}",
-            data    : {
-                id: '${paciente?.id}'
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgCreateEditDiagnostico",
-                    title   : "Diagnóstico del paciente",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
-                                return submitFormDiagnostico();
-                            } //callback
-                        } //guardar
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    });
+    cargarTablaDiagnostico();
 
-    function submitFormDiagnostico() {
-        var $form = $("#frmDiagnostico");
-        if ($form.valid()) {
-            var data = $form.serialize();
-            var dialog = cargarLoader("Guardando...");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : data,
-                success : function (msg) {
-                    dialog.modal('hide');
-                    var parts = msg.split("_");
-                    if(parts[0] === 'ok'){
-                        log(parts[1], "success");
-                    }else{
-                        if(parts[0] === 'err'){
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }else{
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }
-                    }
-                }
-            });
-        } else {
-            return false;
-        }
+    function cargarTablaDiagnostico(){
+        var e = cargarLoader("Cargando...");
+        var cita = '${historial?.id}';
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'historial', action: 'tablaDiagnostico_ajax')}',
+            data:{
+                cita: cita
+            },
+            success: function (msg){
+                e.modal("hide");
+                $("#divDiagnosticos").html(msg)
+            }
+        })
     }
+
+    %{--$("#btnDiagnostico").click(function () {--}%
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url: "${createLink(action:'diagnostico_ajax')}",--}%
+    %{--        data    : {--}%
+    %{--            id: '${paciente?.id}'--}%
+    %{--        },--}%
+    %{--        success : function (msg) {--}%
+    %{--            var b = bootbox.dialog({--}%
+    %{--                id      : "dlgCreateEditDiagnostico",--}%
+    %{--                title   : "Diagnóstico del paciente",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    },--}%
+    %{--                    guardar  : {--}%
+    %{--                        id        : "btnSave",--}%
+    %{--                        label     : "<i class='fa fa-save'></i> Guardar",--}%
+    %{--                        className : "btn-success",--}%
+    %{--                        callback  : function () {--}%
+    %{--                            return submitFormDiagnostico();--}%
+    %{--                        } //callback--}%
+    %{--                    } //guardar--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--});--}%
+
+    %{--function submitFormDiagnostico() {--}%
+    %{--    var $form = $("#frmDiagnostico");--}%
+    %{--    if ($form.valid()) {--}%
+    %{--        var data = $form.serialize();--}%
+    %{--        var dialog = cargarLoader("Guardando...");--}%
+    %{--        $.ajax({--}%
+    %{--            type    : "POST",--}%
+    %{--            url     : $form.attr("action"),--}%
+    %{--            data    : data,--}%
+    %{--            success : function (msg) {--}%
+    %{--                dialog.modal('hide');--}%
+    %{--                var parts = msg.split("_");--}%
+    %{--                if(parts[0] === 'ok'){--}%
+    %{--                    log(parts[1], "success");--}%
+    %{--                }else{--}%
+    %{--                    if(parts[0] === 'err'){--}%
+    %{--                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');--}%
+    %{--                        return false;--}%
+    %{--                    }else{--}%
+    %{--                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');--}%
+    %{--                        return false;--}%
+    %{--                    }--}%
+    %{--                }--}%
+    %{--            }--}%
+    %{--        });--}%
+    %{--    } else {--}%
+    %{--        return false;--}%
+    %{--    }--}%
+    %{--}--}%
 
     $("#btnGuardar").click(function () {
         submitFormCita();
@@ -285,20 +313,22 @@
         }
     }
 
-
     %{--$("#btnHistoria").click(function (){--}%
     %{--    location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'--}%
     %{--});--}%
 
     $("#btnBuscarDiagnostico").click(function () {
+        var cita = '${historial?.id}';
         $.ajax({
             type    : "POST",
             url: "${createLink(action:'buscarDiagnostico_ajax')}",
-            data    : {},
+            data    : {
+                cita: cita
+            },
             success : function (msg) {
                 dp = bootbox.dialog({
                     id      : "dlgBuscarDiagnostico",
-                    title   : "Buscar",
+                    title   : "Buscar diagnóstico",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -441,7 +471,6 @@
             return false;
         }
     }
-
 
 </script>
 
