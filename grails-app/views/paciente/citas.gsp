@@ -4,20 +4,23 @@
 <head>
     <meta name="layout" content="main">
     <title>
-        Lista de Citas del paciente ${paciente?.apellido + " " + paciente?.nombre}
+        Citas
     </title>
 </head>
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="btn-group" >
+    <div class="btn-group col-md-6" >
         <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-info" title="Retornar a búsqueda de pacientes">
-            <i class="fas fa-arrow-left"></i> Regresar
+            <i class="fas fa-arrow-left"></i> Lista de pacientes
         </a>
         <a href="#" class="btn btn-success " id="btnNuevaCita" title="Nueva Cita médica">
             <i class="fa fa-file"></i>
             Nueva Cita
         </a>
+    </div>
+    <div class="btn-group col-md-6" style="margin-top: -20px">
+        <h4>Citas del paciente ${paciente?.nombre + " " + paciente?.apellido}    </h4>
     </div>
 </div>
 

@@ -39,20 +39,20 @@
 
 <body>
 
-<h3>
+<h4>
     <g:if test="${paciente?.id}">
-        Cita del Paciente: <strong style="font-style: italic"> ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '')}</strong>
+        Paciente: <strong style="font-style: italic"> ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '') + " - fecha: " + historial?.fecha.format('dd-MM-yyyy')}</strong>
     </g:if>
     <g:else>
         Nueva cita
     </g:else>
-</h3>
+</h4>
 
 <div class="panel panel-primary col-md-12" style="height: 700px">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
         <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
-            <i class="fas fa-arrow-left"></i> Regresar
+            <i class="fas fa-arrow-left"></i> Lista de citas
         </a>
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">
             <i class="fa fa-save"></i> Guardar
