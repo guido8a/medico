@@ -7,13 +7,13 @@
         <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} required">
             <span class="grupo">
                 <label for="padre" class="col-md-2 control-label text-info">
-                    Padre
+                    Nombre genérico
                 </label>
                 <span class="col-md-8">
                     <g:textField name="nombrePadre" class="form-control required allCaps" readonly=""  value="${ medicina?.padre ?  (medicina?.padre?.codigo + " - "  + medicina.padre?.descripcion) : ''}"/>
                 </span>
                 <span class="col-md-1">
-                    <a href="#" class="btn btn-xs btn-warning btnBuscarPadre" title="Buscar Padre">
+                    <a href="#" class="btn btn-xs btn-info btnBuscarPadre" title="Buscar Padre">
                         <i class="fas fa-search"></i> Buscar
                     </a>
                 </span>
@@ -29,7 +29,7 @@
                 <g:textField name="tipo" maxlength="4" class="form-control allCaps"  value="${medicina?.tipo?:'CNMB'}"/>
             </span>
         </span>
-        <span class="col-md-3">(Cuadro nacional de medicamentos básicos)</span>
+        <span class="col-md-3" style="font-size: 12px">(Cuadro nacional de medicamentos básicos)</span>
         <span class="grupo">
             <label for="estado" class="col-md-2 control-label text-info">
                 Estado
@@ -47,6 +47,15 @@
             </label>
             <span class="col-md-4">
                 <g:textField name="codigo" maxlength="15" required="" class="form-control required allCaps"  value="${medicina?.codigo}"/>
+            </span>
+        </span>
+        <span class="col-md-1"></span>
+        <span class="grupo">
+            <label for="tipoMedicamento" class="col-md-2 control-label text-info">
+                Medicina
+            </label>
+            <span class="col-md-3">
+                <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
             </span>
         </span>
     </div>

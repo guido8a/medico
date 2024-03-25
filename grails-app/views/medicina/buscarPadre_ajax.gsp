@@ -33,6 +33,12 @@
         cargarPadres();
     });
 
+    $("#btnLimpiarPadre").click(function () {
+        $("#criterioPadre").val('');
+        $("#buscarPorPadre").val(1);
+        cargarPadres();
+    });
+
     cargarPadres();
 
     function cargarPadres(){
@@ -53,5 +59,12 @@
         })
     }
 
+    $(".form-control").keydown(function (ev) {
+        if (ev.keyCode === 13) {
+            cargarPadres();
+            return false;
+        }
+        return true;
+    })
 
 </script>

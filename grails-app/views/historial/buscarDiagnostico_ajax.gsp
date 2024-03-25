@@ -67,5 +67,12 @@
         })
     }
 
+    $(".form-control").keydown(function (ev) {
+        if (ev.keyCode === 13) {
+            cargarDiagnosticos();
+            return false;
+        }
+        return true;
+    })
 
 </script>

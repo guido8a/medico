@@ -10,6 +10,7 @@ class Medicina {
     String estado
     String observaciones
     String concentracion
+    String tipoMedicamento
 
 
     static mapping = {
@@ -27,6 +28,7 @@ class Medicina {
             estado column: 'mdcnetdo'
             observaciones column: 'mdcnobsr'
             concentracion column: 'mdcncnct'
+            tipoMedicamento column: 'mdcntpmd'
         }
     }
 
@@ -40,6 +42,7 @@ class Medicina {
         estado(size:0..1,blank: true, nullable: true)
         observaciones(size:0..255,blank: true, nullable: true)
         concentracion(size:0..255,blank: true, nullable: true)
+        tipoMedicamento(blank: true, nullable: true)
 
     }
 }

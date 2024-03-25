@@ -34,16 +34,16 @@
                     <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Fecha', 2: 'Motivo', 3: 'Diagnóstico']}" optionKey="key"
                               optionValue="value"/>
                 </span>
-                <span class="col-md-2">
+                <span class="col-md-4">
                     <label class="control-label text-info">Criterio</label>
                     <g:textField name="criterio" id="criterio" class="form-control"/>
                 </span>
             </span>
             <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-info" id="btnBuscarCita"><i class="fa fa-search"></i></button>
+                <button class="btn btn-info" id="btnBuscarCita"><i class="fa fa-search"></i> Buscar</button>
             </div>
             <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i> Limpiar</button>
             </div>
         </div>
     </fieldset>

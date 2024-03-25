@@ -81,6 +81,7 @@
                 dm = bootbox.dialog({
                     id      : "dlgBuscarMedicina",
                     title   : "Buscar",
+                    class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {

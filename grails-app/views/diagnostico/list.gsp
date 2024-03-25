@@ -10,7 +10,10 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="span9 btn-group" role="navigation">
+    <div class="btn-group" role="navigation">
+        <g:link controller="inicio" action="parametros" class="btn btn-primary">
+            <i class="fa fa-arrow-left"></i> Regresar
+        </g:link>
         <a href="#" class="btn btn-success btnNuevoDiagnostico">
             <i class="fa fa-bug"></i>
             Nuevo Diagnóstico

@@ -10,7 +10,10 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="span9 btn-group" role="navigation">
+    <div class="btn-group" role="navigation">
+        <g:link controller="inicio" action="parametros" class="btn btn-primary">
+            <i class="fa fa-arrow-left"></i> Regresar
+        </g:link>
         <a href="#" class="btn btn-success btnNuevaMedicina">
             <i class="fa fa-medkit"></i>
             Nueva Medicina
@@ -27,16 +30,16 @@
                     <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código', 3: 'Tipo']}" optionKey="key"
                               optionValue="value"/>
                 </span>
-                <span class="col-md-2">
+                <span class="col-md-4">
                     <label class="control-label text-info">Criterio</label>
                     <g:textField name="criterio" id="criterio" class="form-control"/>
                 </span>
             </span>
             <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i></button>
+                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i> Buscar</button>
             </div>
             <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i> Limpiar</button>
             </div>
         </div>
     </fieldset>
@@ -49,7 +52,7 @@
 
 
 <script type="text/javascript">
-    var di
+    var di;
 
     $(".btnNuevaMedicina").click(function () {
         createEditRow();
@@ -229,69 +232,69 @@
         di.modal("hide");
     }
 
-    function createContextMenu(node) {
-        var $tr = $(node);
+    %{--function createContextMenu(node) {--}%
+    %{--    var $tr = $(node);--}%
 
-        var items = {
-            header: {
-                label: "Acciones",
-                header: true
-            }
-        };
+    %{--    var items = {--}%
+    %{--        header: {--}%
+    %{--            label: "Acciones",--}%
+    %{--            header: true--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var id = $tr.data("id");
+    %{--    var id = $tr.data("id");--}%
 
-        var ver = {
-            label: " Ver",
-            icon: "fa fa-search",
-            action: function () {
-                $.ajax({
-                    type    : "POST",
-                    url     : "${createLink(controller: 'medicina', action:'show_ajax')}",
-                    data    : {
-                        id : id
-                    },
-                    success : function (msg) {
-                        bootbox.dialog({
-                            title   : "Medicina",
-                            message : msg,
-                            buttons : {
-                                ok : {
-                                    label     : "Aceptar",
-                                    className : "btn-primary",
-                                    callback  : function () {
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        };
+    %{--    var ver = {--}%
+    %{--        label: " Ver",--}%
+    %{--        icon: "fa fa-search",--}%
+    %{--        action: function () {--}%
+    %{--            $.ajax({--}%
+    %{--                type    : "POST",--}%
+    %{--                url     : "${createLink(controller: 'medicina', action:'show_ajax')}",--}%
+    %{--                data    : {--}%
+    %{--                    id : id--}%
+    %{--                },--}%
+    %{--                success : function (msg) {--}%
+    %{--                    bootbox.dialog({--}%
+    %{--                        title   : "Medicina",--}%
+    %{--                        message : msg,--}%
+    %{--                        buttons : {--}%
+    %{--                            ok : {--}%
+    %{--                                label     : "Aceptar",--}%
+    %{--                                className : "btn-primary",--}%
+    %{--                                callback  : function () {--}%
+    %{--                                }--}%
+    %{--                            }--}%
+    %{--                        }--}%
+    %{--                    });--}%
+    %{--                }--}%
+    %{--            });--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var editar = {
-            label: " Editar",
-            icon: "fa fa-edit",
-            action: function () {
-                createEditRow(id)
-            }
-        };
+    %{--    var editar = {--}%
+    %{--        label: " Editar",--}%
+    %{--        icon: "fa fa-edit",--}%
+    %{--        action: function () {--}%
+    %{--            createEditRow(id)--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        var eliminar = {
-            label: " Dar de baja",
-            icon: "fa fa-trash",
-            separator_before : true,
-            action: function () {
-                deleteRow(id);
-            }
-        };
+    %{--    var eliminar = {--}%
+    %{--        label: " Dar de baja",--}%
+    %{--        icon: "fa fa-trash",--}%
+    %{--        separator_before : true,--}%
+    %{--        action: function () {--}%
+    %{--            deleteRow(id);--}%
+    %{--        }--}%
+    %{--    };--}%
 
-        items.ver = ver;
-        items.editar = editar;
-        // items.eliminar = eliminar;
+    %{--    items.ver = ver;--}%
+    %{--    items.editar = editar;--}%
+    %{--    // items.eliminar = eliminar;--}%
 
-        return items
-    }
+    %{--    return items--}%
+    %{--}--}%
 
 
 </script>
