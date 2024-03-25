@@ -40,8 +40,8 @@
 <body>
 
 <h4>
-    <g:if test="${paciente?.id}">
-        Paciente: <strong style="font-style: italic"> ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '') + " - fecha: " + historial?.fecha.format('dd-MM-yyyy')}</strong>
+    <g:if test="${historial?.id}">
+        Paciente: <strong style="font-style: italic"> ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '') + " - fecha: " + historial?.fecha?.format('dd-MM-yyyy')}</strong>
     </g:if>
     <g:else>
         Nueva cita
