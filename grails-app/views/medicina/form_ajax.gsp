@@ -117,7 +117,8 @@
             success : function (msg) {
                 dp = bootbox.dialog({
                     id      : "dlgBuscarPadre",
-                    title   : "Buscar",
+                    title   : "Buscar Medicina Padre",
+                    class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {
