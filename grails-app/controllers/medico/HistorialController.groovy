@@ -530,4 +530,29 @@ class HistorialController {
         }
     }
 
+    def observacionesDiagnostico_ajax(){
+        def diagnostico = DiagnosticoxHistorial.get(params.id)
+        return [diagnostico: diagnostico]
+    }
+
+
+    def saveObservaciones_ajax(){
+        def diagnostico = DiagnosticoxHistorial.get(params.id)
+
+        if(diagnostico){
+
+            diagnostico.descripcion = params.observaciones
+
+            if(!diagnostico.save(flush:true)){
+                println("Error al guardar " + diagnostico.errors)
+                render "no_Error al guardar"
+            }else{
+                render "ok_Guardado correctamente"
+            }
+
+        }else{
+            render "no_Error al guardar las observaciones"
+        }
+    }
+
 }

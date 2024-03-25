@@ -9,6 +9,9 @@
                     <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
                     <td style="width: 30%">${diagnostico?.descripcion}</td>
                     <td style="width: 10%; text-align: center">
+                        <a class="btn btn-info btn-xs btnObservacionesDiagnostico" href="#" rel="tooltip" title="Observaciones" data-id="${diagnostico.id}">
+                            <i class="fa fa-book"></i>
+                        </a>
                         <a class="btn btn-danger btn-xs btnBorrarDiagnostico" href="#" rel="tooltip" title="Eliminar" data-id="${diagnostico.id}">
                             <i class="fa fa-trash"></i>
                         </a>
@@ -25,16 +28,65 @@
 
 <script type="text/javascript">
 
-
-    // $(".btnEditarExamenLaboratorio").click(function () {
-    //     var id = $(this).data("id");
-    //     createEditRow(id);
-    // }); //click btn edit
-    //
     $(".btnBorrarDiagnostico").click(function () {
         var id = $(this).data("id");
         deleteRowDiagnostico(id)
     });
+
+    $(".btnObservacionesDiagnostico").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(action:'observacionesDiagnostico_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                dp = bootbox.dialog({
+                    id      : "dlgObservacionesDiagnostico",
+                    title   : "Observaciones",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar : {
+                            label     : "Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return guardarObservaciones(id);
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    function guardarObservaciones (id) {
+        var observaciones = $("#observacionesDiagnostico").val();
+        $.ajax({
+            type    : "POST",
+            url     : '${createLink(controller: 'historial', action:'saveObservaciones_ajax')}',
+            data    : {
+                id: id,
+                observaciones: observaciones
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                    cargarTablaDiagnostico();
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }
+            }
+        });
+    }
 
     function deleteRowDiagnostico(itemId) {
         bootbox.dialog({
