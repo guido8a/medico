@@ -13,6 +13,8 @@ class Base  {
     String solucion
     String referencia
     String observacion
+    String enfermedad
+    String organizacion
 
     static auditable = true
 
@@ -34,6 +36,8 @@ class Base  {
             solucion column: 'baseslcn'
             referencia column: 'baserefe'
             observacion column: 'baseobsr'
+            enfermedad column: 'baseenfr'
+            organizacion column: 'baseorga'
 
         }
     }
@@ -45,6 +49,8 @@ class Base  {
         solucion(blank: true, nullable: true)
         referencia(size: 0..255, blank: true, nullable: true)
         observacion(size: 0..255, blank: true, nullable: true)
+        enfermedad(size: 0..255, blank: true, nullable: true)
+        organizacion(size: 0..255, blank: true, nullable: true)
     }
 
     String toString() {

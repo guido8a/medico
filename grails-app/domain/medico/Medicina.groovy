@@ -3,6 +3,7 @@ package medico
 class Medicina {
 
     Medicina padre
+    Laboratorio laboratorio
     String tipo
     String descripcion
     String codigo
@@ -29,6 +30,7 @@ class Medicina {
             observaciones column: 'mdcnobsr'
             concentracion column: 'mdcncnct'
             tipoMedicamento column: 'mdcntpmd'
+            laboratorio column: 'labt__id'
         }
     }
 
@@ -43,6 +45,7 @@ class Medicina {
         observaciones(size:0..255,blank: true, nullable: true)
         concentracion(size:0..255,blank: true, nullable: true)
         tipoMedicamento(blank: true, nullable: true)
+        laboratorio(blank: true, nullable: true)
 
     }
 }
