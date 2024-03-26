@@ -44,19 +44,6 @@
                             </li>
 
                             <li>
-                                <g:link data-info="categoria" class="over tamano" controller="medicina" action="list" >
-                                    <i class="fa-li fas fa-certificate text-info"></i> Medicinas
-                                </g:link>
-
-                                <div class="descripcion hidden">
-                                    <h4>Medicinas</h4>
-
-                                    <p> Administración de las medicinas
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li>
                                 <g:link data-info="categoria" class="over tamano" controller="diagnostico" action="list" >
                                     <i class="fa-li fas fa-certificate text-info"></i> Diagnóstico
                                 </g:link>
