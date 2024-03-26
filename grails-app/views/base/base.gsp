@@ -151,6 +151,27 @@
 
                         <div class="row">
                             <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Enfermedad</span>
+                                <div class="col-md-10">
+                                    <g:textArea name="enfermedad" id="enfermedad" class="form-control " maxlength="255"
+                                                style="height: 60px; resize: none" value="${base?.enfermedad}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-2 label label-primary text-info mediano">Organización</span>
+                                <div class="col-md-10">
+                                    <g:select name="organizacion" id="organizacion" from="${['msp' : 'Ministerio de Salud Pública', 'oms' : 'Organización Mundial de la Salud',   'ada' : 'ada', 'jnc' : 'jnc' ]}" optionKey="key"
+                                              value="${base?.organizacion}" optionValue="value" class="form-control"
+                                              />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
                                 <span class="col-md-2 label label-primary text-info mediano">Problema</span>
                                 <div class="col-md-10">
                                     <span class="grupo">
@@ -391,7 +412,9 @@
                             clave: $("#clve").val(),
                             solucion: $("#slcn").val(),
                             referencia: $("#refe").val(),
-                            observacion: $("#obsr").val()
+                            observacion: $("#obsr").val(),
+                            enfermedad: $("#enfermedad").val(),
+                            organizacion: $("#organizacion option:selected").val()
                         },
                         success: function (msg) {
                             var parte = msg.split("_");
