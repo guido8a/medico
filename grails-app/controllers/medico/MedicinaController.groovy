@@ -46,6 +46,12 @@ class MedicinaController {
     def saveMedicina_ajax() {
         def medicina
 
+        if(params.tipoMedicamento == 'C'){
+            params.laboratorio = params.laboratorio
+        }else{
+            params.laboratorio = null
+        }
+
         if(params.id){
             medicina = Medicina.get(params.id)
         }else{

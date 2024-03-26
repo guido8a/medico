@@ -40,6 +40,25 @@
         </span>
     </div>
 
+    <div class="form-group ${hasErrors(bean: medicina, field: 'tipoMedicamento', 'error')} required">
+        <span class="grupo">
+            <label for="tipoMedicamento" class="col-md-2 control-label text-info">
+                Medicina
+            </label>
+            <span class="col-md-4">
+                <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
+            </span>
+        </span>
+        <span class="grupo hidden" id="divLaboratorio">
+            <label for="laboratorio" class="col-md-2 control-label text-info">
+                Laboratorio
+            </label>
+            <span class="col-md-4">
+                <g:select name="laboratorio" class="form-control" from="${medico.Laboratorio.list([sort: 'nombre'])}" optionValue="nombre" optionKey="id" value="${medicina?.laboratorio?.id}"/>
+            </span>
+        </span>
+    </div>
+
     <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'error')} required">
         <span class="grupo">
             <label for="codigo" class="col-md-2 control-label text-info">
@@ -47,15 +66,6 @@
             </label>
             <span class="col-md-4">
                 <g:textField name="codigo" maxlength="15" required="" class="form-control required allCaps"  value="${medicina?.codigo}"/>
-            </span>
-        </span>
-        <span class="col-md-1"></span>
-        <span class="grupo">
-            <label for="tipoMedicamento" class="col-md-2 control-label text-info">
-                Medicina
-            </label>
-            <span class="col-md-3">
-                <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
             </span>
         </span>
     </div>
@@ -108,6 +118,21 @@
 <script type="text/javascript">
 
     var dp;
+
+    cargarLaboratorio($("#tipoMedicamento option:selected").val());
+
+    function cargarLaboratorio(tipo){
+        if(tipo === 'C'){
+            $("#divLaboratorio").removeClass("hidden");
+        }else{
+            $("#divLaboratorio").addClass("hidden");
+        }
+    }
+
+    $("#tipoMedicamento").change(function () {
+        var tipo = $(this).val();
+        cargarLaboratorio(tipo)
+      });
 
     $(".btnBuscarPadre").click(function () {
         $.ajax({
