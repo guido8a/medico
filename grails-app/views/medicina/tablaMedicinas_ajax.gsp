@@ -4,13 +4,14 @@
         <tr>
             <th style="width: 8%">Código</th>
             <th style="width: 20%">Descripción</th>
-            <th style="width: 20%">Padre</th>
-            <th style="width: 15%">Forma</th>
+            <th style="width: 15%">Padre</th>
+            <th style="width: 12%">Forma</th>
             <th style="width: 10%">Concentración</th>
             <th style="width: 10%">Medicina</th>
-            <th style="width: 5%">Estado</th>
+            <th style="width: 8%">Laboratorio</th>
             <th style="width: 5%">Tipo</th>
-            <th style="width: 12%">Acciones</th>
+            <th style="width: 5%">Estado</th>
+            <th style="width: 7%">Acciones</th>
         </tr>
         </thead>
     </table>
@@ -24,13 +25,14 @@
                 <tr data-id="${medicina.mdcn__id}">
                     <td style="width: 8%">${medicina.mdcncdgo}</td>
                     <td style="width: 20%">${medicina.mdcndscr}</td>
-                    <td style="width: 20%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>
-                    <td style="width: 15%">${medicina.mdcnfrma}</td>
+                    <td style="width: 15%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>
+                    <td style="width: 12%">${medicina.mdcnfrma}</td>
                     <td style="width: 10%">${medicina.mdcncnct}</td>
                     <td style="width: 10%">${medicina.mdcntpmd == 'G' ? 'GENÉRICO' : 'COMERCIAL'}</td>
-                    <td style="width: 5%; background-color:  ${medicina.mdcnetdo == 'A' ? '#b5e898' : '#E22B0C'}">${medicina.mdcnetdo == 'A' ? 'Activo' : 'Inactivo'}</td>
+                    <td style="width: 8%">${medico.Laboratorio.get(medicina?.labt__id)?.nombre}</td>
                     <td style="width: 5%">${medicina.mdcntipo}</td>
-                    <td style="width: 12%; text-align: center">
+                    <td style="width: 5%; background-color:  ${medicina.mdcnetdo == 'A' ? '#b5e898' : '#E22B0C'}">${medicina.mdcnetdo == 'A' ? 'Activo' : 'Inactivo'}</td>
+                    <td style="width: 7%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnEditarMedicina" data-id="${medicina.mdcn__id}" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
