@@ -2,7 +2,7 @@ package medico
 
 class Dias {
 
-    String numero
+    int numero
     String nombre
 
     static mapping = {
@@ -12,13 +12,15 @@ class Dias {
         id generator: 'identity'
         version false
         columns {
+            id column: 'dias__id'
             numero column: 'diasnmro'
             nombre column: 'diasnmbr'
         }
     }
 
     static constraints = {
-        numero(blank: false, nullable: false)
-        nombre(size: 0..15, blank: false, nullable: false)
+        nombre(size: 1..15, blank: false, nullable: false, attributes: [title: 'nombre'])
+        numero(maxSize: 2, blank: false, nullable: false, attributes: [title: 'número'])
+
     }
 }
