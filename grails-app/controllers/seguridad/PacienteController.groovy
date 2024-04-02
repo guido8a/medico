@@ -149,7 +149,7 @@ class PacienteController {
         }else{
             paciente = new Paciente()
         }
-        return[paciente:paciente]
+        return[paciente:paciente, tipo: params.tipo]
     }
 
     def antecedentes_ajax(){

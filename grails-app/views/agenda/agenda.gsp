@@ -73,6 +73,16 @@
                   class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id"
         />
     </div>
+
+    <div class="col-md-2">
+        <div class="btn-group" role="navigation" style="margin-top: 20px">
+            <a href="#" class="btn btn-success btnNuevoPaciente">
+                <i class="fa fa-user"></i>
+                Nuevo Paciente
+            </a>
+        </div>
+    </div>
+
 </div>
 
 <div id="divTabla">
@@ -83,6 +93,10 @@
 
 <script type="text/javascript">
     var id = null;
+
+    $(".btnNuevoPaciente").click(function () {
+        location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 1
+    });
 
     cargaTabla($("#semana option:selected").val(), $("#doctor option:selected").val());
 

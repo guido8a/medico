@@ -51,9 +51,17 @@
 <div class="panel panel-primary col-md-12">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
-        <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a búsqueda de pacientes">
-            <i class="fas fa-arrow-left"></i> Lista de pacientes
-        </a>
+        <g:if test="${tipo == '0'}">
+            <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a búsqueda de pacientes">
+                <i class="fas fa-arrow-left"></i> Lista de pacientes
+            </a>
+        </g:if>
+        <g:else>
+            <a href="${createLink(controller: 'agenda', action: 'agenda')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a agenda">
+                <i class="fas fa-arrow-left"></i> Agenda
+            </a>
+        </g:else>
+
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">
             <i class="fa fa-save"></i> Guardar
         </a>

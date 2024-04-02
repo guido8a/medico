@@ -58,8 +58,7 @@
     var di;
 
     $(".btnNuevoPaciente").click(function () {
-        // createEditRow();
-        location.href="${createLink(controller: 'paciente', action: 'datos')}"
+        location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 0
     });
 
     $("#btnLimpiar").click(function  () {
