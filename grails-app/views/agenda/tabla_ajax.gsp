@@ -22,7 +22,7 @@
             <td width="9%" style="font-weight: bold; background-color: #435a83; color: #fff;">${h?.hora}</td>
             <g:if test="${h?.lun?.size() > 10}">
                 <td width="10%" data-id="${h?.lun?.split(';')[2]}" class="${h?.lun?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
-                    ${h?.lun?.split(';')[4]}
+                    Paciente: ${h?.lun?.split(';')[4]}
                     <a href="#" data-hora="${h?.lun?.split(';')[2]}" class="btn btn-xs btn-danger btn-borra-hora "
                        title="Eliminar">
                         <i class="fa fa-trash"> </i>
