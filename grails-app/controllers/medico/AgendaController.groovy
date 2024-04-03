@@ -25,12 +25,61 @@ class AgendaController {
             def sql = "select * from agenda(${doctor?.id}, ${semana.id})"
             def resp = cn.rows(sql.toString())
 
-            println("sql " + sql)
-
             return[horario: resp, clases: clases, existe: true, profesor: doctor, horas: horas, dias: dias]
         }else{
             return[existe: false]
         }
+    }
+
+    def paciente_ajax(){
+        def semana = Semana.get(params.semana)
+        def doctor = Persona.get(params.doctor)
+        def agenda
+
+        if(params.id){
+            agenda = Agenda.get(params.id)
+            return[semana: semana, persona: doctor, dia: agenda?.dias, hora: agenda?.hora, agenda: agenda]
+        }else{
+            def dia = Dias.get(params.dia)
+            def hora = Hora.get(params.hora)
+            agenda = new Agenda();
+            return[semana: semana, persona: doctor, dia: dia, hora: hora, agenda: agenda]
+        }
+    }
+
+    def saveAgenda_ajax(){
+        def agenda
+
+        if(params.id){
+            agenda = Agenda.get(params.id)
+        }else{
+            agenda = new Agenda()
+            agenda.fechaInicio = new Date();
+        }
+
+        agenda.properties = params
+
+        if(!agenda.save(flush: true)){
+            println("error al agendar la cita " + agenda.errors)
+            render "no_Error al agendar la cita"
+        }else{
+            render "ok_Cita agendada correctamente"
+        }
+    }
+
+    def borrarCita_ajax(){
+
+        def agenda = Agenda.get(params.id)
+
+        try{
+            agenda.delete(flush: true)
+            render "ok_Borrado correctamente"
+        }catch(e){
+            println("error al borrar la cita " + agenda.errors)
+            render "no_Error al borrar la cita"
+        }
+
+
     }
 
 

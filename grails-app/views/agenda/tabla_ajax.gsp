@@ -22,7 +22,12 @@
             <td width="9%" style="font-weight: bold; background-color: #435a83; color: #fff;">${h?.hora}</td>
             <g:if test="${h?.lun?.size() > 10}">
                 <td width="10%" data-id="${h?.lun?.split(';')[2]}" class="${h?.lun?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
-                    Paciente: ${h?.lun?.split(';')[4]}
+                    <strong style="color: #4e75ed">Paciente:</strong> ${h?.lun?.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.lun?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.lun?.split(';')[2]}" class="btn btn-xs btn-danger btn-borra-hora "
                        title="Eliminar">
                         <i class="fa fa-trash"> </i>
@@ -37,8 +42,13 @@
             </g:else>
 
             <g:if test="${h?.mar?.size() > 10}">
-                <td width="10%" data-id="${h?.mar?.split(';')[2]}"  class="${h?.mar?.split(';')[3] == 'S' ? 'usado' : 'otro'} ${h?.mar?.split(';')[6] == 'S' ? 'conjunta' : '' }">
-                    ${h.mar.split(';')[5][0..12]}.. - ${h.mar.split(';')[4]}
+                <td width="10%" data-id="${h?.mar?.split(';')[2]}"  class="${h?.mar?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                    <strong style="color: #4e75ed">Paciente:</strong> ${h.mar.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.mar?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.mar?.split(';')[2]}" class= "btn btn-xs btn-danger btn-borra-hora"
                        title="Eliminar">
                         <i class="fa fa-trash"> </i>
@@ -53,8 +63,13 @@
             </g:else>
 
             <g:if test="${h?.mie?.size() > 10}">
-                <td width="10%" data-id="${h?.mie?.split(';')[2]}"  class="${h?.mie?.split(';')[3] == 'S' ? 'usado' : 'otro'} ${h?.mie?.split(';')[6] == 'S' ? 'conjunta' : '' }">
-                    ${h.mie.split(';')[5][0..12]}.. - ${h.mie.split(';')[4]}
+                <td width="10%" data-id="${h?.mie?.split(';')[2]}"  class="${h?.mie?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                    <strong style="color: #4e75ed">Paciente:</strong> ${h.mie.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.mie?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.mie?.split(';')[2]}" class= "btn btn-xs btn-danger btn-borra-hora"
                        title="Eliminar">
                         <i class="fa fa-trash"></i>
@@ -69,8 +84,13 @@
             </g:else>
 
             <g:if test="${h?.jue?.size() > 10}">
-                <td width="10%" data-id="${h?.jue?.split(';')[2]}"  class="${h?.jue?.split(';')[3] == 'S' ? 'usado' : 'otro'} ${h?.jue?.split(';')[6] == 'S' ? 'conjunta' : '' }">
-                    ${h.jue.split(';')[5][0..12]}.. - ${h.jue.split(';')[4]}
+                <td width="10%" data-id="${h?.jue?.split(';')[2]}"  class="${h?.jue?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                    <strong style="color: #4e75ed">Paciente:</strong> ${h.jue.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.jue?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.jue?.split(';')[2]}" class= "btn btn-xs btn-danger btn-borra-hora"
                        title="Eliminar">
                         <i class="fa fa-trash"></i>
@@ -85,8 +105,13 @@
             </g:else>
 
             <g:if test="${h?.vie?.size() > 10}">
-                <td width="10%" data-id="${h?.vie?.split(';')[2]}"  class="${h?.vie?.split(';')[3] == 'S' ? 'usado' : 'otro'} ${h?.vie?.split(';')[6] == 'S' ? 'conjunta' : '' }">
-                    ${h.vie.split(';')[5][0..12]}.. - ${h.vie.split(';')[4]}
+                <td width="10%" data-id="${h?.vie?.split(';')[2]}"  class="${h?.vie?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                    <strong style="color: #4e75ed">Paciente:</strong> ${h.vie.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.vie?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.vie?.split(';')[2]}" class= "btn btn-xs btn-danger btn-borra-hora"
                        title="Eliminar">
                         <i class="fa fa-trash"></i>
@@ -101,8 +126,13 @@
             </g:else>
 
             <g:if test="${h?.sab?.size() > 10}">
-                <td width="10%" data-id="${h?.sab?.split(';')[2]}"  class="${h?.sab?.split(';')[3] == 'S' ? 'usado' : 'otro'} ${h?.sab?.split(';')[6] == 'S' ? 'conjunta' : '' }">
-                    ${h.sab.split(';')[5][0..12]}.. - ${h.sab.split(';')[4]}
+                <td width="10%" data-id="${h?.sab?.split(';')[2]}"  class="${h?.sab?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                    <strong style="color: #4e75ed">Paciente:</strong>  ${h.sab.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.sab?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.sab?.split(';')[2]}" class= "btn btn-xs btn-danger btn-borra-hora"
                        title="Eliminar">
                         <i class="fa fa-trash"></i>
@@ -117,8 +147,13 @@
             </g:else>
 
             <g:if test="${h?.dom?.size() > 10}">
-                <td width="10%" data-id="${h?.dom?.split(';')[2]}"  class="${h?.dom?.split(';')[3] == 'S' ? 'usado' : 'otro'} ${h?.dom?.split(';')[6] == 'S' ? 'conjunta' : '' }">
-                    ${h.dom.split(';')[5][0..12]}.. - ${h.dom.split(';')[4]}
+                <td width="10%" data-id="${h?.dom?.split(';')[2]}"  class="${h?.dom?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                    <strong style="color: #4e75ed">Paciente:</strong> ${h.dom.split(';')[4]}
+                    <br>
+                    <a href="#" data-hora="${h?.dom?.split(';')[2]}" class="btn btn-xs btn-success btnEditar"
+                       title="Editar">
+                        <i class="fa fa-edit"> </i>
+                    </a>
                     <a href="#" data-hora="${h?.dom?.split(';')[2]}" class= "btn btn-xs btn-danger btn-borra-hora"
                        title="Eliminar">
                         <i class="fa fa-trash"></i>
@@ -149,12 +184,18 @@
     $(".horas").click(function () {
         var dias = $(this).data("dia");
         var hora = $(this).data("hora");
-        creaHora(dias, hora)
+        agendar(dias, hora, null)
     });
 
     $(".btn-borra-hora").click(function () {
         var id = $(this).data("hora");
-        borraHora(id)
+        borrarAgendado(id)
     });
+
+    $(".btnEditar").click(function () {
+        var id = $(this).data("hora");
+        agendar(null, null, id)
+    });
+
 
 </script>
