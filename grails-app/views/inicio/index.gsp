@@ -164,35 +164,35 @@
 
     <div class="row mbr-justify-content-center">
 
-    <a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">
-        <div class="col-lg-6 mbr-col-md-10">
-            <div class="wrap">
-                <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/paciente.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>
-                </div>
-                <div style="width: 450px; height: 220px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Pacientes</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de los pacientes registrados en el sistema</p>
+        <a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/paciente.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 220px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Pacientes</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Datos de los pacientes registrados en el sistema</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
 
-    <a href= "${createLink(controller:'medicina', action: 'list')}" style="text-decoration: none">
-        <div class="col-lg-6 mbr-col-md-10">
-            <div class="wrap">
-                <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/medicinas.jpeg" title="Medicinas"  width="80%" height="80%"/>
-                </div>
-                <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
+        <a href= "${createLink(controller:'medicina', action: 'list')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/medicinas.jpeg" title="Medicinas"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
                         y formas<br>
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
 
         <a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">
             <div class="col-lg-6 mbr-col-md-10">
@@ -208,36 +208,52 @@
             </div>
         </a>
 
+        <a href= "${createLink(controller:'agenda', action: 'agenda')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px; text-align: center">
+%{--                        <asset:image src="apli/diagnóstico.jpeg" title="Agendamiento"  width="80%" height="80%"/>--}%
+                        <i class="fa fa-book fa-8x"></i>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Agendamiento</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Agendamiento de citas médicas</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+
         <a href= "${createLink(controller:'diagnostico', action: 'list')}" style="text-decoration: none">
-        <div class="col-lg-6 mbr-col-md-10">
-            <div class="wrap">
-                <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/diagnóstico.jpeg" title="Diagnóticos"  width="80%" height="80%"/>
-                </div>
-                <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
-                    10ª revisión</p>
-                </div>
-            </div>
-        </div>
-    </a>
-
-
-    <a href= "${createLink(controller:'persona', action: 'list')}" style="text-decoration: none">
-        <div class="col-lg-6 mbr-col-md-10">
-            <div class="wrap">
-                <div style="width: 200px; height: 140px">
-                    <asset:image src="apli/equipo.jpeg" title="Administración de Usuarios"  width="80%" height="80%"/>
-                </div>
-                <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Administración de Usuarios</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Administración de Usuarios del consultorios.
-                    Asingnación de usuarios y perfiles de acceso</p>
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/diagnóstico.jpeg" title="Diagnóticos"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
+                        10ª revisión</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
+
+
+        <a href= "${createLink(controller:'persona', action: 'list')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px">
+                        <asset:image src="apli/equipo.jpeg" title="Administración de Usuarios"  width="80%" height="80%"/>
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Administración de Usuarios</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Administración de Usuarios del consultorios.
+                        Asingnación de usuarios y perfiles de acceso</p>
+                    </div>
+                </div>
+            </div>
+        </a>
 
         <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">
             <div class="col-lg-6 mbr-col-md-10">
@@ -257,7 +273,7 @@
 
 
         <a href= "${createLink(controller:'buscarBase', action: 'busquedaBase')}" style="text-decoration: none">
-            <div class="col-lg-12 mbr-col-md-10">
+            <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px">
                         <asset:image src="apli/reportes.png" title="Reportes"  width="80%" height="80%"/>
@@ -274,31 +290,31 @@
 
 
     </div>
-<script type="text/javascript">
-    $(".fuera").hover(function () {
-        var d = $(this).find(".imagen,.imagen2")
-        d.width(d.width() + 10)
-        d.height(d.height() + 10)
+    <script type="text/javascript">
+        $(".fuera").hover(function () {
+            var d = $(this).find(".imagen,.imagen2")
+            d.width(d.width() + 10)
+            d.height(d.height() + 10)
 
-    }, function () {
-        var d = $(this).find(".imagen, .imagen2")
-        d.width(d.width() - 10)
-        d.height(d.height() - 10)
-    })
+        }, function () {
+            var d = $(this).find(".imagen, .imagen2")
+            d.width(d.width() - 10)
+            d.height(d.height() - 10)
+        })
 
 
-    $(function () {
-        $(".openImagenDir").click(function () {
-            openLoader();
+        $(function () {
+            $(".openImagenDir").click(function () {
+                openLoader();
+            });
+
+            $(".openImagen").click(function () {
+                openLoader();
+            });
         });
 
-        $(".openImagen").click(function () {
-            openLoader();
-        });
-    });
 
 
-
-</script>
+    </script>
 </body>
 </html>
