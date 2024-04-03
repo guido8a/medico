@@ -22,7 +22,7 @@ class AgendaController {
             def horas = Hora.list([sort: 'numero'])
             def dias  = Dias.list([sort: 'numero'])
 
-            def sql = "select * from agenda(1, ${doctor?.id}, ${semana.id})"
+            def sql = "select * from agenda(${doctor?.id}, ${semana.id})"
             def resp = cn.rows(sql.toString())
 
             println("sql " + sql)

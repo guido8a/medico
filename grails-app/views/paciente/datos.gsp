@@ -58,7 +58,7 @@
         </g:if>
         <g:else>
             <a href="${createLink(controller: 'agenda', action: 'agenda')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a agenda">
-                <i class="fas fa-arrow-left"></i> Agenda
+                <i class="fas fa-arrow-left"></i> Regresar Agenda
             </a>
         </g:else>
 
