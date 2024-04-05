@@ -68,7 +68,6 @@ class AgendaController {
     }
 
     def borrarCita_ajax(){
-
         def agenda = Agenda.get(params.id)
 
         try{
@@ -78,8 +77,11 @@ class AgendaController {
             println("error al borrar la cita " + agenda.errors)
             render "no_Error al borrar la cita"
         }
+    }
 
-
+    def nombre_ajax(){
+        def doctor = Persona.get(params.id)
+        render "" + doctor?.apellido + " " + doctor?.nombre
     }
 
 

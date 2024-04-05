@@ -1,11 +1,11 @@
-<g:if test="${profesor}">
-    <div class="col-md-12 text-info" style="font-weight: bold; font-size: 14px">DOCTOR:
-        <span style="color:#0070B0">${profesor?.apellido} ${profesor?.nombre}</span>
-    </div>
-</g:if>
-<g:else>
-    <div class="col-md-12 text-danger">Sin doctor seleccionado</div>
-</g:else>
+%{--<g:if test="${profesor}">--}%
+%{--    <div class="col-md-12 text-info" style="font-weight: bold; font-size: 14px">MÉDICO:--}%
+%{--        <span style="color:#0070B0"> ${profesor?.apellido} ${profesor?.nombre}</span>--}%
+%{--    </div>--}%
+%{--</g:if>--}%
+%{--<g:else>--}%
+%{--    <div class="col-md-12 text-danger">Sin doctor seleccionado</div>--}%
+%{--</g:else>--}%
 <g:if test="${existe}">
     <table class="table-condensed table-bordered table-striped table-hover" style="margin-top: 20px; width: 100%">
         <thead style="text-align: center; background-color: #435a83; color: #fff;">

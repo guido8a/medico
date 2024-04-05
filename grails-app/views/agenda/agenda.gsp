@@ -6,7 +6,8 @@
 
     <style type="text/css">
     .gestion > td {
-        background-color: #ff8080;
+        /*background-color: #ff8080;*/
+        background-color: #edc384;
         color: #0c0460;
     }
 
@@ -26,7 +27,8 @@
     }
     .otro {
         text-align: center !important;
-        background-color: #d7bec8;
+        /*background-color: #d7bec8;*/
+        background-color: #edc384;
     }
     .libre {
         color: #606060;
@@ -51,7 +53,7 @@
 
 
 <div class="col-md-12">
-    <h3 class="titl" style="margin-top: 5px">Agenda del médico</h3>
+    <h3 class="titl" style="margin-top: 5px">Agenda del médico: <span id="divNombreMedico" style="color: #aa7700"></span></h3>
 </div>
 
 <div class="btn-toolbar toolbar" style="margin-top: 10px">
@@ -70,7 +72,7 @@
             Doctor
         </label>
         <g:select name="doctor" from="${seguridad.Persona.list([sort: 'apellido'])}"
-                  class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id"
+                  class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id" data-nombre="${{it.apellido + " " + it.nombre}}"
         />
     </div>
 
@@ -93,6 +95,21 @@
 
 <script type="text/javascript">
     var id = null;
+
+    cargarNombre($("#doctor option:selected").val());
+
+    function cargarNombre(id) {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'agenda', action:'nombre_ajax')}",
+            data: {
+                id: id
+            },
+            success: function (msg) {
+                $("#divNombreMedico").html(msg)
+            } //success
+        });
+    }
 
     $(".btnNuevoPaciente").click(function () {
         location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 1
@@ -220,6 +237,7 @@
         var doctor = $(this).val();
         var semana = $("#semana option:selected").val();
         cargaTabla(semana, doctor);
+        cargarNombre(doctor);
     });
 
 
