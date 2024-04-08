@@ -4,8 +4,8 @@
     <thead>
     <tr>
         <th style="width: 15%">Fecha</th>
-        <th style="width: 40%">Motivo</th>
-        <th style="width: 35%">Diagnóstico</th>
+        %{--<th style="width: 40%">Motivo</th>--}%
+        <th style="width: 75%">Diagnóstico</th>
         <th style="width: 10%">Seleccionar</th>
     </tr>
     </thead>
@@ -17,7 +17,7 @@
             <g:each in="${data}" var="dt" status="i">
                 <tr>
                     <td style="width: 15%">${dt.hsclfcha}</td>
-                    <td style="width: 40%">${dt.hsclmotv}</td>
+                    %{--<td style="width: 40%">${dt.hsclmotv}</td>--}%
                     <g:if test="${medico.DiagnosticoxHistorial.findAllByHistorial(medico.Historial.get(dt?.hscl__id)).size() > 0}">
                         <td>
                             <ul>
