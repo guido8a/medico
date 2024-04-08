@@ -37,43 +37,74 @@
     </g:if>
 
 
-    <div class="row" style="margin-bottom: 10px">
-        <strong style="margin-left: 15px">Procedimiento médico:</strong>
-        <div class="col-xs-12" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">
+    <div class="container" style="margin-bottom: 10px">
+        <div class="col-xs-9" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">
+            <strong>Procedimiento médico:</strong>
             <util:renderHTML html="${baseInstance.algoritmo}"/>
         </div>
     </div>
-
-    <g:if test="${baseInstance?.clave}">
-        <div class="row">
-            <div class="col-md-12 texto-verde">
-                <strong>Palabras Clave</strong>: <g:fieldValue bean="${baseInstance}" field="clave"/>
-            </div>
-        </div>
-    </g:if>
 
     <g:if test="${baseInstance?.referencia}">
         <div class="row">
             <div class="col-md-1" style="font-weight: bolder">
                 Referencias:
             </div>
-
             <div class="col-md-11 texto-azul">
                 <util:separar urls="${baseInstance.referencia}"/>
             </div>
+        </div>
+    </g:if>
 
-        </div>
-    </g:if>
-    
     <g:if test="${baseInstance?.observacion}">
-        <div class="row">
-            <div class="col-md-12">
-                <strong>Observaciones:</strong> <g:fieldValue bean="${baseInstance}" field="observacion"/>
+        <div class="container" style="margin-bottom: 10px">
+            <div class="col-xs-9" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">
+                <strong>Observaciones:</strong>
+                <util:renderHTML html="${baseInstance.observacion}"/>
             </div>
-            
         </div>
     </g:if>
-    
+
+    <g:if test="${baseInstance?.subtema}">
+        <div class="row">
+            <div class="col-md-12 texto-verde">
+                <strong>Especialidad: </strong> ${baseInstance?.subtema?.tema?.nombre}
+            </div>
+        </div>
+    </g:if>
+
+    <g:if test="${baseInstance?.subtema}">
+        <div class="row">
+            <div class="col-md-12 texto-verde">
+                <strong>Tipología extra: </strong> ${baseInstance?.subtema?.nombre}
+            </div>
+        </div>
+    </g:if>
+
+    <g:if test="${baseInstance?.organizacion}">
+        <div class="row">
+            <div class="col-md-12 texto-verde">
+                <strong>Fuente: </strong> ${baseInstance?.organizacion}
+            </div>
+        </div>
+    </g:if>
+
+    <g:if test="${baseInstance?.enfermedad}">
+        <div class="container" style="margin-bottom: 10px">
+            <div class="col-xs-9" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">
+                <strong>Enfermedad:</strong>
+                <util:renderHTML html="${baseInstance.enfermedad}"/>
+            </div>
+        </div>
+    </g:if>
+
+    <g:if test="${baseInstance?.clave}">
+        <div class="row">
+            <div class="col-md-12 texto-verde">
+                <strong>Palabras Clave:</strong><g:fieldValue bean="${baseInstance}" field="clave"/>
+            </div>
+        </div>
+    </g:if>
+
     <g:if test="${baseInstance?.fecha}">
         <div class="row">
             <div class="col-md-12" style="text-align: right">

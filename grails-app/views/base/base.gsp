@@ -161,9 +161,9 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="col-md-2 label label-primary text-info mediano">Organización</span>
+                                <span class="col-md-2 label label-primary text-info mediano">Fuente</span>
                                 <div class="col-md-10">
-                                    <g:select name="organizacion" id="organizacion" from="${['msp' : 'Ministerio de Salud Pública', 'oms' : 'Organización Mundial de la Salud',   'ada' : 'ada', 'jnc' : 'jnc' ]}" optionKey="key"
+                                    <g:select name="organizacion" id="organizacion" from="${['msp' : 'Ministerio de Salud Pública', 'oms' : 'Organización Mundial de la Salud',   'ada' : 'ADA', 'jnc' : 'JNC' ]}" optionKey="key"
                                               value="${base?.organizacion}" optionValue="value" class="form-control"
                                               />
                                 </div>

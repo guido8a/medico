@@ -1,5 +1,6 @@
 package medico
 
+import seguridad.Paciente
 import seguridad.Persona
 
 class AgendaController {
@@ -25,7 +26,7 @@ class AgendaController {
             def sql = "select * from agenda(${doctor?.id}, ${semana.id})"
             def resp = cn.rows(sql.toString())
 
-            return[horario: resp, clases: clases, existe: true, profesor: doctor, horas: horas, dias: dias]
+            return[horario: resp, clases: clases, existe: true, profesor: doctor, horas: horas, dias: dias, semana: semana]
         }else{
             return[existe: false]
         }
@@ -49,6 +50,13 @@ class AgendaController {
 
     def saveAgenda_ajax(){
         def agenda
+        def cita
+        def semana = Semana.get(params.semana)
+        def dias = Dias.get(params.dias)
+
+
+        def fecha = semana.fechaInicio + (dias.numero - 1)
+//        def fecha = new Date().parse("dd-MMM")
 
         if(params.id){
             agenda = Agenda.get(params.id)
@@ -63,7 +71,24 @@ class AgendaController {
             println("error al agendar la cita " + agenda.errors)
             render "no_Error al agendar la cita"
         }else{
-            render "ok_Cita agendada correctamente"
+            if(params.id){
+                render "ok_Cita agendada correctamente"
+            }else{
+                //cita
+                cita = new Historial()
+                cita.agenda = agenda
+                cita.fecha = fecha
+                cita.paciente = agenda.paciente
+                cita.persona = agenda.persona
+                cita.motivo = 'Ingresar el motivo....'
+                if(!cita.save(flush:true)){
+                    agenda.delete(flush:true)
+                    println("error al agendar la cita " + cita.errors)
+                    render "no_Error al agendar la cita"
+                }else{
+                    render "ok_Cita agendada correctamente"
+                }
+            }
         }
     }
 
