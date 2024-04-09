@@ -109,5 +109,12 @@ class AgendaController {
         render "" + doctor?.apellido + " " + doctor?.nombre
     }
 
+    def redireccion_ajax(){
+        def agenda = Agenda.get(params.id)
+        def cita = Historial.findByAgenda(agenda)
+        def paciente = agenda.paciente
+        redirect(controller: 'historial', action: 'cita', params:[paciente: paciente?.id, id:cita?.id])
+    }
+
 
 }
