@@ -168,8 +168,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/paciente.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-users fa-8x"></i>
+                                                <asset:image src="apli/paciente.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-users fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 220px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Pacientes</span></h2>
@@ -183,8 +183,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/medicinas.jpeg" title="Medicinas"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-medkit fa-8x"></i>
+                                                <asset:image src="apli/medicinas.jpeg" title="Medicinas"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-medkit fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
@@ -200,8 +200,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-user-md fa-8x"></i>
+                                                <asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-user-md fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Citas médicas</span></h2>
@@ -215,8 +215,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/diagnóstico.jpeg" title="Agendamiento"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-notes-medical fa-8x"></i>
+                                                <asset:image src="apli/diagnóstico.jpeg" title="Agendamiento"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-notes-medical fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Agendamiento</span></h2>
@@ -231,8 +231,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/diagnóstico.jpeg" title="Diagnóticos"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-stethoscope fa-8x"></i>
+                                                <asset:image src="apli/diagnóstico.jpeg" title="Diagnóticos"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-stethoscope fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
@@ -248,8 +248,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/equipo.jpeg" title="Administración de Usuarios"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-user-cog fa-8x"></i>
+                                                <asset:image src="apli/equipo.jpeg" title="Administración de Usuarios"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-user-cog fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Administración de Usuarios</span></h2>
@@ -272,8 +272,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/portada.png" title="Reportes"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-print fa-8x"></i>
+                                                <asset:image src="apli/portada.png" title="Reportes"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-print fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
@@ -300,8 +300,8 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        %{--                        <asset:image src="apli/reportes.png" title="Reportes"  width="80%" height="80%"/>--}%
-                        <i class="fa fa-book fa-8x"></i>
+                                                <asset:image src="apli/reportes.png" title="Reportes"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-book fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
                         <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Base de conocimiento</span></h2>

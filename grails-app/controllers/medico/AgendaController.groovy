@@ -52,11 +52,15 @@ class AgendaController {
         def agenda
         def cita
         def semana = Semana.get(params.semana)
+        def hora = Hora.get(params.hora)
         def dias = Dias.get(params.dias)
-
-
         def fecha = semana.fechaInicio + (dias.numero - 1)
-//        def fecha = new Date().parse("dd-MMM")
+
+        def parte = hora.descripcion.split("-")
+        def parte2 = parte[0].split(":")
+
+        fecha.setMinutes(parte2[1]?.toInteger())
+        fecha.setHours(parte2[0]?.toInteger())
 
         if(params.id){
             agenda = Agenda.get(params.id)

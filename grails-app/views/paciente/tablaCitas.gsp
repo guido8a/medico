@@ -15,7 +15,7 @@
         <g:if test="${data}">
             <g:each in="${data}" var="dt" status="i">
                 <tr>
-                    <td style="width: 15%">${dt.hsclfcha}</td>
+                    <td style="width: 15%">${dt.hsclfcha.format("dd-MM-yyyy HH:mm")}</td>
                     <g:if test="${medico.DiagnosticoxHistorial.findAllByHistorial(medico.Historial.get(dt?.hscl__id)).size() > 0}">
                         <td>
                             <ul>
