@@ -8,7 +8,6 @@
                 <th style="width: 15%">Nombre</th>
                 <th style="width: 20%">Empresa</th>
                 <th style="width: 20%">Provincia</th>
-%{--                <th style="width: 7%">Estado</th>--}%
                 <th style="width: 20%">Acciones</th>
             </tr>
             </thead>
@@ -26,13 +25,15 @@
                         <td style="width: 15%">${paciente.pcntnmbr}</td>
                         <td style="width: 20%; text-align: center">${seguridad.Empresa.get(paciente.empr__id)}</td>
                         <td style="width: 20%; text-align: center">${paciente?.parr__id ? geografia.Parroquia.get(paciente.parr__id)?.canton?.provincia?.nombre : ''}</td>
-%{--                        <td style="width: 7%; text-align: center; background-color: ${paciente?.pcntactv == 1 ? '#67a153' : '#e25529'}  ">${paciente?.pcntactv == 1 ? 'Activo' : 'Inactivo'}</td>--}%
                         <td style="width: 20%; text-align: center">
                             <a href="${createLink(controller: 'paciente', action: 'datos', id: paciente?.pcnt__id)}" class="btn btn-xs btn-info" title="Información del paciente">
                                 <i class="fas fa-clipboard-check"></i> Datos
                             </a>
                             <a href="${createLink(controller: 'paciente', action: 'citas', id: paciente?.pcnt__id)}" class="btn btn-xs btn-success" title="Citas del paciente">
                                 <i class="fas fa-book"></i> Citas
+                            </a>
+                            <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.pcnt__id)}" class="btn btn-xs btn-warning" title="Historial del paciente">
+                                <i class="fas fa-book"></i> Historial
                             </a>
                         </td>
                     </tr>

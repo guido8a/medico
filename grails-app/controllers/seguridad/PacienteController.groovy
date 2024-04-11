@@ -306,4 +306,11 @@ class PacienteController {
         return [paciente: paciente]
     }
 
+    def historial(){
+        def paciente = Paciente.get(params.id)
+        def cita = Historial.findAllByPaciente(paciente).last()
+        println("cita " + cita)
+        return [paciente: paciente, cita: cita]
+    }
+
 }
