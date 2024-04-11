@@ -3,6 +3,8 @@ package seguridad
 import geografia.Canton
 import geografia.Parroquia
 import geografia.Provincia
+import medico.Diagnostico
+import medico.DiagnosticoxHistorial
 import medico.Historial
 
 import javax.imageio.ImageIO
@@ -309,8 +311,8 @@ class PacienteController {
     def historial(){
         def paciente = Paciente.get(params.id)
         def cita = Historial.findAllByPaciente(paciente).last()
-        println("cita " + cita)
-        return [paciente: paciente, cita: cita]
+        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos ]
     }
 
 }
