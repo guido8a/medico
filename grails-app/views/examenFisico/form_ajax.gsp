@@ -128,7 +128,7 @@
                     Talla
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="talla" maxlength="4" class="form-control" value="${examen?.talla ?: 0}" />
+                    <g:textField name="talla" maxlength="10" class="form-control" value="${examen?.talla ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
@@ -168,14 +168,14 @@
                     FC
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="fc" maxlength="4" class="form-control" value="${examen?.fc ?: 0}" />
+                    <g:textField name="fc" maxlength="10" class="form-control" value="${examen?.fc ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Glucosa
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="glucosa" maxlength="4" class="form-control" value="${examen?.glucosa ?: 0}" />
+                    <g:textField name="glucosa" maxlength="10" class="form-control" value="${examen?.glucosa ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
