@@ -32,35 +32,35 @@
         <tbody>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-info">Apellidos:</td>
-            <td style="width: 20%; background-color: #b7ebed">${paciente?.apellido}</td>
+            <td style="width: 20%; background-color: #c1cfe7">${paciente?.apellido}</td>
             <td style="width: 10%" class="alert alert-info">Nombres:</td>
-            <td style="width: 20%; background-color: #b7ebed">${paciente?.nombre}</td>
+            <td style="width: 20%; background-color: #c1cfe7">${paciente?.nombre}</td>
             <td style="width: 10%;" class="alert alert-info">Cédula:</td>
-            <td style="width: 20%; background-color: #b7ebed">${paciente?.cedula}</td>
+            <td style="width: 20%; background-color: #c1cfe7">${paciente?.cedula}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-info">Edad:</td>
-            <td style="width: 20%; background-color: #b7ebed">${""}</td>
+            <td style="width: 20%; background-color: #c1cfe7">${""}</td>
             <td style="width: 15%" class="alert alert-info">Fecha nacimiento:</td>
-            <td style="width: 20%;background-color: #b7ebed">${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}</td>
+            <td style="width: 20%;background-color: #c1cfe7">${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}</td>
             <td style="width: 15%;" class="alert alert-info">Lugar nacimiento:</td>
-            <td style="width: 20%;background-color: #b7ebed">${""}</td>
+            <td style="width: 20%;background-color: #c1cfe7">${""}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-info">Dirección:</td>
-            <td style="width: 20%; background-color: #b7ebed">${paciente?.direccion}</td>
+            <td style="width: 20%; background-color: #c1cfe7">${paciente?.direccion}</td>
             <td style="width: 15%" class="alert alert-info">Teléfono:</td>
-            <td style="width: 20%;background-color: #b7ebed">${paciente?.telefono}</td>
+            <td style="width: 20%;background-color: #c1cfe7">${paciente?.telefono}</td>
             <td style="width: 15%;" class="alert alert-info">Email:</td>
-            <td style="width: 20%;background-color: #b7ebed">${paciente?.mail}</td>
+            <td style="width: 20%;background-color: #c1cfe7">${paciente?.mail}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-info">Estado Civil:</td>
-            <td style="width: 20%; background-color: #b7ebed">${paciente?.estadoCivil?.descripcion}</td>
+            <td style="width: 20%; background-color: #c1cfe7">${paciente?.estadoCivil?.descripcion}</td>
             <td style="width: 15%" class="alert alert-info">Sexo:</td>
-            <td style="width: 20%;background-color: #b7ebed">${paciente?.sexo == 'M' ? 'MASCULINO' : 'FEMENINO'}</td>
+            <td style="width: 20%;background-color: #c1cfe7">${paciente?.sexo == 'M' ? 'MASCULINO' : 'FEMENINO'}</td>
             <td style="width: 15%;" class="alert alert-info">G. Sanguineo:</td>
-            <td style="width: 20%;background-color: #b7ebed">${paciente?.grupoSanguineo?.descripcion}</td>
+            <td style="width: 20%;background-color: #c1cfe7">${paciente?.grupoSanguineo?.descripcion}</td>
         </tr>
         </tbody>
     </table>
@@ -77,25 +77,25 @@
         <tbody>
         <tr style="font-size: 16px">
             <td style="width: 30%; font-weight: bolder" class="alert alert-success">Antecedentes patológicos personales:</td>
-            <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentes}</td>
+            <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentes}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos ocupacionales:</td>
-            <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentesOcupacionales}</td>
+            <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentesOcupacionales}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos familiares:</td>
-            <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentesPatologicosFam}</td>
+            <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentesPatologicosFam}</td>
         </tr>
         <g:if test="${paciente?.sexo == 'F'}">
             <tr style="font-size: 16px">
                 <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos gineco obstétricos:</td>
-                <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentesGinecobstreticos}</td>
+                <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentesGinecobstreticos}</td>
             </tr>
         </g:if>
         <tr style="font-size: 16px">
             <td style="width: 30%;font-weight: bolder" class="alert alert-success">Hábitos:</td>
-            <td style="width: 70%; background-color: #a2c179">${paciente?.habitos}</td>
+            <td style="width: 70%; background-color: #b7d6a9">${paciente?.habitos}</td>
         </tr>
         </tbody>
     </table>
@@ -112,15 +112,15 @@
         <tbody>
         <tr style="font-size: 16px">
             <td style="width: 20%; font-weight: bolder" class="alert alert-warning">Motivo de la consulta:</td>
-            <td style="width: 80%; background-color: #c1bb17">${cita?.motivo}</td>
+            <td style="width: 80%; background-color: #ccb35d">${cita?.motivo}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Enfermedad actual:</td>
-            <td style="width: 80%; background-color: #c1bb17">${cita?.actual}</td>
+            <td style="width: 80%; background-color:#ccb35d">${cita?.actual}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Diagnóstico:</td>
-            <td style="width: 80%; background-color: #c1bb17">
+            <td style="width: 80%; background-color:#ccb35d">
                 <g:if test="${diagnosticos.size() > 0}">
                     <table class="table table-bordered table-striped table-condensed table-hover">
                         <thead>
@@ -148,7 +148,7 @@
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>
-            <td style="width: 80%; background-color: #c1bb17">
+            <td style="width: 80%; background-color:#ccb35d">
                 <g:if test="${tratamientos.size() > 0}">
                     <table class="table table-bordered table-striped table-condensed table-hover">
                         <thead>
