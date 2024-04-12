@@ -23,7 +23,7 @@
 
 <div class="row">
     <div class="col-md-4">
-       <span class="badge badge-secondary" style="font-size: 16px">Datos del paciente</span>
+        <span class="badge badge-secondary" style="font-size: 16px">Datos del paciente</span>
     </div>
 </div>
 
@@ -87,10 +87,12 @@
             <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos familiares:</td>
             <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentesPatologicosFam}</td>
         </tr>
-        <tr style="font-size: 16px">
-            <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos gineco obstétricos:</td>
-            <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentesGinecobstreticos}</td>
-        </tr>
+        <g:if test="${paciente?.sexo == 'F'}">
+            <tr style="font-size: 16px">
+                <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos gineco obstétricos:</td>
+                <td style="width: 70%; background-color: #a2c179">${paciente?.antecedentesGinecobstreticos}</td>
+            </tr>
+        </g:if>
         <tr style="font-size: 16px">
             <td style="width: 30%;font-weight: bolder" class="alert alert-success">Hábitos:</td>
             <td style="width: 70%; background-color: #a2c179">${paciente?.habitos}</td>
