@@ -328,7 +328,7 @@ class PacienteController {
         def paciente = Paciente.get(params.id)
         def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc']).first()
         def examen = ExamenFisico.findByHistorial(cita)
-        println "cita: ${cita.id} examen: ${examen.id}"
+        println "cita: ${cita?.id} examen: ${examen?.id}"
         return[examen: examen]
     }
 
