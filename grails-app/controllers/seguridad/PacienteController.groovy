@@ -326,7 +326,7 @@ class PacienteController {
 
     def examenFisico_ajax(){
         def paciente = Paciente.get(params.id)
-        def cita = Historial.findAllByPaciente(paciente,[sort: 'fecha', order: 'desc']).first()
+        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc']).first()
         def examen = ExamenFisico.findByHistorial(cita)
         return[examen: examen]
     }
