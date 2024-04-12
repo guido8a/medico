@@ -5,7 +5,9 @@ import geografia.Parroquia
 import geografia.Provincia
 import medico.Diagnostico
 import medico.DiagnosticoxHistorial
+import medico.ExamenFisico
 import medico.Historial
+import medico.Tratamiento
 
 import javax.imageio.ImageIO
 
@@ -310,9 +312,23 @@ class PacienteController {
 
     def historial(){
         def paciente = Paciente.get(params.id)
-        def cita = Historial.findAllByPaciente(paciente).last()
+        def cita = Historial.findAllByPaciente(paciente,[sort: 'fecha', order: 'desc']).first()
         def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
-        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos ]
+        def tratamientos = Tratamiento.findAllByHistorial(cita)
+        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos]
+    }
+
+    def tablaTodasCitas_ajax(){
+        def paciente = Paciente.get(params.id)
+        def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', order: 'desc'])
+        return [citas: citas]
+    }
+
+    def examenFisico_ajax(){
+        def paciente = Paciente.get(params.id)
+        def cita = Historial.findAllByPaciente(paciente,[sort: 'fecha', order: 'desc']).first()
+        def examen = ExamenFisico.findByHistorial(cita)
+        return[examen: examen]
     }
 
 }

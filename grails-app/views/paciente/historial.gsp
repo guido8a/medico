@@ -21,7 +21,13 @@
     <span style="font-size: 20px; font-weight: bold">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
 </div>
 
-<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 20px">
+<div class="row">
+    <div class="col-md-4">
+       <span class="badge badge-secondary" style="font-size: 16px">Datos del paciente</span>
+    </div>
+</div>
+
+<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
@@ -60,7 +66,13 @@
     </table>
 </div>
 
-<div class="" style="width: 99.7%;overflow-y: auto;float: right; margin-top: 20px">
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-4">
+        <span class="badge badge-secondary" style="font-size: 16px">Antecedentes</span>
+    </div>
+</div>
+
+<div class="" style="width: 99.7%;overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
@@ -87,31 +99,78 @@
     </table>
 </div>
 
-<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 20px">
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-4">
+        <span class="badge badge-secondary" style="font-size: 16px">Última Cita</span>
+    </div>
+</div>
+
+<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 30%; font-weight: bolder" class="alert alert-warning">Motivo de la consulta:</td>
-            <td style="width: 70%; background-color: #c1bb17">${cita?.motivo}</td>
+            <td style="width: 20%; font-weight: bolder" class="alert alert-warning">Motivo de la consulta:</td>
+            <td style="width: 80%; background-color: #c1bb17">${cita?.motivo}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 30%;font-weight: bolder" class="alert alert-warning">Enfermedad actual:</td>
-            <td style="width: 70%; background-color: #c1bb17">${cita?.actual}</td>
+            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Enfermedad actual:</td>
+            <td style="width: 80%; background-color: #c1bb17">${cita?.actual}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 30%;font-weight: bolder" class="alert alert-warning">Diagnóstico:</td>
-            <td style="width: 70%; background-color: #c1bb17">
+            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Diagnóstico:</td>
+            <td style="width: 80%; background-color: #c1bb17">
                 <g:if test="${diagnosticos.size() > 0}">
-                    <ul>
-                        <g:each in="${diagnosticos}" var="diagnostico">
-                            <li>
-                                ${diagnostico?.diagnostico?.descripcion}
-                            </li>
+                    <table class="table table-bordered table-striped table-condensed table-hover">
+                        <thead>
+                        <tr style="width: 100%">
+                            <th style="width: 10%">Código</th>
+                            <th style="width: 50%">Descripción </th>
+                            <th style="width: 30%">Observaciones </th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <g:each in="${diagnosticos}" status="i" var="diagnostico">
+                            <tr style="width: 100%">
+                                <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>
+                                <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
+                                <td style="width: 30%">${diagnostico?.descripcion}</td>
+                            </tr>
                         </g:each>
-                    </ul>
+                        </tbody>
+                    </table>
                 </g:if>
                 <g:else>
                     <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
+                </g:else>
+            </td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>
+            <td style="width: 80%; background-color: #c1bb17">
+                <g:if test="${tratamientos.size() > 0}">
+                    <table class="table table-bordered table-striped table-condensed table-hover">
+                        <thead>
+                        <tr style="width: 100%">
+                            <th style="width: 10%">Medicina </th>
+                            <th style="width: 10%">Concentración </th>
+                            <th style="width: 10%">Cantidad </th>
+                            <th style="width: 35%">Prescripción</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <g:each in="${tratamientos}" status="i" var="tratamiento">
+                            <tr style="width: 100%">
+                                <td style="width: 25%">${tratamiento?.medicina?.codigo ? (tratamiento?.medicina?.codigo  + " - " + tratamiento?.medicina?.descripcion) : ''}</td>
+                                <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
+                                <td style="width: 8%">${tratamiento?.cantidad}</td>
+                                <td style="width: 47%">${tratamiento?.descripcion}</td>
+                            </tr>
+                        </g:each>
+                        </tbody>
+                    </table>
+                </g:if>
+                <g:else>
+                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
                 </g:else>
             </td>
         </tr>
@@ -119,6 +178,66 @@
     </table>
 </div>
 
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-4">
+        <span class="badge badge-secondary" style="font-size: 16px">Último Examen Físico</span>
+    </div>
+</div>
+
+<div id="divExamenFisico">
+
+</div>
+
+<div class="row" style="margin-top: 20px; margin-bottom: 10px">
+    <div class="col-md-4">
+        <span class="badge badge-secondary" style="font-size: 16px">Citas médicas</span>
+    </div>
+</div>
+
+<div id="divTablaCitas">
+
+</div>
+
+
+<script type="text/javascript">
+
+    cargarTablaCitas();
+
+    function cargarTablaCitas() {
+        var d = cargarLoader("Cargando...");
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'tablaTodasCitas_ajax')}',
+            data:{
+                id: paciente
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divTablaCitas").html(msg)
+            }
+        })
+    }
+
+    cargarExamenFisico();
+
+    function cargarExamenFisico() {
+        var d = cargarLoader("Cargando...");
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'examenFisico_ajax')}',
+            data:{
+                id: paciente
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divExamenFisico").html(msg)
+            }
+        })
+    }
+
+</script>
 
 
 </body>
