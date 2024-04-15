@@ -58,6 +58,13 @@
 
 <div class="btn-toolbar toolbar" style="margin-top: 10px">
 
+    <div class="col-md-2">
+        <label for="fecha" class="col-md-1 control-label" style="text-align: right">
+            Fecha
+        </label>
+        <input aria-label="" name="fecha" id='fecha' type='text' class="form-control" value="${new Date()?.format("dd-MM-yyyy")}" />
+    </div>
+
     <div class="col-md-3">
         <label for="semana" class="col-md-1 control-label" style="text-align: right">
             Semana
@@ -95,6 +102,14 @@
 
 <script type="text/javascript">
     var id = null;
+
+    $('#fecha').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY',
+        sideBySide: true,
+        icons: {
+        }
+    });
 
     cargarNombre($("#doctor option:selected").val());
 
