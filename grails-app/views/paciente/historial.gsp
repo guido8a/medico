@@ -23,7 +23,10 @@
 
 <div class="row">
     <div class="col-md-4">
-        <span class="badge badge-secondary" style="font-size: 16px">Datos del paciente</span>
+        <a href="${createLink(controller: 'paciente', action: 'datos', id: paciente?.id)}" class="btn btn-primary" title="datos de afiliación">
+            <i class="fas fa-user"></i> Datos de afiliación
+        </a>
+        %{--        <span class="badge badge-secondary" style="font-size: 16px">Datos de afiliación</span>--}%
     </div>
 </div>
 
@@ -68,42 +71,24 @@
 
 <div class="row" style="margin-top: 20px">
     <div class="col-md-4">
-        <span class="badge badge-secondary" style="font-size: 16px">Antecedentes</span>
+        <a href="#" class="btn btn-primary" id="btnAntecedentes" title="Antecedentes">
+            <i class="fas fa-book"></i> Antecedentes
+        </a>
+        %{--        <span class="badge badge-secondary" style="font-size: 16px">Antecedentes</span>--}%
     </div>
 </div>
 
-<div class="" style="width: 99.7%;overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
-    <table class="table-bordered table-condensed " style="width: 100%">
-        <tbody>
-        <tr style="font-size: 16px">
-            <td style="width: 30%; font-weight: bolder" class="alert alert-success">Antecedentes patológicos personales:</td>
-            <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentes}</td>
-        </tr>
-        <tr style="font-size: 16px">
-            <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos ocupacionales:</td>
-            <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentesOcupacionales}</td>
-        </tr>
-        <tr style="font-size: 16px">
-            <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos familiares:</td>
-            <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentesPatologicosFam}</td>
-        </tr>
-        <g:if test="${paciente?.sexo == 'F'}">
-            <tr style="font-size: 16px">
-                <td style="width: 30%;font-weight: bolder" class="alert alert-success">Antecedentes patológicos gineco obstétricos:</td>
-                <td style="width: 70%; background-color: #b7d6a9">${paciente?.antecedentesGinecobstreticos}</td>
-            </tr>
-        </g:if>
-        <tr style="font-size: 16px">
-            <td style="width: 30%;font-weight: bolder" class="alert alert-success">Hábitos:</td>
-            <td style="width: 70%; background-color: #b7d6a9">${paciente?.habitos}</td>
-        </tr>
-        </tbody>
-    </table>
+<div id="divAntecedentes">
+
 </div>
+
 
 <div class="row" style="margin-top: 20px">
     <div class="col-md-4">
-        <span class="badge badge-secondary" style="font-size: 16px">Última Cita</span>
+        <a href="#" id="btnUltimaCita" class="btn btn-primary" title="Última Cita">
+            <i class="fas fa-book"></i> Última Cita
+        </a>
+        %{--        <span class="badge badge-secondary" style="font-size: 16px">Última Cita</span>--}%
     </div>
 </div>
 
@@ -111,13 +96,93 @@
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 20%; font-weight: bolder" class="alert alert-warning">Motivo de la consulta:</td>
+            <td style="width: 20%; font-weight: bolder" class="alert alert-warning">Motivo de consulta:</td>
             <td style="width: 80%; background-color: #ccb35d">${cita?.motivo}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Enfermedad actual:</td>
             <td style="width: 80%; background-color:#ccb35d">${cita?.actual}</td>
         </tr>
+%{--        <tr style="font-size: 16px">--}%
+%{--            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Diagnóstico:</td>--}%
+%{--            <td style="width: 80%; background-color:#ccb35d">--}%
+%{--                <g:if test="${diagnosticos.size() > 0}">--}%
+%{--                    <table class="table table-bordered table-striped table-condensed table-hover">--}%
+%{--                        <thead>--}%
+%{--                        <tr style="width: 100%">--}%
+%{--                            <th style="width: 10%">Código</th>--}%
+%{--                            <th style="width: 50%">Descripción </th>--}%
+%{--                            <th style="width: 30%">Observaciones </th>--}%
+%{--                        </tr>--}%
+%{--                        </thead>--}%
+%{--                        <tbody >--}%
+%{--                        <g:each in="${diagnosticos}" status="i" var="diagnostico">--}%
+%{--                            <tr style="width: 100%">--}%
+%{--                                <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>--}%
+%{--                                <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>--}%
+%{--                                <td style="width: 30%">${diagnostico?.descripcion}</td>--}%
+%{--                            </tr>--}%
+%{--                        </g:each>--}%
+%{--                        </tbody>--}%
+%{--                    </table>--}%
+%{--                </g:if>--}%
+%{--                <g:else>--}%
+%{--                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>--}%
+%{--                </g:else>--}%
+%{--            </td>--}%
+%{--        </tr>--}%
+%{--        <tr style="font-size: 16px">--}%
+%{--            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>--}%
+%{--            <td style="width: 80%; background-color:#ccb35d">--}%
+%{--                <g:if test="${tratamientos.size() > 0}">--}%
+%{--                    <table class="table table-bordered table-striped table-condensed table-hover">--}%
+%{--                        <thead>--}%
+%{--                        <tr style="width: 100%">--}%
+%{--                            <th style="width: 10%">Medicina </th>--}%
+%{--                            <th style="width: 10%">Concentración </th>--}%
+%{--                            <th style="width: 10%">Cantidad </th>--}%
+%{--                            <th style="width: 35%">Prescripción</th>--}%
+%{--                        </tr>--}%
+%{--                        </thead>--}%
+%{--                        <tbody >--}%
+%{--                        <g:each in="${tratamientos}" status="i" var="tratamiento">--}%
+%{--                            <tr style="width: 100%">--}%
+%{--                                <td style="width: 25%">${tratamiento?.medicina?.codigo ? (tratamiento?.medicina?.codigo  + " - " + tratamiento?.medicina?.descripcion) : ''}</td>--}%
+%{--                                <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>--}%
+%{--                                <td style="width: 8%">${tratamiento?.cantidad}</td>--}%
+%{--                                <td style="width: 47%">${tratamiento?.descripcion}</td>--}%
+%{--                            </tr>--}%
+%{--                        </g:each>--}%
+%{--                        </tbody>--}%
+%{--                    </table>--}%
+%{--                </g:if>--}%
+%{--                <g:else>--}%
+%{--                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>--}%
+%{--                </g:else>--}%
+%{--            </td>--}%
+%{--        </tr>--}%
+        </tbody>
+    </table>
+</div>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-4">
+        <a href="#" class="btn btn-primary" id="btnUltimoExamenFisico" title="Último Examen Físico">
+            <i class="fas fa-book"></i> Último Examen Físico
+        </a>
+        %{--        <span class="badge badge-secondary" style="font-size: 16px">Último Examen Físico</span>--}%
+    </div>
+</div>
+
+<div id="divExamenFisico">
+
+</div>
+
+
+
+<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+    <table class="table-bordered table-condensed " style="width: 100%">
+        <tbody>
         <tr style="font-size: 16px">
             <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Diagnóstico:</td>
             <td style="width: 80%; background-color:#ccb35d">
@@ -180,15 +245,7 @@
     </table>
 </div>
 
-<div class="row" style="margin-top: 20px">
-    <div class="col-md-4">
-        <span class="badge badge-secondary" style="font-size: 16px">Último Examen Físico</span>
-    </div>
-</div>
 
-<div id="divExamenFisico">
-
-</div>
 
 <div class="row" style="margin-top: 20px; margin-bottom: 10px">
     <div class="col-md-4">
@@ -202,6 +259,158 @@
 
 
 <script type="text/javascript">
+
+    $("#btnUltimoExamenFisico").click(function () {
+        createEditRowExamenFisico();
+    });
+
+    function createEditRowExamenFisico(id) {
+        var title = id ? "Editar " : "Crear ";
+        var data = {
+            id: id,
+            historial: '${cita?.id}'
+        };
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'examenFisico',  action:'form_ajax')}",
+            data    : data,
+            success : function (msg) {
+                cf = bootbox.dialog({
+                    id      : "dlgCreateEditExamenFisico",
+                    title   : " Examen Físico",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormExamenFisico();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormExamenFisico() {
+        var $form = $("#frmExamenFisico");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarExamenFisico();
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+
+    $("#btnUltimaCita").click(function () {
+        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&id=" + '${cita?.id}' + "&tipo=" + 1
+    });
+
+    $("#btnAntecedentes").click(function () {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(action:'antecedentes_ajax')}",
+            data    : {
+                id: '${paciente?.id}'
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditAntecedentes",
+                    title   : "Antecedentes del paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormAntecedentes();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    function submitFormAntecedentes() {
+        var $form = $("#frmAntecedentes");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarTablaAntecedentes();
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+    cargarTablaAntecedentes();
+
+    function cargarTablaAntecedentes() {
+        var d = cargarLoader("Cargando...");
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'tablaAntecedentes_ajax')}',
+            data:{
+                id: paciente
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divAntecedentes").html(msg)
+            }
+        })
+    }
 
     cargarTablaCitas();
 

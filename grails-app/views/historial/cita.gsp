@@ -51,9 +51,17 @@
 <div class="panel panel-primary col-md-12" style="height: 700px">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
-        <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
-            <i class="fas fa-arrow-left"></i> Lista de citas
-        </a>
+        <g:if test="${tipo == '1'}">
+            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
+                <i class="fas fa-arrow-left"></i> Historial
+            </a>
+        </g:if>
+        <g:else>
+            <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
+                <i class="fas fa-arrow-left"></i> Lista de citas
+            </a>
+        </g:else>
+
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">
             <i class="fa fa-save"></i> Guardar
         </a>
@@ -110,7 +118,7 @@
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Motivo de la cita</span>
+                        <span class="col-md-2 label label-primary text-info mediano">Motivo de consulta</span>
                         <span class="col-md-10">
                             <g:textArea name="motivo" maxlength="255" required="" style="resize: none; height: 60px;" class="form-control required"  value="${historial?.motivo}"/>
                         </span>
@@ -119,7 +127,7 @@
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Información actual</span>
+                        <span class="col-md-2 label label-primary text-info mediano">Enfermedad actual</span>
                         <span class="col-md-10">
                             <g:textArea name="actual" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.actual}"/>
                         </span>

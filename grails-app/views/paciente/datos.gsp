@@ -57,10 +57,15 @@
             </a>
         </g:if>
         <g:else>
-            <a href="${createLink(controller: 'agenda', action: 'agenda')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a agenda">
-                <i class="fas fa-arrow-left"></i> Regresar Agenda
+%{--            <a href="${createLink(controller: 'agenda', action: 'agenda')}" class="btn btn-sm btn-info" style="float: left" title="Retornar a agenda">--}%
+%{--                <i class="fas fa-arrow-left"></i> Regresar Agenda--}%
+%{--            </a>--}%
+            <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.id)}" class="btn btn-sm btn-info" style="float: left" title="Retornar a historial">
+                <i class="fas fa-arrow-left"></i> Regresar
             </a>
+
         </g:else>
+
 
         <a href="#" id="btnGuardar" class="btn btn-sm btn-success" style="float: left; margin-left: 20px" title="Guardar información">
             <i class="fa fa-save"></i> Guardar
@@ -235,52 +240,52 @@
                     </div>
                 </div>
 
-                <div class="row izquierda" style="margin-bottom: 15px">
-                    <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Hábitos</span>
-                        <span class="grupo">
-                            <span class="col-md-4">
-                                <g:textArea name="habitos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitos}"/>
-                            </span>
-                        </span>
-                        <span class="col-md-1 label label-primary text-info mediano">Antecedentes</span>
-                        <span class="grupo">
-                            <span class="col-md-4">
-                                <g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>
-                            </span>
-                        </span>
-                    </div>
-                </div>
+%{--                <div class="row izquierda" style="margin-bottom: 15px">--}%
+%{--                    <div class="col-md-12 input-group">--}%
+%{--                        <span class="col-md-2 label label-primary text-info mediano">Hábitos</span>--}%
+%{--                        <span class="grupo">--}%
+%{--                            <span class="col-md-4">--}%
+%{--                                <g:textArea name="habitos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitos}"/>--}%
+%{--                            </span>--}%
+%{--                        </span>--}%
+%{--                        <span class="col-md-1 label label-primary text-info mediano">Antecedentes</span>--}%
+%{--                        <span class="grupo">--}%
+%{--                            <span class="col-md-4">--}%
+%{--                                <g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>--}%
+%{--                            </span>--}%
+%{--                        </span>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
 
-                <div class="row izquierda" style="margin-bottom: 15px">
-                    <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Ant. Patológicos</span>
-                        <span class="grupo">
-                            <span class="col-md-4">
-                                <g:textArea name="antecedentesPatologicosFam" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesPatologicosFam}"/>
-                            </span>
-                        </span>
-                        <span class="col-md-1 label label-primary text-info mediano">Ant. Ocupacionales</span>
-                        <span class="grupo">
-                            <span class="col-md-4">
-                                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
-                            </span>
-                        </span>
-                    </div>
-                </div>
+%{--                <div class="row izquierda" style="margin-bottom: 15px">--}%
+%{--                    <div class="col-md-12 input-group">--}%
+%{--                        <span class="col-md-2 label label-primary text-info mediano">Ant. Patológicos</span>--}%
+%{--                        <span class="grupo">--}%
+%{--                            <span class="col-md-4">--}%
+%{--                                <g:textArea name="antecedentesPatologicosFam" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesPatologicosFam}"/>--}%
+%{--                            </span>--}%
+%{--                        </span>--}%
+%{--                        <span class="col-md-1 label label-primary text-info mediano">Ant. Ocupacionales</span>--}%
+%{--                        <span class="grupo">--}%
+%{--                            <span class="col-md-4">--}%
+%{--                                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>--}%
+%{--                            </span>--}%
+%{--                        </span>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
 
-                <g:if test="${paciente?.sexo == 'F'}">
-                    <div class="row izquierda" style="margin-bottom: 15px">
-                        <div class="col-md-12 input-group">
-                            <span class="col-md-2 label label-primary text-info mediano">Ant. Gineco Obstétricos</span>
-                            <span class="grupo">
-                                <span class="col-md-4">
-                                    <g:textArea name="antecedentesGinecobstreticos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesGinecobstreticos}"/>
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                </g:if>
+%{--                <g:if test="${paciente?.sexo == 'F'}">--}%
+%{--                    <div class="row izquierda" style="margin-bottom: 15px">--}%
+%{--                        <div class="col-md-12 input-group">--}%
+%{--                            <span class="col-md-2 label label-primary text-info mediano">Ant. Gineco Obstétricos</span>--}%
+%{--                            <span class="grupo">--}%
+%{--                                <span class="col-md-4">--}%
+%{--                                    <g:textArea name="antecedentesGinecobstreticos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesGinecobstreticos}"/>--}%
+%{--                                </span>--}%
+%{--                            </span>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
+%{--                </g:if>--}%
             </g:form>
         </div>
     </div>

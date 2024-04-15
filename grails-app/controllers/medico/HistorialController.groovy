@@ -25,7 +25,7 @@ class HistorialController {
         }else{
             historial = new Historial()
         }
-        return[paciente:paciente, historial: historial]
+        return[paciente:paciente, historial: historial, tipo: params.tipo]
     }
 
     def tablaCitas_ajax(){

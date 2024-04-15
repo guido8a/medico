@@ -332,4 +332,9 @@ class PacienteController {
         return[examen: examen]
     }
 
+    def tablaAntecedentes_ajax() {
+        def paciente = Paciente.get(params.id)
+        return [paciente: paciente]
+    }
+
 }
