@@ -281,12 +281,12 @@
                     class: "modal-lg",
                     message : msg,
                     buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
+                        // cancelar : {
+                        //     label     : "Cancelar",
+                        //     className : "btn-primary",
+                        //     callback  : function () {
+                        //     }
+                        // },
                         guardar  : {
                             id        : "btnSave",
                             label     : "<i class='fa fa-save'></i> Guardar",

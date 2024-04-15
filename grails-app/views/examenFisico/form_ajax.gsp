@@ -24,14 +24,14 @@
                     Cabeza
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cabeza" maxlength="255" class="form-control" value="${examen?.cabeza}" />
+                    <g:textField name="cabeza" maxlength="255" class="form-control" value="${examen?.cabeza ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info">
                     Cuello
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.cuello}" />
+                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.cuello ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -43,14 +43,14 @@
                     Torax
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="torax" maxlength="255" class="form-control" value="${examen?.torax}" />
+                    <g:textField name="torax" maxlength="255" class="form-control" value="${examen?.torax ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Cardio Pulmonar
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.cardioPulmonar}" />
+                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.cardioPulmonar ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -62,14 +62,14 @@
                     Abdomen
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="abdomen" maxlength="255" class="form-control" value="${examen?.abdomen}" />
+                    <g:textField name="abdomen" maxlength="255" class="form-control" value="${examen?.abdomen ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Región Lumbar
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="regionLumbar" maxlength="255" class="form-control" value="${examen?.regionLumbar}" />
+                    <g:textField name="regionLumbar" maxlength="255" class="form-control" value="${examen?.regionLumbar ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -81,14 +81,14 @@
                     Neurológico
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="neurologico" maxlength="255" class="form-control" value="${examen?.neurologico}" />
+                    <g:textField name="neurologico" maxlength="255" class="form-control" value="${examen?.neurologico ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Genitales
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="genitales" maxlength="255" class="form-control" value="${examen?.genitales}" />
+                    <g:textField name="genitales" maxlength="255" class="form-control" value="${examen?.genitales ?: 'No se explora'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -100,14 +100,14 @@
                     Extremidades superiores
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="extremidadesSuperiores" maxlength="255" class="form-control" value="${examen?.extremidadesSuperiores}" />
+                    <g:textField name="extremidadesSuperiores" maxlength="255" class="form-control" value="${examen?.extremidadesSuperiores ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Extremidades inferiores
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="extremidadesInferiores" maxlength="255" class="form-control" value="${examen?.extremidadesInferiores}" />
+                    <g:textField name="extremidadesInferiores" maxlength="255" class="form-control" value="${examen?.extremidadesInferiores ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
