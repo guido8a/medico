@@ -315,7 +315,8 @@ class PacienteController {
         def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc']).first()
         def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita)
-        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos]
+        def citas = Historial.findAllByPaciente(paciente).sort{it.fecha}
+        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas]
     }
 
     def tablaTodasCitas_ajax(){
@@ -325,16 +326,24 @@ class PacienteController {
     }
 
     def examenFisico_ajax(){
-        def paciente = Paciente.get(params.id)
-        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc']).first()
+//        def paciente = Paciente.get(params.id)
+//        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc']).first()
+        def cita = Historial.get(params.id)
         def examen = ExamenFisico.findByHistorial(cita)
-        println "cita: ${cita?.id} examen: ${examen?.id}"
         return[examen: examen]
     }
 
     def tablaAntecedentes_ajax() {
         def paciente = Paciente.get(params.id)
         return [paciente: paciente]
+    }
+
+    def ultimaCita_ajax() {
+        def cita = Historial.get(params.id)
+        def paciente = Paciente.get(params.paciente)
+        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+        def tratamientos = Tratamiento.findAllByHistorial(cita)
+        return [cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, paciente: paciente]
     }
 
 }
