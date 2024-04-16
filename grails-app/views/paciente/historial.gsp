@@ -84,9 +84,20 @@
 
 
 <div class="row" style="margin-top: 20px">
+    <div class="col-md-2" style="font-size: 12px; font-weight: bolder">
+        <span class="badge badge-secondary" style="font-size: 16px">Seleccione una cita</span>
+    </div>
     <div class="col-md-4">
-        <g:select name="citaSeleccionada" from="${citas}" optionValue="fecha" optionKey="id" class="form-control" />
-        <span class="badge badge-secondary" style="font-size: 16px">Cita</span>
+        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MM-yyyy") + " - " + it?.motivo}}" optionKey="id" class="form-control" />
+%{--        <span class="badge badge-secondary" style="font-size: 16px">Cita</span>--}%
+    </div>
+</div>
+
+<div class="row" style="margin-top: 10px">
+    <div class="col-md-3">
+    <a href="#" class="btn btn-primary" id="btnUltimaCita" title="Ir a la cita">
+        <i class="fas fa-book"></i> Datos de la Cita
+    </a>
     </div>
 </div>
 
