@@ -3,8 +3,8 @@
         <thead style="text-align: center; background-color: #435a83; color: #fff;">
         <tr>
             <th width="9%" style="text-align: center">Hora</th>
-            <g:each in="${dias}" var="d">
-                <th width="13%" style="text-align: center">${d?.nombre}</th>
+            <g:each in="${dias}" var="d" status="i">
+                <th width="13%" style="text-align: center">${d?.nombre} ${(semana?.fechaInicio + i).format('dd-MMM')}</th>
             </g:each>
         </tr>
         </thead>

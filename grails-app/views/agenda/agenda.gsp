@@ -65,14 +65,14 @@
         <input aria-label="" name="fecha" id='fecha' type='text' class="form-control" value="${new Date()?.format("dd-MM-yyyy")}" />
     </div>
 
-    <div class="col-md-3">
-        <label for="semana" class="col-md-1 control-label" style="text-align: right">
-            Semana
-        </label>
-        <g:select name="semana" from="${medico.Semana.list([sort: "numero" ])}"
-                  class="form-control input-sm " optionValue="${{it?.fechaInicio?.format("dd-MM-yyyy")  + " - " +  it?.fechaFin?.format("dd-MM-yyyy") }}" optionKey="id"
-        />
-    </div>
+    %{--<div class="col-md-3">--}%
+        %{--<label for="semana" class="col-md-1 control-label" style="text-align: right">--}%
+            %{--Semana--}%
+        %{--</label>--}%
+        %{--<g:select name="semana" from="${medico.Semana.list([sort: "numero" ])}"--}%
+                  %{--class="form-control input-sm " optionValue="${{it?.fechaInicio?.format("dd-MM-yyyy")  + " - " +  it?.fechaFin?.format("dd-MM-yyyy") }}" optionKey="id"--}%
+        %{--/>--}%
+    %{--</div>--}%
 
     <div class="col-md-3">
         <label for="doctor" class="col-md-1 control-label" style="text-align: right">
@@ -109,7 +109,26 @@
         sideBySide: true,
         icons: {
         }
+    }).on('dp.change', function(e){
+        var fecha = $('#fecha').val();
+        var doctor = $("#doctor option:selected").val();
+        console.log('cambia', fecha);
+        cargaTabla(1, doctor);
     });
+
+
+    %{--$('#ini').datetimepicker({--}%
+        %{--locale: 'es',--}%
+        %{--format: 'DD-MM-YYYY',--}%
+        %{--sideBySide: true,--}%
+        %{--minDate: new Date(${min}),--}%
+        %{--maxDate: new Date(${max}),--}%
+        %{--icons: {--}%
+        %{--}--}%
+    %{--}).on('dp.change', function(e){--}%
+        %{--updateDias();--}%
+    %{--});--}%
+
 
     cargarNombre($("#doctor option:selected").val());
 
@@ -174,11 +193,14 @@
     function agendar(dia, hora, id) {
         var semana = $("#semana option:selected").val();
         var doctor = $("#doctor option:selected").val();
+        var fecha = $('#fecha').val();
+        console.log('fecha', fecha)
 
         $.ajax({
             type: "POST",
             url: "${createLink(controller: 'agenda', action:'paciente_ajax')}",
             data: {
+                fecha: fecha,
                 semana: semana,
                 doctor: doctor,
                 dia: dia,
@@ -229,10 +251,13 @@
     }
 
     function cargaTabla(semana, doctor) {
+        var fecha = $('#fecha').val();
         $.ajax({
             type: "POST",
             url: "${createLink(controller: 'agenda', action:'tabla_ajax')}",
-            data: {semana: semana,
+            data: {
+                fecha: fecha,
+                semana: semana,
                 doctor: doctor
             },
             success: function (msg) {

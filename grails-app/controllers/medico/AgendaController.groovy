@@ -13,17 +13,20 @@ class AgendaController {
 
     def tabla_ajax(){
         println("tabla_ajax " + params)
-
+        def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
         def cn = dbConnectionService.getConnection()
+        def sql = "select smna__id from smna where '${fcha}' between smnafcin and smnafcfn"
+        def smna = cn.rows(sql.toString())[0].smna__id
+        println "semana --> $smna"
 
-        if(params.semana){
-            def semana = Semana.get(params.semana)
+        if(smna){
+            def semana = Semana.get(smna)
             def doctor = Persona.get(params.doctor)
             def clases = []
             def horas = Hora.list([sort: 'numero'])
             def dias  = Dias.list([sort: 'numero'])
 
-            def sql = "select * from agenda(${doctor?.id}, ${semana.id})"
+            sql = "select * from agenda(${doctor?.id}, ${smna})"
             def resp = cn.rows(sql.toString())
 
             return[horario: resp, clases: clases, existe: true, profesor: doctor, horas: horas, dias: dias, semana: semana]
@@ -33,7 +36,14 @@ class AgendaController {
     }
 
     def paciente_ajax(){
-        def semana = Semana.get(params.semana)
+        println "paciente_ajax: $params"
+
+        def cn = dbConnectionService.getConnection()
+        def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
+        def sql = "select smna__id from smna where '${fcha}' between smnafcin and smnafcfn"
+        def smna = cn.rows(sql.toString())[0].smna__id
+        def semana = Semana.get(smna)
+
         def doctor = Persona.get(params.doctor)
         def agenda
 
@@ -49,9 +59,10 @@ class AgendaController {
     }
 
     def saveAgenda_ajax(){
+        def semana = Semana.get(params.semana)
+
         def agenda
         def cita
-        def semana = Semana.get(params.semana)
         def hora = Hora.get(params.hora)
         def dias = Dias.get(params.dias)
         def fecha = semana.fechaInicio + (dias.numero - 1)
