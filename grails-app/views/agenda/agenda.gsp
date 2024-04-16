@@ -31,7 +31,8 @@
     }
     .clase_hoy {
         text-align: center !important;
-        background-color: #6370a3;
+        background-color: #7380b3;
+        /*background-color: #133053;*/
     }
     .libre {
         color: #606060;

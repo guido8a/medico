@@ -15,7 +15,7 @@ class AgendaController {
         println("tabla_ajax " + params)
         def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
         def cn = dbConnectionService.getConnection()
-        def sql = "select smna__id from smna where '${fcha}' between smnafcin and smnafcfn"
+        def sql = "select smna__id from smna where '${fcha.format('yyyy-MM-dd')}' between smnafcin and smnafcfn"
         def smna = cn.rows(sql.toString())[0].smna__id
         println "semana --> $smna"
 
