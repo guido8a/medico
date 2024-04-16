@@ -22,14 +22,13 @@ class AgendaController {
         if(smna){
             def semana = Semana.get(smna)
             def doctor = Persona.get(params.doctor)
-            def clases = []
             def horas = Hora.list([sort: 'numero'])
             def dias  = Dias.list([sort: 'numero'])
 
             sql = "select * from agenda(${doctor?.id}, ${smna})"
             def resp = cn.rows(sql.toString())
 
-            return[horario: resp, clases: clases, existe: true, profesor: doctor, horas: horas, dias: dias, semana: semana]
+            return[horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]
         }else{
             return[existe: false]
         }

@@ -27,8 +27,11 @@
     }
     .otro {
         text-align: center !important;
-        /*background-color: #d7bec8;*/
         background-color: #edc384;
+    }
+    .clase_hoy {
+        text-align: center !important;
+        background-color: #6370a3;
     }
     .libre {
         color: #606060;
