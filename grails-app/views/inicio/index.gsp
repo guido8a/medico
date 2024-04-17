@@ -168,7 +168,7 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/paciente.jpeg" title="Datos de pacientes"  width="80%" height="80%"/>
+                        <asset:image src="apli/paciente.png" title="Datos de pacientes"  width="80%" height="80%"/>
 %{--                        <i class="fa fa-users fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 220px">
@@ -183,7 +183,7 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/diagnóstico.jpeg" title="Agendamiento"  width="80%" height="80%"/>
+                        <asset:image src="apli/cita-medica.png" title="Agendamiento"  width="80%" height="80%"/>
                         %{--                        <i class="fa fa-notes-medical fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
@@ -222,7 +222,7 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/medicinas.jpeg" title="Medicinas"  width="80%" height="80%"/>
+                        <asset:image src="apli/medicinas.png" title="Medicinas"  width="80%" height="80%"/>
 %{--                        <i class="fa fa-medkit fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
@@ -281,7 +281,7 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                                                <asset:image src="apli/diagnóstico.jpeg" title="Diagnóticos"  width="80%" height="80%"/>
+                                                <asset:image src="apli/diagnostico.png" title="Diagnóticos"  width="80%" height="80%"/>
 %{--                        <i class="fa fa-stethoscope fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">

@@ -27,14 +27,14 @@
                         <td style="width: 20%; text-align: center">${paciente?.parr__id ? geografia.Parroquia.get(paciente.parr__id)?.canton?.provincia?.nombre : ''}</td>
                         <td style="width: 20%; text-align: center">
                             <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.pcnt__id)}" class="btn btn-xs btn-warning" title="Historial del paciente">
-                                <i class="fas fa-book"></i> Historial
+                                <i class="fas fa-book"></i> HCU
                             </a>
-                            <a href="${createLink(controller: 'paciente', action: 'datos', id: paciente?.pcnt__id)}" class="btn btn-xs btn-info" title="Información del paciente">
-                                <i class="fas fa-clipboard-check"></i> Datos
-                            </a>
-                            <a href="${createLink(controller: 'paciente', action: 'citas', id: paciente?.pcnt__id)}" class="btn btn-xs btn-success" title="Citas del paciente">
-                                <i class="fas fa-book"></i> Citas
-                            </a>
+                            %{--<a href="${createLink(controller: 'paciente', action: 'datos', id: paciente?.pcnt__id)}" class="btn btn-xs btn-info" title="Información del paciente">--}%
+                                %{--<i class="fas fa-clipboard-check"></i> Datos--}%
+                            %{--</a>--}%
+                            %{--<a href="${createLink(controller: 'paciente', action: 'citas', id: paciente?.pcnt__id)}" class="btn btn-xs btn-success" title="Citas del paciente">--}%
+                                %{--<i class="fas fa-book"></i> Citas--}%
+                            %{--</a>--}%
                         </td>
                     </tr>
                 </g:each>
