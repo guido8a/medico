@@ -16,7 +16,7 @@
 
 <div class="row" style="margin-top: 20px">
     <div class="col-md-4">
-        <a href="#" class="btn btn-primary" id="btnUltimoExamenFisico" title="Último Examen Físico">
+        <a href="#" class="btn btn-primary" id="btnUltimoExamenFisico" title="Examen Físico">
             <i class="fas fa-book"></i> Examen Físico
         </a>
     </div>
@@ -26,7 +26,26 @@
 
 </div>
 
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-4">
+        <a href="#" class="btn btn-primary" id="btnCargarExamenes" title="Examen laborarorio">
+            <i class="fas fa-book"></i> Exámenes de Laboratorio
+        </a>
+    </div>
+</div>
 
+<div id="divExamenLaboratorio">
+
+</div>
+
+
+%{--<div class="row" style="margin-top: 20px">--}%
+%{--    <div class="col-md-4">--}%
+%{--        <a href="#" class="btn btn-primary" id="btnDiagnostico" title="Diagnóstico">--}%
+%{--            <i class="fas fa-book"></i> Diagnóstico--}%
+%{--        </a>--}%
+%{--    </div>--}%
+%{--</div>--}%
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
@@ -58,6 +77,52 @@
                 </g:else>
             </td>
         </tr>
+%{--        <tr style="font-size: 16px">--}%
+%{--            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>--}%
+%{--            <td style="width: 80%; background-color:#ccb35d">--}%
+%{--                <g:if test="${tratamientos.size() > 0}">--}%
+%{--                    <table class="table table-bordered table-striped table-condensed table-hover">--}%
+%{--                        <thead>--}%
+%{--                        <tr style="width: 100%">--}%
+%{--                            <th style="width: 10%">Medicina </th>--}%
+%{--                            <th style="width: 10%">Concentración </th>--}%
+%{--                            <th style="width: 10%">Cantidad </th>--}%
+%{--                            <th style="width: 35%">Prescripción</th>--}%
+%{--                        </tr>--}%
+%{--                        </thead>--}%
+%{--                        <tbody >--}%
+%{--                        <g:each in="${tratamientos}" status="i" var="tratamiento">--}%
+%{--                            <tr style="width: 100%">--}%
+%{--                                <td style="width: 25%">${tratamiento?.medicina?.codigo ? (tratamiento?.medicina?.codigo  + " - " + tratamiento?.medicina?.descripcion) : ''}</td>--}%
+%{--                                <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>--}%
+%{--                                <td style="width: 8%">${tratamiento?.cantidad}</td>--}%
+%{--                                <td style="width: 47%">${tratamiento?.descripcion}</td>--}%
+%{--                            </tr>--}%
+%{--                        </g:each>--}%
+%{--                        </tbody>--}%
+%{--                    </table>--}%
+%{--                </g:if>--}%
+%{--                <g:else>--}%
+%{--                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>--}%
+%{--                </g:else>--}%
+%{--            </td>--}%
+%{--        </tr>--}%
+        </tbody>
+    </table>
+</div>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-4">
+        <a href="#" class="btn btn-primary" id="btnTratamiento" title="Tratamiento">
+            <i class="fas fa-book"></i> Tratamiento
+        </a>
+    </div>
+</div>
+
+<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+    <table class="table-bordered table-condensed " style="width: 100%">
+        <tbody>
+
         <tr style="font-size: 16px">
             <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>
             <td style="width: 80%; background-color:#ccb35d">
@@ -91,7 +156,6 @@
         </tbody>
     </table>
 </div>
-
 
 
 <script type="text/javascript">
@@ -179,5 +243,77 @@
             }
         })
     }
+
+    cargarExamenLaboratorio('${cita?.id}');
+
+    function cargarExamenLaboratorio(cita) {
+        var d = cargarLoader("Cargando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'examenLaboratorio_ajax')}',
+            data:{
+                id: cita
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divExamenLaboratorio").html(msg)
+            }
+        })
+    }
+
+    $("#btnCargarExamenes").click(function () {
+        var cita = "${cita?.id}";
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'historial', action:'examenes_ajax')}",
+            data    : {
+                cita: cita
+            },
+            success : function (msg) {
+                bcpc = bootbox.dialog({
+                    id      : "dlgExamenes",
+                    title   : "Exámenes de la cita",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    $("#btnTratamiento").click(function () {
+        var cita = "${cita?.id}";
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'tratamiento', action:'tratamiento_ajax')}",
+            data    : {
+                cita: cita
+            },
+            success : function (msg) {
+                bcpc = bootbox.dialog({
+                    id      : "dlgTratamiento",
+                    title   : "Tratamiento de la cita",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
 
 </script>

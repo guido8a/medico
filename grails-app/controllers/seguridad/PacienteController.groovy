@@ -5,6 +5,8 @@ import geografia.Parroquia
 import geografia.Provincia
 import medico.Diagnostico
 import medico.DiagnosticoxHistorial
+import medico.Examen
+import medico.ExamenComplementario
 import medico.ExamenFisico
 import medico.Historial
 import medico.Tratamiento
@@ -326,8 +328,6 @@ class PacienteController {
     }
 
     def examenFisico_ajax(){
-//        def paciente = Paciente.get(params.id)
-//        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc']).first()
         def cita = Historial.get(params.id)
         def examen = ExamenFisico.findByHistorial(cita)
         return[examen: examen]
@@ -344,6 +344,12 @@ class PacienteController {
         def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         return [cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, paciente: paciente]
+    }
+
+    def examenLaboratorio_ajax(){
+        def cita = Historial.get(params.id)
+        def examenes = ExamenComplementario.findAllByHistorial(cita)
+        return[examenes: examenes]
     }
 
 }
