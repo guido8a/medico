@@ -10,16 +10,17 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="btn-group col-md-6" >
+    <div class="btn-group col-md-4" >
         <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-info" title="Retornar a búsqueda de pacientes">
             <i class="fas fa-arrow-left"></i> Lista de pacientes
         </a>
     </div>
+    <div class="btn-group col-md-6" >
+        <span style="font-size: 20px; font-weight: bold">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
+    </div>
+
 </div>
 
-<div class="btn-group row" style="margin-top: 20px; text-align: center">
-    <span style="font-size: 20px; font-weight: bold">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
-</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -81,13 +82,13 @@
 
 </div>
 
-
 <div class="row" style="margin-top: 20px">
     <div class="col-md-2" style="font-size: 12px; font-weight: bolder">
-        <span class="badge badge-secondary" style="font-size: 16px">Seleccione una cita</span>
+        <span class="badge badge-secondary" style="font-size: 16px">Seleccione la cita a visualizar</span>
     </div>
     <div class="col-md-4">
-        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MM-yyyy") + " - " + it?.motivo}}" optionKey="id" class="form-control" />
+        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy") + " - " + it?.motivo}}"
+                  optionKey="id" class="form-control" />
     </div>
 </div>
 
