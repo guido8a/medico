@@ -105,7 +105,7 @@
 
 <div class="row" style="margin-top: 20px; margin-bottom: 10px">
     <div class="col-md-4">
-        <span class="badge badge-secondary" style="font-size: 16px">Citas médicas</span>
+        <span class="badge badge-secondary" style="font-size: 16px">Citas médicas Anteriores</span>
     </div>
 </div>
 
