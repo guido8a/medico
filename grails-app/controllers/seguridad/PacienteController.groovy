@@ -84,9 +84,9 @@ class PacienteController {
             paciente.activo = 1
         }
 
-       if(params.fechaNacimiento){
-           params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
-       }
+        if(params.fechaNacimiento){
+            params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
+        }
 
         paciente.properties = params
 
@@ -352,6 +352,11 @@ class PacienteController {
         def cita = Historial.get(params.id)
         def examenes = ExamenComplementario.findAllByHistorial(cita)
         return[examenes: examenes]
+    }
+
+    def tablaDatos_ajax(){
+        def paciente = Paciente.get(params.id)
+        return[paciente: paciente]
     }
 
 }
