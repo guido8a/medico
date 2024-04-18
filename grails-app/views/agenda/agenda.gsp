@@ -62,6 +62,10 @@
 
 <div class="btn-toolbar toolbar" style="margin-top: 10px">
 
+    <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente?.id}?cita=${historial?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
+        <i class="fas fa-arrow-left"></i> Historial
+    </a>
+
     <div class="col-md-2">
         <label for="fecha" class="col-md-1 control-label" style="text-align: right">
             Fecha

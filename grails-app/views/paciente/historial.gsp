@@ -56,13 +56,18 @@
     <div class="col-md-3" style="font-size: 12px; font-weight: bolder">
         <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-5">
         <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
                   optionKey="id" class="form-control" value="${cita_actual}" />
     </div>
     <div class="col-md-2">
         <a href="#" class="btn btn-info" id="btnUltimaCita" title="Ir a la cita">
             <i class="fas fa-edit"></i> Datos de la Cita
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="btn btn-info" id="btnNuevaCita" title="Crear una cita">
+            <i class="fas fa-plus"></i> Nueva Cita
         </a>
     </div>
 </div>
@@ -87,6 +92,10 @@
     $("#btnUltimaCita").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
         location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&id=" + cita + "&tipo=" + 1
+    });
+
+    $("#btnNuevaCita").click(function () {
+        location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${paciente?.id}'
     });
 
     $("#btnDatos").click(function () {
