@@ -1,13 +1,15 @@
+<%@ page import="medico.GrupoSanguineo" %>
 
-    <div role="main" style="margin-top: 10px;">
+<div role="main" style="margin-top: 10px;">
         <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
             <tr>
                 <th style="width: 10%">Cédula</th>
                 <th style="width: 15%">Apellido</th>
                 <th style="width: 15%">Nombre</th>
-                <th style="width: 20%">Empresa</th>
-                <th style="width: 20%">Provincia</th>
+                <th style="width: 10%">Edad</th>
+                <th style="width: 10%">Grupo S.</th>
+                <th style="width: 20%">Mail</th>
                 <th style="width: 20%">Acciones</th>
             </tr>
             </thead>
@@ -23,11 +25,13 @@
                         <td style="width: 10%">${paciente.pcntcdla}</td>
                         <td style="width: 15%">${paciente.pcntapll}</td>
                         <td style="width: 15%">${paciente.pcntnmbr}</td>
-                        <td style="width: 20%; text-align: center">${seguridad.Empresa.get(paciente.empr__id)}</td>
-                        <td style="width: 20%; text-align: center">${paciente?.parr__id ? geografia.Parroquia.get(paciente.parr__id)?.canton?.provincia?.nombre : ''}</td>
+                        <td style="width: 10%">${paciente.pcntfcna}</td>
+                        <td style="width: 10%">${paciente.grsndscr}</td>
+                        <td style="width: 20%">${paciente.pcntmail}</td>
                         <td style="width: 20%; text-align: center">
-                            <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.pcnt__id)}" class="btn btn-xs btn-warning" title="Historial del paciente">
-                                <i class="fas fa-book"></i> HCU
+                            <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.pcnt__id)}"
+                               class="btn btn-xs btn-warning" title="Historial del paciente">
+                                <i class="fas fa-book"></i> Historia Clínica
                             </a>
                             %{--<a href="${createLink(controller: 'paciente', action: 'datos', id: paciente?.pcnt__id)}" class="btn btn-xs btn-info" title="Información del paciente">--}%
                                 %{--<i class="fas fa-clipboard-check"></i> Datos--}%

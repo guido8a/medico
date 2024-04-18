@@ -46,8 +46,9 @@ class PacienteController {
         }else{
             bsca = listaItems[0]
         }
-        def select = "select * from pcnt "
-        def txwh = " where pcnt__id  is not null and " +
+
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, pcntfcna, grsndscr, pcntmail from pcnt, grsn "
+        def txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
                 " $bsca ilike '%${params.criterio}%' "
         sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll ".toString()
         def cn = dbConnectionService.getConnection()

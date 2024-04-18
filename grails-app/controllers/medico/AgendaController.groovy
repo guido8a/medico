@@ -15,8 +15,8 @@ class AgendaController {
         println("tabla_ajax " + params)
         def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
         def cn = dbConnectionService.getConnection()
-        def sql = "select smna__id from smna where '${fcha.format('yyyy-MM-dd')}' between smnafcin and smnafcfn"
-        def smna = cn.rows(sql.toString())[0].smna__id
+        def smna = buscaSemana(params.fecha)
+        def sql = ""
         println "semana --> $smna"
 
         if(smna){
@@ -36,13 +36,7 @@ class AgendaController {
 
     def paciente_ajax(){
         println "paciente_ajax: $params"
-
-        def cn = dbConnectionService.getConnection()
-        def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
-        def sql = "select smna__id from smna where '${fcha}' between smnafcin and smnafcfn"
-        def smna = cn.rows(sql.toString())[0].smna__id
-        def semana = Semana.get(smna)
-
+        def semana = Semana.get( buscaSemana(params.fecha) )
         def doctor = Persona.get(params.doctor)
         def agenda
 
@@ -130,5 +124,12 @@ class AgendaController {
         redirect(controller: 'historial', action: 'cita', params:[paciente: paciente?.id, id:cita?.id])
     }
 
+    def buscaSemana(fecha) {
+        def cn = dbConnectionService.getConnection()
+        def fcha = new Date().parse("dd-MM-yyyy", fecha)
+        def sql = "select smna__id from smna where '${fcha.format('yyyy-MM-dd')}' between smnafcin and smnafcfn"
+        def smna = cn.rows(sql.toString())[0].smna__id
+        return smna
+    }
 
 }
