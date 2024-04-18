@@ -89,7 +89,7 @@
     $("#btnDatos").click(function () {
         $.ajax({
             type    : "POST",
-            url: "${createLink(action:'antecedentes_ajax')}",
+            url: "${createLink(action:'datos_ajax')}",
             data    : {
                 id: '${paciente?.id}'
             },
