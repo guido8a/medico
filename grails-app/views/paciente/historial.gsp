@@ -266,6 +266,25 @@
         })
     }
 
+    cargarDatos();
+
+    function cargarDatos() {
+        var d = cargarLoader("Cargando datos...");
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'tablaDatos_ajax')}',
+            data:{
+                id: paciente
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divDatos").html(msg)
+            }
+        })
+    }
+
+
 </script>
 
 

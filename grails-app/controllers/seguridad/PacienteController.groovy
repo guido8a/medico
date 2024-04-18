@@ -359,4 +359,9 @@ class PacienteController {
         return[paciente: paciente]
     }
 
+    def datos_ajax(){
+        def paciente = Paciente.get(params.id)
+        return[paciente: paciente]
+    }
+
 }
