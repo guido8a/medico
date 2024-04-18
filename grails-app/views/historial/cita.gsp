@@ -52,7 +52,7 @@
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
         <g:if test="${tipo == '1'}">
-            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
+            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente?.id}?cita=${historial?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
                 <i class="fas fa-arrow-left"></i> Historial
             </a>
         </g:if>

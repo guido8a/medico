@@ -23,8 +23,8 @@
 
 
 <div class="row">
-    <div class="col-md-4">
-        <a href="#" class="btn btn-primary" id="btnDatos" title="Datos de afiliación">
+    <div class="col-md-12">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnDatos" title="Datos de afiliación">
             <i class="fas fa-user"></i> Datos de afiliación
         </a>
     </div>
@@ -34,10 +34,10 @@
 
 </div>
 
-<div class="row" style="margin-top: 20px">
-    <div class="col-md-4">
-        <a href="#" class="btn btn-primary" id="btnAntecedentes" title="Antecedentes">
-            <i class="fas fa-book"></i> Antecedentes
+<div class="row" style="margin-top: 15px">
+    <div class="col-md-12">
+        <a href="#" class="btn btn-info col-md-12" id="btnAntecedentes" title="Antecedentes">
+            <i class="fas fa-edit"></i> Antecedentes
         </a>
     </div>
 </div>
@@ -46,21 +46,24 @@
 
 </div>
 
-<div class="row" style="margin-top: 20px">
-    <div class="col-md-2" style="font-size: 12px; font-weight: bolder">
-        <span class="badge badge-secondary" style="font-size: 16px">Seleccione la cita a visualizar</span>
-    </div>
-    <div class="col-md-4">
-        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
-                  optionKey="id" class="form-control" />
+<div class="row">
+    <div class="btn btn-success col-md-12">
+        Citas médicas
     </div>
 </div>
 
-<div class="row" style="margin-top: 10px">
-    <div class="col-md-3">
-    <a href="#" class="btn btn-primary" id="btnUltimaCita" title="Ir a la cita">
-        <i class="fas fa-book"></i> Datos de la Cita
-    </a>
+<div class="row">
+    <div class="col-md-3" style="font-size: 12px; font-weight: bolder">
+        <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>
+    </div>
+    <div class="col-md-7">
+        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
+                  optionKey="id" class="form-control" value="${cita_actual}" />
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="btn btn-info" id="btnUltimaCita" title="Ir a la cita">
+            <i class="fas fa-edit"></i> Datos de la Cita
+        </a>
     </div>
 </div>
 
@@ -69,8 +72,8 @@
 </div>
 
 <div class="row" style="margin-top: 20px; margin-bottom: 10px">
-    <div class="col-md-4">
-        <span class="badge badge-secondary" style="font-size: 16px">Citas médicas Anteriores</span>
+    <div class="col-md-12">
+        <div class="alert alert-primary col-md-12" style="font-size: 16px">Citas médicas Anteriores</div>
     </div>
 </div>
 

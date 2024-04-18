@@ -4,8 +4,9 @@
     <thead>
     <tr>
         <th style="width: 10%">Fecha</th>
-        <th style="width: 40%">Nota de evolución</th>
+        <th style="width: 40%">Nota de evolución (Diagnósticos)</th>
         <th style="width: 50%">Tratamiento</th>
+        <th style="width: 50%">Ver</th>
     </tr>
     </thead>
 </table>
@@ -58,6 +59,14 @@
                         <g:else>
                             <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
                         </g:else>
+                    </td>
+                    <td>
+                        %{--?paciente=" + '${paciente?.id}' + "&id=" + cita + "&tipo=" + 1--}%
+                        <a href="${createLink(controller: 'historial', action: 'cita')}?paciente=${cita?.paciente?.id}&id=${cita?.id}&tipo=1" class="btn btn-xs btn-info"
+                        %{--<a href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + "${paciente?.id}" + "&id=" + cita + "&tipo=" + 1--}%
+                           title="Información del paciente">
+                        <i class="fa fa-search"></i> Ver
+                        </a>
                     </td>
                 </tr>
             </g:each>

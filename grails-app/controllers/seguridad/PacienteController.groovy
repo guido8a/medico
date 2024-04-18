@@ -319,7 +319,7 @@ class PacienteController {
         def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', order: 'desc'])
-        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas]
+        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas, cita_actual: params.cita]
     }
 
     def tablaTodasCitas_ajax(){

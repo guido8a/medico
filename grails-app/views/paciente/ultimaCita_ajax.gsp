@@ -1,23 +1,23 @@
 
-<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: -10px; margin-bottom: 20px">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 20%; font-weight: bolder" class="alert alert-warning">Motivo de consulta:</td>
-            <td style="width: 80%; background-color: #ccb35d">${cita?.motivo}</td>
+            <td style="width: 20%; font-weight: bolder" class="alert alert-success">Motivo de consulta:</td>
+            <td style="width: 80%; background-color: #b7d6a9">${cita?.motivo}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Enfermedad actual:</td>
-            <td style="width: 80%; background-color:#ccb35d">${cita?.actual}</td>
+            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Enfermedad actual:</td>
+            <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
         </tr>
         </tbody>
     </table>
 </div>
 
 <div class="row" style="margin-top: 20px">
-    <div class="col-md-4">
-        <a href="#" class="btn btn-primary" id="btnUltimoExamenFisico" title="Examen Físico">
-            <i class="fas fa-book"></i> Examen Físico
+    <div class="col-md-12">
+        <a href="#" class="btn btn-success col-md-12" id="btnUltimoExamenFisico" title="Examen Físico">
+            <i class="fas fa-edit"></i> Examen Físico
         </a>
     </div>
 </div>
@@ -27,8 +27,8 @@
 </div>
 
 <div class="row" style="margin-top: 20px">
-    <div class="col-md-4">
-        <a href="#" class="btn btn-primary" id="btnCargarExamenes" title="Examen laborarorio">
+    <div class="col-md-12">
+        <a href="#" class="btn btn-success col-md-12" id="btnCargarExamenes" title="Examen laborarorio">
             <i class="fas fa-book"></i> Exámenes de Laboratorio
         </a>
     </div>
@@ -50,8 +50,8 @@
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Diagnóstico:</td>
-            <td style="width: 80%; background-color:#ccb35d">
+            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Diagnóstico:</td>
+            <td style="width: 80%; background-color:#b7d6a9">
                 <g:if test="${diagnosticos.size() > 0}">
                     <table class="table table-bordered table-striped table-condensed table-hover">
                         <thead>
@@ -73,13 +73,13 @@
                     </table>
                 </g:if>
                 <g:else>
-                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
+                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
                 </g:else>
             </td>
         </tr>
 %{--        <tr style="font-size: 16px">--}%
-%{--            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>--}%
-%{--            <td style="width: 80%; background-color:#ccb35d">--}%
+%{--            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>--}%
+%{--            <td style="width: 80%; background-color:#b7d6a9">--}%
 %{--                <g:if test="${tratamientos.size() > 0}">--}%
 %{--                    <table class="table table-bordered table-striped table-condensed table-hover">--}%
 %{--                        <thead>--}%
@@ -103,7 +103,7 @@
 %{--                    </table>--}%
 %{--                </g:if>--}%
 %{--                <g:else>--}%
-%{--                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>--}%
+%{--                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>--}%
 %{--                </g:else>--}%
 %{--            </td>--}%
 %{--        </tr>--}%
@@ -112,8 +112,8 @@
 </div>
 
 <div class="row" style="margin-top: 20px">
-    <div class="col-md-4">
-        <a href="#" class="btn btn-primary" id="btnTratamiento" title="Tratamiento">
+    <div class="col-md-12">
+        <a href="#" class="btn btn-success col-md-12" id="btnTratamiento" title="Tratamiento">
             <i class="fas fa-book"></i> Tratamiento
         </a>
     </div>
@@ -124,8 +124,8 @@
         <tbody>
 
         <tr style="font-size: 16px">
-            <td style="width: 20%;font-weight: bolder" class="alert alert-warning">Tratamiento:</td>
-            <td style="width: 80%; background-color:#ccb35d">
+            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>
+            <td style="width: 80%; background-color:#b7d6a9">
                 <g:if test="${tratamientos.size() > 0}">
                     <table class="table table-bordered table-striped table-condensed table-hover">
                         <thead>
@@ -149,7 +149,7 @@
                     </table>
                 </g:if>
                 <g:else>
-                    <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
+                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
                 </g:else>
             </td>
         </tr>

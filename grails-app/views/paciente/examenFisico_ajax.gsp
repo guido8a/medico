@@ -2,64 +2,64 @@
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Peso:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.peso}</td>
-            <td style="width: 10%" class="alert alert-warning">Talla:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.talla}</td>
-            <td style="width: 10%;" class="alert alert-warning">IMC:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.imc}</td>
-            <td style="width: 10%;" class="alert alert-warning">IC:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.ic}</td>
+            <td style="width: 10%" class="alert alert-success">Peso:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.peso}</td>
+            <td style="width: 10%" class="alert alert-success">Talla:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.talla}</td>
+            <td style="width: 10%;" class="alert alert-success">IMC:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.imc}</td>
+            <td style="width: 10%;" class="alert alert-success">IC:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.ic}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Temperatura:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.temperatura}</td>
-            <td style="width: 10%" class="alert alert-warning">SO2:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.so2}</td>
-            <td style="width: 10%;" class="alert alert-warning">FC:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.fc}</td>
-            <td style="width: 10%;" class="alert alert-warning">Glucosa:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.glucosa}</td>
+            <td style="width: 10%" class="alert alert-success">Temperatura:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.temperatura}</td>
+            <td style="width: 10%" class="alert alert-success">SO2:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.so2}</td>
+            <td style="width: 10%;" class="alert alert-success">FC:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.fc}</td>
+            <td style="width: 10%;" class="alert alert-success">Glucosa:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.glucosa}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Sístole:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.sistole}</td>
-            <td style="width: 10%" class="alert alert-warning">Diástole:</td>
-            <td style="width: 10%; background-color: #ccb35d">${examen?.diastole}</td>
+            <td style="width: 10%" class="alert alert-success">Sístole:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole}</td>
+            <td style="width: 10%" class="alert alert-success">Diástole:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.diastole}</td>
         </tr>
         </tbody>
     </table>
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Cabeza:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.cabeza}</td>
-            <td style="width: 10%" class="alert alert-warning">Cuello:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.cuello}</td>
+            <td style="width: 10%" class="alert alert-success">Cabeza:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.cabeza}</td>
+            <td style="width: 10%" class="alert alert-success">Cuello:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.cuello}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Tórax:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.torax}</td>
-            <td style="width: 10%" class="alert alert-warning">Cardiopulmonar:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.cardioPulmonar}</td>
+            <td style="width: 10%" class="alert alert-success">Tórax:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.torax}</td>
+            <td style="width: 10%" class="alert alert-success">Cardiopulmonar:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.cardioPulmonar}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Abdomen:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.abdomen}</td>
-            <td style="width: 10%" class="alert alert-warning">Región Lumbar:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.regionLumbar}</td>
+            <td style="width: 10%" class="alert alert-success">Abdomen:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.abdomen}</td>
+            <td style="width: 10%" class="alert alert-success">Región Lumbar:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.regionLumbar}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Genitales:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.genitales}</td>
-            <td style="width: 10%" class="alert alert-warning">Neurológico:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.neurologico}</td>
+            <td style="width: 10%" class="alert alert-success">Genitales:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.genitales}</td>
+            <td style="width: 10%" class="alert alert-success">Neurológico:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.neurologico}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-warning">Extremidades inf.:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.extremidadesInferiores}</td>
-            <td style="width: 10%" class="alert alert-warning">Extremidades sup.:</td>
-            <td style="width: 40%; background-color: #ccb35d">${examen?.extremidadesSuperiores}</td>
+            <td style="width: 10%" class="alert alert-success">Extremidades inf.:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.extremidadesInferiores}</td>
+            <td style="width: 10%" class="alert alert-success">Extremidades sup.:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.extremidadesSuperiores}</td>
         </tr>
         </tbody>
     </table>
