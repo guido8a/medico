@@ -23,11 +23,11 @@
         <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 20%; font-weight: bolder" class="alert alert-success">Motivo de consulta:</td>
+            <td style="width: 20%" class="alert alert-success">Motivo de consulta:</td>
             <td style="width: 80%; background-color: #b7d6a9">${cita?.motivo}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Enfermedad actual:</td>
+            <td style="width: 20%" class="alert alert-success">Enfermedad actual:</td>
             <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
         </tr>
         </tbody>
