@@ -315,11 +315,12 @@ class PacienteController {
 
     def historial(){
         def paciente = Paciente.get(params.id)
-        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc'])?.first()
+        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc'])
         def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', order: 'desc'])
-        return [paciente: paciente, cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas, cita_actual: params.cita]
+        def citaPendiente = cita? cita.first() : []
+        return [paciente: paciente, cita: citaPendiente, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas, cita_actual: params.cita]
     }
 
     def tablaTodasCitas_ajax(){

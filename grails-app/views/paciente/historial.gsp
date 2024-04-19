@@ -61,13 +61,13 @@
         <a href="#" class="btn btn-success" id="btnUltimaCita" title="Ir a la cita">
             <i class="fas fa-edit"></i> Datos de la Cita
         </a>
-        <a href="#" class="btn btn-info" id="btnCreaCita" title="Ir a la cita">
+        <a href="#" class="btn btn-info" id="btnCreaCita" title="Crear una cita sin agendamiento">
             <i class="fas fa-plus"></i> Crear Cita
         </a>
     </div>
     %{--<div class="col-md-2">--}%
-        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Crear una cita" style="margin-left: -40px">
-            <i class="fas fa-plus"></i> Pròxima Cita
+        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" style="margin-left: -40px">
+            <i class="fas fa-plus"></i> Próxima Cita
         </a>
     %{--</div>--}%
 </div>

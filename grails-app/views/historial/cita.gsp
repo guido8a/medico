@@ -94,9 +94,12 @@
                         <span class="col-md-1 label label-primary text-info mediano" >Fecha de la cita</span>
                         <span class="grupo" >
                             <span class="col-md-2 " >
-                                <input aria-label="" name="fecha" id='fecha' required type='text' class="form-control required" value="${historial?.fecha?.format("dd-MM-yyyy")}" />
+                                <input aria-label="" name="fecha" id='fecha' required type='text' class="form-control required"
+                                       value="${historial?.fecha ? historial?.fecha?.format("dd-MM-yyyy") : new Date().format("dd-MM-yyyy")}" />
                             </span>
                         </span>
+
+
                     </div>
                 </div>
 
@@ -113,6 +116,11 @@
                                 <input aria-label="" name="proximaCita" id='proximaCita' type='text' class="form-control" value="${historial?.proximaCita?.format("dd-MM-yyyy")}" />
                             </span>
                         </span>
+                        <div class="col-md-2">
+                        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" style="margin-left: 0px">
+                            <i class="fas fa-plus"></i> Agendar próxima Cita
+                        </a>
+                        </div>
                     </div>
                 </div>
 
