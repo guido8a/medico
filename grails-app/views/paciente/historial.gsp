@@ -76,11 +76,8 @@
 
 </div>
 
-<div class="row" style="margin-top: 20px; margin-bottom: 10px">
-    <div class="col-md-12">
-        <div class="alert alert-primary col-md-12" style="font-size: 16px">Citas médicas Anteriores</div>
-    </div>
-</div>
+
+<h3>Citas médicas Anteriores</h3>
 
 <div id="divTablaCitas">
 

@@ -1,10 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
 
-</head>
-
-<body>
 
 <div class="tituloTree">
     Exámenes del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
@@ -173,5 +167,3 @@
 
 </script>
 
-</body>
-</html>

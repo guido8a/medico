@@ -8,9 +8,10 @@
                 <th style="width: 15%">Apellido</th>
                 <th style="width: 15%">Nombre</th>
                 <th style="width: 10%">Edad</th>
+                <th style="width: 15%">Antecedentes</th>
                 <th style="width: 10%">Grupo S.</th>
-                <th style="width: 20%">Mail</th>
-                <th style="width: 20%">Acciones</th>
+                <th style="width: 15%">Mail</th>
+                <th style="width: 10%">Acciones</th>
             </tr>
             </thead>
         </table>
@@ -26,9 +27,10 @@
                         <td style="width: 15%">${paciente.pcntapll}</td>
                         <td style="width: 15%">${paciente.pcntnmbr}</td>
                         <td style="width: 10%">${paciente.pcntfcna}</td>
+                        <td style="width: 15%">${paciente.pcntantc}</td>
                         <td style="width: 10%">${paciente.grsndscr}</td>
-                        <td style="width: 20%">${paciente.pcntmail}</td>
-                        <td style="width: 20%; text-align: center">
+                        <td style="width: 15%">${paciente.pcntmail}</td>
+                        <td style="width: 10%; text-align: center">
                             <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.pcnt__id)}"
                                class="btn btn-xs btn-warning" title="Historial del paciente">
                                 <i class="fas fa-book"></i> Historia Clínica

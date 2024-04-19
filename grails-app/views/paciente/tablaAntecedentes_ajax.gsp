@@ -1,6 +1,6 @@
 <div class="" style="width: 99.7%;overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
-        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaAntedentes" title="Editar los datos de afiliación">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaAntedentes" title="Editar los datos de antecedentes">
             <i class="fas fa-edit"></i>
         </a>
     </div>

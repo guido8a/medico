@@ -15,7 +15,7 @@
 
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
-        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de afiliación">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de la cita médica">
             <i class="fas fa-edit"></i>
         </a>
     </div>
@@ -35,14 +35,7 @@
     </div>
 </div>
 
-
-<div class="row" style="margin-top: 20px">
-    <div class="col-md-12">
-        <a href="#" class="btn btn-success col-md-12" id="btnCargarExamenes" title="Examen laborarorio">
-            <i class="fas fa-book"></i> Exámenes de Laboratorio
-        </a>
-    </div>
-</div>
+<h4>Exámenes de Laboratorio</h4>
 
 <div id="divExamenLaboratorio">
 
@@ -57,6 +50,13 @@
 %{--    </div>--}%
 %{--</div>--}%
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+    <div style="width: 3%; float: left; margin-right: 5px">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaDiagnostico" title="Editar los datos del diagnóstico">
+            <i class="fas fa-edit"></i>
+        </a>
+    </div>
+    <div style="width:96%; float: left">
+
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
@@ -87,49 +87,27 @@
                 </g:else>
             </td>
         </tr>
-%{--        <tr style="font-size: 16px">--}%
-%{--            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>--}%
-%{--            <td style="width: 80%; background-color:#b7d6a9">--}%
-%{--                <g:if test="${tratamientos.size() > 0}">--}%
-%{--                    <table class="table table-bordered table-striped table-condensed table-hover">--}%
-%{--                        <thead>--}%
-%{--                        <tr style="width: 100%">--}%
-%{--                            <th style="width: 10%">Medicina </th>--}%
-%{--                            <th style="width: 10%">Concentración </th>--}%
-%{--                            <th style="width: 10%">Cantidad </th>--}%
-%{--                            <th style="width: 35%">Prescripción</th>--}%
-%{--                        </tr>--}%
-%{--                        </thead>--}%
-%{--                        <tbody >--}%
-%{--                        <g:each in="${tratamientos}" status="i" var="tratamiento">--}%
-%{--                            <tr style="width: 100%">--}%
-%{--                                <td style="width: 25%">${tratamiento?.medicina?.codigo ? (tratamiento?.medicina?.codigo  + " - " + tratamiento?.medicina?.descripcion) : ''}</td>--}%
-%{--                                <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>--}%
-%{--                                <td style="width: 8%">${tratamiento?.cantidad}</td>--}%
-%{--                                <td style="width: 47%">${tratamiento?.descripcion}</td>--}%
-%{--                            </tr>--}%
-%{--                        </g:each>--}%
-%{--                        </tbody>--}%
-%{--                    </table>--}%
-%{--                </g:if>--}%
-%{--                <g:else>--}%
-%{--                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>--}%
-%{--                </g:else>--}%
-%{--            </td>--}%
-%{--        </tr>--}%
         </tbody>
     </table>
-</div>
-
-<div class="row" style="margin-top: 20px">
-    <div class="col-md-12">
-        <a href="#" class="btn btn-success col-md-12" id="btnTratamiento" title="Tratamiento">
-            <i class="fas fa-book"></i> Tratamiento
-        </a>
     </div>
 </div>
 
+<h4>Tratamiento</h4>
+%{--<div class="row" style="margin-top: 20px">--}%
+    %{--<div class="col-md-12">--}%
+        %{--<a href="#" class="btn btn-success col-md-12" id="btnTratamiento" title="Tratamiento">--}%
+            %{--<i class="fas fa-book"></i> Tratamiento--}%
+        %{--</a>--}%
+    %{--</div>--}%
+%{--</div>--}%
+
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+    <div style="width: 3%; float: left; margin-right: 5px">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnTratamiento" title="Editar los datos del tratamiento">
+            <i class="fas fa-edit"></i>
+        </a>
+    </div>
+    <div style="width:96%; float: left">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
 
@@ -165,6 +143,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 
 
@@ -275,7 +254,8 @@
         })
     }
 
-    $("#btnCargarExamenes").click(function () {
+//    btnCargarExamenes
+    function cargarExamenes() {
         var cita = "${cita?.id}";
         $.ajax({
             type    : "POST",
@@ -300,7 +280,7 @@
                 }); //dialog
             } //success
         }); //ajax
-    });
+    };
 
     $("#btnTratamiento").click(function () {
         var cita = "${cita?.id}";

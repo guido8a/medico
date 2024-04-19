@@ -1,6 +1,6 @@
 <div style="width: 3%; float: left; margin-right: 5px">
     <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita"
-       title="Editar los datos de la cita médica">
+       title="Editar los datos del examen físico">
         <i class="fas fa-edit"></i>
     </a>
 </div>

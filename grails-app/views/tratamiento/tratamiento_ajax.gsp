@@ -1,11 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
-
-</head>
-
-<body>
-
 <div class="tituloTree">
     Tratamiento del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
 </div>
@@ -158,5 +150,3 @@
 
 </script>
 
-</body>
-</html>
