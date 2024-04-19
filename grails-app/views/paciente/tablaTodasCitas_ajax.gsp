@@ -3,10 +3,10 @@
 <table class="table table-bordered table-striped table-hover table-condensed" id="tabla">
     <thead>
     <tr>
-        <th style="width: 10%">Fecha</th>
-        <th style="width: 40%">Nota de evolución (Diagnósticos)</th>
-        <th style="width: 50%">Tratamiento</th>
-        <th style="width: 50%">Ver</th>
+        <th style="width: 8%">Fecha</th>
+        <th style="width: 22%">Nota de evolución (Diagnósticos)</th>
+        <th style="width: 66%">Tratamiento</th>
+        <th style="width: 4%">Ver</th>
     </tr>
     </thead>
 </table>
@@ -16,8 +16,8 @@
         <g:if test="${citas.size() > 0}">
             <g:each in="${citas}" var="cita">
                 <tr>
-                    <td style="width: 10%">${cita?.fecha?.format("dd-MM-yyyy")}</td>
-                    <td style="width: 40%">
+                    <td style="width: 8%">${cita?.fecha?.format("dd-MMM-yyyy")}</td>
+                    <td style="width: 22%">
                         <g:if test="${medico.DiagnosticoxHistorial.findAllByHistorial(medico.Historial.get(cita?.id)).size() > 0}">
 
                             <ul>
@@ -33,7 +33,7 @@
                             <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnóstico</div>
                         </g:else>
                     </td>
-                    <td style="width: 50%">
+                    <td style="width: 66%">
                         <g:if test="${medico.Tratamiento.findAllByHistorial(cita).size() > 0}">
                             <table class="table table-bordered table-striped table-condensed table-hover">
                                 <thead>
@@ -62,10 +62,11 @@
                     </td>
                     <td>
                         %{--?paciente=" + '${paciente?.id}' + "&id=" + cita + "&tipo=" + 1--}%
-                        <a href="${createLink(controller: 'historial', action: 'cita')}?paciente=${cita?.paciente?.id}&id=${cita?.id}&tipo=1" class="btn btn-xs btn-info"
+                        <a href="${createLink(controller: 'historial', action: 'cita')}?paciente=${cita?.paciente?.id}&id=${cita?.id}&tipo=1"
+                           class="btn btn-xs btn-success"
                         %{--<a href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + "${paciente?.id}" + "&id=" + cita + "&tipo=" + 1--}%
-                           title="Información del paciente">
-                        <i class="fa fa-search"></i> Ver
+                           title="Ver el detalle de la cita médica">
+                        <i class="fa fa-search"></i><br/> Ver
                         </a>
                     </td>
                 </tr>
