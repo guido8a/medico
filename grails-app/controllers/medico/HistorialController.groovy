@@ -55,7 +55,7 @@ class HistorialController {
         historial.properties = params
 
         if(!historial.save(flush: true)){
-            println("error al guardar la cita " + paciente.errors)
+            println("error al guardar la cita " + historial.errors)
             render"no_Error al guardar la cita"
         }else{
             render "ok_Cita guardada correctamente_${historial?.id}"

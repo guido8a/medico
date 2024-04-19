@@ -98,6 +98,13 @@
                                        value="${historial?.fecha ? historial?.fecha?.format("dd-MM-yyyy") : new Date().format("dd-MM-yyyy")}" />
                             </span>
                         </span>
+                        <span class="col-md-1 label label-primary text-info mediano" >Hora</span>
+                        <span class="grupo" >
+                            <span class="col-md-1 " >
+                                <g:textField name="hora" class="form-control" value=" ${historial?.hora}"/>
+                            </span>
+                            <span class="col-md-1"> Ej: 08:30</span>
+                        </span>
 
 
                     </div>

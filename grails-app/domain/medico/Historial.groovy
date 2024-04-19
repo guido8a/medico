@@ -15,7 +15,8 @@ class Historial {
     String examenes
     Date proximaCita
     String observaciones
-    String estado
+    String estado = "A"
+    String hora
 
     static mapping = {
         table 'hscl'
@@ -35,6 +36,7 @@ class Historial {
             proximaCita column: 'hsclpxct'
             observaciones column: 'hsclobsr'
             estado column: 'hscletdo'
+            hora column: 'hsclhora'
         }
     }
 
@@ -50,5 +52,6 @@ class Historial {
         proximaCita(blank: true, nullable: true)
         observaciones(size:0..255,blank: true, nullable: true)
         estado(size: 1..1, inList: ["A", "R", "N"], blank: false, attributes: ['mensaje': 'Estado Realizada, Agendada, No realizada'])
+        hora(size: 4..5, blank: false, attributes: ['mensaje': 'Hora'])
     }
 }
