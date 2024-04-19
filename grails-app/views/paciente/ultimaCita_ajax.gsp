@@ -1,6 +1,26 @@
 
-<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: -10px; margin-bottom: 20px">
-    <table class="table-bordered table-condensed " style="width: 100%">
+%{--<div class="row" style="margin-top: 20px">--}%
+    %{--<div class="col-md-12">--}%
+        %{--<a href="#" class="btn btn-success col-md-12" id="btnUltimoExamenFisico" title="Examen Físico">--}%
+            %{--<i class="fas fa-edit"></i> Examen Físico--}%
+        %{--</a>--}%
+    %{--</div>--}%
+%{--</div>--}%
+
+<h4>Examen Físico</h4>
+
+<div id="divExamenFisico">
+
+</div>
+
+<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+    <div style="width: 3%; float: left; margin-right: 5px">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de afiliación">
+            <i class="fas fa-edit"></i>
+        </a>
+    </div>
+    <div style="width:96%; float: left">
+        <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
             <td style="width: 20%; font-weight: bolder" class="alert alert-success">Motivo de consulta:</td>
@@ -12,19 +32,9 @@
         </tr>
         </tbody>
     </table>
-</div>
-
-<div class="row" style="margin-top: 20px">
-    <div class="col-md-12">
-        <a href="#" class="btn btn-success col-md-12" id="btnUltimoExamenFisico" title="Examen Físico">
-            <i class="fas fa-edit"></i> Examen Físico
-        </a>
     </div>
 </div>
 
-<div id="divExamenFisico">
-
-</div>
 
 <div class="row" style="margin-top: 20px">
     <div class="col-md-12">
@@ -224,6 +234,10 @@
 
     $("#btnUltimaCita").click(function () {
         location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&id=" + '${cita?.id}' + "&tipo=" + 1
+    });
+
+    $("#btnEditaCita").click(function () {
+       $("#btnUltimaCita").click();
     });
 
 

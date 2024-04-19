@@ -22,52 +22,52 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-12">
-        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnDatos" title="Datos de afiliación">
-            <i class="fas fa-user"></i> Datos de afiliación
-        </a>
-    </div>
-</div>
+%{--<div class="row">--}%
+    %{--<div class="col-md-12">--}%
+        %{--<a href="#" class="btn btn-info col-md-12" role="alert" id="btnDatos" title="Datos de afiliación">--}%
+            %{--<i class="fas fa-user"></i> Datos de afiliación--}%
+        %{--</a>--}%
+    %{--</div>--}%
+    <h3>Datos de afiliación</h3>
+%{--</div>--}%
 
 <div id="divDatos">
 
 </div>
 
-<div class="row" style="margin-top: 15px">
-    <div class="col-md-12">
-        <a href="#" class="btn btn-info col-md-12" id="btnAntecedentes" title="Antecedentes">
-            <i class="fas fa-edit"></i> Antecedentes
-        </a>
-    </div>
-</div>
+%{--<div class="row" style="margin-top: 15px">--}%
+    %{--<div class="col-md-12">--}%
+        %{--<a href="#" class="btn btn-info col-md-12" id="btnAntecedentes" title="Antecedentes">--}%
+            %{--<i class="fas fa-edit"></i> Antecedentes--}%
+        %{--</a>--}%
+    %{--</div>--}%
+%{--</div>--}%
 
 <div id="divAntecedentes">
 
 </div>
 
-<div class="row">
-    <div class="btn btn-success col-md-12">
-        Citas médicas
-    </div>
-</div>
+<h3> Citas médicas </h3>
 
 <div class="row">
-    <div class="col-md-3" style="font-size: 12px; font-weight: bolder">
+    <div class="col-md-2" style="font-size: 12px; font-weight: bolder; width: 215px">
         <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>
     </div>
     <div class="col-md-6">
         <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
                   optionKey="id" class="form-control" value="${cita_actual}" />
     </div>
-    <div class="col-md-2">
-        <a href="#" class="btn btn-info" id="btnUltimaCita" title="Ir a la cita">
+    <div class="col-md-3">
+        <a href="#" class="btn btn-success" id="btnUltimaCita" title="Ir a la cita">
             <i class="fas fa-edit"></i> Datos de la Cita
+        </a>
+        <a href="#" class="btn btn-info" id="btnCreaCita" title="Ir a la cita">
+            <i class="fas fa-plus"></i> Crear Cita
         </a>
     </div>
     %{--<div class="col-md-2">--}%
-        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Crear una cita" style="margin-left: -15px">
-            <i class="fas fa-plus"></i> Nueva Cita
+        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Crear una cita" style="margin-left: -40px">
+            <i class="fas fa-plus"></i> Pròxima Cita
         </a>
     %{--</div>--}%
 </div>
@@ -94,11 +94,16 @@
         location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&id=" + cita + "&tipo=" + 1
     });
 
+    $("#btnCreaCita").click(function () {
+        var cita = $("#citaSeleccionada option:selected").val();
+        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&tipo=" + 3
+    });
+
     $("#btnNuevaCita").click(function () {
         location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${paciente?.id}'
     });
 
-    $("#btnDatos").click(function () {
+    function editaPaciente() {
         $.ajax({
             type    : "POST",
             url: "${createLink(action:'datos_ajax')}",
@@ -130,7 +135,7 @@
                 }); //dialog
             } //success
         }); //ajax
-    });
+    };
 
     function submitFormPaciente() {
         var $form = $("#frmPaciente");
@@ -158,7 +163,7 @@
         }
     }
 
-    $("#btnAntecedentes").click(function () {
+    function editaAntecedentes() {
         $.ajax({
             type    : "POST",
             url: "${createLink(action:'antecedentes_ajax')}",
@@ -190,7 +195,7 @@
                 }); //dialog
             } //success
         }); //ajax
-    });
+    };
 
     function submitFormAntecedentes() {
         var $form = $("#frmAntecedentes");

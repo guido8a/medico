@@ -51,14 +51,14 @@
 <div class="panel panel-primary col-md-12" style="height: 700px">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
-        <g:if test="${tipo == '1'}">
-            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente?.id}?cita=${historial?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
-                <i class="fas fa-arrow-left"></i> Historial
+        <g:if test="${tipo == '2'}">
+            <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
+                <i class="fas fa-arrow-left"></i> Lista de citas
             </a>
         </g:if>
         <g:else>
-            <a href="${createLink(controller: 'paciente', action: 'citas')}/${paciente?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a lista de citas del paciente">
-                <i class="fas fa-arrow-left"></i> Lista de citas
+            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente?.id}?cita=${historial?.id}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
+                <i class="fas fa-arrow-left"></i> Historial
             </a>
         </g:else>
 

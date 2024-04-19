@@ -1,4 +1,11 @@
-<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 20px; margin-bottom: 20px;">
+<div style="width: 3%; float: left; margin-right: 5px">
+    <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita"
+       title="Editar los datos de la cita médica">
+        <i class="fas fa-edit"></i>
+    </a>
+</div>
+
+<div style="width:96%; float: left">
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
@@ -64,3 +71,10 @@
         </tbody>
     </table>
 </div>
+
+<script type="text/javascript">
+    $("#btnEditaCita").click(function () {
+//        var cita = $("#citaSeleccionada option:selected").val();
+        createEditRowExamenFisico();
+    });
+</script>
