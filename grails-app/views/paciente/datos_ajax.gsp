@@ -3,19 +3,25 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano">Consultorio</span>
+            <label for="empresa" class="col-md-1 control-label text-info">
+                Consultorio
+            </label>
             <span class="col-md-4">
                 <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
             </span>
 
-            <span class="col-md-1 label label-primary text-info mediano">Estado</span>
+            <label for="activo" class="col-md-1 control-label text-info">
+                Estado
+            </label>
             <span class="grupo">
                 <span class="col-md-2">
                     <g:select name="activo" from="${[1: 'Activo' , 0 : 'Inactivo']}" optionKey="key" optionValue="value" class="form-control " value="${paciente?.activo}" />
                 </span>
             </span>
 
-            <span class="col-md-1 label label-primary text-info mediano">Foto</span>
+            <label for="empresa" class="col-md-1 control-label text-info">
+                Foto
+            </label>
             <span class="grupo">
                 <span class="col-md-2">
                     <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
@@ -28,17 +34,23 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano">Cédula</span>
+            <label for="cedula" class="col-md-1 control-label text-info">
+                Cédula
+            </label>
             <span class="col-md-2">
                 <g:textField name="cedula" maxlength="10" minlength="10" required="" class="form-control required allCaps"  value="${paciente?.cedula}"/>
             </span>
-            <span class="col-md-1 label label-primary text-info mediano">Nombre</span>
+            <label for="nombre" class="col-md-1 control-label text-info">
+                Nombre
+            </label>
             <span class="grupo">
                 <span class="col-md-3">
                     <g:textField name="nombre" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.nombre}"/>
                 </span>
             </span>
-            <span class="col-md-1 label label-primary text-info mediano">Apellido</span>
+            <label for="apellido" class="col-md-1 control-label text-info">
+                Apellido
+            </label>
             <span class="grupo">
                 <span class="col-md-3">
                     <g:textField name="apellido" minlength="3" maxlength="31" required="" class="form-control required" value="${paciente?.apellido}"/>
@@ -50,7 +62,9 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano" style="margin-top: 24px">Provincia</span>
+            <label for="provincia" class="col-md-2 control-label text-info">
+                Provincia
+            </label>
             <span class="grupo">
                 <span class="col-md-3" style="margin-top: 24px">
                     <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.provincia?.id}"/>
@@ -69,7 +83,9 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano">Dirección</span>
+            <label for="direccion" class="col-md-2 control-label text-info">
+                Dirección
+            </label>
             <span class="col-md-9">
                 <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.direccion}"/>
             </span>
@@ -78,7 +94,9 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano">Referencia</span>
+            <label for="referencia" class="col-md-2 control-label text-info">
+                Referencia
+            </label>
             <span class="col-md-9">
                 <g:textField name="referencia" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>
             </span>
@@ -87,14 +105,18 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano">Teléfonos</span>
+            <label for="telefono" class="col-md-2 control-label text-info">
+                Teléfonos
+            </label>
             <span class="grupo">
                 <span class="col-md-3">
                     <g:textField name="telefono" maxlength="31" class="number form-control" value="${paciente?.telefono}"/>
                 </span>
             </span>
             <span class="col-md-1 mediano"></span>
-            <span class="col-md-1 label label-primary text-info mediano">Email</span>
+            <label for="mail" class="col-md-1 control-label text-info">
+                Email
+            </label>
             <span class="grupo">
                 <span class="col-md-4">
                     <g:textField name="mail" maxlength="63" class="email mail form-control" value="${paciente?.mail}"/>
@@ -105,14 +127,18 @@
 
     <div class="row izquierda" style="margin-bottom: 15px">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano" style="margin-top: 10px">Fecha de nacimiento</span>
+            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
+                Fecha de nacimiento
+            </label>
             <span class="grupo" >
                 <span class="col-md-2 arriba" >
                     <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                 </span>
             </span>
             <span class="col-md-2 mediano"></span>
-            <span class="col-md-1 label label-primary text-info mediano">Estado Civil</span>
+            <label for="estadoCivil" class="col-md-2 control-label text-info">
+                Estado Civil
+            </label>
             <span class="grupo">
                 <span class="col-md-2">
                     <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
@@ -123,14 +149,18 @@
 
     <div class="row izquierda" style="margin-bottom: 15px">
         <div class="col-md-12 input-group">
-            <span class="col-md-2 label label-primary text-info mediano">Sexo</span>
+            <label for="sexo" class="col-md-2 control-label text-info">
+                Sexo
+            </label>
             <span class="grupo">
                 <span class="col-md-2">
                     <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
                 </span>
             </span>
             <span class="col-md-2 mediano"></span>
-            <span class="col-md-1 label label-primary text-info mediano">Grupo Sanguineo</span>
+            <label for="grupoSanguineo" class="col-md-2 control-label text-info">
+                Grupo Sanguíneo
+            </label>
             <span class="grupo">
                 <span class="col-md-2">
                     <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control " value="${paciente?.grupoSanguineo?.id}"/>
@@ -207,8 +237,6 @@
         submitFormPaciente();
     });
 
-
-
     function cargarFotoPaciente(id) {
         $.ajax({
             type    : "POST",
@@ -237,9 +265,5 @@
     function cerrarDialogoImagen () {
         di.modal("hide");
     }
-
-
-
-
 
 </script>
