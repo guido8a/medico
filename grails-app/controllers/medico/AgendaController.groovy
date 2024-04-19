@@ -8,7 +8,7 @@ class AgendaController {
     def dbConnectionService
 
     def agenda(){
-
+        [paciente: params.paciente]
     }
 
     def tabla_ajax(){

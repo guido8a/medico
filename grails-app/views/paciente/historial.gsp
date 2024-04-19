@@ -56,7 +56,7 @@
     <div class="col-md-3" style="font-size: 12px; font-weight: bolder">
         <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
                   optionKey="id" class="form-control" value="${cita_actual}" />
     </div>
@@ -65,11 +65,11 @@
             <i class="fas fa-edit"></i> Datos de la Cita
         </a>
     </div>
-    <div class="col-md-2">
-        <a href="#" class="btn btn-info" id="btnNuevaCita" title="Crear una cita">
+    %{--<div class="col-md-2">--}%
+        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Crear una cita" style="margin-left: -15px">
             <i class="fas fa-plus"></i> Nueva Cita
         </a>
-    </div>
+    %{--</div>--}%
 </div>
 
 <div id="divUltimaCita">
