@@ -4,13 +4,13 @@
         <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
             <tr>
-                <th style="width: 10%">Cédula</th>
-                <th style="width: 15%">Apellido</th>
-                <th style="width: 15%">Nombre</th>
-                <th style="width: 10%">Edad</th>
-                <th style="width: 15%">Antecedentes</th>
-                <th style="width: 10%">Grupo S.</th>
-                <th style="width: 15%">Mail</th>
+                <th style="width: 8%">Cédula</th>
+                <th style="width: 12%">Apellido</th>
+                <th style="width: 12%">Nombre</th>
+                <th style="width: 7%">Edad</th>
+                <th style="width: 30%">Antecedentes</th>
+                <th style="width: 5%">Grupo S.</th>
+                <th style="width: 14%">Mail</th>
                 <th style="width: 10%">Acciones</th>
             </tr>
             </thead>
@@ -23,13 +23,13 @@
             <g:if test="${datos}">
                 <g:each in="${datos}" status="i" var="paciente">
                     <tr data-id="${paciente.pcnt__id}">
-                        <td style="width: 10%">${paciente.pcntcdla}</td>
-                        <td style="width: 15%">${paciente.pcntapll}</td>
-                        <td style="width: 15%">${paciente.pcntnmbr}</td>
-                        <td style="width: 10%">${paciente.pcntfcna}</td>
-                        <td style="width: 15%">${paciente.pcntantc}</td>
-                        <td style="width: 10%">${paciente.grsndscr}</td>
-                        <td style="width: 15%">${paciente.pcntmail}</td>
+                        <td style="width: 8%">${paciente.pcntcdla}</td>
+                        <td style="width: 12%">${paciente.pcntapll}</td>
+                        <td style="width: 12%">${paciente.pcntnmbr}</td>
+                        <td style="width: 7%">${paciente.edad}</td>
+                        <td style="width: 30%">${paciente.pcntantc}</td>
+                        <td style="width: 5%">${paciente.grsndscr}</td>
+                        <td style="width: 14%">${paciente.pcntmail}</td>
                         <td style="width: 10%; text-align: center">
                             <a href="${createLink(controller: 'paciente', action: 'historial', id: paciente?.pcnt__id)}"
                                class="btn btn-xs btn-warning" title="Historial del paciente">

@@ -47,13 +47,15 @@ class PacienteController {
             bsca = listaItems[0]
         }
 
-        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, pcntfcna, grsndscr, pcntmail, pcntantc from pcnt, grsn "
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, ((now()::date - pcntfcna)/365.25)::numeric(4,1)||' años' edad, " +
+                "grsndscr, pcntmail, pcntantc from pcnt, grsn "
         def txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
                 " $bsca ilike '%${params.criterio}%' "
         sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll ".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
-
+        println datos
+        
         [datos: datos]
 
     }

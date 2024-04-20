@@ -97,4 +97,26 @@ class Paciente {
         antecedentesDespuesdeNacer(size: 0..255, blank: true, nullable: true)
         antecedentesOcupacionales(size: 0..255, blank: true, nullable: true)
     }
+
+
+    def getEdad() {
+        return Math.round( (new Date() - this.fechaNacimiento)/365.25.toDouble() *10 ) /10
+    }
+
+    def getObstetricia() {
+        return ( (new Date() - this.fechaNacimiento)/365.25 >= 6 ) && (this.sexo == 'F')
+    }
+
+    def getNino() {
+        return ( (new Date() - this.fechaNacimiento)/365.25 < 17 ) 
+    }
+
+    def getNinoNina() {
+        if(this.nino){
+            return this.sexo == 'M' ? 'Niño' : 'Niña'
+        } else {
+            return ''
+        }
+    }
+
 }

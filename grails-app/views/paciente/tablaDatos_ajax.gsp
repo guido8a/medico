@@ -17,11 +17,11 @@
             </tr>
             <tr style="font-size: 16px">
                 <td style="width: 10%" class="alert alert-info">Edad:</td>
-                <td style="width: 20%; background-color: #c1cfe7">${""}</td>
+                <td style="width: 20%; background-color: #c1cfe7">${paciente.edad} años - ${paciente.ninoNina} ${paciente.obstetricia? 'Obst.':''}</td>
                 <td style="width: 15%" class="alert alert-info">Fecha nacimiento:</td>
                 <td style="width: 20%;background-color: #c1cfe7">${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}</td>
                 <td style="width: 15%;" class="alert alert-info">Lugar nacimiento:</td>
-                <td style="width: 20%;background-color: #c1cfe7">${""}</td>
+                <td style="width: 20%;background-color: #c1cfe7">${paciente.parroquia.nombre}</td>
             </tr>
             <tr style="font-size: 16px">
                 <td style="width: 10%" class="alert alert-info">Dirección:</td>

@@ -19,16 +19,27 @@
             <td style="width: 30%" class="alert alert-info">Antecedentes patológicos familiares:</td>
             <td style="width: 70%; background-color: #c1cfe7">${paciente?.antecedentesPatologicosFam}</td>
         </tr>
-        <g:if test="${paciente?.sexo == 'F'}">
-            <tr style="font-size: 16px">
-                <td style="width: 30%" class="alert alert-info">Antecedentes patológicos gineco obstétricos:</td>
-                <td style="width: 70%; background-color: #c1cfe7">${paciente?.antecedentesGinecobstreticos}</td>
-            </tr>
-        </g:if>
         <tr style="font-size: 16px">
             <td style="width: 30%" class="alert alert-info">Hábitos:</td>
             <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitos}</td>
         </tr>
+        <g:if test="${paciente?.nino}">
+            <tr style="font-size: 16px">
+                <td style="width: 20%" class="alert alert-info">Datos al nacer:</td>
+                <td style="width: 80%; background-color:#c1cfd7">${paciente?.antecedentesDespuesdeNacer}</td>
+            </tr>
+            <tr style="font-size: 16px">
+                <td style="width: 20%" class="alert alert-info">Vida antenatal:</td>
+                <td style="width: 80%; background-color:#c1cfd7">${paciente?.antecedentesAntesdeNacer}</td>
+            </tr>
+        </g:if>
+        <g:if test="${paciente?.obstetricia}">
+            <tr style="font-size: 16px">
+                <td style="width: 20%" class="alert alert-info">Antecedentes gineco obstétricos:</td>
+                <td style="width: 80%; background-color:#d1cfe7">${paciente?.antecedentesGinecobstreticos}</td>
+            </tr>
+        </g:if>
+
         </tbody>
     </table>
     </div>
