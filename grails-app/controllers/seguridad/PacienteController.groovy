@@ -329,7 +329,7 @@ class PacienteController {
     def tablaTodasCitas_ajax(){
         def paciente = Paciente.get(params.id)
 //        def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', order: 'desc'])
-        def citas = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc'])
+        def citas = Historial.findAllByPacienteAndEstado(paciente, "R",[sort: 'fecha', order: 'desc'])
         return [citas: citas]
     }
 

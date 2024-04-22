@@ -61,10 +61,12 @@
 </div>
 
 <div class="btn-toolbar toolbar" style="margin-top: 10px">
-
-    <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente}"  class="btn btn-sm btn-info" style="float: left" title="Retornar a historial del paciente">
-        <i class="fas fa-arrow-left"></i> Historial
+    <div class="col-md-2">
+    <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente}"  class="btn btn-sm btn-info"
+       style="float: left; margin-top: 25px" title="Retornar a historial del paciente">
+        <i class="fas fa-arrow-left"></i> Regresar a Historial
     </a>
+    </div>
 
     <div class="col-md-2">
         <label for="fecha" class="col-md-1 control-label" style="text-align: right">

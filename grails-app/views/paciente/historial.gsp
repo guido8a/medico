@@ -65,11 +65,11 @@
             <i class="fas fa-plus"></i> Crear Cita
         </a>
     </div>
-    %{--<div class="col-md-2">--}%
-        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" style="margin-left: -40px">
-            <i class="fas fa-plus"></i> Próxima Cita
+    <div class="col-md-1" style="margin-left: -60px">
+        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
+            <i class="fas fa-plus"></i> Agendar Cita
         </a>
-    %{--</div>--}%
+    </div>
 </div>
 
 <div id="divUltimaCita">
