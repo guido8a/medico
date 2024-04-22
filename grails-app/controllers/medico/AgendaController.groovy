@@ -86,9 +86,10 @@ class AgendaController {
                 cita = new Historial()
                 cita.agenda = agenda
                 cita.fecha = fecha
+                cita.hora = fecha.format('HH:mm')
                 cita.paciente = agenda.paciente
                 cita.persona = agenda.persona
-                cita.motivo = 'Ingresar el motivo....'
+                cita.motivo = 'Cita médica agendada'
                 if(!cita.save(flush:true)){
                     agenda.delete(flush:true)
                     println("error al agendar la cita " + cita.errors)
