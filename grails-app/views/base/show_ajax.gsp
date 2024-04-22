@@ -16,12 +16,41 @@
 </g:if>
 <g:else>
 
-    <g:if test="${baseInstance?.problema}">
-        <div class="alert alert-dismissible alert-success" style="font-size: 16px;">
-            <strong>Problema:</strong>
-            ${baseInstance?.problema}
+    <g:if test="${baseInstance?.subtema}">
+        <div class="alert alert-info" style="padding: 10px; height: 35px" role="alert">
+            <span class="col-md-4 texto-verde">
+                <strong>Especialidad: </strong> ${baseInstance?.subtema?.tema?.nombre}
+            </span>
+            <span class="col-md-4 texto-verde">
+                <strong>Tipología extra: </strong> ${baseInstance?.subtema?.nombre}
+            </span>
+            <span class="col-md-4 texto-verde">
+                <strong>Fuente: </strong> ${baseInstance?.organizacion}
+            </span>
         </div>
     </g:if>
+
+
+
+    <g:if test="${baseInstance?.enfermedad}">
+        <div class="alert alert-dismissible alert-success" style="font-size: 16px; margin-top: -10px">
+            <div>
+                <strong>Enfermedad:</strong>
+                ${baseInstance?.enfermedad}
+            </div>
+            <div>
+                <strong>Problema:</strong>
+                ${baseInstance?.problema}
+            </div>
+        </div>
+    </g:if>
+
+    %{--<g:if test="${baseInstance?.problema}">--}%
+        %{--<div class="alert alert-dismissible alert-success" style="font-size: 16px;">--}%
+            %{--<strong>Problema:</strong>--}%
+            %{--${baseInstance?.problema}--}%
+        %{--</div>--}%
+    %{--</g:if>--}%
 
     <g:if test="${baseInstance?.solucion}">
         <div class="alert alert-dismissible alert-info" style="font-size: 15px;">
@@ -64,38 +93,22 @@
         </div>
     </g:if>
 
-    <g:if test="${baseInstance?.subtema}">
-        <div class="row">
-            <div class="col-md-12 texto-verde">
-                <strong>Especialidad: </strong> ${baseInstance?.subtema?.tema?.nombre}
-            </div>
-        </div>
-    </g:if>
+    %{--<g:if test="${baseInstance?.organizacion}">--}%
+        %{--<div class="row">--}%
+            %{--<div class="col-md-12 texto-verde">--}%
+                %{--<strong>Fuente: </strong> ${baseInstance?.organizacion}--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</g:if>--}%
 
-    <g:if test="${baseInstance?.subtema}">
-        <div class="row">
-            <div class="col-md-12 texto-verde">
-                <strong>Tipología extra: </strong> ${baseInstance?.subtema?.nombre}
-            </div>
-        </div>
-    </g:if>
-
-    <g:if test="${baseInstance?.organizacion}">
-        <div class="row">
-            <div class="col-md-12 texto-verde">
-                <strong>Fuente: </strong> ${baseInstance?.organizacion}
-            </div>
-        </div>
-    </g:if>
-
-    <g:if test="${baseInstance?.enfermedad}">
-        <div class="container" style="margin-bottom: 10px">
-            <div class="col-xs-9" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">
-                <strong>Enfermedad:</strong>
-                <util:renderHTML html="${baseInstance.enfermedad}"/>
-            </div>
-        </div>
-    </g:if>
+    %{--<g:if test="${baseInstance?.enfermedad}">--}%
+        %{--<div class="container" style="margin-bottom: 10px">--}%
+            %{--<div class="col-xs-9" style="background: #eeeeee; max-height: 400px; overflow: auto; padding: 20px;">--}%
+                %{--<strong>Enfermedad:</strong>--}%
+                %{--<util:renderHTML html="${baseInstance.enfermedad}"/>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</g:if>--}%
 
     <g:if test="${baseInstance?.clave}">
         <div class="row">
@@ -110,7 +123,7 @@
             <div class="col-md-12" style="text-align: right">
                 Creado el <g:formatDate date="${baseInstance?.fecha}" format="dd-MMM-yyyy" />
                 por: ${baseInstance?.persona?.nombre} ${baseInstance?.persona?.apellido},
-                dentro del tema: <span class="texto-verde"> "${baseInstance?.subtema?.encodeAsHTML()}"</span>
+                dentro del tema: <span class="texto-verde"> "${baseInstance?.subtema?.nombre?.encodeAsHTML()}"</span>
             </div>
             
         </div>
