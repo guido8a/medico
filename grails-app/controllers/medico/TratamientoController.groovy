@@ -91,5 +91,22 @@ class TratamientoController {
         }
     }
 
+    def saveTextoTratamiento_ajax(){
+        def cita = Historial.get(params.id)
+
+        if(cita){
+            cita.tratamiento = params.tratamiento
+
+            if(!cita.save(flush: true)){
+                render "no_Error al guardar el tratamiento"
+            }else{
+                render "ok_Tratamiento guardado correctamente"
+            }
+
+        }else{
+            render "no_Error al guardar el tratamiento"
+        }
+    }
+
 
 }

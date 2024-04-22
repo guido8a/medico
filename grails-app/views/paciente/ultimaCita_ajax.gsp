@@ -128,7 +128,7 @@
                         <tbody >
                         <g:each in="${tratamientos}" status="i" var="tratamiento">
                             <tr style="width: 100%">
-                                <td style="width: 25%">${tratamiento?.medicina?.codigo ? (tratamiento?.medicina?.codigo  + " - " + tratamiento?.medicina?.descripcion) : ''}</td>
+                                <td style="width: 25%">${tratamiento?.medicina?.codigo ? tratamiento?.medicina?.descripcion : ''}</td>
                                 <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
                                 <td style="width: 8%">${tratamiento?.cantidad}</td>
                                 <td style="width: 47%">${tratamiento?.descripcion}</td>
@@ -302,6 +302,7 @@
                             label     : "Cancelar",
                             className : "btn-primary",
                             callback  : function () {
+                                return submitTextoTratamiento();
                             }
                         }
                     } //buttons
@@ -309,6 +310,29 @@
             } //success
         }); //ajax
     });
+
+    function submitTextoTratamiento() {
+        var dialog = cargarLoader("Guardando...");
+        var tratamiento = $("#tratamiento").val();
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'tratamiento',  action:'saveTextoTratamiento_ajax')}",
+            data    : {
+                tratamiento: tratamiento,
+                id: '${cita?.id}'
+            },
+            success : function (msg) {
+                dialog.modal('hide');
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }
+            }
+        });
+    }
 
 
 </script>

@@ -132,7 +132,7 @@
                 }); //dialog
             } //success
         }); //ajax
-    };
+    }
 
     function submitFormPaciente() {
         var $form = $("#frmPaciente");
@@ -192,7 +192,7 @@
                 }); //dialog
             } //success
         }); //ajax
-    };
+    }
 
     function submitFormAntecedentes() {
         var $form = $("#frmAntecedentes");

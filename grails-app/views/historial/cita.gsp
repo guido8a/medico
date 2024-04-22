@@ -48,7 +48,7 @@
     </g:else>
 </h4>
 
-<div class="panel panel-primary col-md-12" style="height: 700px">
+<div class="panel panel-primary col-md-12" style="height: 550px">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px; margin-bottom: 5px; text-align: center; height: 40px">
         <g:if test="${tipo == '2'}">
@@ -124,9 +124,9 @@
                             </span>
                         </span>
                         <div class="col-md-2">
-                        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" style="margin-left: 0px">
-                            <i class="fas fa-plus"></i> Agendar próxima Cita
-                        </a>
+                            <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" style="margin-left: 0px">
+                                <i class="fas fa-plus"></i> Agendar próxima Cita
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -149,14 +149,14 @@
                     </div>
                 </div>
 
-                <div class="row izquierda">
-                    <div class="col-md-12 input-group">
-                        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>
-                        <span class="col-md-10">
-                            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.tratamiento}"/>
-                        </span>
-                    </div>
-                </div>
+            %{--                <div class="row izquierda">--}%
+            %{--                    <div class="col-md-12 input-group">--}%
+            %{--                        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>--}%
+            %{--                        <span class="col-md-10">--}%
+            %{--                            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.tratamiento}"/>--}%
+            %{--                        </span>--}%
+            %{--                    </div>--}%
+            %{--                </div>--}%
 
                 <div class="row izquierda">
                     <div class="col-md-12 input-group">
@@ -416,6 +416,7 @@
                             label     : "Cancelar",
                             className : "btn-primary",
                             callback  : function () {
+                               return submitTextoTratamiento();
                             }
                         }
                     } //buttons
@@ -480,19 +481,37 @@
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
                     }else{
-                        if(parts[0] === 'err'){
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }else{
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
                     }
                 }
             });
         } else {
             return false;
         }
+    }
+
+    function submitTextoTratamiento() {
+        var dialog = cargarLoader("Guardando...");
+        var tratamiento = $("#tratamiento").val();
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'tratamiento',  action:'saveTextoTratamiento_ajax')}",
+            data    : {
+                tratamiento: tratamiento,
+                id: '${historial?.id}'
+            },
+            success : function (msg) {
+                dialog.modal('hide');
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }
+            }
+        });
     }
 
 </script>

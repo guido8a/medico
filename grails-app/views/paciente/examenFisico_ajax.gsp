@@ -29,10 +29,8 @@
             <td style="width: 10%; background-color: #b7d6a9">${examen?.glucosa}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-success">Sístole:</td>
-            <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole}</td>
-            <td style="width: 10%" class="alert alert-success">Diástole:</td>
-            <td style="width: 10%; background-color: #b7d6a9">${examen?.diastole}</td>
+            <td style="width: 10%" class="alert alert-success">Tensión arterial:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole} - ${examen?.diastole}</td>
         </tr>
         </tbody>
     </table>
