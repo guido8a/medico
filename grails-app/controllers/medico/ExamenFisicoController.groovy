@@ -11,17 +11,9 @@ class ExamenFisicoController {
     }
 
     def form_ajax(){
-//        def paciente = Paciente.get(params.paciente)
         def historial = Historial.get(params.historial)
         def existe = ExamenFisico.findByHistorial(historial)
         def examen
-//        if(params.id){
-//            examen = ExamenFisico.get(params.id)
-//        }else{
-//            examen = new ExamenFisico()
-//        }
-//
-//        return[examen: examen, paciente: paciente]
 
         if(existe){
             examen = existe
@@ -30,7 +22,6 @@ class ExamenFisicoController {
         }
 
         return [examen: examen, historial: historial]
-
     }
 
     def tablaExamenesFisicos_ajax(){

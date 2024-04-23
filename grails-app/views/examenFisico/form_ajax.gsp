@@ -128,9 +128,12 @@
                     Talla
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="talla" maxlength="10" class="form-control" value="${examen?.talla ?: 0}" />
-                    <p class="help-block ui-helper-hidden"></p>
+                    <span class="input-group input-group-sm">
+                        <g:textField name="talla" maxlength="10" class="form-control" value="${examen?.talla ?: 0}" />
+                        <span class="input-group-addon">m</span>
+                    </span>
                 </span>
+
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     IMC
                 </label>
@@ -142,8 +145,10 @@
                     IC
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="ic" maxlength="4" class="form-control" value="${examen?.ic ?: 0}" />
-                    <p class="help-block ui-helper-hidden"></p>
+                    <span class="input-group input-group-sm">
+                        <g:textField name="ic" maxlength="4" class="form-control" value="${examen?.ic ?: 0}" title="Índice de cintura" />
+                        <span class="input-group-addon">cm</span>
+                    </span>
                 </span>
             </span>
         </div>
@@ -168,7 +173,7 @@
                     FC
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="fc" maxlength="10" class="form-control" value="${examen?.fc ?: 0}" />
+                    <g:textField name="fc" maxlength="10" class="form-control" value="${examen?.fc ?: 0}" title="Frecuencia cardíaca" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">

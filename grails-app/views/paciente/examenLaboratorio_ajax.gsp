@@ -37,7 +37,7 @@
                     </table>
                 </g:if>
                 <g:else>
-                    <div class="alert alert-success"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> La cita no contiene exámenes</div>
+                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin exámenes de laboratorio</div>
                 </g:else>
             </td>
         </tr>

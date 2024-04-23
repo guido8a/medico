@@ -1,12 +1,3 @@
-
-%{--<div class="row" style="margin-top: 20px">--}%
-    %{--<div class="col-md-12">--}%
-        %{--<a href="#" class="btn btn-success col-md-12" id="btnUltimoExamenFisico" title="Examen Físico">--}%
-            %{--<i class="fas fa-edit"></i> Examen Físico--}%
-        %{--</a>--}%
-    %{--</div>--}%
-%{--</div>--}%
-
 <h4>Examen Físico</h4>
 
 <div id="divExamenFisico">
@@ -41,14 +32,6 @@
 
 </div>
 
-
-%{--<div class="row" style="margin-top: 20px">--}%
-%{--    <div class="col-md-4">--}%
-%{--        <a href="#" class="btn btn-primary" id="btnDiagnostico" title="Diagnóstico">--}%
-%{--            <i class="fas fa-book"></i> Diagnóstico--}%
-%{--        </a>--}%
-%{--    </div>--}%
-%{--</div>--}%
 <h4>Diagnóstico</h4>
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
@@ -94,13 +77,6 @@
 </div>
 
 <h4>Tratamiento</h4>
-%{--<div class="row" style="margin-top: 20px">--}%
-    %{--<div class="col-md-12">--}%
-        %{--<a href="#" class="btn btn-success col-md-12" id="btnTratamiento" title="Tratamiento">--}%
-            %{--<i class="fas fa-book"></i> Tratamiento--}%
-        %{--</a>--}%
-    %{--</div>--}%
-%{--</div>--}%
 
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
@@ -146,7 +122,6 @@
     </table>
     </div>
 </div>
-
 
 <script type="text/javascript">
 

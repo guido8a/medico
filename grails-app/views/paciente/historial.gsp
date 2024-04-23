@@ -21,27 +21,12 @@
 
 </div>
 
-
-%{--<div class="row">--}%
-    %{--<div class="col-md-12">--}%
-        %{--<a href="#" class="btn btn-info col-md-12" role="alert" id="btnDatos" title="Datos de afiliación">--}%
-            %{--<i class="fas fa-user"></i> Datos de afiliación--}%
-        %{--</a>--}%
-    %{--</div>--}%
-    <h3>Datos de afiliación</h3>
-%{--</div>--}%
+<h3>Datos de afiliación</h3>
 
 <div id="divDatos">
 
 </div>
 
-%{--<div class="row" style="margin-top: 15px">--}%
-    %{--<div class="col-md-12">--}%
-        %{--<a href="#" class="btn btn-info col-md-12" id="btnAntecedentes" title="Antecedentes">--}%
-            %{--<i class="fas fa-edit"></i> Antecedentes--}%
-        %{--</a>--}%
-    %{--</div>--}%
-%{--</div>--}%
 
 <div id="divAntecedentes">
 
@@ -50,10 +35,12 @@
 <h3> Citas médicas </h3>
 
 <div class="row">
-    <div class="col-md-2" style="font-size: 12px; font-weight: bolder; width: 215px">
-        <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>
+    <div class="col-md-2" style="font-size: 12px; font-weight: bolder; width: 270px">
+%{--        <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>--}%
+        <span class="badge badge-pill badge-primary fa-2x">Seleccione la cita a visualizar</span>
+
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
                   optionKey="id" class="form-control" value="${cita_actual}" />
     </div>
@@ -222,8 +209,8 @@
     }
 
     $("#citaSeleccionada").change(function () {
-       var cita = $(this).val();
-       cargarUltimaCita(cita);
+        var cita = $(this).val();
+        cargarUltimaCita(cita);
     });
 
     cargarUltimaCita($("#citaSeleccionada option:selected").val());
