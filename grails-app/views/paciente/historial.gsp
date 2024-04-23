@@ -16,7 +16,7 @@
         </a>
     </div>
     <div class="btn-group col-md-6" >
-        <span style="font-size: 20px; font-weight: bold">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
+        <span class="badge badge-pill badge-primary fa-2x">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
     </div>
 
 </div>
@@ -36,23 +36,16 @@
 
 <div class="row">
     <div class="col-md-2" style="font-size: 12px; font-weight: bolder; width: 270px">
-%{--        <div class="btn btn-success col-md-12" style="font-size: 16px">Seleccione la cita a visualizar</div>--}%
         <span class="badge badge-pill badge-primary fa-2x">Seleccione la cita a visualizar</span>
-
     </div>
-    <div class="col-md-5">
-        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
-                  optionKey="id" class="form-control" value="${cita_actual}" />
+    <div class="col-md-6" id="divComboCita">
+        %{--        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"--}%
+        %{--                  optionKey="id" class="form-control" value="${cita_actual}" />--}%
     </div>
     <div class="col-md-3">
-        <a href="#" class="btn btn-success" id="btnUltimaCita" title="Ir a la cita">
+        <a href="#" class="btn btn-success" id="btnDatosCita" title="Datos de la cita">
             <i class="fas fa-edit"></i> Datos de la Cita
         </a>
-        <a href="#" class="btn btn-info" id="btnCreaCita" title="Crear una cita sin agendamiento">
-            <i class="fas fa-plus"></i> Crear Cita
-        </a>
-    </div>
-    <div class="col-md-1" style="margin-left: -60px">
         <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
             <i class="fas fa-plus"></i> Agendar Cita
         </a>
@@ -73,15 +66,94 @@
 
 <script type="text/javascript">
 
-    $("#btnUltimaCita").click(function () {
+    cargarComboCita($("#citaSeleccionada option:selected").val());
+
+    function cargarComboCita(actual){
+        var paciente = '${paciente?.id}';
+        var d = cargarLoader("Cargando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'comboCitas_ajax')}',
+            data:{
+                id: paciente,
+                cita: actual
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divComboCita").html(msg)
+            }
+        })
+    }
+
+    $("#btnDatosCita").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
-        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&id=" + cita + "&tipo=" + 1
+        editaDatosCita(cita);
     });
 
-    $("#btnCreaCita").click(function () {
-        var cita = $("#citaSeleccionada option:selected").val();
-        location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&tipo=" + 3
-    });
+    function editaDatosCita(cita) {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'historial', action:'cita_ajax')}",
+            data    : {
+                id: cita
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditCita",
+                    title   : "Cita del paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormDatosCita(cita);
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
+
+    function submitFormDatosCita(cita) {
+        var $form = $("#frmCita");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarComboCita(cita);
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+    %{--$("#btnCreaCita").click(function () {--}%
+    %{--    var cita = $("#citaSeleccionada option:selected").val();--}%
+    %{--    location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&tipo=" + 3--}%
+    %{--});--}%
 
     $("#btnNuevaCita").click(function () {
         location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${paciente?.id}'
@@ -207,13 +279,6 @@
             return false;
         }
     }
-
-    $("#citaSeleccionada").change(function () {
-        var cita = $(this).val();
-        cargarUltimaCita(cita);
-    });
-
-    cargarUltimaCita($("#citaSeleccionada option:selected").val());
 
     function cargarUltimaCita(cita) {
         var d = cargarLoader("Cargando...");

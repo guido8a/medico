@@ -125,6 +125,11 @@
 
 <script type="text/javascript">
 
+    $("#btnEditaCita").click(function () {
+        var cita = $("#citaSeleccionada option:selected").val();
+        editaDatosCita(cita);
+    });
+
     $("#btnUltimoExamenFisico").click(function () {
         createEditRowExamenFisico();
     });
@@ -191,11 +196,6 @@
         location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&id=" + '${cita?.id}' + "&tipo=" + 1
     });
 
-    $("#btnEditaCita").click(function () {
-       $("#btnUltimaCita").click();
-    });
-
-
     cargarExamenFisico('${cita?.id}');
 
     function cargarExamenFisico(cita) {
@@ -256,7 +256,7 @@
                 }); //dialog
             } //success
         }); //ajax
-    };
+    }
 
     $("#btnTratamiento").click(function () {
         var cita = "${cita?.id}";

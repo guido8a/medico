@@ -555,4 +555,9 @@ class HistorialController {
         }
     }
 
+    def cita_ajax(){
+        def cita = Historial.get(params.id)
+        return [historial: cita]
+    }
+
 }

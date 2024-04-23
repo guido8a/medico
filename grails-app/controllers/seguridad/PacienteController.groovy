@@ -322,7 +322,6 @@ class PacienteController {
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def citas = Historial.findAllByPacienteAndEstadoNotEqual(paciente, 'N', [sort: 'fecha', order: 'desc'])
         def citaPendiente = cita? cita.first() : []
-        println "citas: $citas"
         return [paciente: paciente, cita: citaPendiente, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas, cita_actual: params.cita]
     }
 
@@ -366,6 +365,13 @@ class PacienteController {
     def datos_ajax(){
         def paciente = Paciente.get(params.id)
         return[paciente: paciente]
+    }
+
+    def comboCitas_ajax() {
+        def paciente = Paciente.get(params.id)
+        def citas = Historial.findAllByPacienteAndEstadoNotEqual(paciente, 'N', [sort: 'fecha', order: 'desc'])
+        def cita = Historial.get(params.cita)
+        return [citas: citas, cita: cita]
     }
 
 }
