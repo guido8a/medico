@@ -121,8 +121,10 @@
                     Peso
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="peso" maxlength="4" class="form-control" value="${examen?.peso ?: 0}" />
-                    <p class="help-block ui-helper-hidden"></p>
+                    <span class="input-group input-group-sm">
+                        <g:textField name="peso" maxlength="4" class="form-control" value="${examen?.peso ?: 0}" />
+                        <span class="input-group-addon">kg</span>
+                    </span>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Talla
@@ -138,7 +140,8 @@
                     IMC
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="imc" maxlength="4" class="form-control" value="${examen?.imc ?: 0}" />
+                    <g:textField name="imc" readonly="" class="form-control"  value="${formatNumber(number: examen?.imc ?: ( (examen?.peso && examen?.talla) ? ( (examen?.peso != 0 && examen?.talla != 0) ? (examen?.peso?.toDouble() / (examen?.talla?.toDouble() * examen?.talla?.toDouble()) ) : 0 ) : 0  ), format: '##,##0', maxFractionDigits: 2, minFractionDigits: 2, locale: 'ec')}" />
+
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
@@ -207,6 +210,13 @@
 
 <script type="text/javascript">
 
+    $("#peso, #talla").keyup(function (ev) {
+        var peso = $("#peso").val();
+        var talla = $("#talla").val();
+        var imc =  (peso && talla) ? ( (peso !== 0 && talla !== 0) ? (peso / (talla * talla) ) : 0 ) : 0;
+        $("#imc").val(imc)
+    });
+
     $('#fechaExamenFisico').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
@@ -214,7 +224,6 @@
         icons: {
         }
     });
-
 
     $("#frmExamenFisico").validate({
         errorClass     : "help-block",
