@@ -556,8 +556,16 @@ class HistorialController {
     }
 
     def cita_ajax(){
-        def cita = Historial.get(params.id)
-        return [historial: cita]
+        def paciente = Paciente.get(params.paciente)
+        def cita
+
+        if(params.id){
+            cita = Historial.get(params.id)
+        }else{
+            cita = new Historial()
+        }
+
+        return [historial: cita, paciente: paciente]
     }
 
 }

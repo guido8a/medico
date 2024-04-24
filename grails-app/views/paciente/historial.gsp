@@ -43,18 +43,27 @@
         %{--                  optionKey="id" class="form-control" value="${cita_actual}" />--}%
     </div>
     <div class="col-md-3">
-        <a href="#" class="btn btn-success" id="btnDatosCita" title="Datos de la cita">
-            <i class="fas fa-edit"></i> Datos de la Cita
+        <a href="#" class="btn btn-success" id="btnCrearCita" title="Nueva cita">
+            <i class="fas fa-plus"></i> Crear Cita
         </a>
-        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
-            <i class="fas fa-plus"></i> Agendar Cita
-        </a>
+%{--        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >--}%
+%{--            <i class="fas fa-plus"></i> Agendar Cita--}%
+%{--        </a>--}%
     </div>
 </div>
 
 <div id="divUltimaCita">
 
 </div>
+
+<div class="row">
+    <div class="col-md-2">
+        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
+            <i class="fas fa-plus"></i> Agendar Cita
+        </a>
+    </div>
+</div>
+
 
 
 <h3>Citas médicas Anteriores</h3>
@@ -85,17 +94,24 @@
         })
     }
 
+
+    $("#btnCrearCita").click(function () {
+        editaDatosCita();
+    });
+
     $("#btnDatosCita").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
         editaDatosCita(cita);
     });
 
     function editaDatosCita(cita) {
+        var paciente = '${paciente?.id}';
         $.ajax({
             type    : "POST",
             url: "${createLink(controller: 'historial', action:'cita_ajax')}",
             data    : {
-                id: cita
+                id: cita,
+                paciente: paciente
             },
             success : function (msg) {
                 var b = bootbox.dialog({

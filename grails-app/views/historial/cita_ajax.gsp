@@ -1,5 +1,5 @@
 <g:form class="form-horizontal" name="frmCita" controller="historial" action="saveCita_ajax">
-    <g:hiddenField name="paciente" value="${historial?.paciente?.id}"/>
+    <g:hiddenField name="paciente" value="${paciente?.id}"/>
     <g:hiddenField name="id" value="${historial?.id}"/>
 
     <div class="row izquierda">
@@ -8,7 +8,7 @@
                 Paciente
             </label>
             <span class="col-md-6">
-                <g:textField name="nombrePaciente" class="form-control" readonly="" value=" ${historial?.paciente?.apellido + ' ' + historial?.paciente?.nombre + " - " + historial?.paciente?.cedula}"/>
+                <g:textField name="nombrePaciente" class="form-control" readonly="" value=" ${paciente?.apellido + ' ' + paciente?.nombre + " - " + paciente?.cedula}"/>
             </span>
         </div>
     </div>
@@ -35,7 +35,7 @@
             </label>
             <span class="grupo" >
                 <span class="col-md-1 " >
-                    <g:textField name="hora" class="form-control" value=" ${historial?.hora}"/>
+                    <g:textField name="hora" class="form-control" value=" ${historial?.hora ?: 00}"/>
                 </span>
             </span>
         </div>
