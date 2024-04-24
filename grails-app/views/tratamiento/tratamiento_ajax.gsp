@@ -4,7 +4,7 @@
 
 <div class="row izquierda">
     <div class="col-md-12 input-group">
-%{--        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>--}%
+        %{--        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>--}%
         <label for="tratamiento" class="col-md-1 control-label text-info">
             Tratamiento
         </label>
@@ -104,14 +104,10 @@
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
                         cargarTablaTratamientos();
+                        cargarUltimaCita('${historial?.id}');
                     }else{
-                        if(parts[0] === 'err'){
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }else{
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
                     }
                 }
             });

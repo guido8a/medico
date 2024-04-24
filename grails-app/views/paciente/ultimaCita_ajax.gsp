@@ -35,7 +35,7 @@
 <h4>Diagnóstico</h4>
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
-        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaDiagnostico" title="Editar los datos del diagnóstico">
+        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnBuscarDiagnostico" title="Editar los datos del diagnóstico">
             <i class="fas fa-edit"></i>
         </a>
     </div>
@@ -53,6 +53,7 @@
                             <th style="width: 10%">Código</th>
                             <th style="width: 50%">Descripción </th>
                             <th style="width: 30%">Observaciones </th>
+                            <th style="width: 10%">Acciones </th>
                         </tr>
                         </thead>
                         <tbody >
@@ -61,6 +62,14 @@
                                 <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>
                                 <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
                                 <td style="width: 30%">${diagnostico?.descripcion}</td>
+                                <td style="width: 10%; text-align: center">
+                                    <a class="btn btn-info btn-xs btnObservacionesDiagnostico" href="#" rel="tooltip" title="Observaciones" data-id="${diagnostico.id}">
+                                        <i class="fa fa-book"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-xs btnBorrarDiagnostico" href="#" rel="tooltip" title="Eliminar" data-id="${diagnostico.id}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </g:each>
                         </tbody>
@@ -124,6 +133,8 @@
 </div>
 
 <script type="text/javascript">
+
+    var dp;
 
     $("#btnEditaCita").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
@@ -230,7 +241,6 @@
         })
     }
 
-//    btnCargarExamenes
     function cargarExamenes() {
         var cita = "${cita?.id}";
         $.ajax({
@@ -309,5 +319,136 @@
         });
     }
 
+    $("#btnBuscarDiagnostico").click(function () {
+        var cita = '${cita?.id}';
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'historial', action:  'buscarDiagnostico_ajax')}",
+            data    : {
+                cita: cita
+            },
+            success : function (msg) {
+                dp = bootbox.dialog({
+                    id      : "dlgBuscarDiagnostico",
+                    title   : "Buscar diagnóstico",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    function cerrarBusqueda(){
+        dp.modal("hide");
+    }
+
+    $(".btnBorrarDiagnostico").click(function () {
+        var id = $(this).data("id");
+        deleteRowDiagnostico(id)
+    });
+
+    $(".btnObservacionesDiagnostico").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'historial', action:'observacionesDiagnostico_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var aa = bootbox.dialog({
+                    id      : "dlgObservacionesDiagnostico",
+                    title   : "Observaciones",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar : {
+                            label     : "Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return guardarObservaciones(id);
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    function guardarObservaciones (id) {
+        var observaciones = $("#observacionesDiagnostico").val();
+        $.ajax({
+            type    : "POST",
+            url     : '${createLink(controller: 'historial', action:'saveObservaciones_ajax')}',
+            data    : {
+                id: id,
+                observaciones: observaciones
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                    // cargarTablaDiagnostico();
+                    cargarUltimaCita('${cita?.id}');
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }
+            }
+        });
+    }
+
+    function deleteRowDiagnostico(itemId) {
+        bootbox.dialog({
+            title   : "Alerta",
+            message : "<span style='text-align: center; font-size: 14px; font-weight: bold'><i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Está seguro que desea eliminar este diagnóstico?.</span>",
+            buttons : {
+                cancelar : {
+                    label     : "Cancelar",
+                    className : "btn-primary",
+                    callback  : function () {
+                    }
+                },
+                eliminar : {
+                    label     : "<i class='fa fa-trash'></i> Eliminar",
+                    className : "btn-danger",
+                    callback  : function () {
+                        var v = cargarLoader("Eliminando...");
+                        $.ajax({
+                            type    : "POST",
+                            url     : '${createLink(controller: 'historial', action: 'borrarDiagnostico_ajax')}',
+                            data    : {
+                                id : itemId
+                            },
+                            success : function (msg) {
+                                v.modal("hide");
+                                var parts = msg.split("_");
+                                if(parts[0] === 'ok'){
+                                    log(parts[1],"success");
+                                    // cargarTablaDiagnostico();
+                                    cargarUltimaCita('${cita?.id}');
+                                }else{
+                                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                                    return false;
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 
 </script>

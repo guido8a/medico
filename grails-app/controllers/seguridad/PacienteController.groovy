@@ -347,7 +347,7 @@ class PacienteController {
     def ultimaCita_ajax() {
         def cita = Historial.get(params.id)
         def paciente = Paciente.get(params.paciente)
-        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita).sort{it.diagnostico.codigo}
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         return [cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, paciente: paciente]
     }

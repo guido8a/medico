@@ -327,7 +327,6 @@
                             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                             return false;
                         }
-
                     }
                 }
             });
@@ -340,35 +339,35 @@
     %{--    location.href="${createLink(controller: 'historial', action: 'list')}?id=" + '${paciente?.id}'--}%
     %{--});--}%
 
-    $("#btnBuscarDiagnostico").click(function () {
-        var cita = '${historial?.id}';
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(action:'buscarDiagnostico_ajax')}",
-            data    : {
-                cita: cita
-            },
-            success : function (msg) {
-                dp = bootbox.dialog({
-                    id      : "dlgBuscarDiagnostico",
-                    title   : "Buscar diagnóstico",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    });
+    %{--$("#btnBuscarDiagnostico").click(function () {--}%
+    %{--    var cita = '${historial?.id}';--}%
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url: "${createLink(action:'buscarDiagnostico_ajax')}",--}%
+    %{--        data    : {--}%
+    %{--            cita: cita--}%
+    %{--        },--}%
+    %{--        success : function (msg) {--}%
+    %{--            dp = bootbox.dialog({--}%
+    %{--                id      : "dlgBuscarDiagnostico",--}%
+    %{--                title   : "Buscar diagnóstico",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--});--}%
 
-    function cerrarBusqueda(){
-        dp.modal("hide");
-    }
+    %{--function cerrarBusqueda(){--}%
+    %{--    dp.modal("hide");--}%
+    %{--}--}%
 
     $("#btnCargarExamenes").click(function () {
         var cita = "${historial?.id}";
