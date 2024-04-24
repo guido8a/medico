@@ -4,11 +4,11 @@
         <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
             <tr>
-                <th style="width: 8%">Cédula</th>
-                <th style="width: 12%">Apellido</th>
-                <th style="width: 12%">Nombre</th>
-                <th style="width: 7%">Edad</th>
-                <th style="width: 30%">Antecedentes</th>
+                <th style="width: 7%">Cédula</th>
+                <th style="width: 12%">Apellidos</th>
+                <th style="width: 12%">Nombres</th>
+                <th style="width: 12%">Edad</th>
+                <th style="width: 26%">Antecedentes</th>
                 <th style="width: 5%">Grupo S.</th>
                 <th style="width: 14%">Mail</th>
                 <th style="width: 10%">Acciones</th>
@@ -23,11 +23,11 @@
             <g:if test="${datos}">
                 <g:each in="${datos}" status="i" var="paciente">
                     <tr data-id="${paciente.pcnt__id}">
-                        <td style="width: 8%">${paciente.pcntcdla}</td>
+                        <td style="width: 7%">${paciente.pcntcdla}</td>
                         <td style="width: 12%">${paciente.pcntapll}</td>
                         <td style="width: 12%">${paciente.pcntnmbr}</td>
-                        <td style="width: 7%">${paciente.edad}</td>
-                        <td style="width: 30%">${paciente.pcntantc}</td>
+                        <td style="width: 12%">${paciente.edad}</td>
+                        <td style="width: 26%">${paciente.pcntantc}</td>
                         <td style="width: 5%">${paciente.grsndscr}</td>
                         <td style="width: 14%">${paciente.pcntmail}</td>
                         <td style="width: 10%; text-align: center">

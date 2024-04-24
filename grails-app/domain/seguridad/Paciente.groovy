@@ -32,6 +32,7 @@ class Paciente {
     String antecedentesOcupacionales
     String antecedentesAntesdeNacer
     String antecedentesDespuesdeNacer
+    String alergias
 
     static mapping = {
         table 'pcnt'
@@ -66,6 +67,7 @@ class Paciente {
             antecedentesOcupacionales column: 'pcntocup'
             antecedentesAntesdeNacer column: 'pcntannc'
             antecedentesDespuesdeNacer column: 'pcntnacm'
+            alergias column: 'pcntalrg'
         }
     }
 
@@ -96,6 +98,7 @@ class Paciente {
         antecedentesAntesdeNacer(size: 0..255, blank: true, nullable: true)
         antecedentesDespuesdeNacer(size: 0..255, blank: true, nullable: true)
         antecedentesOcupacionales(size: 0..255, blank: true, nullable: true)
+        alergias(size: 0..255, blank: true, nullable: true)
     }
 
 

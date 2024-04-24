@@ -12,6 +12,10 @@
             <td style="width: 70%; background-color: #c1cfe7">${paciente?.antecedentes}</td>
         </tr>
         <tr style="font-size: 16px">
+            <td style="width: 30%;" class="alert alert-info">Alergias:</td>
+            <td style="width: 70%; background-color: #c1cfe7">${paciente?.alergias}</td>
+        </tr>
+        <tr style="font-size: 16px">
             <td style="width: 30%" class="alert alert-info">Antecedentes patológicos ocupacionales:</td>
             <td style="width: 70%; background-color: #c1cfe7">${paciente?.antecedentesOcupacionales}</td>
         </tr>

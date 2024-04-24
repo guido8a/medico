@@ -47,7 +47,8 @@ class PacienteController {
             bsca = listaItems[0]
         }
 
-        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, ((now()::date - pcntfcna)/365.25)::numeric(4,1)||' años' edad, " +
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, " +
+                "replace( replace(replace(age(now()::date, pcntfcna)::text, 'years', 'años'), 'mons','meses'), 'days', 'dias') edad, " +
                 "grsndscr, pcntmail, pcntantc from pcnt, grsn "
         def txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
                 " $bsca ilike '%${params.criterio}%' "
