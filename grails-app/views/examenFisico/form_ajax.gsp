@@ -140,7 +140,7 @@
                     IMC
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="imc" readonly="" class="form-control"  value="${formatNumber(number: examen?.imc ?: ( (examen?.peso && examen?.talla) ? ( (examen?.peso != 0 && examen?.talla != 0) ? (examen?.peso?.toDouble() / (examen?.talla?.toDouble() * examen?.talla?.toDouble()) ) : 0 ) : 0  ), format: '##,##0', maxFractionDigits: 2, minFractionDigits: 2, locale: 'ec')}" />
+                    <g:textField name="imc" readonly="" class="form-control"  value="${formatNumber(number: examen?.imc ?: ( (examen?.peso && examen?.talla) ? ( (examen?.peso != 0 && examen?.talla != 0) ? (examen?.peso?.toDouble() / (examen?.talla?.toDouble() * examen?.talla?.toDouble()) ) : 0 ) : 0  ), format: '##,##0', maxFractionDigits: 3, minFractionDigits: 3, locale: 'ec')}" />
 
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
@@ -214,7 +214,13 @@
         var peso = $("#peso").val();
         var talla = $("#talla").val();
         var imc =  (peso && talla) ? ( (peso !== 0 && talla !== 0) ? (peso / (talla * talla) ) : 0 ) : 0;
-        $("#imc").val(imc)
+
+        if(imc){
+            $("#imc").val(number_format(imc, 3, ".", ""))
+        }else{
+            $("#imc").val(0)
+        }
+
     });
 
     $('#fechaExamenFisico').datetimepicker({

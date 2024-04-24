@@ -13,6 +13,17 @@
         </span>
     </div>
 
+    <div class="form-group ${hasErrors(bean: paciente, field: 'alergias', 'error')}">
+        <span class="grupo">
+            <label for="alergias" class="col-md-2 control-label text-info">
+                Alergias
+            </label>
+            <span class="col-md-8">
+                <g:textArea name="alergias" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.alergias}"/>
+            </span>
+        </span>
+    </div>
+
     <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesOcupacionales', 'error')}">
         <span class="grupo">
             <label for="antecedentesOcupacionales" class="col-md-2 control-label text-info">
