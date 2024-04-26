@@ -18,7 +18,6 @@
     <div class="btn-group col-md-6" >
         <span class="badge badge-pill badge-primary fa-2x">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
     </div>
-
 </div>
 
 <h3>Datos de afiliación</h3>
@@ -26,7 +25,6 @@
 <div id="divDatos">
 
 </div>
-
 
 <div id="divAntecedentes">
 
@@ -39,16 +37,15 @@
         <span class="badge badge-pill badge-primary fa-2x">Seleccione la cita a visualizar</span>
     </div>
     <div class="col-md-6" id="divComboCita">
-        %{--        <g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"--}%
-        %{--                  optionKey="id" class="form-control" value="${cita_actual}" />--}%
+
     </div>
     <div class="col-md-3">
         <a href="#" class="btn btn-success" id="btnCrearCita" title="Nueva cita">
             <i class="fas fa-plus"></i> Crear Cita
         </a>
-%{--        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >--}%
-%{--            <i class="fas fa-plus"></i> Agendar Cita--}%
-%{--        </a>--}%
+        <a href="#" class="btn btn-info" id="btnImprimirReceta" title="Imprimir receta de la cita">
+            <i class="fas fa-print"></i> Imprimir receta
+        </a>
     </div>
 </div>
 
@@ -64,16 +61,19 @@
     </div>
 </div>
 
-
-
 <h3>Citas médicas Anteriores</h3>
 
 <div id="divTablaCitas">
 
 </div>
 
-
 <script type="text/javascript">
+
+    $("#btnImprimirReceta").click(function () {
+        var cita = $("#citaSeleccionada option:selected").val();
+        openLoader("Cargando...");
+        location.href = "${g.createLink(controller:'reportes', action: 'receta')}?cita=" + cita
+    });
 
     cargarComboCita($("#citaSeleccionada option:selected").val());
 
@@ -93,7 +93,6 @@
             }
         })
     }
-
 
     $("#btnCrearCita").click(function () {
         editaDatosCita();
