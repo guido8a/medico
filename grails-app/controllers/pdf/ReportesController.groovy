@@ -24,6 +24,8 @@ import org.apache.poi.hssf.usermodel.HSSFPatriarch
 import org.apache.poi.hssf.usermodel.HSSFSimpleShape
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.*
+import seguridad.Empresa
+import seguridad.Persona
 
 
 class ReportesController {
@@ -764,8 +766,10 @@ class ReportesController {
         def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def diagnosticos = ''
+        def usuario = Persona.get(session.usuario.id)
+        def empr = usuario.empresa.id
 
-        if(listaDiagnosticos.size() > 0){
+        if(listaDiagnosticos?.size()?:0 > 0){
             listaDiagnosticos.each {
                 diagnosticos += it.diagnostico.descripcion
                 diagnosticos += ","
@@ -774,9 +778,10 @@ class ReportesController {
             diagnosticos = ''
         }
 
-        def path = "/var/medico/logo.png"
+        def path = "/var/medico/empresa/emp_${empr}/logo.jpeg"
         Image logo = Image.getInstance(path);
-        logo.scalePercent(20)
+        def longitud = logo.getHeight()
+        logo.scalePercent( (100/longitud * 100).toInteger() )
         logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
 
         def fondoTotal = new java.awt.Color(250, 250, 240);
@@ -808,12 +813,12 @@ class ReportesController {
         document.addAuthor("Médico");
         document.addCreator("Tedein SA");
 
-        Paragraph preface = new Paragraph();
-        addEmptyLine(preface, 1);
-        preface.setAlignment(Element.ALIGN_CENTER);
-        preface.add(new Paragraph("RECETA", fontTitulo));
-        addEmptyLine(preface, 1);
-        document.add(preface);
+//        Paragraph preface = new Paragraph();
+//        addEmptyLine(preface, 1);
+//        preface.setAlignment(Element.ALIGN_CENTER);
+//        preface.add(new Paragraph("RECETA", fontTitulo));
+//        addEmptyLine(preface, 1);
+//        document.add(preface);
 
         PdfPTable tablaImagen = new PdfPTable(3);
         tablaImagen.setWidthPercentage(100);

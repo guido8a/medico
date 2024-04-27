@@ -4,6 +4,7 @@ import audita.Auditable
 
 class Persona implements Auditable{
 
+    Empresa empresa
     String cedula
     String nombre
     String apellido
@@ -39,7 +40,7 @@ class Persona implements Auditable{
 
         columns {
             id column: 'prsn__id'
-            unidadEjecutora column: 'unej__id'
+            empresa column: 'empr__id'
             cedula column: 'prsncdla'
             nombre column: 'prsnnmbr'
             apellido column: 'prsnapll'

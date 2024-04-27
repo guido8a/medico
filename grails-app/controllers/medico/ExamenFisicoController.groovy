@@ -46,6 +46,15 @@ class ExamenFisicoController {
             params.fecha = new Date().parse("dd-MM-yyyy", params.fechaExamenFisico)
         }
 
+        params.peso = params.peso.toDouble()
+        params.talla = params.talla.toDouble()
+        params.temperatura = params.temperatura.toDouble()
+        params.imc = params.imc.toDouble()
+        params.so2 = params.so2.toDouble()
+        params.glucosa = params.glucosa.toDouble()
+        params.sistole = params.sistole.toDouble()
+        params.diastole = params.diastole.toDouble()
+
         if(params.peso == '' || !params.peso){
             params.peso = 0
         }

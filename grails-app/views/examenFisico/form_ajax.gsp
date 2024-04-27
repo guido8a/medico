@@ -191,15 +191,16 @@
 
         <div class="form-group ${hasErrors(bean: examen, field: 'sistole', 'error')} ">
             <span class="grupo">
-                <label class="col-md-2 control-label text-info">
+                <label class="col-md-1 control-label text-info">
                     Tensión arterial
                 </label>
-                <span class="col-md-1">
+                <span class="col-md-2">
                     <g:textField name="sistole" maxlength="4" class="form-control" value="${examen?.sistole ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <span class="col-md-1">
-                    <g:textField name="diastole" maxlength="4" class="form-control" value="${examen?.diastole ?: 0}" />
+                <span class="col-md-1" style="margin-left: -15px">/</span>
+                <span class="col-md-2">
+                    <g:textField name="diastole" maxlength="4" class="form-control" value="${examen?.diastole ?: 0}" style="margin-left: -55px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
