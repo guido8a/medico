@@ -145,7 +145,7 @@
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
-                    IC
+                    I. Cintura
                 </label>
                 <span class="col-md-2">
                     <span class="input-group input-group-sm">
