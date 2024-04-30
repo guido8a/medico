@@ -191,16 +191,31 @@
 
         <div class="form-group ${hasErrors(bean: examen, field: 'sistole', 'error')} ">
             <span class="grupo">
-                <label class="col-md-1 control-label text-info">
-                    Tensión arterial
+                <label class="col-md-2 control-label text-info">
+                    Tensión arterial 1
+                </label>
+                <span class="col-md-1">
+                    <g:textField name="sistole1" maxlength="4" class="form-control" value="${examen?.sistole1 ?: 0}" style="width: 60px"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+                <span class="col-md-1" style="margin-left: -15px">/</span>
+                <span class="col-md-1">
+                    <g:textField name="diastole1" maxlength="4" class="form-control" value="${examen?.diastole1 ?: 0}" style="margin-left: -55px"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+
+            <span class="grupo">
+                <label class="col-md-2 control-label text-info">
+                    Tensión arterial 2
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="sistole" maxlength="4" class="form-control" value="${examen?.sistole ?: 0}" />
+                    <g:textField name="sistole2" maxlength="4" class="form-control" value="${examen?.sistole2 ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <span class="col-md-1" style="margin-left: -15px">/</span>
                 <span class="col-md-2">
-                    <g:textField name="diastole" maxlength="4" class="form-control" value="${examen?.diastole ?: 0}" style="margin-left: -55px"/>
+                    <g:textField name="diastole2" maxlength="4" class="form-control" value="${examen?.diastole2 ?: 0}" style="margin-left: -55px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>

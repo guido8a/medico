@@ -52,8 +52,10 @@ class ExamenFisicoController {
         params.imc = params.imc.toDouble()
         params.so2 = params.so2.toDouble()
         params.glucosa = params.glucosa.toDouble()
-        params.sistole = params.sistole.toDouble()
-        params.diastole = params.diastole.toDouble()
+        params.sistole1 = params.sistole1.toDouble()
+        params.diastole1 = params.diastole1.toDouble()
+        params.sistole2 = params.sistole2.toDouble()
+        params.diastole2 = params.diastole2.toDouble()
 
         if(params.peso == '' || !params.peso){
             params.peso = 0
@@ -87,12 +89,20 @@ class ExamenFisicoController {
             params.glucosa = 0
         }
 
-        if(params.sistole == '' || !params.sistole){
-            params.sistole = 0
+        if(params.sistole1 == '' || !params.sistole1){
+            params.sistole1 = 0
         }
 
-        if(params.diastole == '' || !params.diastole){
-            params.diastole = 0
+        if(params.diastole1 == '' || !params.diastole1){
+            params.diastole1 = 0
+        }
+
+        if(params.sistole2 == '' || !params.sistole2){
+            params.sistole2 = 0
+        }
+
+        if(params.diastole2 == '' || !params.diastole2){
+            params.diastole2 = 0
         }
 
         examen.properties = params

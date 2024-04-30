@@ -17,14 +17,7 @@ class Empresa {
     String sigla
     String objeto
     String observaciones
-    int numeroComprobanteDiario = 0
-    int numeroComprobanteEgreso = 0
-    int numeroComprobanteIngreso = 0
-    String prefijoDiario
-    String prefijoEgreso
-    String prefijoIngreso
-    String ordenCompra = '0'
-    String existe
+    int numero = 0
     String establecimientos
     String tipoEmision
     String ambiente
@@ -55,14 +48,7 @@ class Empresa {
             sigla column: 'emprsgla'
             objeto column: 'emprobjt'
             observaciones column: 'emprobsr'
-            numeroComprobanteDiario column: 'emprncmd'
-            numeroComprobanteEgreso column: 'emprncme'
-            numeroComprobanteIngreso column: 'emprncmi'
-            prefijoDiario column: 'emprprdr'
-            prefijoEgreso column: 'emprpreg'
-            prefijoIngreso column: 'emprprin'
-            ordenCompra column: 'emprorcm'
-            existe column: 'emprexst'
+            numero column: 'emprnmro'
             establecimientos column: 'emprestb'
             tipoEmision column: 'emprtpem'
             ambiente column: 'emprambt'
@@ -89,13 +75,7 @@ class Empresa {
         fechaFin(blank: true, nullable: true)
         observaciones(size: 0..255, blank: true, nullable: true)
         logo(size: 0..255, blank: true, nullable: true)
-        numeroComprobanteDiario(blank: true, nullable: true, size: 1..20)
-        numeroComprobanteIngreso(blank: true, nullable: true, size: 1..20)
-        numeroComprobanteEgreso(blank: true, nullable: true, size: 1..20)
-        prefijoDiario(blank: true, nullable: true, size: 1..20)
-        prefijoEgreso(blank: true, nullable: true, size: 1..20)
-        prefijoIngreso(blank: true, nullable: true, size: 1..20)
-        ordenCompra(blank: true, nullable: true, maxSize: 1)
+        numero(blank: true, nullable: true, size: 1..20)
         establecimientos(blank: true, nullable: true, maxSize: 63)
         tipoEmision(blank: true, nullable: true, maxSize: 1, inList: ['F', 'E'])
         obligadaContabilidad(blank: true, nullable: true, maxSize: 1)
@@ -104,7 +84,6 @@ class Empresa {
         ambiente(blank: true, nullable: true)
         firma(blank: true, nullable: true)
         clave(blank: true, nullable: true)
-        existe(blank: true, nullable: true)
     }
 
     String toString() {

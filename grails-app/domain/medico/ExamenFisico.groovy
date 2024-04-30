@@ -24,8 +24,10 @@ class ExamenFisico {
     double so2
     double fc
     double glucosa
-    int sistole = 0
-    int diastole = 0
+    int sistole1 = 0
+    int diastole1 = 0
+    int sistole2 = 0
+    int diastole2 = 0
 
     static mapping = {
         table 'exfs'
@@ -54,8 +56,10 @@ class ExamenFisico {
             so2 column: 'exfs_so2'
             fc column: 'exfs__fc'
             glucosa column: 'exfsglcs'
-            sistole column: 'exfstast'
-            diastole column: 'exfstadt'
+            sistole1 column: 'exfstas1'
+            diastole1 column: 'exfstad1'
+            sistole2 column: 'exfstas2'
+            diastole2 column: 'exfstad2'
         }
     }
 
@@ -80,7 +84,9 @@ class ExamenFisico {
         so2(blank: true, nullable: true)
         fc(blank: true, nullable: true)
         glucosa(blank: true, nullable: true)
-        sistole(blank: true, nullable: true)
-        diastole(blank: true, nullable: true)
+        sistole1(blank: true, nullable: true)
+        diastole1(blank: true, nullable: true)
+        sistole2(blank: true, nullable: true)
+        diastole2(blank: true, nullable: true)
     }
 }
