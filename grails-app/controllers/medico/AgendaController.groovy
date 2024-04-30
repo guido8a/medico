@@ -82,6 +82,10 @@ class AgendaController {
             if(params.id){
                 render "ok_Cita agendada correctamente"
             }else{
+
+                def consultorio = Persona.get(agenda.persona.id)?.empresa
+                def numeroActual = consultorio?.numero
+
                 //cita
                 cita = new Historial()
                 cita.agenda = agenda
@@ -90,11 +94,16 @@ class AgendaController {
                 cita.paciente = agenda.paciente
                 cita.persona = agenda.persona
                 cita.motivo = 'Cita médica agendada'
+                cita.numero = numeroActual + 1
                 if(!cita.save(flush:true)){
                     agenda.delete(flush:true)
                     println("error al agendar la cita " + cita.errors)
                     render "no_Error al agendar la cita"
                 }else{
+                    if(!params.id){
+                        consultorio.numero = numeroActual + 1
+                        consultorio.save(flush:true)
+                    }
                     render "ok_Cita agendada correctamente"
                 }
             }
@@ -103,8 +112,10 @@ class AgendaController {
 
     def borrarCita_ajax(){
         def agenda = Agenda.get(params.id)
+        def cita = Historial.findByAgenda(agenda)
 
         try{
+            cita.delete(flush:true)
             agenda.delete(flush: true)
             render "ok_Borrado correctamente"
         }catch(e){

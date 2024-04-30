@@ -18,9 +18,14 @@
             <label class="col-md-2 control-label text-info" style="text-align: left">
                 Especialista
             </label>
-            <span class="col-md-4">
+            <span class="col-md-6">
                 <g:select name="persona" from="${seguridad.Persona.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control " value="${historial?.persona?.id}" />
             </span>
+        </div>
+    </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
             <label class="col-md-2 control-label text-info" style="text-align: left">
                 Fecha de la cita
             </label>
@@ -34,8 +39,11 @@
                 Hora
             </label>
             <span class="grupo" >
-                <span class="col-md-1 " >
-                    <g:textField name="hora" class="form-control" value=" ${historial?.hora ?: 00}"/>
+                <span class="col-md-2 " >
+                    <g:textField name="hora" class="form-control required" required value=" ${historial?.hora ?: '00:00'}"/>
+                </span>
+                <span class="col-md-3" style="font-weight: bold">
+                    (Formato de la hora ejemplo: 07:00)
                 </span>
             </span>
         </div>

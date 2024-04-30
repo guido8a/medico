@@ -5,6 +5,7 @@ import geografia.Canton
 import geografia.Parroquia
 import geografia.Provincia
 import seguridad.Paciente
+import seguridad.Persona
 
 import javax.imageio.ImageIO
 
@@ -36,11 +37,14 @@ class HistorialController {
 
     def saveCita_ajax(){
         def historial
+        def consultorio = Persona.get(params.persona)?.empresa
+        def numeroActual = consultorio?.numero
 
         if(params.id){
             historial = Historial.get(params.id)
         }else{
             historial = new Historial()
+            historial.numero = numeroActual + 1
             params.diagnostico = Diagnostico.get(4438);
         }
 
@@ -58,6 +62,10 @@ class HistorialController {
             println("error al guardar la cita " + historial.errors)
             render"no_Error al guardar la cita"
         }else{
+            if(!params.id){
+                consultorio.numero = numeroActual + 1
+                consultorio.save(flush:true)
+            }
             render "ok_Cita guardada correctamente_${historial?.id}"
         }
     }

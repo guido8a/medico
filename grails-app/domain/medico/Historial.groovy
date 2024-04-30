@@ -17,6 +17,7 @@ class Historial {
     String observaciones
     String estado = "A"
     String hora
+    int numero
 
     static mapping = {
         table 'hscl'
@@ -37,6 +38,7 @@ class Historial {
             observaciones column: 'hsclobsr'
             estado column: 'hscletdo'
             hora column: 'hsclhora'
+            numero column: 'hsclnmro'
         }
     }
 
@@ -53,5 +55,6 @@ class Historial {
         observaciones(size:0..255,blank: true, nullable: true)
         estado(size: 1..1, inList: ["A", "R", "N"], blank: false, attributes: ['mensaje': 'Estado Realizada, Agendada, No realizada'])
         hora(size: 4..5, blank: false, attributes: ['mensaje': 'Hora'])
+        numero(blank: true, nullable: true)
     }
 }
