@@ -1,8 +1,4 @@
-<h4>Examen Físico</h4>
 
-<div id="divExamenFisico">
-
-</div>
 
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
@@ -24,6 +20,12 @@
         </tbody>
     </table>
     </div>
+</div>
+
+<h4>Examen Físico</h4>
+
+<div id="divExamenFisico">
+
 </div>
 
 <h4>Exámenes de Laboratorio</h4>
