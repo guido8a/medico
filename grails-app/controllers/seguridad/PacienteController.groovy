@@ -318,8 +318,8 @@ class PacienteController {
 
     def historial(){
         def paciente = Paciente.get(params.id)
-        def cita = Historial.findAllByPacienteAndMotivoNotIlike(paciente, "Ingresar el motivo....",[sort: 'fecha', order: 'desc'])
-        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+        def cita = Historial.findAllByPacienteAndEstado(paciente, "A",[sort: 'fecha', order: 'desc'])
+        def diagnosticos = cita? DiagnosticoxHistorial.findAllByHistorial(cita) : []
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def citas = Historial.findAllByPacienteAndEstadoNotEqual(paciente, 'N', [sort: 'fecha', order: 'desc'])
         def citaPendiente = cita? cita.first() : []
