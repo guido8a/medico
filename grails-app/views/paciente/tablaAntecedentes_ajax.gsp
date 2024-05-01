@@ -24,7 +24,27 @@
             <td style="width: 70%; background-color: #c1cfe7">${paciente?.antecedentesPatologicosFam}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 30%" class="alert alert-info">Hábitos:</td>
+            <td style="width: 30%" class="alert alert-info">Hábitos Alimentarios:</td>
+            <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitosAlimentario}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 30%" class="alert alert-info">Hábitos Urinarios:</td>
+            <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitosUrinario}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 30%" class="alert alert-info">Hábitos Defecatorios:</td>
+            <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitosDefecatorio}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 30%" class="alert alert-info">Hábitos Fumador:</td>
+            <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitosFumador}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 30%" class="alert alert-info">Hábitos Tomador:</td>
+            <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitosTomador}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 30%" class="alert alert-info">Hábitos Otros:</td>
             <td style="width: 70%; background-color: #c1cfe7">${paciente?.habitos}</td>
         </tr>
         <g:if test="${paciente?.nino}">

@@ -33,6 +33,11 @@ class Paciente {
     String antecedentesAntesdeNacer
     String antecedentesDespuesdeNacer
     String alergias
+    String habitosAlimentario
+    String habitosUrinario
+    String habitosDefecatorio
+    String habitosFumador
+    String habitosTomador
 
     static mapping = {
         table 'pcnt'
@@ -68,6 +73,11 @@ class Paciente {
             antecedentesAntesdeNacer column: 'pcntannc'
             antecedentesDespuesdeNacer column: 'pcntnacm'
             alergias column: 'pcntalrg'
+            habitosAlimentario column: 'pcntalmn'
+            habitosUrinario column: 'pcnturin'
+            habitosDefecatorio column: 'pcntdefc'
+            habitosFumador column: 'pcntfuma'
+            habitosTomador column: 'pcnttoma'
         }
     }
 
@@ -99,6 +109,11 @@ class Paciente {
         antecedentesDespuesdeNacer(size: 0..255, blank: true, nullable: true)
         antecedentesOcupacionales(size: 0..255, blank: true, nullable: true)
         alergias(size: 0..255, blank: true, nullable: true)
+        habitosAlimentario(size: 0..255, blank: true, nullable: true)
+        habitosUrinario(size: 0..255, blank: true, nullable: true)
+        habitosDefecatorio(size: 0..255, blank: true, nullable: true)
+        habitosFumador(size: 0..255, blank: true, nullable: true)
+        habitosTomador(size: 0..255, blank: true, nullable: true)
     }
 
 
