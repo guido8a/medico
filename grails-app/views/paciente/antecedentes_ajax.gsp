@@ -52,7 +52,7 @@
                 Hábitos Alimentarios
             </label>
             <span class="col-md-8">
-                <g:textArea name="habitosAlimentario" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitosAlimentario}"/>
+                <g:textField name="habitosAlimentario" maxlength="255" class="form-control" value="${paciente?.habitosAlimentario}"/>
             </span>
         </span>
     </div>
@@ -63,7 +63,7 @@
                 Hábitos Urinarios
             </label>
             <span class="col-md-8">
-                <g:textArea name="habitosUrinario" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitosUrinario}"/>
+                <g:textField name="habitosUrinario" maxlength="255" class="form-control" value="${paciente?.habitosUrinario}"/>
             </span>
         </span>
     </div>
@@ -74,7 +74,7 @@
                 Hábitos Defecatorios
             </label>
             <span class="col-md-8">
-                <g:textArea name="habitosDefecatorio" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitosDefecatorio}"/>
+                <g:textField name="habitosDefecatorio"  maxlength="255" class="form-control" value="${paciente?.habitosDefecatorio}"/>
             </span>
         </span>
     </div>
@@ -85,7 +85,7 @@
                 Hábitos Fumador
             </label>
             <span class="col-md-8">
-                <g:textArea name="habitosFumador" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitosFumador}"/>
+                <g:textField name="habitosFumador"  maxlength="255" class="form-control" value="${paciente?.habitosFumador}"/>
             </span>
         </span>
     </div>
@@ -96,7 +96,7 @@
                 Hábitos Tomador
             </label>
             <span class="col-md-8">
-                <g:textArea name="habitosTomador" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitosTomador}"/>
+                <g:textField name="habitosTomador"  maxlength="255" class="form-control" value="${paciente?.habitosTomador}"/>
             </span>
         </span>
     </div>
@@ -107,7 +107,7 @@
                 Hábitos Otros
             </label>
             <span class="col-md-8">
-                <g:textArea name="habitos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.habitos}"/>
+                <g:textField name="habitos"  maxlength="255" class="form-control" value="${paciente?.habitos}"/>
             </span>
         </span>
     </div>
