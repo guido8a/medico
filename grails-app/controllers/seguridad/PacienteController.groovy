@@ -56,7 +56,7 @@ class PacienteController {
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
         println datos
-        
+
         [datos: datos]
 
     }
@@ -328,7 +328,6 @@ class PacienteController {
 
     def tablaTodasCitas_ajax(){
         def paciente = Paciente.get(params.id)
-//        def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', order: 'desc'])
         def citas = Historial.findAllByPacienteAndEstado(paciente, "R",[sort: 'fecha', order: 'desc'])
         return [citas: citas]
     }
@@ -374,5 +373,42 @@ class PacienteController {
         def cita = Historial.get(params.cita)
         return [citas: citas, cita: cita]
     }
+
+    def cambiarEstadoCita_ajax(){
+        def cita = Historial.get(params.id)
+
+        cita.estado = 'N'
+
+        if(!cita.save(flush: true)){
+            println("Error al cambiar de estado la cita " + cita.errors)
+            render "no_Error al dar de baja la cita"
+        }else{
+            render "ok_Guardado correctamente"
+        }
+    }
+
+    def botones_ajax(){
+        def cita = Historial.get(params.id)
+        return [cita: cita]
+    }
+
+    def finalizarCita_ajax(){
+        def cita = Historial.get(params.id)
+
+        cita.estado = 'R'
+
+        if(!cita.save(flush: true)){
+            println("Error al cambiar de estado la cita " + cita.errors)
+            render "no_Error al dar de baja la cita"
+        }else{
+            render "ok_Guardado correctamente"
+        }
+    }
+
+    def estado_ajax(){
+        def cita = Historial.get(params.id)
+        return [cita: cita]
+    }
+
 
 }

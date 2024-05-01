@@ -49,15 +49,17 @@
     </div>
 </div>
 
+<div id="divEstado" style="margin-top: 10px">
+
+</div>
+
 <div id="divUltimaCita">
 
 </div>
 
 <div class="row">
-    <div class="col-md-2">
-        <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
-            <i class="fas fa-plus"></i> Agendar Cita
-        </a>
+    <div class="col-md-6" id="divBotones">
+
     </div>
 </div>
 
@@ -68,6 +70,88 @@
 </div>
 
 <script type="text/javascript">
+
+    function borrarCita() {
+        var cita = $("#citaSeleccionada option:selected").val()
+        bootbox.dialog({
+            title: "Alerta",
+            message: "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>" +
+                "¿Está seguro que desea dar de baja la cita seleccionada? Esta acción no se puede deshacer.</p>",
+            closeButton: false,
+            buttons: {
+                cancelar: {
+                    label: "Cancelar",
+                    className: "btn-primary",
+                    callback: function () {
+                    }
+                },
+                eliminar: {
+                    label: "<i class='fa fa-trash'></i> Dar de baja",
+                    className: "btn-danger",
+                    callback: function () {
+                        $.ajax({
+                            type: "POST",
+                            url: '${createLink(controller: 'paciente', action:'cambiarEstadoCita_ajax')}',
+                            data: {
+                                id: cita
+                            },
+                            success: function (msg) {
+                                var parts = msg.split("_");
+                                if (parts[0] === 'ok') {
+                                    log(parts[1], "success");
+                                    setTimeout(function () {
+                                        location.reload()
+                                    }, 1000);
+                                } else {
+                                    log(parts[1], "error")
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function finalizarCita() {
+        var cita = $("#citaSeleccionada option:selected").val()
+        bootbox.dialog({
+            title: "Alerta",
+            message: "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>" +
+                "¿Está seguro que desea finalizar la cita seleccionada? Esta acción no se puede deshacer.</p>",
+            closeButton: false,
+            buttons: {
+                cancelar: {
+                    label: "Cancelar",
+                    className: "btn-primary",
+                    callback: function () {
+                    }
+                },
+                eliminar: {
+                    label: "<i class='fa fa-check'></i> Finalizar",
+                    className: "btn-success",
+                    callback: function () {
+                        $.ajax({
+                            type: "POST",
+                            url: '${createLink(controller: 'paciente', action:'finalizarCita_ajax')}',
+                            data: {
+                                id: cita
+                            },
+                            success: function (msg) {
+                                var parts = msg.split("_");
+                                if (parts[0] === 'ok') {
+                                    log(parts[1], "success");
+                                    cargarComboCita(cita);
+                                } else {
+                                    log(parts[1], "error")
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 
     $("#btnImprimirReceta").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
@@ -90,6 +174,32 @@
             success: function (msg){
                 d.modal("hide");
                 $("#divComboCita").html(msg)
+            }
+        })
+    }
+
+    function cargarBotones(cita){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'botones_ajax')}',
+            data:{
+                id: cita
+            },
+            success: function (msg){
+                $("#divBotones").html(msg)
+            }
+        })
+    }
+
+    function cargarEstado(cita){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'estado_ajax')}',
+            data:{
+                id: cita
+            },
+            success: function (msg){
+                $("#divEstado").html(msg)
             }
         })
     }
@@ -164,11 +274,6 @@
             return false;
         }
     }
-
-    %{--$("#btnCreaCita").click(function () {--}%
-    %{--    var cita = $("#citaSeleccionada option:selected").val();--}%
-    %{--    location.href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + '${paciente?.id}' + "&tipo=" + 3--}%
-    %{--});--}%
 
     $("#btnNuevaCita").click(function () {
         location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${paciente?.id}'
