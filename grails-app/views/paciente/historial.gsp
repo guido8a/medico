@@ -275,9 +275,9 @@
         }
     }
 
-    $("#btnNuevaCita").click(function () {
-        location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${paciente?.id}'
-    });
+    %{--$("#btnNuevaCita").click(function () {--}%
+    %{--    location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${paciente?.id}'--}%
+    %{--});--}%
 
     function editaPaciente() {
         $.ajax({
