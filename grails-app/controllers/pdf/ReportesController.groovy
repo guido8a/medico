@@ -792,7 +792,7 @@ class ReportesController {
         }
 
         if(cita?.paciente?.edad <= 5){
-            edad = " (" + cita?.paciente?.getNinoNina() + ") 0"
+            edad = " (" + cita?.paciente?.getNinoNina() + ")"
         }else{
             edad = ''
         }
