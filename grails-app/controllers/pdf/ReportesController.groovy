@@ -772,6 +772,15 @@ class ReportesController {
         def usuario = Persona.get(session.usuario.id)
         def empr = usuario.empresa.id
         def edad = ''
+        def citaProxima
+
+        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha, [sort: 'fecha', order: 'desc'])
+
+       if(citasMayores){
+           citaProxima = citasMayores[0]
+       }else{
+           citaProxima = null
+       }
 
         if(listaDiagnosticos?.size()?:0 > 0){
             listaDiagnosticos.each {
@@ -929,11 +938,17 @@ class ReportesController {
         def tablaPieDetalles = new PdfPTable(3);
         tablaPieDetalles.setTotalWidth(800)
         tablaPieDetalles.setWidths(arregloEnteros([46,8,46]))
+
+        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaPieDetalles, new Paragraph("PRÓXIMA CITA : ${citaProxima ? citaProxima?.fecha?.format("dd-MM-yyyy") : ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
         addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
 //        tablaPieDetalles.writeSelectedRows(0, -1, 36, tablaPieDetalles.getTotalHeight(), pdfw.getDirectContent());
-        tablaPieDetalles.writeSelectedRows(0, -1, 36, 40, pdfw.getDirectContent());
+        tablaPieDetalles.writeSelectedRows(0, -1, 36, 50, pdfw.getDirectContent());
 
         document.add(tablaImagen)
         printHeaderDetalle();
