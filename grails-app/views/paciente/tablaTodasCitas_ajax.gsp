@@ -61,11 +61,8 @@
                         </g:else>
                     </td>
                     <td>
-                        %{--?paciente=" + '${paciente?.id}' + "&id=" + cita + "&tipo=" + 1--}%
-                        <a href="${createLink(controller: 'historial', action: 'cita')}?paciente=${cita?.paciente?.id}&id=${cita?.id}&tipo=1"
-                           class="btn btn-xs btn-success"
-                        %{--<a href="${createLink(controller: 'historial', action: 'cita')}?paciente=" + "${paciente?.id}" + "&id=" + cita + "&tipo=" + 1--}%
-                           title="Ver el detalle de la cita médica">
+%{--                        <a href="${createLink(controller: 'historial', action: 'cita')}?paciente=${cita?.paciente?.id}&id=${cita?.id}&tipo=1"--}%
+                        <a href="#" class="btn btn-xs btn-success btnCargarCitaAntigua" title="Ver el detalle de la cita médica" data-id="${cita?.id}">
                         <i class="fa fa-search"></i><br/> Ver
                         </a>
                     </td>
@@ -77,4 +74,13 @@
         </g:else>
     </table>
 </div>
+
+<script type="text/javascript">
+
+    $(".btnCargarCitaAntigua").click(function () {
+        var cita = $(this).data("id")
+        cargarComboCita(cita);
+    })
+
+</script>
 
