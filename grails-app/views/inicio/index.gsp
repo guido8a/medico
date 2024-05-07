@@ -194,6 +194,55 @@
             </div>
         </a>
 
+        <a href= "${createLink(controller:'medicina', action: 'list')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px; text-align: center">
+                        <asset:image src="apli/medicinas.png" title="Medicinas"  width="80%" height="80%"/>
+%{--                        <i class="fa fa-medkit fa-8x"></i>--}%
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
+                        y formas<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href= "${createLink(controller:'diagnostico', action: 'list')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px; text-align: center">
+                        <asset:image src="apli/diagnostico.png" title="Diagnóticos"  width="80%" height="80%"/>
+                        %{--                        <i class="fa fa-stethoscope fa-8x"></i>--}%
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
+                        10ª revisión</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        %{--<a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">--}%
+            %{--<div class="col-lg-6 mbr-col-md-10">--}%
+                %{--<div class="wrap">--}%
+                    %{--<div style="width: 200px; height: 140px; text-align: center">--}%
+                        %{--<asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>--}%
+%{--                    <i class="fa fa-user-md fa-8x"></i>--}%
+                    %{--</div>--}%
+                    %{--<div style="width: 450px; height: 120px">--}%
+                        %{--<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Citas médicas</span></h2>--}%
+                        %{--<p class="mbr-fonts-style text1 mbr-text display-6">Citas médicas, seguimiento del paciente</p>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
+            %{--</div>--}%
+        %{--</a>--}%
+
+
         <a href= "${createLink(controller:'buscarBase', action: 'busquedaBase')}" style="text-decoration: none">
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
@@ -218,76 +267,25 @@
             </div>
         </a>
 
-        <a href= "${createLink(controller:'medicina', action: 'list')}" style="text-decoration: none">
+        <a href= "${createLink(controller:'documento', action: 'biblioteca')}" style="text-decoration: none">
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/medicinas.png" title="Medicinas"  width="80%" height="80%"/>
-%{--                        <i class="fa fa-medkit fa-8x"></i>--}%
+                        <asset:image src="apli/conocimiento.png" title="Reportes"  width="80%" height="80%"/>
+                        %{--                        <i class="fa fa-book fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
-                        <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
-                        y formas<br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        %{--<a href= "${createLink(controller:'paciente', action: 'list')}" style="text-decoration: none">--}%
-            %{--<div class="col-lg-6 mbr-col-md-10">--}%
-                %{--<div class="wrap">--}%
-                    %{--<div style="width: 200px; height: 140px; text-align: center">--}%
-                        %{--<asset:image src="apli/citas.jpeg" title="Cantones"  width="80%" height="80%"/>--}%
-%{--                    <i class="fa fa-user-md fa-8x"></i>--}%
-                    %{--</div>--}%
-                    %{--<div style="width: 450px; height: 120px">--}%
-                        %{--<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Citas médicas</span></h2>--}%
-                        %{--<p class="mbr-fonts-style text1 mbr-text display-6">Citas médicas, seguimiento del paciente</p>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
-            %{--</div>--}%
-        %{--</a>--}%
-
-        <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">
-            <div class="col-lg-6 mbr-col-md-10">
-                <div class="wrap">
-                    <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/citas.jpeg" title="Reportes"  width="80%" height="80%"/>
-                        %{--                        <i class="fa fa-print fa-8x"></i>--}%
-                    </div>
-                    <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Biblioteca</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">
                         <ul>
                             <li>
-                                Reportes de datos de los pacientes
+                                Documentos de consulta pública
                             </li>
                             <li>
-                                Migración de datos a una hoja de cálculo
-                            </li>
-                            <li>
-                                Datos por pacientes de toda la ficha
+                                Artículos interesantes
                             </li>
                         </ul>
                     </p>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href= "${createLink(controller:'diagnostico', action: 'list')}" style="text-decoration: none">
-            <div class="col-lg-6 mbr-col-md-10">
-                <div class="wrap">
-                    <div style="width: 200px; height: 140px; text-align: center">
-                                                <asset:image src="apli/diagnostico.png" title="Diagnóticos"  width="80%" height="80%"/>
-%{--                        <i class="fa fa-stethoscope fa-8x"></i>--}%
-                    </div>
-                    <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
-                        <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
-                        10ª revisión</p>
                     </div>
                 </div>
             </div>
@@ -317,6 +315,36 @@
                 %{--</div>--}%
             %{--</div>--}%
         %{--</a>--}%
+
+
+        <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">
+            <div class="col-lg-6 mbr-col-md-10">
+                <div class="wrap">
+                    <div style="width: 200px; height: 140px; text-align: center">
+                        <asset:image src="apli/citas.jpeg" title="Reportes"  width="80%" height="80%"/>
+                        %{--                        <i class="fa fa-print fa-8x"></i>--}%
+                    </div>
+                    <div style="width: 450px; height: 120px">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
+                        <p class="mbr-fonts-style text1 mbr-text display-6">
+                        <ul>
+                            <li>
+                                Reportes de datos de los pacientes
+                            </li>
+                            <li>
+                                Migración de datos a una hoja de cálculo
+                            </li>
+                            <li>
+                                Datos por pacientes de toda la ficha
+                            </li>
+                        </ul>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+
 
     </div>
     <script type="text/javascript">
