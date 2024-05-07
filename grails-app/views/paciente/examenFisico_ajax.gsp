@@ -1,5 +1,5 @@
 <div style="width: 3%; float: left; margin-right: 5px">
-    <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita"
+    <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaExamenFisico"
        title="Editar los datos del examen físico">
         <i class="fas fa-edit"></i>
     </a>
@@ -74,7 +74,7 @@
 </div>
 
 <script type="text/javascript">
-    $("#btnEditaCita").click(function () {
+    $("#btnEditaExamenFisico").click(function () {
 //        var cita = $("#citaSeleccionada option:selected").val();
         createEditRowExamenFisico();
     });

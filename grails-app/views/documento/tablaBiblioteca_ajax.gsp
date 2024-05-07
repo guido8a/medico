@@ -2,8 +2,9 @@
     <table class="table table-bordered table-striped table-condensed table-hover">
         <thead>
         <tr>
-            <th style="width: 10%">Palabra Clave</th>
-            <th style="width: 80%">Descripción</th>
+            <th style="width: 20%">Palabra Clave</th>
+            <th style="width: 50%">Descripción</th>
+            <th style="width: 20%">Documento</th>
             <th style="width: 10%">Acciones</th>
         </tr>
         </thead>
@@ -16,12 +17,28 @@
         <g:if test="${datos.size() > 0}">
             <g:each in="${datos}" status="i" var="documento">
                 <tr>
-                    <td style="width: 10%">${documento.dcmtclve}</td>
-                    <td style="width: 80%">${documento.dcmtdscr}</td>
+                    <td style="width: 20%">${documento.dcmtclve}</td>
+                    <td style="width: 50%">${documento.dcmtdscr}</td>
+                    <td style="width: 20%">
+                        <g:if test="${documento.dcmtruta}">
+                            ${documento.dcmtruta}
+                        </g:if>
+                        <g:else>
+                            <i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong>No tiene documentos adjuntos</strong>
+                        </g:else>
+                    </td>
                     <td style="width: 10%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnEditarDocumento" data-id="${documento.dcmt__id}" title="Editar documento">
                             <i class="fas fa-edit"></i>
                         </a>
+                        <a class="btn btn-info btn-xs btnCargarDocumento" href="#" rel="tooltip" title="Subir documento" data-id="${documento.dcmt__id}">
+                            <i class="fa fa-upload"></i>
+                        </a>
+                        <g:if test="${documento.dcmtruta}">
+                            <g:link action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${documento.dcmt__id}">
+                                <i class="fa fa-download"></i>
+                            </g:link>
+                        </g:if>
                         <a href="#" class="btn btn-xs btn-danger btnEliminarDocumento" data-id="${documento.dcmt__id}" title="Eliminar documento">
                             <i class="fas fa-trash"></i>
                         </a>
@@ -38,6 +55,8 @@
 
 <script type="text/javascript">
 
+    var cd;
+
     $(".btnEditarDocumento").click(function () {
         var id = $(this).data("id");
         createEditRow(id);
@@ -47,5 +66,35 @@
         var id = $(this).data("id");
         deleteRow(id);
     });
+
+    $(".btnCargarDocumento").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'documento', action:'formCargarDocumento_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                cd = bootbox.dialog({
+                    id      : "dlgDoc",
+                    title   : "Documento",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    function cerrarCD(){
+        cd.modal("hide");
+    }
 
 </script>
