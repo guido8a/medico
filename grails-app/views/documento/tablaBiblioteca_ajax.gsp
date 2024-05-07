@@ -3,9 +3,9 @@
         <thead>
         <tr>
             <th style="width: 20%">Palabra Clave</th>
-            <th style="width: 50%">Descripción</th>
+            <th style="width: 45%">Descripción</th>
             <th style="width: 20%">Documento</th>
-            <th style="width: 10%">Acciones</th>
+            <th style="width: 15%">Acciones</th>
         </tr>
         </thead>
     </table>
@@ -18,16 +18,16 @@
             <g:each in="${datos}" status="i" var="documento">
                 <tr>
                     <td style="width: 20%">${documento.dcmtclve}</td>
-                    <td style="width: 50%">${documento.dcmtdscr}</td>
+                    <td style="width: 45%">${documento.dcmtdscr}</td>
                     <td style="width: 20%">
                         <g:if test="${documento.dcmtruta}">
-                            ${documento.dcmtruta}
+                           <strong style="font-size: 14px"> ${documento.dcmtruta} </strong>
                         </g:if>
                         <g:else>
                             <i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong>No tiene documentos adjuntos</strong>
                         </g:else>
                     </td>
-                    <td style="width: 10%; text-align: center">
+                    <td style="width: 15%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnEditarDocumento" data-id="${documento.dcmt__id}" title="Editar documento">
                             <i class="fas fa-edit"></i>
                         </a>

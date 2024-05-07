@@ -151,7 +151,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este paciente? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este documento? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -166,7 +166,7 @@
                         var v = cargarLoader("Eliminando...");
                         $.ajax({
                             type    : "POST",
-                            url     : '${createLink(action:'borrarPaciente_ajax')}',
+                            url     : '${createLink(controller: 'documento',  action:'borrarDocumento_ajax')}',
                             data    : {
                                 id : itemId
                             },

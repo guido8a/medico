@@ -75,9 +75,9 @@ class DocumentoController {
 
         def acceptedExt = ["jpg", "png", "jpeg", "pdf", "doc", "xlsx", "xls"]
 
-        def examen = ExamenComplementario.get(params.id)
-        def historial = examen.historial
-        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/"
+        def documento = Documento.get(params.id)
+        def empresa = documento.empresa.id
+        def path = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/"
         new File(path).mkdirs()
 
         def f = request.getFile('file')  //archivo = name del input type file
@@ -101,17 +101,17 @@ class DocumentoController {
 
                 f.transferTo(file)
 
-                def old = examen.path
+                def old = documento?.ruta
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.cedula}/citas/cita_" + historial?.id  + "/" + old
+                    def oldPath = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
                     }
                 }
 
-                examen.path = fileName
-                examen.save(flush: true)
+                documento?.ruta = fileName
+                documento.save(flush: true)
 
             } else {
                 render "no_Seleccione un archivo JPG, JPEG, PNG, PDF, DOC, XLS, XLSX"
@@ -123,6 +123,106 @@ class DocumentoController {
         }
 
         render "ok_Subido correctamente"
+    }
+
+    def downloadFile() {
+        def documento = Documento.get(params.id)
+        def empresa = documento.empresa.id
+        def path = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + documento.ruta
+
+        def file = new File(path)
+        if (file.exists()) {
+            def b = file.getBytes()
+
+            def ext = documento.ruta.split("\\.")
+            ext = ext[ext.size() - 1]
+
+            response.setContentType(ext == 'pdf' ? "application/pdf" : "image/" + ext)
+            response.setHeader("Content-disposition", "attachment; filename=" + documento.ruta)
+            response.setContentLength(b.length)
+            response.getOutputStream().write(b)
+        } else {
+            flash.clase = "alert-error"
+            flash.message = "No se encontró el archivo " + " '" + documento.ruta + "'"
+            redirect(action: "errores")
+        }
+    }
+
+    def borrarDocumentoBiblioteca_ajax(){
+        def documento = Documento.get(params.id)
+        def empresa = documento.empresa.id
+
+        if(documento){
+            try{
+
+                def old = documento.ruta
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                documento.ruta = null
+                documento.save(flush:true)
+                render "ok_Documento borrado correctamente"
+
+            }catch(e){
+                println("error al borrar el documento " + documento.errors)
+                render "no_Error al borrar el documento"
+            }
+        }else{
+            render "no_No se encontró el documento"
+        }
+    }
+
+    def borrarDocumento_ajax(){
+
+        def documento = Documento.get(params.id)
+        def empresa = documento.empresa.id
+
+        if(documento){
+
+            if(documento?.ruta){
+                def old = documento.ruta
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                documento.ruta = null
+                if(!documento.save(flush:true)){
+                    render "no_Error al borrar"
+                }else{
+                    borrar(documento?.id)
+                }
+
+            }else{
+                borrar(documento?.id)
+            }
+
+        }else{
+            render "no_No se encontró el documento"
+        }
+
+    }
+
+    def borrar(id){
+
+        def documento = Documento.get(id)
+
+        try{
+            documento.delete(flush:true)
+            render "ok_Borrado correctamente"
+        }catch(e){
+            println("error al borrar " + documento.errors)
+            render "no_Error al borrar"
+        }
+
     }
 
 

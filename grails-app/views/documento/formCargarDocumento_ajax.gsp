@@ -32,7 +32,7 @@
     <div class="linea" style="height: 98%;"></div>
     <p class="css-vertical-text">Archivo</p>
     <g:uploadForm action="uploadFileDocumento" method="post" name="frmUpload" enctype="multipart/form-data"  >
-        <g:hiddenField name="id" value="${examen?.id}"/>
+        <g:hiddenField name="id" value="${documento?.id}"/>
         <div class="fieldcontain required">
             <b>Cargar archivo:</b>
             <input type="file" id="file" name="file" class="" multiple accept=".jpeg, .jpg, .png, .pdf, .doc, .xls, .xlsx"/>
@@ -55,11 +55,6 @@
             <i class="fa fa-trash"></i> Borrar
         </a>
     </div>
-
-%{--    <g:if test="${documento?.ruta?.split("\\.")[1] != 'pdf'}">--}%
-%{--        <img src="${createLink(controller: 'historial', action: 'getImage', params: [id:examen?.id] )}" class="imag_pq" style="margin-top: 10px"/>--}%
-%{--    </g:if>--}%
-
 </g:if>
 <g:else>
     <div class="alert alert-warning" style="margin-top: 10px">
@@ -91,9 +86,9 @@
                 if(result){
                     $.ajax({
                         type: 'POST',
-                        url: '${createLink(controller: 'historial', action: 'borrarDocExamen_ajax')}',
+                        url: '${createLink(controller: 'documento', action: 'borrarDocumentoBiblioteca_ajax')}',
                         data:{
-                            id: '${examen?.id}'
+                            id: '${documento?.id}'
                         },
                         success: function (msg) {
                             var parts = msg.split("_");
