@@ -22,8 +22,10 @@ class DocumentoController {
 
         def select = "select * from dcmt "
         def txwh = " where empr__id  = '${usuario.empresa.id}' and " +
-                " dcmtdscr ilike '%${params.criterio}%' "
+                " (dcmtdscr ilike '%${params.criterio}%' or " +
+                " dcmtclve ilike '%${params.criterio}%') "
         sqlTx = "${select} ${txwh} order by dcmtdscr limit 100".toString()
+        println "sql: $sqlTx"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
