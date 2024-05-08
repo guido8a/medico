@@ -21,7 +21,7 @@
                     <td style="width: 45%">${documento.dcmtdscr}</td>
                     <td style="width: 20%">
                         <g:if test="${documento.dcmtruta}">
-                           <strong style="font-size: 14px"> ${documento.dcmtruta} </strong>
+                            <strong style="font-size: 14px"> ${documento.dcmtruta} </strong>
                         </g:if>
                         <g:else>
                             <i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong>No tiene documentos adjuntos</strong>
@@ -35,9 +35,17 @@
                             <i class="fa fa-upload"></i>
                         </a>
                         <g:if test="${documento.dcmtruta}">
-                            <g:link action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${documento.dcmt__id}">
-                                <i class="fa fa-download"></i>
-                            </g:link>
+                            <g:if test="${documento?.dcmtruta?.toString()?.split("\\.")[1] == 'pdf'}">
+                                <g:link class="btn btn-warning btn-xs"
+                                        action="downloadMyFile" resource="${instance}"
+                                        target="_blank"><i class="fa fa-search"></i>
+                                </g:link>
+                            </g:if>
+                            <g:else>
+                                <g:link action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${documento.dcmt__id}">
+                                    <i class="fa fa-download"></i>
+                                </g:link>
+                            </g:else>
                         </g:if>
                         <a href="#" class="btn btn-xs btn-danger btnEliminarDocumento" data-id="${documento.dcmt__id}" title="Eliminar documento">
                             <i class="fas fa-trash"></i>
