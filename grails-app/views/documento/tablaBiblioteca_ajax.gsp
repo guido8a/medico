@@ -38,7 +38,7 @@
                             <g:if test="${documento?.dcmtruta?.toString()?.split("\\.")[1] == 'pdf'}">
                                 <g:link class="btn btn-warning btn-xs"
                                         action="downloadMyFile" resource="${instance}"
-                                        target="_blank"><i class="fa fa-search"></i>
+                                        target="_blank" title="Ver PDF"><i class="fa fa-search"></i>
                                 </g:link>
                             </g:if>
                             <g:else>
