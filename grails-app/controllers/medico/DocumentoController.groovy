@@ -227,5 +227,28 @@ class DocumentoController {
 
     }
 
+    def imprimir(){
+        def documento = Documento.get(4)
+        def empresa = documento.empresa.id
+        def old = documento.ruta
+        def oldPath = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + old
+        render (
+                file: new File( oldPath ),
+                fileName:"test.pdf",
+                contentType:"application/pdf"
+        )
+    }
+
+    def downloadMyFile(){
+        def documento = Documento.get(4)
+        def empresa = documento.empresa.id
+        def old = documento.ruta
+        def oldPath = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + old
+        def file = new File(oldPath)
+        response.setContentType("application/pdf")
+        response.setHeader("Content-disposition", "filename=${file.getName()}")
+        response.outputStream << file.newInputStream()
+    }
+
 
 }

@@ -14,6 +14,14 @@
             <i class="fa fa-file"></i>
             Nuevo Documento
         </a>
+        <a href="#" class="btn btn-info btnImprimir">
+            <i class="fa fa-file"></i>
+            Imprimir
+        </a>
+        <g:link class="btn btn-warning"
+                action="downloadMyFile" resource="${instance}"
+                target="_blank">Abrir</g:link>
+
     </div>
     <div class="col-md-9"></div>
 </div>
@@ -48,8 +56,13 @@
 <script type="text/javascript">
     var di;
 
+
     $(".btnNuevoDocumento").click(function () {
         createEditRow();
+    });
+
+    $(".btnImprimir").click(function () {
+        location.href="${createLink(controller: 'documento', action: 'imprimir')}";
     });
 
     $("#btnLimpiar").click(function  () {
