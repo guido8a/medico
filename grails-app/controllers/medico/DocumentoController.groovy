@@ -12,11 +12,8 @@ class DocumentoController {
         return [usuario: usuario]
     }
 
-
     def tablaBiblioteca_ajax(){
-
         def usuario = Persona.get(session.usuario.id)
-
         def bsca
         def sqlTx = ""
 
@@ -25,12 +22,10 @@ class DocumentoController {
                 " (dcmtdscr ilike '%${params.criterio}%' or " +
                 " dcmtclve ilike '%${params.criterio}%') "
         sqlTx = "${select} ${txwh} order by dcmtdscr limit 100".toString()
-        println "sql: $sqlTx"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
         [datos: datos]
-
     }
 
     def form_ajax(){
@@ -185,7 +180,6 @@ class DocumentoController {
         def empresa = documento.empresa.id
 
         if(documento){
-
             if(documento?.ruta){
                 def old = documento.ruta
                 if (old && old.trim() != "") {
@@ -195,26 +189,21 @@ class DocumentoController {
                         oldFile.delete()
                     }
                 }
-
                 documento.ruta = null
                 if(!documento.save(flush:true)){
                     render "no_Error al borrar"
                 }else{
                     borrar(documento?.id)
                 }
-
             }else{
                 borrar(documento?.id)
             }
-
         }else{
             render "no_No se encontró el documento"
         }
-
     }
 
     def borrar(id){
-
         def documento = Documento.get(id)
 
         try{
@@ -224,7 +213,6 @@ class DocumentoController {
             println("error al borrar " + documento.errors)
             render "no_Error al borrar"
         }
-
     }
 
 //    def imprimir(){
@@ -240,7 +228,7 @@ class DocumentoController {
 //    }
 
     def downloadMyFile(){
-        def documento = Documento.get(4)
+        def documento = Documento.get(params.id)
         def empresa = documento.empresa.id
         def old = documento.ruta
         def oldPath = "/var/medico/empresa/emp_${empresa}/biblioteca/documento_${documento?.id}/" + old
