@@ -133,7 +133,8 @@ class AgendaController {
         def agenda = Agenda.get(params.id)
         def cita = Historial.findByAgenda(agenda)
         def paciente = agenda.paciente
-        redirect(controller: 'historial', action: 'cita', params:[paciente: paciente?.id, id:cita?.id])
+//        redirect(controller: 'historial', action: 'cita', params:[paciente: paciente?.id, id:cita?.id])
+        redirect(controller: 'paciente', action: 'historial', params:[id: paciente?.id, cita:cita?.id])
     }
 
     def buscaSemana(fecha) {

@@ -16,7 +16,7 @@
                 <td width="10%" data-id="${h?.lun?.split(';')[2]}" class="${h?.lun?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h?.lun?.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.lun?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.lun?.split(';')[2]}" data-paciente="${h.lun.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -41,7 +41,7 @@
                 <td width="10%" data-id="${h?.mar?.split(';')[2]}"  class="${h?.mar?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.mar.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.mar?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.mar?.split(';')[2]}" data-paciente="${h.mar.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -66,7 +66,7 @@
                 <td width="10%" data-id="${h?.mie?.split(';')[2]}"  class="${h?.mie?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.mie.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.mie?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.mie?.split(';')[2]}" data-paciente="${h.mie.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -91,7 +91,7 @@
                 <td width="10%" data-id="${h?.jue?.split(';')[2]}"  class="${h?.jue?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.jue.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.jue?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.jue?.split(';')[2]}" data-paciente="${h.jue.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -116,7 +116,7 @@
                 <td width="10%" data-id="${h?.vie?.split(';')[2]}"  class="${h?.vie?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.vie.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.vie?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.vie?.split(';')[2]}" data-paciente="${h.vie.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -141,7 +141,7 @@
                 <td width="10%" data-id="${h?.sab?.split(';')[2]}"  class="${h?.sab?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong>  ${h.sab.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.sab?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.sab?.split(';')[2]}" data-paciente="${h.sab.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -166,7 +166,7 @@
                 <td width="10%" data-id="${h?.dom?.split(';')[2]}"  class="${h?.dom?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.dom.split(';')[4]}
                     <br>
-                    <a href="#" data-hora="${h?.dom?.split(';')[2]}" class="btn btn-xs btn-info btnVerCita"
+                    <a href="#" data-hora="${h?.dom?.split(';')[2]}" data-paciente="${h.dom.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
                        title="Ver Cita">
                         <i class="fa fa-notes-medical"> </i>
                     </a>
@@ -221,6 +221,4 @@
         var id = $(this).data("hora");
         location.href="${createLink(controller: 'agenda', action: 'redireccion_ajax')}?id=" + id
     });
-
-
 </script>
