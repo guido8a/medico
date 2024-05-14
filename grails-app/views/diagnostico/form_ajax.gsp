@@ -18,8 +18,8 @@
             <label for="descripcion" class="col-md-2 control-label text-info">
                 Descripción
             </label>
-            <span class="col-md-6">
-                <g:textField name="descripcion" maxlength="255" minlenght="10" required="" class="form-control required" value="${diagnostico?.descripcion}"/>
+            <span class="col-md-10">
+                <g:textArea name="descripcion" style="resize: none" maxlength="255" minlenght="10" required="" class="form-control required" value="${diagnostico?.descripcion}"/>
             </span>
         </span>
     </div>

@@ -215,11 +215,11 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/diagnostico.png" title="Diagnóticos"  width="80%" height="80%"/>
+                        <asset:image src="apli/diagnostico.png" title="Diagnósticos"  width="80%" height="80%"/>
                         %{--                        <i class="fa fa-stethoscope fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnóticos</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnósticos</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
                         10ª revisión</p>
                     </div>
