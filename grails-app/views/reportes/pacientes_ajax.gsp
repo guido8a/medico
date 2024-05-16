@@ -1,1 +1,0 @@
-<g:select name="paciente" from="${pacientes}" class="form-control" optionKey="id" optionValue="${{it.apellido + " " + it.nombre}}"/>

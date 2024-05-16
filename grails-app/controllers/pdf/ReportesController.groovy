@@ -966,15 +966,12 @@ class ReportesController {
     }
 
     def listaPacientes_ajax(){
-
-    }
-
-    def pacientes_ajax(){
-        def consultorio = Empresa.get(params.id)
+        def usuario = Persona.get(session.usuario.id)
+        def empresa = usuario.empresa.id
+        def consultorio = Empresa.get(empresa)
         def pacientes = Paciente.findAllByEmpresa(consultorio)
         return [pacientes: pacientes]
     }
-
 
     def reporteCitasXPaciente(){
 
