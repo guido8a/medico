@@ -118,9 +118,9 @@
             <div class="col-md-12 col-xs-5">
                 <p>
 
-                    <a href="#" id="btnFincaExcel" class="btn btn-info btn-ajax example_c item" texto="fnca">
-                        <i class="fa fa-file-excel fa-4x text-success"></i>
-                        <br/> Datos de Pacientes
+                    <a href="#" id="btnReporteCitas" class="btn btn-info btn-ajax example_c item" texto="fnca">
+                        <i class="fa fa-print fa-4x text-success"></i>
+                        <br/> Citas por paciente
                     </a>
 %{--                    <a href="#" id="btnSocios" class="btn btn-info btn-ajax example_c item" texto="dire">--}%
 %{--                        <i class="fa fa-users fa-4x text-success"></i>--}%
@@ -204,15 +204,40 @@
 </div>
 
 <div id="fnca" style="display:none">
-    <h3>Reporte Excel de pacientes</h3><br>
-    <p>Listado de todos los pacientes</p>
+    <h3>Reporte de citas por pacientes</h3><br>
+    <p>Listado de todos las citas por paciente</p>
 </div>
-
 
 <script type="text/javascript">
 
-    $("#btnFincaExcel").click(function () {
-        %{--location.href="${createLink(controller: 'reportes', action: 'reporteFincaExcel')}"--}%
+    $("#btnReporteCitas").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'reportes', action:'listaPacientes_ajax')}",
+            data: {  },
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    title: "Reporte de citas",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        },
+                        crear: {
+                            label: "<i class='fa fa-print'></i> Imprimir",
+                            className: "btn-success",
+                            callback: function () {
+                                location.href = "${g.createLink(controller:'reportes', action: 'reporteCitasXPaciente')}?paciente=" + $("#paciente option:selected").val();
+                            }
+                        }
+                    }
+                }); //dialog
+            } //success
+        });
     });
 
     function prepare() {
