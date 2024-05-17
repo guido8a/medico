@@ -475,24 +475,24 @@ class CantonController {
                 return
             }//no existe el objeto
 
-            if(cantonInstance?.numero.toInteger() == params.numero.toInteger()){
+//            if(cantonInstance?.numero.toInteger() == params.numero.toInteger()){
                 cantonInstance.properties = params
-            }else{
-                if(Canton.findAllByNumero(params.numero)){
-                    render "no_Ya existe un cantón registrado con este número!"
-                    return
-                }else{
-                    cantonInstance.properties = params
-                }
-            }
+//            }else{
+//                if(Canton.findAllByNumero(params?.numero?.toInteger())){
+//                    render "no_Ya existe un cantón registrado con este número!"
+//                    return
+//                }else{
+//                    cantonInstance.properties = params
+//                }
+//            }
         }//es edit
         else {
-            if(Canton.findAllByNumero(params.numero)){
-                render "no_Ya existe un cantón registrado con este número!"
-                return
-            }else{
+//            if(Canton.findAllByNumero(params?.numero?.toInteger())){
+//                render "no_Ya existe un cantón registrado con este número!"
+//                return
+//            }else{
                 cantonInstance = new Canton(params)
-            }
+//            }
         } //es create
         if (!cantonInstance.save(flush: true)) {
             render "no_Error al guardar el cantón"

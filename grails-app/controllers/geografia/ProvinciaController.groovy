@@ -44,24 +44,24 @@ class ProvinciaController {
                 return
             }//no existe el objeto
 
-            if(provinciaInstance?.numero.toInteger() == params.numero.toInteger()){
-                provinciaInstance.properties = params
-            }else{
-                if(Provincia.findAllByNumero(params.numero.toInteger())){
-                    render "no_Ya existe una provincia registrada con este número!"
-                    return
-                }else{
-                    provinciaInstance.properties = params
-                }
-            }
+//            if(provinciaInstance?.numero.toInteger() == params.numero.toInteger()){
+            provinciaInstance.properties = params
+//            }else{
+//                if(Provincia.findAllByNumero(params.numero.toInteger())){
+//                    render "no_Ya existe una provincia registrada con este número!"
+//                    return
+//                }else{
+//                    provinciaInstance.properties = params
+//                }
+//            }
         }//es edit
         else {
-            if(Provincia.findAllByNumero(params.numero.toInteger())){
-                render "no_Ya existe una provincia registrada con este número!"
-                return
-            }else{
-                provinciaInstance = new Provincia(params)
-            }
+//            if(Provincia.findAllByNumero(params.numero.toInteger())){
+//                render "no_Ya existe una provincia registrada con este número!"
+//                return
+//            }else{
+            provinciaInstance = new Provincia(params)
+//            }
         } //es create
         if (!provinciaInstance.save(flush: true)) {
             render "no_Error al guardar la provincia"
@@ -88,18 +88,16 @@ class ProvinciaController {
 
 
     def borrarProvincia_ajax () {
+        def provincia = Provincia.get(params.id)
 
-            def provincia = Provincia.get(params.id)
-
-            try{
-                provincia.delete(flush: true)
-                render "ok"
-            }catch(e){
-                println("error al borrar la provincia " + e)
-                render "no"
-            }
+        try{
+            provincia.delete(flush: true)
+            render "ok"
+        }catch(e){
+            println("error al borrar la provincia " + e)
+            render "no"
+        }
     }
-
 
     def mapa(){
         println "mapa: $params"

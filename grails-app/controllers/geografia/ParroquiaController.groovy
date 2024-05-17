@@ -101,15 +101,19 @@ class ParroquiaController {
                 return
             }//no existe el objeto
 
-            if(parroquiaInstance?.codigo?.toInteger() == params.codigo.toInteger()){
-                parroquiaInstance.properties = params
-            }else{
-                if(Parroquia.findAllByCodigo(params.codigo)){
-                    render "no_Ya existe una parroquia registrada con este código!"
-                    return
-                }else{
+            if(params.codigo){
+                if(parroquiaInstance?.codigo?.toInteger() == params.codigo.toInteger()){
                     parroquiaInstance.properties = params
+                }else{
+                    if(Parroquia.findAllByCodigo(params.codigo)){
+                        render "no_Ya existe una parroquia registrada con este código!"
+                        return
+                    }else{
+                        parroquiaInstance.properties = params
+                    }
                 }
+            }else{
+                parroquiaInstance.properties = params
             }
         }//es edit
         else {

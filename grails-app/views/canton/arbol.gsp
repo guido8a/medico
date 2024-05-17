@@ -817,7 +817,7 @@
             items.borrarProvincia = borrarProvincia;
         } else if (esCanton) {
             items.agregarCanton = agregarCanton2;
-            // items.agregarParroquia = agregarParroquia;
+            items.agregarParroquia = agregarParroquia;
             items.verCanton = verCanton;
             items.editarCanton = editarCanton;
             items.borrarCanton = borrarCanton;

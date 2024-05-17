@@ -1176,8 +1176,10 @@ class PersonaController {
 //        println("params prfl " + params)
 
         def personaInstance = Persona.get(params.id)
+        println("-->Z "+ personaInstance.nombre)
         def perfilActual = Prfl.get(session.perfil.id)
-        def sesionActual = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfilActual, personaInstance)
+//        def sesionActual = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfilActual, personaInstance)
+        def sesionActual = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfilActual, session.usuario)
         def perfilesOld = Sesn.findAllByUsuarioAndFechaFinIsNull(personaInstance)
 
 //        println("old " + perfilesOld)
@@ -1186,6 +1188,9 @@ class PersonaController {
 //        println("se ac " + sesionActual.perfil.descripcion)
 
 //        if (perfiles?.size() > 0) {
+
+        def errores = ''
+
         if (params.perfiles) {
 
             def perfiles = params.perfiles.split("_")
@@ -1203,11 +1208,6 @@ class PersonaController {
             def commons = perfilesOld.perfil.intersect(perfilesSelected)
             def perfilesDelete = perfilesOld.perfil.plus(perfilesSelected)
             perfilesDelete.removeAll(commons)
-
-            def errores = ''
-
-//            println("p i " + perfilesInsertar)
-//            println("p b " + perfilesDelete)
 
             if(perfilesInsertar){
                 perfilesInsertar.each { perfil ->
@@ -1227,22 +1227,38 @@ class PersonaController {
 
             if(errores == ''){
                 if(perfilesDelete){
-                    if(perfilesDelete.contains(sesionActual.perfil)){
-                        bandera = true
-                    }else{
-                        perfilesDelete.each { perfil ->
-                            def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
 
-                            if(perfilB){
-                                perfilB.fechaFin = new Date()
+                  if(sesionActual.usuario.id == personaInstance.id){
+                     if(perfilesDelete.contains(sesionActual.perfil)){
+                         bandera = true
+                     }else{
+                         perfilesDelete.each { perfil ->
+                             def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
 
-                                if(!perfilB.save(flush: true)){
-                                    errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
-                                    println "error al eliminar perfil: " + perfilB.errors
-                                }
-                            }
-                        }
-                    }
+                             if(perfilB){
+                                 perfilB.fechaFin = new Date()
+
+                                 if(!perfilB.save(flush: true)){
+                                     errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
+                                     println "error al eliminar perfil: " + perfilB.errors
+                                 }
+                             }
+                         }
+                     }
+                  }else{
+                      perfilesDelete.each { perfil ->
+                          def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
+
+                          if(perfilB){
+                              perfilB.fechaFin = new Date()
+
+                              if(!perfilB.save(flush: true)){
+                                  errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
+                                  println "error al eliminar perfil: " + perfilB.errors
+                              }
+                          }
+                      }
+                  }
 
                     if(bandera){
                         render "er_No puede borrar el perfil ${sesionActual}, está actualmente en uso"
@@ -1260,14 +1276,14 @@ class PersonaController {
                 render "no"
             }
         }else{
-            if(sesionActual.usuario == personaInstance){
+            if(sesionActual.usuario.id == personaInstance.id){
                 render "er_No puede borrar el perfil ${sesionActual}, está actualmente en uso"
             }else{
 
                 def perfilesBorrar = Sesn.findAllByUsuario(personaInstance)
 
                 perfilesBorrar.each { perfil ->
-                    def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
+                    def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil?.perfil, personaInstance)
 
                     if(perfilB){
                         perfilB.fechaFin = new Date()
