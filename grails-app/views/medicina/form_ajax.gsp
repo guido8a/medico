@@ -4,13 +4,13 @@
     <g:hiddenField name="id" value="${medicina?.id}" />
     <g:hiddenField name="padre" value="${medicina?.padre?.id}" />
 
-        <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} required">
+        <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} ">
             <span class="grupo">
                 <label for="padre" class="col-md-2 control-label text-info">
                     Nombre genérico
                 </label>
                 <span class="col-md-8">
-                    <g:textField name="nombrePadre" class="form-control required allCaps" readonly=""  value="${ medicina?.padre ?  (medicina?.padre?.codigo + " - "  + medicina.padre?.descripcion) : ''}"/>
+                    <g:textField name="nombrePadre" class="form-control allCaps" readonly=""  value="${ medicina?.padre ?  (medicina?.padre?.codigo + " - "  + medicina.padre?.descripcion) : ''}"/>
                 </span>
                 <span class="col-md-1">
                     <a href="#" class="btn btn-xs btn-info btnBuscarPadre" title="Buscar Padre">
@@ -81,6 +81,17 @@
         </span>
     </div>
 
+    <div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} required">
+        <span class="grupo">
+            <label for="nombre" class="col-md-2 control-label text-info">
+                Nombre
+            </label>
+            <span class="col-md-10">
+                <g:textField name="nombre" maxlength="255" minlenght="10" required="" class="form-control required" value="${medicina?.nombre}"/>
+            </span>
+        </span>
+    </div>
+
     <div class="form-group ${hasErrors(bean: medicina, field: 'forma', 'error')} ">
         <span class="grupo">
             <label for="forma" class="col-md-2 control-label text-info">
@@ -88,6 +99,17 @@
             </label>
             <span class="col-md-6">
                 <g:textField name="forma" maxlength="255"  class="form-control required" value="${medicina?.forma}"/>
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group ${hasErrors(bean: medicina, field: 'cantidad', 'error')} ">
+        <span class="grupo">
+            <label for="cantidad" class="col-md-2 control-label text-info">
+                Cantidad
+            </label>
+            <span class="col-md-4">
+                <g:textField name="cantidad" maxlength="5"  class="form-control required" value="${medicina?.cantidad}"/>
             </span>
         </span>
     </div>

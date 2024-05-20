@@ -12,7 +12,8 @@ class Medicina {
     String observaciones
     String concentracion
     String tipoMedicamento
-
+    String nombre
+    int cantidad
 
     static mapping = {
         table 'mdcn'
@@ -31,9 +32,10 @@ class Medicina {
             concentracion column: 'mdcncnct'
             tipoMedicamento column: 'mdcntpmd'
             laboratorio column: 'labt__id'
+            nombre column: 'mdcnnmbr'
+            cantidad column: 'mdcncntd'
         }
     }
-
 
     static constraints = {
         padre(blank: true, nullable: true)
@@ -46,6 +48,7 @@ class Medicina {
         concentracion(size:0..255,blank: true, nullable: true)
         tipoMedicamento(blank: true, nullable: true)
         laboratorio(blank: true, nullable: true)
-
+        nombre(blank: true, nullable: true)
+        cantidad(blank: true, nullable: true)
     }
 }

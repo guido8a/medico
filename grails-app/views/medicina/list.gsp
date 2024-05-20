@@ -23,8 +23,13 @@
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
                 <span class="col-md-2">
+                    <label class="control-label text-info">Tipo</label>
+                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['G': 'Genérico', 'C': 'Comercial']}" optionKey="key"
+                              optionValue="value"/>
+                </span>
+                <span class="col-md-2">
                     <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código', 3: 'Tipo']}" optionKey="key"
+                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código']}" optionKey="key"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-4">
@@ -51,6 +56,14 @@
 <script type="text/javascript">
     var di;
 
+    $("#tipoMedicina").change(function () {
+        cargarTablaMedicinas();
+    });
+
+    $("#buscarPor").change(function () {
+        cargarTablaMedicinas();
+    });
+
     $(".btnNuevaMedicina").click(function () {
         createEditRow();
     });
@@ -58,6 +71,7 @@
     $("#btnLimpiar").click(function  () {
         $("#buscarPor").val(1);
         $("#criterio").val('');
+        $("#tipoMedicina").val('G');
         cargarTablaMedicinas();
     });
 
@@ -79,12 +93,14 @@
         var d = cargarLoader("Cargando...");
         var buscarPor = $("#buscarPor option:selected").val();
         var criterio = $("#criterio").val();
+        var tipoMedicina = $("#tipoMedicina option:selected").val();
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'medicina', action: 'tablaMedicinas_ajax')}',
             data:{
                 buscarPor: buscarPor,
-                criterio: criterio
+                criterio: criterio,
+                tipoMedicina: tipoMedicina
             },
             success: function (msg){
                 d.modal("hide");
@@ -228,72 +244,6 @@
     function cerrarDialogoImagen () {
         di.modal("hide");
     }
-
-    %{--function createContextMenu(node) {--}%
-    %{--    var $tr = $(node);--}%
-
-    %{--    var items = {--}%
-    %{--        header: {--}%
-    %{--            label: "Acciones",--}%
-    %{--            header: true--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var id = $tr.data("id");--}%
-
-    %{--    var ver = {--}%
-    %{--        label: " Ver",--}%
-    %{--        icon: "fa fa-search",--}%
-    %{--        action: function () {--}%
-    %{--            $.ajax({--}%
-    %{--                type    : "POST",--}%
-    %{--                url     : "${createLink(controller: 'medicina', action:'show_ajax')}",--}%
-    %{--                data    : {--}%
-    %{--                    id : id--}%
-    %{--                },--}%
-    %{--                success : function (msg) {--}%
-    %{--                    bootbox.dialog({--}%
-    %{--                        title   : "Medicina",--}%
-    %{--                        message : msg,--}%
-    %{--                        buttons : {--}%
-    %{--                            ok : {--}%
-    %{--                                label     : "Aceptar",--}%
-    %{--                                className : "btn-primary",--}%
-    %{--                                callback  : function () {--}%
-    %{--                                }--}%
-    %{--                            }--}%
-    %{--                        }--}%
-    %{--                    });--}%
-    %{--                }--}%
-    %{--            });--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var editar = {--}%
-    %{--        label: " Editar",--}%
-    %{--        icon: "fa fa-edit",--}%
-    %{--        action: function () {--}%
-    %{--            createEditRow(id)--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var eliminar = {--}%
-    %{--        label: " Dar de baja",--}%
-    %{--        icon: "fa fa-trash",--}%
-    %{--        separator_before : true,--}%
-    %{--        action: function () {--}%
-    %{--            deleteRow(id);--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    items.ver = ver;--}%
-    %{--    items.editar = editar;--}%
-    %{--    // items.eliminar = eliminar;--}%
-
-    %{--    return items--}%
-    %{--}--}%
-
-
 </script>
 
 </body>
