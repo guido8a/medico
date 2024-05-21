@@ -16,19 +16,24 @@
 <div class="" style="width: 99.7%;height: 400px; overflow-y: auto;float: right; margin-top: -20px">
     <table class="table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <tbody>
-        <g:each in="${datos}" var="dato" status="i">
-            <tr>
-                <td style="width: 13%;">${dato.mdcncdgo}</td>
-                <td style="width: 40%;">${dato.mdcndscr}</td>
-                <td style="width: 25%;">${dato.mdcnfrma}</td>
-                <td style="width: 10%;">${dato.mdcncnct}</td>
-                <td style="width: 13%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-success btnSelMedicina" title="Seleccionar" data-id="${dato.mdcn__id}" data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}" data-con="${dato.mdcncnct}">
-                        <i class="fa fa-check"></i>
-                    </a>
-                </td>
-            </tr>
-        </g:each>
+        <g:if test="${datos}">
+            <g:each in="${datos}" var="dato" status="i">
+                <tr>
+                    <td style="width: 13%;">${dato.mdcncdgo}</td>
+                    <td style="width: 40%;">${dato.mdcndscr}</td>
+                    <td style="width: 25%;">${dato.mdcnfrma}</td>
+                    <td style="width: 10%;">${dato.mdcncnct}</td>
+                    <td style="width: 13%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-success btnSelMedicina" title="Seleccionar" data-id="${dato.mdcn__id}" data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}" data-con="${dato.mdcncnct}">
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </td>
+                </tr>
+            </g:each>
+        </g:if>
+        <g:else>
+            <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> No existen registros</div>
+        </g:else>
         </tbody>
     </table>
 </div>

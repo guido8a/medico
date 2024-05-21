@@ -2,12 +2,17 @@
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
+                <span class="col-md-2">
+                    <label class="control-label text-info">Tipo</label>
+                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['G': 'Genérico', 'C': 'Comercial']}" optionKey="key"
+                              optionValue="value"/>
+                </span>
                 <span class="col-md-4">
                     <label class="control-label text-info">Buscar Por</label>
                     <g:select name="buscarPorMedicina" class="buscarPorMedicina col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código']}" optionKey="key"
                               optionValue="value"/>
                 </span>
-                <span class="col-md-5">
+                <span class="col-md-4">
                     <label class="control-label text-info">Criterio</label>
                     <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
                 </span>
@@ -37,6 +42,14 @@
 
     cargarMedicinas();
 
+    $("#tipoMedicina").change(function () {
+        cargarMedicinas();
+    });
+
+    $("#buscarPorMedicina").change(function () {
+        cargarMedicinas();
+    });
+
     $("#btnBuscarListaMedicina").click(function () {
         cargarMedicinas();
     });
@@ -44,6 +57,7 @@
     $("#btnLimpiarListaMedicina").click(function () {
         $("#criterioMedicina").val('');
         $("#buscarPorMedicina").val(1);
+        $("#tipoMedicina").val('G');
         cargarMedicinas();
     });
 
@@ -51,12 +65,14 @@
         var e = cargarLoader("Cargando...");
         var buscarPor = $("#buscarPorMedicina option:selected").val();
         var criterio = $("#criterioMedicina").val();
+        var tipoMedicina = $("#tipoMedicina option:selected").val();
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'tratamiento', action: 'tablaMedicina_ajax')}',
             data:{
                 buscarPor: buscarPor,
-                criterio: criterio
+                criterio: criterio,
+                tipoMedicina: tipoMedicina
             },
             success: function (msg){
                 e.modal("hide");

@@ -33,7 +33,6 @@ class TratamientoController {
     }
 
     def tablaMedicina_ajax(){
-        println("entro " + params)
         def listaItems = ['mdcndscr', 'mdcncdgo']
         def bsca
         def sqlTx = ""
@@ -46,7 +45,8 @@ class TratamientoController {
         def select = "select * from mdcn "
         def txwh = " where mdcn__id is not null and " +
                 " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by mdcndscr limit 100 ".toString()
+        def tpo = " and mdcntpmd ilike '%${params.tipoMedicina}%' "
+        sqlTx = "${select} ${txwh} ${tpo} order by mdcndscr limit 100 ".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
