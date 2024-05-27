@@ -27,7 +27,7 @@
                     <td style="width: 10%;">${dato.mdcncntd}</td>
                     <td style="width: 13%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnSelMedicina" title="Seleccionar" data-id="${dato.mdcn__id}"
-                           data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}" data-con="${dato.mdcncnct}" data-can="${dato.mdcncntd}">
+                           data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}" data-con="${dato.mdcncnct}" data-can="${dato.mdcncntd}" data-obs="${dato.mdcnobsr}">
                             <i class="fa fa-check"></i>
                         </a>
                     </td>
@@ -49,12 +49,14 @@
         var descripcion = $(this).data("nombre");
         var concentracion = $(this).data("con");
         var cantidad = $(this).data("can")
+        var observaciones = $(this).data("obs")
 
         $("#medicina").val(id);
         $("#medicinaNombre").val(descripcion);
         $("#medicinaCodigo").val(codigo);
         $("#medicinaConcentracion").val(concentracion);
         $("#cantidad").val(cantidad);
+        $("#descripcion").val(observaciones);
 
         cerrarMedicina();
 
