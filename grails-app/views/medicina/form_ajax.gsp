@@ -59,13 +59,13 @@
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'error')} required">
+    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'error')}">
         <span class="grupo">
             <label for="codigo" class="col-md-2 control-label text-info">
                 Código
             </label>
             <span class="col-md-4">
-                <g:textField name="codigo" maxlength="15" required="" class="form-control required allCaps"  value="${medicina?.codigo}"/>
+                <g:textField name="codigo" maxlength="15" class="form-control allCaps"  value="${medicina?.codigo}"/>
             </span>
         </span>
     </div>
