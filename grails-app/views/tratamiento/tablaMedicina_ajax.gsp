@@ -3,7 +3,7 @@
     <table class="table table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <thead>
         <tr>
-            <th style="width: 13%;">Código</th>
+            <th style="width: 13%;">Nombre</th>
             <th style="width: 30%;">Descripción</th>
             <th style="width: 25%;">Presentación</th>
             <th style="width: 10%;">Concentración</th>
@@ -20,7 +20,7 @@
         <g:if test="${datos}">
             <g:each in="${datos}" var="dato" status="i">
                 <tr>
-                    <td style="width: 13%;">${dato.mdcncdgo}</td>
+                    <td style="width: 13%;">${dato.mdcnnmbr}</td>
                     <td style="width: 30%;">${dato.mdcndscr}</td>
                     <td style="width: 25%;">${dato.mdcnfrma}</td>
                     <td style="width: 10%;">${dato.mdcncnct}</td>

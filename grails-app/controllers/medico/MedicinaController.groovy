@@ -24,7 +24,7 @@ class MedicinaController {
 
     def tablaMedicinas_ajax(){
 
-        def listaItems = ['mdcndscr', 'mdcncdgo', 'mdcntipo']
+        def listaItems = ['mdcnnmbr', 'mdcndscr', 'mdcncdgo']
         def bsca
         def sqlTx = ""
 
@@ -33,6 +33,7 @@ class MedicinaController {
         }else{
             bsca = listaItems[0]
         }
+
         def select = "select * from mdcn "
         def txwh = " where mdcn__id  is not null and " +
                 " $bsca ilike '%${params.criterio}%' "

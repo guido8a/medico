@@ -33,7 +33,7 @@ class TratamientoController {
     }
 
     def tablaMedicina_ajax(){
-        def listaItems = ['mdcndscr', 'mdcncdgo']
+        def listaItems = ['mdcnnmbr', 'mdcndscr', 'mdcncdgo']
         def bsca
         def sqlTx = ""
 

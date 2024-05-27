@@ -5,7 +5,7 @@
             <th style="width: 8%">Código</th>
             <th style="width: 15%">Descripción</th>
             <th style="width: 12%">Nombre</th>
-            <th style="width: 12%">Padre</th>
+            <th style="width: 12%">Cuadro Básico</th>
             <th style="width: 10%">Forma</th>
             <th style="width: 8%">Concentración</th>
             <th style="width: 10%">Medicina</th>

@@ -9,7 +9,7 @@
                 </span>
                 <span class="col-md-4">
                     <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPorMedicina" class="buscarPorMedicina col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código']}" optionKey="key"
+                    <g:select name="buscarPorMedicina" class="buscarPorMedicina col-md-12 form-control" from="${[1: 'Nombre', 2: 'Descripción', 3: 'Código']}" optionKey="key"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-4">
