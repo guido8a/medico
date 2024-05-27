@@ -81,13 +81,13 @@
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} required">
+    <div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} ">
         <span class="grupo">
             <label for="nombre" class="col-md-2 control-label text-info">
                 Nombre
             </label>
             <span class="col-md-10">
-                <g:textField name="nombre" maxlength="255" minlenght="10" required="" class="form-control required" value="${medicina?.nombre}"/>
+                <g:textField name="nombre" maxlength="255" minlenght="10"  class="form-control " value="${medicina?.nombre}"/>
             </span>
         </span>
     </div>
