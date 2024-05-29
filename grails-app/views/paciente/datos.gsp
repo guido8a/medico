@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <meta name="layout" content="main">
+    <meta name="layout" content="main2">
     <title>
 
         <g:if test="${paciente?.id}">
@@ -155,7 +155,7 @@
                         <span class="col-md-2 label label-primary text-info mediano">Teléfonos</span>
                         <span class="grupo">
                             <span class="col-md-3">
-                                <g:textField name="telefono" maxlength="31" class="number form-control" value="${paciente?.telefono}"/>
+                                <g:textField name="telefono" maxlength="31" class="form-control" value="${paciente?.telefono}"/>
                             </span>
                         </span>
                         <span class="col-md-1 mediano"></span>
@@ -244,7 +244,7 @@
         cargarFotoPaciente('${paciente?.id}');
     });
 
-    $("#cedula, #telefono").keydown(function (ev) {
+    $("#cedula").keydown(function (ev) {
         return validarNum(ev);
     });
 
