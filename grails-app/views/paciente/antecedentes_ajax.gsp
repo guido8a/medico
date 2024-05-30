@@ -124,4 +124,31 @@
             </span>
         </div>
     </g:if>
+
+
+    <g:if test="${paciente?.nino}">
+        <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesAntesdeNacer', 'error')}">
+            <span class="grupo">
+                <label for="antecedentesAntesdeNacer" class="col-md-2 control-label text-info">
+                    Vida antenatal
+                </label>
+                <span class="col-md-8">
+                    <g:textField name="antecedentesAntesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesAntesdeNacer}"/>
+                </span>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesDespuesdeNacer', 'error')}">
+            <span class="grupo">
+                <label for="habitos" class="col-md-2 control-label text-info">
+                    Datos al nacer
+                </label>
+                <span class="col-md-8">
+                    <g:textField name="antecedentesDespuesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesDespuesdeNacer}"/>
+                </span>
+            </span>
+        </div>
+    </g:if>
+
+
 </g:form>
