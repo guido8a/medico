@@ -61,7 +61,7 @@
 
     </div>
 
-    <div class="tab-content" style="margin-top: 10px">
+    <div class="tab-content" style="margin-top: 10px; margin-right: 10px">
         <div id="home" class="tab-pane fade in active">
             <g:form class="form-horizontal" name="frmPaciente" controller="paciente" action="savePaciente_ajax">
                 <g:hiddenField name="id" value="${paciente?.id}"/>
@@ -200,6 +200,15 @@
                             <span class="col-md-2">
                                 <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control " value="${paciente?.grupoSanguineo?.id}"/>
                             </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row izquierda">
+                    <div class="col-md-12 input-group">
+                        <span class="col-md-2 label label-primary text-info mediano">Responsable</span>
+                        <span class="col-md-9">
+                            <g:textField name="responsable" style="resize: none" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
                         </span>
                     </div>
                 </div>

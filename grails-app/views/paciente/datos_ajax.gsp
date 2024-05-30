@@ -168,6 +168,18 @@
             </span>
         </div>
     </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
+            <label for="responsable" class="col-md-2 control-label text-info">
+                Responsable
+            </label>
+            <span class="col-md-9">
+                <g:textField name="responsable" style="resize: none" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
+            </span>
+        </div>
+    </div>
+
 </g:form>
 
 <script type="text/javascript">
