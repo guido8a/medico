@@ -91,7 +91,7 @@ class DocumentoController {
                 }
             }
             if (acceptedExt.contains(ext.toLowerCase())) {
-                fileName = fileName + "." + ext
+                fileName = fileName + "." + ext.toLowerCase()
                 def pathFile = path + fileName
                 def file = new File(pathFile)
                 println "subiendo archivo: $fileName"
