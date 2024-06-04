@@ -36,7 +36,7 @@
         <g:if test="${datos}">
             <tr >
                 <td style="width: 14%">${"7:30 - 8:00"}</td>
-                <td style="width: 14%" class="lleno">${"Guido Ochoa"}</td>
+                <td style="width: 14%" class="lleno">${"Agendado"}</td>
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
@@ -47,7 +47,7 @@
                 <td style="width: 14%">${"8:00 - 8:30"}</td>
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
-                <td style="width: 14%" class="lleno">${"Soria Paul"}</td>
+                <td style="width: 14%" class="lleno">${"Agendado"}</td>
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
@@ -59,7 +59,7 @@
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
                 <td style="width: 14%" class="libre">${""}</td>
-                <td style="width: 14%" class="lleno">${"Perez Juan"}</td>
+                <td style="width: 14%" class="lleno">${"Agendado"}</td>
             </tr>
         </g:if>
         <g:else>
