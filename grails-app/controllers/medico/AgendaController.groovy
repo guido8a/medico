@@ -145,4 +145,19 @@ class AgendaController {
         return smna
     }
 
+    def agendaNuevo(){
+
+    }
+
+    def tablaAgendamiento_ajax(){
+        def datos
+        if(params.tipo == '1'){
+            datos = 1
+        }else{
+            datos = null
+        }
+
+        return [datos: datos]
+    }
+
 }
