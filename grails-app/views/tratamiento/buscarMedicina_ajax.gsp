@@ -4,7 +4,7 @@
             <span class="grupo">
                 <span class="col-md-2">
                     <label class="control-label text-info">Tipo</label>
-                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['G': 'Genérico', 'C': 'Comercial']}" optionKey="key"
+                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['C': 'Comercial', 'G': 'Genérico']}" optionKey="key"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-4">

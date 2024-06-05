@@ -58,7 +58,8 @@
     var di;
 
     $(".btnNuevoPaciente").click(function () {
-        location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 0
+        %{--location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 0--}%
+        crearPaciente();
     });
 
     $("#btnLimpiar").click(function  () {
@@ -102,72 +103,72 @@
         })
     }
 
-    function createEditRow(id) {
-        var title = id ? "Editar " : "Crear ";
-        var data = id ? {id : id}: {};
+    %{--function createEditRow(id) {--}%
+    %{--    var title = id ? "Editar " : "Crear ";--}%
+    %{--    var data = id ? {id : id}: {};--}%
 
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(action:'form_ajax')}",
-            data    : data,
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgCreateEditPaciente",
-                    title   : title + " Paciente",
-                    class: "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
-                                return submitFormPaciente();
-                            } //callback
-                        } //guardar
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    } //createEdit
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url: "${createLink(action:'form_ajax')}",--}%
+    %{--        data    : data,--}%
+    %{--        success : function (msg) {--}%
+    %{--            var b = bootbox.dialog({--}%
+    %{--                id      : "dlgCreateEditPaciente",--}%
+    %{--                title   : title + " Paciente",--}%
+    %{--                class: "modal-lg",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    },--}%
+    %{--                    guardar  : {--}%
+    %{--                        id        : "btnSave",--}%
+    %{--                        label     : "<i class='fa fa-save'></i> Guardar",--}%
+    %{--                        className : "btn-success",--}%
+    %{--                        callback  : function () {--}%
+    %{--                            return submitFormPaciente();--}%
+    %{--                        } //callback--}%
+    %{--                    } //guardar--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--} //createEdit--}%
 
-    function submitFormPaciente() {
-        var $form = $("#frmPaciente");
-        if ($form.valid()) {
-            var data = $form.serialize();
-            var dialog = cargarLoader("Guardando...");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : data,
-                success : function (msg) {
-                    dialog.modal('hide');
-                    var parts = msg.split("_");
-                    if(parts[0] === 'ok'){
-                        log(parts[1], "success");
-                        cargarTablaPacientes();
-                    }else{
-                        if(parts[0] === 'err'){
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }else{
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
-                        }
-
-                    }
-                }
-            });
-        } else {
-            return false;
-        }
-    }
+    // function submitFormPaciente() {
+    //     var $form = $("#frmPaciente");
+    //     if ($form.valid()) {
+    //         var data = $form.serialize();
+    //         var dialog = cargarLoader("Guardando...");
+    //         $.ajax({
+    //             type    : "POST",
+    //             url     : $form.attr("action"),
+    //             data    : data,
+    //             success : function (msg) {
+    //                 dialog.modal('hide');
+    //                 var parts = msg.split("_");
+    //                 if(parts[0] === 'ok'){
+    //                     log(parts[1], "success");
+    //                     cargarTablaPacientes();
+    //                 }else{
+    //                     if(parts[0] === 'err'){
+    //                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+    //                         return false;
+    //                     }else{
+    //                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+    //                         return false;
+    //                     }
+    //
+    //                 }
+    //             }
+    //         });
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     function deleteRow(itemId) {
         bootbox.dialog({
@@ -208,119 +209,66 @@
         });
     }
 
-    function cargarImagenePaciente(id) {
-        %{--$.ajax({--}%
-        %{--    type    : "POST",--}%
-        %{--    url     : "${createLink(controller: 'empresa', action:'logoEmpresa_ajax')}",--}%
-        %{--    data    : {--}%
-        %{--        id:id--}%
-        %{--    },--}%
-        %{--    success : function (msg) {--}%
-        %{--        di = bootbox.dialog({--}%
-        %{--            id      : "dlgImas",--}%
-        %{--            title   : "Logo de la empresa",--}%
-        %{--            message : msg,--}%
-        %{--            buttons : {--}%
-        %{--                cancelar : {--}%
-        %{--                    label     : "<i class='fa fa-times'></i> Cerrar",--}%
-        %{--                    className : "btn-gris",--}%
-        %{--                    callback  : function () {--}%
-
-        %{--                    }--}%
-        %{--                }--}%
-        %{--            } //buttons--}%
-        %{--        }); //dialog--}%
-        %{--    } //success--}%
-        %{--}); //ajax--}%
-    } //createEdit
-
-    function cerrarDialogoImagen () {
-        di.modal("hide");
+    function crearPaciente() {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(action:'datos_ajax')}",
+            data    : {
+                id: null
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreatePaciente",
+                    title   : "Datos del paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormPaciente();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
     }
 
-    %{--function createContextMenu(node) {--}%
-    %{--    var $tr = $(node);--}%
+    function submitFormPaciente() {
+        var $form = $("#frmPaciente");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarTablaPacientes();
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
-    %{--    var items = {--}%
-    %{--        header: {--}%
-    %{--            label: "Acciones",--}%
-    %{--            header: true--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var id = $tr.data("id");--}%
-
-    %{--    var ver = {--}%
-    %{--        label: " Ver",--}%
-    %{--        icon: "fa fa-search",--}%
-    %{--        action: function () {--}%
-    %{--            $.ajax({--}%
-    %{--                type    : "POST",--}%
-    %{--                url     : "${createLink(controller: 'paciente', action:'show_ajax')}",--}%
-    %{--                data    : {--}%
-    %{--                    id : id--}%
-    %{--                },--}%
-    %{--                success : function (msg) {--}%
-    %{--                    bootbox.dialog({--}%
-    %{--                        title   : "Empresa",--}%
-    %{--                        message : msg,--}%
-    %{--                        buttons : {--}%
-    %{--                            ok : {--}%
-    %{--                                label     : "Aceptar",--}%
-    %{--                                className : "btn-primary",--}%
-    %{--                                callback  : function () {--}%
-    %{--                                }--}%
-    %{--                            }--}%
-    %{--                        }--}%
-    %{--                    });--}%
-    %{--                }--}%
-    %{--            });--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var editar = {--}%
-    %{--        label: " Editar",--}%
-    %{--        icon: "fa fa-edit",--}%
-    %{--        action: function () {--}%
-    %{--            createEditRow(id)--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var historia = {--}%
-    %{--        label: "Historia",--}%
-    %{--        icon: "fa fa-book",--}%
-    %{--        separator_before : true,--}%
-    %{--        action: function () {--}%
-    %{--            // createEditRowCont(id)--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var foto = {--}%
-    %{--        label: "Foto",--}%
-    %{--        icon: "fa fa-images",--}%
-    %{--        separator_before : true,--}%
-    %{--        action: function () {--}%
-    %{--            cargarImagenePaciente(id);--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var eliminar = {--}%
-    %{--        label: " Eliminar",--}%
-    %{--        icon: "fa fa-trash",--}%
-    %{--        separator_before : true,--}%
-    %{--        action: function () {--}%
-    %{--            deleteRow(id);--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    items.ver = ver;--}%
-    %{--    items.editar = editar;--}%
-    %{--    items.historia = historia;--}%
-    %{--    items.foto = foto;--}%
-    %{--    items.eliminar = eliminar;--}%
-
-    %{--    return items--}%
-    %{--}--}%
 
 
 </script>

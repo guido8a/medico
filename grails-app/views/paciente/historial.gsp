@@ -289,7 +289,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEditAntecedentes",
-                    title   : "Antecedentes del paciente",
+                    title   : "Datos del paciente",
                     class: "modal-lg",
                     message : msg,
                     buttons : {

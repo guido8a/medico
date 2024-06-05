@@ -363,7 +363,14 @@ class PacienteController {
     }
 
     def datos_ajax(){
-        def paciente = Paciente.get(params.id)
+        def paciente
+
+        if(params.id){
+            paciente = Paciente.get(params.id)
+        }else{
+            paciente = new Paciente()
+        }
+
         return[paciente: paciente]
     }
 

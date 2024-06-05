@@ -110,7 +110,7 @@
             </label>
             <span class="grupo">
                 <span class="col-md-3">
-                    <g:textField name="telefono" maxlength="31" class="number form-control" value="${paciente?.telefono}"/>
+                    <g:textField name="telefono" maxlength="31" class="form-control" value="${paciente?.telefono}"/>
                 </span>
             </span>
             <span class="col-md-1 mediano"></span>
@@ -163,7 +163,7 @@
             </label>
             <span class="grupo">
                 <span class="col-md-2">
-                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control " value="${paciente?.grupoSanguineo?.id}"/>
+                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control" noSelection="[null: 'Sin selección']"  value="${paciente?.grupoSanguineo?.id}"/>
                 </span>
             </span>
         </div>
@@ -219,7 +219,7 @@
         cargarFotoPaciente('${paciente?.id}');
     });
 
-    $("#cedula, #telefono").keydown(function (ev) {
+    $("#cedula").keydown(function (ev) {
         return validarNum(ev);
     });
 
