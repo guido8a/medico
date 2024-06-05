@@ -1,4 +1,4 @@
-<g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy HH:mm") + " - " + it?.motivo}}"
+<g:select name="citaSeleccionada" from="${citas}" optionValue="${{it?.fecha?.format("dd-MMM-yyyy") + " " + (it?.hora ?: '00:00')  + " - " + it?.motivo}}"
           optionKey="id" class="form-control" value="${cita?.id}" />
 
 <script type="text/javascript">

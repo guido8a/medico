@@ -163,7 +163,7 @@
             </label>
             <span class="grupo">
                 <span class="col-md-2">
-                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control" noSelection="[null: 'Sin selección']"  value="${paciente?.grupoSanguineo?.id}"/>
+                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.grupoSanguineo?.id}"/>
                 </span>
             </span>
         </div>

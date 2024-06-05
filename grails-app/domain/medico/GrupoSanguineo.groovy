@@ -16,6 +16,6 @@ class GrupoSanguineo {
     }
 
     static constraints = {
-        descripcion(size: 1..7, blank: false, nullable: false)
+        descripcion(size: 1..15, blank: false, nullable: false)
     }
 }
