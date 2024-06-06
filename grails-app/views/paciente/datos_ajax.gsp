@@ -60,6 +60,50 @@
         </div>
     </div>
 
+    <div class="row izquierda" style="margin-bottom: 15px">
+        <div class="col-md-12 input-group">
+            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
+                Fecha de nacimiento
+            </label>
+            <span class="grupo" >
+                <span class="col-md-2 arriba" >
+                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
+                </span>
+            </span>
+            <span class="col-md-2 mediano"></span>
+            <label for="estadoCivil" class="col-md-2 control-label text-info">
+                Estado Civil
+            </label>
+            <span class="grupo">
+                <span class="col-md-2">
+                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda" style="margin-bottom: 15px">
+        <div class="col-md-12 input-group">
+            <label for="sexo" class="col-md-2 control-label text-info">
+                Sexo
+            </label>
+            <span class="grupo">
+                <span class="col-md-2">
+                    <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
+                </span>
+            </span>
+            <span class="col-md-2 mediano"></span>
+            <label for="grupoSanguineo" class="col-md-2 control-label text-info">
+                Grupo Sanguíneo
+            </label>
+            <span class="grupo">
+                <span class="col-md-2">
+                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.grupoSanguineo?.id}"/>
+                </span>
+            </span>
+        </div>
+    </div>
+
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="provincia" class="col-md-2 control-label text-info">
@@ -77,6 +121,17 @@
             <span class="grupo">
                 <span class="col-md-3" id="divParroquia">
                 </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
+            <label for="habitual" class="col-md-2 control-label text-info">
+                Residencia Habitual
+            </label>
+            <span class="col-md-9">
+                <g:textField name="habitual" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>
             </span>
         </div>
     </div>
@@ -120,50 +175,6 @@
             <span class="grupo">
                 <span class="col-md-4">
                     <g:textField name="mail" maxlength="63" class="email mail form-control" value="${paciente?.mail}"/>
-                </span>
-            </span>
-        </div>
-    </div>
-
-    <div class="row izquierda" style="margin-bottom: 15px">
-        <div class="col-md-12 input-group">
-            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
-                Fecha de nacimiento
-            </label>
-            <span class="grupo" >
-                <span class="col-md-2 arriba" >
-                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
-                </span>
-            </span>
-            <span class="col-md-2 mediano"></span>
-            <label for="estadoCivil" class="col-md-2 control-label text-info">
-                Estado Civil
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
-                </span>
-            </span>
-        </div>
-    </div>
-
-    <div class="row izquierda" style="margin-bottom: 15px">
-        <div class="col-md-12 input-group">
-            <label for="sexo" class="col-md-2 control-label text-info">
-                Sexo
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
-                </span>
-            </span>
-            <span class="col-md-2 mediano"></span>
-            <label for="grupoSanguineo" class="col-md-2 control-label text-info">
-                Grupo Sanguíneo
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.grupoSanguineo?.id}"/>
                 </span>
             </span>
         </div>

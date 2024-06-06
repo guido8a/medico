@@ -4,6 +4,7 @@ import apli.DbConnectionService
 import geografia.Canton
 import geografia.Parroquia
 import geografia.Provincia
+import seguridad.Empresa
 import seguridad.Paciente
 import seguridad.Persona
 
@@ -36,8 +37,11 @@ class HistorialController {
     }
 
     def saveCita_ajax(){
+
+        def paciente = Paciente.get(params.paciente)
         def historial
-        def consultorio = Persona.get(params.persona)?.empresa
+//        def consultorio = Persona.get(params.persona)?.empresa
+        def consultorio = paciente.empresa
         def numeroActual = consultorio?.numero
 
         if(params.id){
