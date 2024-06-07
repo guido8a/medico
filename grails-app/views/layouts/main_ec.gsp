@@ -36,7 +36,7 @@
 
 
     <asset:stylesheet src="/fonts/fontawesome-webfont.woff"/>
-    <asset:stylesheet src="/apli/bootstrap-datetimepicker.min.css"/>
+    <asset:stylesheet src="/assets/stylesheets/apli/bootstrap-datetimepicker.min.css"/>
 
     <asset:javascript src="/jquery/jquery-2.2.4.js"/>
     <asset:javascript src="/jquery/jquery-ui.js"/>
