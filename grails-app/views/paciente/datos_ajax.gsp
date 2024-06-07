@@ -106,6 +106,17 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
+            <label for="ocupacion" class="col-md-2 control-label text-info">
+                Ocupación
+            </label>
+            <span class="col-md-9">
+                <g:textField name="ocupacion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.ocupacion}"/>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
             <label for="provincia" class="col-md-2 control-label text-info">
                 Provincia
             </label>
@@ -127,11 +138,22 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <label for="habitual" class="col-md-2 control-label text-info">
+            <label for="residenciaHabitual" class="col-md-2 control-label text-info">
                 Residencia Habitual
             </label>
             <span class="col-md-9">
-                <g:textField name="habitual" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>
+                <g:textField name="residenciaHabitual" style="resize: none" maxlength="255" class="form-control" value="${paciente?.residenciaHabitual}"/>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
+            <label for="residenciaOcasional" class="col-md-2 control-label text-info">
+                Residencia Ocasional
+            </label>
+            <span class="col-md-9">
+                <g:textField name="residenciaOcasional" style="resize: none" maxlength="255" class="form-control" value="${paciente?.residenciaOcasional}"/>
             </span>
         </div>
     </div>
@@ -254,7 +276,6 @@
             }
         });
     }
-
 
     $("#btnGuardar").click(function () {
         submitFormPaciente();

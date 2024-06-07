@@ -66,7 +66,7 @@
                 Enfermedad actual
             </label>
             <span class="col-md-10">
-                <g:textArea name="actual" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.actual}"/>
+                <g:textArea name="actual" class="form-control" style="resize: none; height: 200px;"  value="${historial?.actual}"/>
             </span>
         </div>
     </div>

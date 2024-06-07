@@ -38,6 +38,10 @@ class Paciente {
     String habitosDefecatorio
     String habitosFumador
     String habitosTomador
+    String numeroHistorial
+    String ocupacion
+    String residenciaHabitual
+    String residenciaOcasional
 
     static mapping = {
         table 'pcnt'
@@ -78,6 +82,10 @@ class Paciente {
             habitosDefecatorio column: 'pcntdefc'
             habitosFumador column: 'pcntfuma'
             habitosTomador column: 'pcnttoma'
+            numeroHistorial column: 'pcnthscl'
+            ocupacion column: 'pcntocpc'
+            residenciaHabitual column: 'pcntrdhb'
+            residenciaOcasional column: 'pcntrdoc'
         }
     }
 
@@ -114,6 +122,10 @@ class Paciente {
         habitosDefecatorio(size: 0..255, blank: true, nullable: true)
         habitosFumador(size: 0..255, blank: true, nullable: true)
         habitosTomador(size: 0..255, blank: true, nullable: true)
+        numeroHistorial(size: 0..4, blank: true, nullable: true)
+        ocupacion(size: 0..255, blank: true, nullable: true)
+        residenciaHabitual(size: 0..255, blank: true, nullable: true)
+        residenciaOcasional(size: 0..255, blank: true, nullable: true)
     }
 
 

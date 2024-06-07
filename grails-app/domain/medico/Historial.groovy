@@ -48,7 +48,7 @@ class Historial {
         agenda(blank: true, nullable: true)
         fecha(blank: false, nullable: false)
         motivo(size:0..255,blank: true, nullable: true)
-        actual(size:0..255,blank: true, nullable: true)
+        actual(blank: true, nullable: true)
         tratamiento(size:0..255,blank: true, nullable: true)
         examenes(size:0..255,blank: true, nullable: true)
         proximaCita(blank: true, nullable: true)

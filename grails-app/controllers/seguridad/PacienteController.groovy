@@ -55,7 +55,7 @@ class PacienteController {
         sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll ".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
-        println datos
+//        println datos
 
         [datos: datos]
 

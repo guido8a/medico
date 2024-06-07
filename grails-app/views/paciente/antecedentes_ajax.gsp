@@ -5,7 +5,7 @@
     <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentes', 'error')}">
         <span class="grupo">
             <label for="antecedentes" class="col-md-2 control-label text-info">
-                Antecedentes
+                Antecedentes personales
             </label>
             <span class="col-md-8">
                 <g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>
@@ -27,7 +27,7 @@
     <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesOcupacionales', 'error')}">
         <span class="grupo">
             <label for="antecedentesOcupacionales" class="col-md-2 control-label text-info">
-                Antecedentes ocupacionales
+                Antecedentes patológicos personales
             </label>
             <span class="col-md-8">
                 <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
