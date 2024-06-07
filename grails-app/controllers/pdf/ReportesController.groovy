@@ -1,6 +1,6 @@
 package pdf
 
-import com.itextpdf.text.pdf.PdfPTableFooter
+
 import com.lowagie.text.Document
 import com.lowagie.text.Element
 import com.lowagie.text.Image
@@ -18,7 +18,6 @@ import jxl.write.WritableCellFormat
 import jxl.write.WritableFont
 import jxl.write.WritableSheet
 import jxl.write.WritableWorkbook
-import medico.Diagnostico
 import medico.DiagnosticoxHistorial
 import medico.Historial
 import medico.Tratamiento
@@ -30,6 +29,7 @@ import org.apache.poi.ss.usermodel.*
 import seguridad.Empresa
 import seguridad.Paciente
 import seguridad.Persona
+import medico.NumberToLetterConverter
 
 
 class ReportesController {
@@ -899,6 +899,10 @@ class ReportesController {
             tablaTratamientoDetalles.setWidths(arregloEnteros([5, 41, 8, 5, 41]))
 
             tratamientos.eachWithIndex {p, q->
+
+
+                def numerosALetras = NumberToLetterConverter.convertNumberToLetter(p?.cantidad ?: 0)
+
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.descripcion + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
@@ -906,13 +910,13 @@ class ReportesController {
                 addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.descripcion + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
                 addCellTabla(tablaTratamientoDetalles, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.concentracion, fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.nombre ?: '') + " " + p?.medicina?.concentracion, fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.concentracion, fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.nombre ?: '') + " " + p?.medicina?.concentracion, fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.cantidad?.toString(), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.forma ?: '') + " # " + p?.cantidad?.toString() + " (" + numerosALetras + ")", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.descripcion, fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
@@ -940,7 +944,7 @@ class ReportesController {
         tablaPieDetalles.setTotalWidth(800)
         tablaPieDetalles.setWidths(arregloEnteros([46,8,46]))
 
-        addCellTabla(tablaPieDetalles, new Paragraph("INDICACIONES GENERALES: ${cita?.tratamiento}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE , colspan: 3])
+        addCellTabla(tablaPieDetalles, new Paragraph("INDICACIONES GENERALES: ${cita?.tratamiento ?: ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE , colspan: 3])
 
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
