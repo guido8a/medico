@@ -146,6 +146,25 @@
             </span>
         </div>
 
+        <div class="form-group ${hasErrors(bean: examen, field: 'cabezaCraneo', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-1 control-label text-info">
+                    Cabeza Cráneo
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="cabezaCraneo" maxlength="255" class="form-control" value="${examen?.cabezaCraneo ?: ''}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+                <label class="col-md-1 control-label text-info">
+                    Cabeza Cara
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="cabezaCara" maxlength="255" class="form-control" value="${examen?.cabezaCara ?: ''}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+
         <div class="form-group ${hasErrors(bean: examen, field: 'torax', 'error')} ">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">

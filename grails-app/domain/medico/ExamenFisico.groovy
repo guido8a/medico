@@ -28,6 +28,8 @@ class ExamenFisico {
     int diastole1 = 0
     int sistole2 = 0
     int diastole2 = 0
+    String cabezaCraneo
+    String cabezaCara
 
     static mapping = {
         table 'exfs'
@@ -60,6 +62,8 @@ class ExamenFisico {
             diastole1 column: 'exfstad1'
             sistole2 column: 'exfstas2'
             diastole2 column: 'exfstad2'
+            cabezaCraneo column: 'exfscbcn'
+            cabezaCara column: 'exfscbca'
         }
     }
 
@@ -88,5 +92,7 @@ class ExamenFisico {
         diastole1(blank: true, nullable: true)
         sistole2(blank: true, nullable: true)
         diastole2(blank: true, nullable: true)
+        cabezaCraneo(size: 0..255, blank: true, nullable: true)
+        cabezaCara(size: 0..255, blank: true, nullable: true)
     }
 }
