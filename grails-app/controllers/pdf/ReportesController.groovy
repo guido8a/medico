@@ -811,6 +811,7 @@ class ReportesController {
         com.lowagie.text.Font fontTitulo = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 12, com.lowagie.text.Font.BOLD, titulo);
         com.lowagie.text.Font fontThTiny = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.BOLD);
         com.lowagie.text.Font fontThTiny3 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 9, com.lowagie.text.Font.BOLD);
+        com.lowagie.text.Font fontThTiny4 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 9, com.lowagie.text.Font.NORMAL);
         com.lowagie.text.Font fontThTiny2 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.NORMAL);
         com.lowagie.text.Font times8normal = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL);
 
@@ -877,10 +878,10 @@ class ReportesController {
             addCellTabla(tablaHeaderDetalles, new Paragraph(cita?.paciente?.apellido + " " + cita?.paciente?.nombre + edad , fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
             addCellTabla(tablaHeaderDetalles, new Paragraph("Diagnóstico:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaHeaderDetalles, new Paragraph(diagnosticos, fontThTiny3), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaHeaderDetalles, new Paragraph(diagnosticos, fontThTiny4), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("Diagnóstico:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaHeaderDetalles, new Paragraph(diagnosticos, fontThTiny3), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaHeaderDetalles, new Paragraph(diagnosticos, fontThTiny4), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
             addCellTabla(tablaHeaderDetalles, new Paragraph("Alergias:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph(cita?.paciente?.alergias, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
