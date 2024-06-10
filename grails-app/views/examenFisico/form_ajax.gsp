@@ -127,24 +127,7 @@
 
         <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>
 
-        <div class="form-group ${hasErrors(bean: examen, field: 'cabeza', 'error')} ">
-            <span class="grupo">
-                <label class="col-md-1 control-label text-info">
-                    Cabeza
-                </label>
-                <span class="col-md-5">
-                    <g:textField name="cabeza" maxlength="255" class="form-control" value="${examen?.cabeza ?: 'Normal'}" />
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-                <label class="col-md-1 control-label text-info">
-                    Cuello
-                </label>
-                <span class="col-md-5">
-                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.cuello ?: 'Normal'}" />
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-            </span>
-        </div>
+
 
         <div class="form-group ${hasErrors(bean: examen, field: 'cabezaCraneo', 'error')} ">
             <span class="grupo">
@@ -152,14 +135,33 @@
                     Cabeza Cráneo
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cabezaCraneo" maxlength="255" class="form-control" value="${examen?.cabezaCraneo ?: ''}" />
+                    <g:textField name="cabezaCraneo" maxlength="255" class="form-control" value="${examen?.cabezaCraneo ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info">
                     Cabeza Cara
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cabezaCara" maxlength="255" class="form-control" value="${examen?.cabezaCara ?: ''}" />
+                    <g:textField name="cabezaCara" maxlength="255" class="form-control" value="${examen?.cabezaCara ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: examen, field: 'cuello', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-1 control-label text-info">
+                    Cuello
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.cuello ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+                <label class="col-md-1 control-label text-info" style="text-align: left">
+                    Cardio Pulmonar
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.cardioPulmonar ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -170,15 +172,8 @@
                 <label class="col-md-1 control-label text-info">
                     Torax
                 </label>
-                <span class="col-md-5">
+                <span class="col-md-11">
                     <g:textField name="torax" maxlength="255" class="form-control" value="${examen?.torax ?: 'Normal'}" />
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-                <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Cardio Pulmonar
-                </label>
-                <span class="col-md-5">
-                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.cardioPulmonar ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
