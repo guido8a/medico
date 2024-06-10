@@ -39,12 +39,7 @@
     </table>
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
-        <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-success">Cabeza:</td>
-            <td style="width: 40%; background-color: #b7d6a9">${examen?.cabeza}</td>
-            <td style="width: 10%" class="alert alert-success">Cuello:</td>
-            <td style="width: 40%; background-color: #b7d6a9">${examen?.cuello}</td>
-        </tr>
+
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-success">Cabeza Cráneo:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cabezaCraneo}</td>
@@ -52,10 +47,14 @@
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cabezaCara}</td>
         </tr>
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-success">Tórax:</td>
-            <td style="width: 40%; background-color: #b7d6a9">${examen?.torax}</td>
+            <td style="width: 10%" class="alert alert-success">Cuello:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.cuello}</td>
             <td style="width: 10%" class="alert alert-success">Cardiopulmonar:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cardioPulmonar}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 10%" class="alert alert-success">Tórax:</td>
+            <td style="width: 40%; background-color: #b7d6a9" colspan="3">${examen?.torax}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-success">Abdomen:</td>
