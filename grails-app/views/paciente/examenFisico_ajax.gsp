@@ -41,7 +41,7 @@
         <tbody>
 
         <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-success">Cabeza Cráneo:</td>
+            <td style="width: 11%" class="alert alert-success">Cabeza Cráneo:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cabezaCraneo}</td>
             <td style="width: 10%" class="alert alert-success">Cabeza Cara:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cabezaCara}</td>
