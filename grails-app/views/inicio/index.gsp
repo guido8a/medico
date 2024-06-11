@@ -271,7 +271,7 @@
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
                     <div style="width: 200px; height: 140px; text-align: center">
-                        <asset:image src="apli/conocimiento.png" title="Reportes"  width="80%" height="80%"/>
+                        <asset:image src="apli/biblioteca.png" title="Reportes"  width="80%" height="80%"/>
                         %{--                        <i class="fa fa-book fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
