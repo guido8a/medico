@@ -172,7 +172,7 @@
 %{--                        <i class="fa fa-users fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 220px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Pacientes</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Historia Clínica</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">Datos de los pacientes registrados en el sistema</p>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
 %{--                        <i class="fa fa-medkit fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Medicinas</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Vademecum</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
                         y formas<br>
                         </p>
@@ -219,7 +219,7 @@
                         %{--                        <i class="fa fa-stethoscope fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Diagnósticos</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>CIE-10</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">Clasificación internacional de enfermedades
                         10ª revisión</p>
                     </div>
@@ -251,7 +251,7 @@
                         %{--                        <i class="fa fa-book fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Base de conocimiento</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Guías y Protocolos</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">
                         <ul>
                             <li>
