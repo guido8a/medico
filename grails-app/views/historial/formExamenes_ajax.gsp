@@ -20,7 +20,7 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'examen', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    Descripción del examen
+                    Tipo de examen
                 </label>
                 <span class="col-md-10">
                     <g:select id="examen" name="examen" from="${medico.Examen.list()}" optionKey="id" class="form-control" value="${examen?.examen?.id}"

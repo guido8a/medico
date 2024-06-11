@@ -128,7 +128,7 @@
     </div>
 </div>
 
-<h4>Exámenes de Laboratorio</h4>
+<h4>Exámenes Complementarios</h4>
 
 <div id="divExamenLaboratorio">
 
