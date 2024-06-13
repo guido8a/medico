@@ -6,13 +6,25 @@
     <g:form class="form-horizontal" name="frmExamen" role="form" action="save" method="POST" useToken="true">
         <g:hiddenField name="id" value="${examen?.id}" />
 
+        <div class="form-group ${hasErrors(bean: examen, field: 'tipo', 'error')} ">
+            <span class="grupo">
+                <label for="tipo" class="col-md-2 control-label text-info">
+                    Tipo
+                </label>
+                <span class="col-md-8">
+                    <g:textArea name="tipo" maxlength="255" class="form-control required" value="${examen?.tipo}" style="height: 75px; resize: none"/>
+                </span>
+
+            </span>
+        </div>
+
         <div class="form-group ${hasErrors(bean: examen, field: 'descripcion', 'error')} ">
             <span class="grupo">
                 <label for="descripcion" class="col-md-2 control-label text-info">
                     Descripción
                 </label>
                 <span class="col-md-8">
-                    <g:textArea name="descripcion" maxlength="63" class="form-control required" value="${examen?.descripcion}" style="height: 75px; resize: none"/>
+                    <g:textArea name="descripcion" maxlength="255" class="form-control required" value="${examen?.descripcion}" style="height: 75px; resize: none"/>
                 </span>
 
             </span>

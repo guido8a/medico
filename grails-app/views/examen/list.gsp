@@ -24,6 +24,7 @@
 <table class="table table-condensed table-bordered table-striped">
     <thead>
     <tr>
+        <th>Tipo</th>
         <th>Descripción</th>
         <th>Acciones</th>
     </tr>
@@ -31,6 +32,7 @@
     <tbody>
     <g:each in="${examenes}" status="i" var="examen">
         <tr data-id="${examen.id}">
+            <td>${examen?.tipo}</td>
             <td>${examen?.descripcion}</td>
             <td style="width: 10%; text-align: center">
                 <a href="#" class="btn btn-xs btn-success btnEditarExamen" data-id="${examen?.id}" title="Editar">

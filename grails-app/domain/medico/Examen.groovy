@@ -3,6 +3,7 @@ package medico
 class Examen {
 
     String descripcion
+    String tipo
 
     static mapping = {
         table 'exam'
@@ -12,11 +13,13 @@ class Examen {
         columns {
             id column: 'exam__id'
             descripcion column: 'examdscr'
+            tipo column: 'examtipo'
         }
     }
 
 
     static constraints = {
         descripcion(blank: false, nullable: false, size: 0..255)
+        tipo(blank: false, nullable: false, size: 0..255)
     }
 }
