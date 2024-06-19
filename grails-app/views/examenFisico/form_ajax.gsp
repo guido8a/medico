@@ -123,6 +123,18 @@
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
+
+            <span class="grupo" >
+                <label class="col-md-2 control-label text-info">
+                    Piel y Faneras
+                </label>
+                <span class="col-md-10" style="margin-top: 10px !important;">
+                    <g:textField name="pielFaneras" maxlength="255" class="form-control" value="${examen?.pielFaneras}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+
+
         </div>
 
         <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>
@@ -131,15 +143,18 @@
 
         <div class="form-group ${hasErrors(bean: examen, field: 'cabezaCraneo', 'error')} ">
             <span class="grupo">
+                <label class="col-md-12 control-label text-info" style="text-align: center">
+                    Cabeza
+                </label>
                 <label class="col-md-1 control-label text-info">
-                    Cabeza Cráneo
+                    Cráneo
                 </label>
                 <span class="col-md-5">
                     <g:textField name="cabezaCraneo" maxlength="255" class="form-control" value="${examen?.cabezaCraneo ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info">
-                    Cabeza Cara
+                    Cara
                 </label>
                 <span class="col-md-5">
                     <g:textField name="cabezaCara" maxlength="255" class="form-control" value="${examen?.cabezaCara ?: 'Normal'}" />

@@ -580,4 +580,28 @@ class HistorialController {
         return [historial: cita, paciente: paciente]
     }
 
+    def comentario_ajax(){
+        println("--> " + params)
+        def cita = Historial.get(params.id)
+        return[cita: cita]
+    }
+
+    def formComentario_ajax(){
+        def cita= Historial.get(params.id)
+        return [cita: cita]
+    }
+
+    def saveComentario_ajax(){
+       def cita = Historial.get(params.id)
+
+        cita.comentarioFinal = params.comentarioFinal
+
+        if(!cita.save(flush:true)){
+            println("error al guardar el comentario final " + cita.errors)
+            render "no_Error al guardar el comentario final"
+        }else{
+            render "ok_Guardado correctamente"
+        }
+    }
+
 }

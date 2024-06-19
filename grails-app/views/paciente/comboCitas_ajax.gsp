@@ -5,6 +5,7 @@
     cargarUltimaCita($("#citaSeleccionada option:selected").val());
     cargarBotones($("#citaSeleccionada option:selected").val());
     cargarEstado($("#citaSeleccionada option:selected").val());
+    cargarComentario($("#citaSeleccionada option:selected").val());
 
     $("#citaSeleccionada").change(function () {
         var cita = $(this).val();

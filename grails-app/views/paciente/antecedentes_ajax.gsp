@@ -13,17 +13,6 @@
         </span>
     </div>
 
-    %{--<div class="form-group ${hasErrors(bean: paciente, field: 'antecedentes', 'error')}">--}%
-        %{--<span class="grupo">--}%
-            %{--<label for="antecedentes" class="col-md-2 control-label text-info">--}%
-                %{--Antecedentes personales--}%
-            %{--</label>--}%
-            %{--<span class="col-md-8">--}%
-                %{--<g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>--}%
-            %{--</span>--}%
-        %{--</span>--}%
-    %{--</div>--}%
-
     <div class="form-group ${hasErrors(bean: paciente, field: 'alergias', 'error')}">
         <span class="grupo">
             <label for="alergias" class="col-md-2 control-label text-info">
@@ -34,7 +23,6 @@
             </span>
         </span>
     </div>
-
 
     <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesPatologicosFam', 'error')}">
         <span class="grupo">
@@ -79,29 +67,29 @@
             </span>
         </span>
     </div>
-
-    <div class="form-group ${hasErrors(bean: paciente, field: 'habitosFumador', 'error')}">
-        <span class="grupo">
-            <label for="habitos" class="col-md-2 control-label text-info">
-                Hábitos Fumador
-            </label>
-            <span class="col-md-8">
-                <g:textField name="habitosFumador"  maxlength="255" class="form-control" value="${paciente?.habitosFumador}"/>
+    <g:if test="${!paciente?.nino}">
+        <div class="form-group ${hasErrors(bean: paciente, field: 'habitosFumador', 'error')}">
+            <span class="grupo">
+                <label for="habitos" class="col-md-2 control-label text-info">
+                    Hábitos Fumador
+                </label>
+                <span class="col-md-8">
+                    <g:textField name="habitosFumador"  maxlength="255" class="form-control" value="${paciente?.habitosFumador}"/>
+                </span>
             </span>
-        </span>
-    </div>
+        </div>
 
-    <div class="form-group ${hasErrors(bean: paciente, field: 'habitosTomador', 'error')}">
-        <span class="grupo">
-            <label for="habitos" class="col-md-2 control-label text-info">
-                Hábitos Tomador
-            </label>
-            <span class="col-md-8">
-                <g:textField name="habitosTomador"  maxlength="255" class="form-control" value="${paciente?.habitosTomador}"/>
+        <div class="form-group ${hasErrors(bean: paciente, field: 'habitosTomador', 'error')}">
+            <span class="grupo">
+                <label for="habitos" class="col-md-2 control-label text-info">
+                    Hábitos Tomador
+                </label>
+                <span class="col-md-8">
+                    <g:textField name="habitosTomador"  maxlength="255" class="form-control" value="${paciente?.habitosTomador}"/>
+                </span>
             </span>
-        </span>
-    </div>
-
+        </div>
+    </g:if>
     <div class="form-group ${hasErrors(bean: paciente, field: 'habitos', 'error')}">
         <span class="grupo">
             <label for="habitos" class="col-md-2 control-label text-info">
@@ -112,6 +100,7 @@
             </span>
         </span>
     </div>
+
 
     <g:if test="${paciente?.sexo == 'F'}">
         <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesGinecobstreticos', 'error')}">
