@@ -1,6 +1,10 @@
 <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
     <i class="fas fa-plus"></i> Agendar Cita
 </a>
+<a href="#" class="btn btn-info" id="btnImprimirReceta" title="Imprimir receta de la cita">
+    <i class="fas fa-print"></i> Imprimir receta
+</a>
+
 <g:if test="${cita?.estado == 'A'}">
     <a href="#" class="btn btn-success" id="btnTerminarCita" title="Finalizar la cita" >
         <i class="fas fa-check"></i> Finalizar Cita

@@ -43,9 +43,6 @@
         <a href="#" class="btn btn-success" id="btnCrearCita" title="Nueva cita">
             <i class="fas fa-plus"></i> Crear Cita
         </a>
-        <a href="#" class="btn btn-info" id="btnImprimirReceta" title="Imprimir receta de la cita">
-            <i class="fas fa-print"></i> Imprimir receta
-        </a>
     </div>
 </div>
 

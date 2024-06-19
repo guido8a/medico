@@ -2,16 +2,27 @@
 <g:form class="form-horizontal" name="frmAntecedentes" role="form" controller="paciente" action="savePaciente_ajax" method="POST">
     <g:hiddenField name="id" value="${paciente?.id}" />
 
-    <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentes', 'error')}">
+    <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesOcupacionales', 'error')}">
         <span class="grupo">
-            <label for="antecedentes" class="col-md-2 control-label text-info">
-                Antecedentes personales
+            <label for="antecedentesOcupacionales" class="col-md-2 control-label text-info">
+                Antecedentes patológicos personales
             </label>
             <span class="col-md-8">
-                <g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>
+                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
             </span>
         </span>
     </div>
+
+    %{--<div class="form-group ${hasErrors(bean: paciente, field: 'antecedentes', 'error')}">--}%
+        %{--<span class="grupo">--}%
+            %{--<label for="antecedentes" class="col-md-2 control-label text-info">--}%
+                %{--Antecedentes personales--}%
+            %{--</label>--}%
+            %{--<span class="col-md-8">--}%
+                %{--<g:textArea name="antecedentes" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentes}"/>--}%
+            %{--</span>--}%
+        %{--</span>--}%
+    %{--</div>--}%
 
     <div class="form-group ${hasErrors(bean: paciente, field: 'alergias', 'error')}">
         <span class="grupo">
@@ -24,16 +35,6 @@
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesOcupacionales', 'error')}">
-        <span class="grupo">
-            <label for="antecedentesOcupacionales" class="col-md-2 control-label text-info">
-                Antecedentes patológicos personales
-            </label>
-            <span class="col-md-8">
-                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
-            </span>
-        </span>
-    </div>
 
     <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesPatologicosFam', 'error')}">
         <span class="grupo">
@@ -104,7 +105,7 @@
     <div class="form-group ${hasErrors(bean: paciente, field: 'habitos', 'error')}">
         <span class="grupo">
             <label for="habitos" class="col-md-2 control-label text-info">
-                Hábitos Otros
+                Otros Hábitos
             </label>
             <span class="col-md-8">
                 <g:textField name="habitos"  maxlength="255" class="form-control" value="${paciente?.habitos}"/>
@@ -127,17 +128,6 @@
 
 
     <g:if test="${paciente?.nino}">
-        <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesAntesdeNacer', 'error')}">
-            <span class="grupo">
-                <label for="antecedentesAntesdeNacer" class="col-md-2 control-label text-info">
-                    Vida antenatal
-                </label>
-                <span class="col-md-8">
-                    <g:textField name="antecedentesAntesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesAntesdeNacer}"/>
-                </span>
-            </span>
-        </div>
-
         <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesDespuesdeNacer', 'error')}">
             <span class="grupo">
                 <label for="habitos" class="col-md-2 control-label text-info">
@@ -145,6 +135,17 @@
                 </label>
                 <span class="col-md-8">
                     <g:textField name="antecedentesDespuesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesDespuesdeNacer}"/>
+                </span>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesAntesdeNacer', 'error')}">
+            <span class="grupo">
+                <label for="antecedentesAntesdeNacer" class="col-md-2 control-label text-info">
+                    Vida antenatal
+                </label>
+                <span class="col-md-8">
+                    <g:textField name="antecedentesAntesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesAntesdeNacer}"/>
                 </span>
             </span>
         </div>
