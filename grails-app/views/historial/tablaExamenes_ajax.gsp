@@ -3,10 +3,12 @@
         <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
             <tr style="width: 100%">
-                <th style="width: 10%">Descripción </th>
+                <th style="width: 10%">Grupo </th>
+                <th style="width: 10%">Tipo </th>
+                <th style="width: 15%">Examen </th>
                 <th style="width: 10%">Fecha </th>
-                <th style="width: 25%">Observaciones</th>
-                <th style="width: 25%">Documento asociado</th>
+                <th style="width: 20%">Observaciones</th>
+                <th style="width: 10%">Documento asociado</th>
                 <th style="width:10%">Acciones</th>
             </tr>
             </thead>
@@ -14,15 +16,17 @@
 
             <g:each in="${examenes}" status="i" var="examen">
                 <tr style="width: 100%">
-                    <td style="width: 25%">${examen?.examen?.descripcion}</td>
+                    <td style="width: 10%">${examen?.examen?.tipoExamen?.grupoExamen?.descripcion}</td>
+                    <td style="width: 10%">${examen?.examen?.tipoExamen?. descripcion}</td>
+                    <td style="width: 15%">${examen?.examen?.descripcion}</td>
                     <td style="width: 10%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
-                    <td style="width: 25%">${examen?.observaciones}</td>
+                    <td style="width: 20%">${examen?.observaciones}</td>
                     <td style="width: 10%">
                         <g:if test="${examen?.path}">
                             ${examen?.path}
                         </g:if>
                     </td>
-                    <td style="width:20%">
+                    <td style="width:10%">
                         <a class="btn btn-success btn-xs btnEditarExamenLaboratorio btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${examen.id}">
                             <i class="fa fa-edit"></i>
                         </a>

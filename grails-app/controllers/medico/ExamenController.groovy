@@ -40,7 +40,6 @@ class ExamenController {
     }
 
     def delete_ajax(){
-
         def examen = Examen.get(params.id)
 
         try{
@@ -50,8 +49,22 @@ class ExamenController {
             render "no_Error al borrar"
             println("error al borrar el examen")
         }
-
     }
+
+    def tipoExamen_ajax(){
+        def grupo = GrupoExamen.get(params.grupo)
+        def tipos = TipoExamen.findAllByGrupoExamen(grupo)
+        def examen = ExamenComplementario.get(params.examen)
+        return [tipos:tipos, examenComplementario: examen]
+    }
+
+    def examen_ajax(){
+        def tipo = TipoExamen.get(params.tipo)
+        def examenes = Examen.findAllByTipoExamen(tipo)
+        def examen = ExamenComplementario.get(params.examen)
+        return [examenes:examenes, examenComplementario: examen]
+    }
+
 
 
 }

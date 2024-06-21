@@ -17,17 +17,21 @@
             </span>
         </div>
 
-        <div class="form-group ${hasErrors(bean: examen, field: 'examen', 'error')} ">
+        <div class="form-group ${hasErrors(bean: examen, field: 'grupoExamen', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    Tipo de examen
+                    Grupo de examen
                 </label>
                 <span class="col-md-10">
-                    <g:select id="examen" name="examen" from="${medico.Examen.list()}" optionKey="id" class="form-control" value="${examen?.examen?.id}"
+                    <g:select name="grupoExamen" from="${medico.GrupoExamen.list().sort{it.descripcion}}" optionKey="id" class="form-control" value="${examen?.examen?.tipoExamen?.grupoExamen?.id}"
                               optionValue="descripcion"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
+        </div>
+
+        <div id="divTipoExamen">
+
         </div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
@@ -41,30 +45,32 @@
                 </span>
             </span>
         </div>
-
-%{--        <div class="form-group ${hasErrors(bean: examen, field: 'path', 'error')} ">--}%
-%{--            <span class="grupo">--}%
-%{--                <label class="col-md-2 control-label text-info">--}%
-%{--                    Archivo--}%
-%{--                </label>--}%
-%{--                <span class="col-md-8">--}%
-%{--                    <g:if test="${examen?.path}">--}%
-%{--                        <span class="text-success">--}%
-%{--                            ${examen?.path ? examen?.path : 'No se encuentra cargado ningún archivo' }--}%
-%{--                        </span>--}%
-%{--                    </g:if>--}%
-%{--                    <g:else>--}%
-%{--                        <input type="file" id="file" name="file" multiple accept=".jpeg, .jpg, .png, pdf"/>--}%
-%{--                    </g:else>--}%
-%{--                    <p class="help-block ui-helper-hidden"></p>--}%
-%{--                </span>--}%
-%{--            </span>--}%
-%{--        </div>--}%
-
     </g:uploadForm>
 </div>
 
 <script type="text/javascript">
+
+    cargarTipoExamen($("#grupoExamen option:selected").val())
+
+    $("#grupoExamen").change(function () {
+        var grupo = $(this).val();
+        cargarTipoExamen(grupo);
+    });
+
+    function cargarTipoExamen(grupo){
+        var examen = '${examen?.id}'
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'examen', action: 'tipoExamen_ajax')}',
+            data:{
+                grupo: grupo,
+                examen: examen
+            },
+            success: function (msg){
+                $("#divTipoExamen").html(msg)
+            }
+        })
+    }
 
     $('#fechaExamen').datetimepicker({
         locale: 'es',
