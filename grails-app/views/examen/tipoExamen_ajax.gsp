@@ -1,9 +1,9 @@
 <div class="form-group">
     <span class="grupo">
-        <label class="col-md-2 control-label text-info">
+        <label class="col-md-1 control-label text-info">
             Tipo de examen
         </label>
-        <span class="col-md-10">
+        <span class="col-md-4">
             <g:select name="tipoExamen" from="${tipos}" optionKey="id" class="form-control" value="${examenComplementario?.examen?.tipoExamen?.id}"
                       optionValue="descripcion"/>
             <p class="help-block ui-helper-hidden"></p>
@@ -38,6 +38,5 @@
             }
         })
     }
-
 
 </script>

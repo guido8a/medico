@@ -70,6 +70,7 @@
                 var b = bootbox.dialog({
                     id      : "dlgCreateEditExamen",
                     title   : title + " Examen",
+                    class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {

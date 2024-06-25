@@ -11,7 +11,7 @@
                     Fecha
                 </label>
                 <span class="col-md-4">
-                    <input aria-label="" name="fechaExamen" id='fechaExamen' type='text' class="form-control" value="${examen?.fecha?.format("dd-MM-yyyy")}" />
+                    <input aria-label="" name="fechaExamen" id='fechaExamen' type='text' class="form-control" value="${examen?.fecha?.format("dd-MM-yyyy") ?: new Date()?.format("dd-MM-yyyy")}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -22,16 +22,16 @@
                 <label class="col-md-2 control-label text-info">
                     Grupo de examen
                 </label>
-                <span class="col-md-10">
+                <span class="col-md-4">
                     <g:select name="grupoExamen" from="${medico.GrupoExamen.list().sort{it.descripcion}}" optionKey="id" class="form-control" value="${examen?.examen?.tipoExamen?.grupoExamen?.id}"
                               optionValue="descripcion"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
+
+                <div id="divTipoExamen">
+
+                </div>
             </span>
-        </div>
-
-        <div id="divTipoExamen">
-
         </div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
