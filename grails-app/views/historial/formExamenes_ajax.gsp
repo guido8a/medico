@@ -23,7 +23,7 @@
                     Grupo de examen
                 </label>
                 <span class="col-md-4">
-                    <g:select name="grupoExamen" from="${medico.GrupoExamen.list().sort{it.descripcion}}" optionKey="id" class="form-control" value="${examen?.examen?.tipoExamen?.grupoExamen?.id}"
+                    <g:select name="grupoExamen" from="${medico.GrupoExamen.list().sort{it.descripcion}}" optionKey="id" class="form-control" value="${examen?.tipoExamen?.grupoExamen?.id}"
                               optionValue="descripcion"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>

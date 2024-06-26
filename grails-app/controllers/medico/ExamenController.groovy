@@ -62,10 +62,8 @@ class ExamenController {
         def tipo = TipoExamen.get(params.tipo)
         def examenes = Examen.findAllByTipoExamen(tipo)
         def examen = ExamenComplementario.get(params.examen)
-        def examenesChequeos = DetalleExamen.findAllByExamenComplementario(examen)
-        return [examenes:examenes, examenComplementario: examen, chequeados: examenesChequeos]
+        def chequeados = DetalleExamen.findAllByExamenComplementario(examen)
+
+        return [examenes:examenes, examenComplementario: examen, chequeados: chequeados?.examen]
     }
-
-
-
 }

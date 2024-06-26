@@ -4,7 +4,7 @@
             Tipo de examen
         </label>
         <span class="col-md-4">
-            <g:select name="tipoExamen" from="${tipos}" optionKey="id" class="form-control" value="${examenComplementario?.examen?.tipoExamen?.id}"
+            <g:select name="tipoExamen" from="${tipos}" optionKey="id" class="form-control" value="${examenComplementario?.tipoExamen?.id}"
                       optionValue="descripcion"/>
             <p class="help-block ui-helper-hidden"></p>
         </span>
@@ -25,7 +25,7 @@
     });
 
     function cargarExamen(tipo){
-        var examen = '${examen?.id}'
+        var examen = '${examenComplementario?.id}'
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'examen', action: 'examen_ajax')}',

@@ -10,7 +10,7 @@
                     <g:each in="${examenes}" status="i" var="examen">
                         <tr style="width: 100%">
                             <td>
-                                <g:checkBox class="examen_${examen?.id}" name="ex_${examen?.id}" checked="${'false'}"/> ${examen?.descripcion}
+                                <g:checkBox class="c1" name="c2_${examen?.id}" checked="${chequeados?.contains(examen) ? 'true' : 'false'}"/> ${examen?.descripcion}
                             </td>
                         </tr>
                     </g:each>

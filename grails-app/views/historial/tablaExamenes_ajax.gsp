@@ -5,7 +5,7 @@
             <tr style="width: 100%">
                 <th style="width: 10%">Grupo </th>
                 <th style="width: 10%">Tipo </th>
-                <th style="width: 15%">Examen </th>
+%{--                <th style="width: 15%">Examen </th>--}%
                 <th style="width: 10%">Fecha </th>
                 <th style="width: 20%">Observaciones</th>
                 <th style="width: 10%">Documento asociado</th>
@@ -16,9 +16,9 @@
 
             <g:each in="${examenes}" status="i" var="examen">
                 <tr style="width: 100%">
-                    <td style="width: 10%">${examen?.examen?.tipoExamen?.grupoExamen?.descripcion}</td>
-                    <td style="width: 10%">${examen?.examen?.tipoExamen?. descripcion}</td>
-                    <td style="width: 15%">${examen?.examen?.descripcion}</td>
+                    <td style="width: 10%">${examen?.tipoExamen?.grupoExamen?.descripcion}</td>
+                    <td style="width: 10%">${examen?.tipoExamen?.descripcion}</td>
+%{--                    <td style="width: 15%">${examen?.examen?.descripcion}</td>--}%
                     <td style="width: 10%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
                     <td style="width: 20%">${examen?.observaciones}</td>
                     <td style="width: 10%">

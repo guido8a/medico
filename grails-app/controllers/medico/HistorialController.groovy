@@ -264,6 +264,19 @@ class HistorialController {
 
     def saveExamen_ajax(){
         println("params save examen" + params)
+
+        def examenesChequeados = []
+
+        params.each{
+//            println("k " + it.key + "--- " + it.value)
+            if(it.value == 'on'){
+                println("ck " + it.key)
+                def s = it.key.split("_")[1]
+                examenesChequeados += s
+            }
+        }
+
+
         def historial = Historial.get(params.historial)
         def examen
         if (params.id) {
@@ -279,72 +292,37 @@ class HistorialController {
 
         examen.properties = params
 
-//        /***************** file upload ************************************************/
-//
-//
-//
-//            def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/"
-//            new File(path).mkdirs()
-//            def f = request.getFile('file')  //archivo = name del input type file
-//
-//        if(!f && examen?.path){
-//
-//        }else{
-//            if (f && !f.empty) {
-//                def fileName = f.getOriginalFilename() //nombre original del archivo
-//
-//                def accepted = ["jpg", 'png', "jpeg", "pdf"]
-//                def ext = ''
-//
-//                def parts = fileName.split("\\.")
-//                fileName = ""
-//                parts.eachWithIndex { obj, i ->
-//                    if (i < parts.size() - 1) {
-//                        fileName += obj
-//                    } else {
-//                        ext = obj
-//                    }
-//                }
-//
-//                ext = ext.toLowerCase()
-//                if (!accepted.contains(ext)) {
-//                    render "err_El archivo tiene que ser de tipo jpg, png, jpeg o pdf"
-//                    return
-//                }
-//
-//                fileName = fileName.tr(/áéíóúñÑÜüÁÉÍÓÚàèìòùÀÈÌÒÙÇç .!¡¿?&#°"'/, "aeiounNUuAEIOUaeiouAEIOUCc_")
-//                def archivo = fileName
-//                fileName = fileName + "." + ext
-//
-//                def i = 0
-//                def pathFile = path + File.separatorChar + fileName
-//                def src = new File(pathFile)
-//
-//                while (src.exists()) { // verifica si existe un archivo con el mismo nombre
-//                    fileName = archivo + "_" + i + "." + ext
-//                    pathFile = path + File.separatorChar + fileName
-//                    src = new File(pathFile)
-//                    i++
-//                }
-//
-//                f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
-//                examen.path = fileName
-//            }
-////            else{
-////                render "err_Error al guardar el documento. No se ha cargado ningún archivo!"
-////                return
-////            }
-////        }
-//
-//            /***************** file upload ************************************************/
-//
-
-
         if (!examen.save(flush: true)) {
             println("Error al guardar el examen" +  examen.errors)
             render "no_Error al guardar el examen"
         }else{
-            render "ok_Examen guardado correctamente"
+
+            if(examenesChequeados.size() > 0){
+
+                def examenesExistentes = DetalleExamen.findAllByExamenComplementario(examen)
+
+                if(examenesExistentes.size() > 0) {
+                    examenesExistentes.each{
+                        it.delete(flush:true)
+                    }
+                }
+
+                examenesChequeados.each{
+                    def registroExamen = Examen.get(it)
+                    def nuevoExamen = new DetalleExamen()
+                    nuevoExamen.examen = registroExamen
+                    nuevoExamen.examenComplementario = examen
+
+                   if(!nuevoExamen.save(flush:true)){
+                       println("error al guardar el examen " + nuevoExamen.errors)
+                       render "no_Error al guardar el examen"
+                   }else{
+                       render "ok_Examen guardado correctamente"
+                   }
+                }
+            }else{
+                render "ok_Examen guardado correctamente"
+            }
         }
     }
 
@@ -581,7 +559,6 @@ class HistorialController {
     }
 
     def comentario_ajax(){
-        println("--> " + params)
         def cita = Historial.get(params.id)
         return[cita: cita]
     }

@@ -2,7 +2,7 @@ package medico
 
 class ExamenComplementario {
 
-    Examen examen
+    TipoExamen tipoExamen
     Historial historial
     Date fecha
     String path
@@ -15,7 +15,7 @@ class ExamenComplementario {
         id generator: 'identity'
         columns {
             id column: 'excm__id'
-            examen column: 'exam__id'
+            tipoExamen column: 'tpex__id'
             historial column: 'hscl__id'
             fecha column: 'excmfcha'
             path column: 'excmpath'
@@ -25,7 +25,7 @@ class ExamenComplementario {
 
 
     static constraints = {
-        examen(blank: false, nullable: false)
+        tipoExamen(blank: false, nullable: false)
         historial(blank: false, nullable: false)
         fecha(blank: true, nullable: true)
         path(blank: true, nullable: true, size: 0..255)
