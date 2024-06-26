@@ -1,15 +1,27 @@
+
+<style>
+
+.wrap {
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+</style>
+
 <div class="form-group">
     <span class="grupo">
         <label class="col-md-2 control-label text-info">
             Exámenes
         </label>
         <g:if test="${examenes.size() > 0}">
-            <span class="col-md-8" style=" border-style: solid; border-color: #AAA; border-width: 2px; margin-left: 25px">
-                <table>
-                    <tbody >
+            <span class="col-md-9" style=" border-style: solid; border-color: #AAA; border-width: 2px; height: 320px; overflow-y: auto; margin-left: 25px">
+                <table style="width: 100%">
+                    <tbody class="wrap">
                     <g:each in="${examenes}" status="i" var="examen">
-                        <tr style="width: 100%">
-                            <td>
+                        <tr style="max-width: 50%">
+                            <td >
                                 <g:checkBox class="c1" name="c2_${examen?.id}" checked="${chequeados?.contains(examen) ? 'true' : 'false'}"/> ${examen?.descripcion}
                             </td>
                         </tr>
