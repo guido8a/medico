@@ -66,4 +66,9 @@ class ExamenController {
 
         return [examenes:examenes, examenComplementario: examen, chequeados: chequeados?.examen]
     }
+
+    def prueba() {
+
+    }
+
 }

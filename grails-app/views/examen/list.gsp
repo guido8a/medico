@@ -32,7 +32,8 @@
     <tbody>
     <g:each in="${examenes}" status="i" var="examen">
         <tr data-id="${examen.id}">
-            <td>${examen?.tipo}</td>
+            <td>${examen?.tipoExamen.grupoExamen.descripcion}</td>
+            <td>${examen?.tipoExamen.descripcion}</td>
             <td>${examen?.descripcion}</td>
             <td style="width: 10%; text-align: center">
                 <a href="#" class="btn btn-xs btn-success btnEditarExamen" data-id="${examen?.id}" title="Editar">

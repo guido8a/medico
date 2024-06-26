@@ -158,7 +158,7 @@
 
     <div style="text-align: center;margin-bottom: 50px"><h2 class="titl">
         %{--            <p class="text-warning">${inst.institucion}</p>--}%
-        <p class="text-warning">Sistema de Ayuda Médica</p>
+        <p class="text-warning">SALIS HEALTH SYSTEM</p>
     </h2>
     </div>
 
