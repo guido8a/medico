@@ -1,5 +1,9 @@
 package medico
 
+import seguridad.Empresa
+
+import javax.imageio.ImageIO
+
 class ExamenController {
 
     def list(){
@@ -70,5 +74,22 @@ class ExamenController {
     def prueba() {
 
     }
+
+    def getImage() {
+        byte[] imageInBytes = im()
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/${'png'}" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] im() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        ImageIO.write(ImageIO.read(new File("/var/medico/estadistica.png")), 'png'.toString(), baos)
+        baos.toByteArray()
+    }
+
 
 }

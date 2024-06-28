@@ -21,7 +21,9 @@
     </div>
 </div>
 
-Camvas para cargar la imagen
+%{--<img src="${createLink(controller: "examen", action: "getImage")}" style="margin-top: 10px"/>--}%
+
+Canvas para cargar la imagen
 <canvas id="myCanvas" width="800" height="600"></canvas>
 
 
@@ -46,7 +48,9 @@ Camvas para cargar la imagen
         const ctx = canvas.getContext('2d');
         const image = new Image();
 
-        image.src = 'https://escueladelamemoria.com/wp-content/uploads/2016/11/examen2.jpg'; // Reemplaza con la ruta de tu imagen
+        // image.src = 'https://escueladelamemoria.com/wp-content/uploads/2016/11/examen2.jpg'; // Reemplaza con la ruta de tu imagen
+
+        image.src = "${createLink(controller: "examen", action: "getImage")}"
 
         image.onload = function() {
             // Dibujar la imagen en el canvas
