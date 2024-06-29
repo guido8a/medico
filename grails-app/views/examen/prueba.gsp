@@ -24,7 +24,7 @@
 %{--<img src="${createLink(controller: "examen", action: "getImage")}" style="margin-top: 10px"/>--}%
 
 Canvas para cargar la imagen
-<canvas id="myCanvas" width="800" height="600"></canvas>
+<canvas id="myCanvas" width="800" height="1200"></canvas>
 
 
 <script type="text/javascript">
@@ -50,6 +50,7 @@ Canvas para cargar la imagen
 
         // image.src = 'https://escueladelamemoria.com/wp-content/uploads/2016/11/examen2.jpg'; // Reemplaza con la ruta de tu imagen
 
+        %{--image.src="${request.contextPath}/principal/getImgnProd?ruta=levis1.png&tp=v&id=0"/>--}%
         image.src = "${createLink(controller: "examen", action: "getImage")}"
 
         image.onload = function() {
@@ -57,9 +58,8 @@ Canvas para cargar la imagen
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
             // Dibujar las marcas
-            drawMark(ctx, 100, 100, "Marca 1");
-            drawMark(ctx, 200, 200, "Marca 2");
-            drawMark(ctx, 300, 300, "Marca 3");
+            drawMark(ctx, 250, 570, "Marca 1");
+            drawMark(ctx, 250, 950, "Marca 2");
         };
 
         function drawMark(ctx, x, y, text) {

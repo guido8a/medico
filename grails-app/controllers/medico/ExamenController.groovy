@@ -3,8 +3,12 @@ package medico
 import seguridad.Empresa
 
 import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 
 class ExamenController {
+
+    def ancho = 0
+    def alto = 0
 
     def list(){
         def examenes = Examen.list().sort{it.descripcion}
@@ -77,6 +81,8 @@ class ExamenController {
 
     def getImage() {
         byte[] imageInBytes = im()
+        params.ancho = ancho
+        params.alto = alto
         response.with{
             setHeader('Content-length', imageInBytes.length.toString())
             contentType = "image/${'png'}" // or the appropriate image content type
@@ -85,9 +91,33 @@ class ExamenController {
         }
     }
 
+    def gettamano() {
+        def data = "${ancho}_${alto}"
+        response.with{
+            setHeader('Content-length', data.size())
+            contentType = "text" // or the appropriate image content type
+            outputStream << data
+            outputStream.flush()
+        }
+    }
+
     byte[] im() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        ImageIO.write(ImageIO.read(new File("/var/medico/estadistica.png")), 'png'.toString(), baos)
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+//        ImageIO.write(ImageIO.read(new File("/var/medico/ninos2a20.png")), 'png'.toString(), baos)
+//        baos.toByteArray()
+
+
+        def path = "/var/medico/ninos2a20.png"
+        BufferedImage imagen = ImageIO.read(new File(path));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        def fileext = path.substring(path.indexOf(".")+1, path.length())
+        ancho = imagen.getWidth()
+        alto = imagen.getHeight()
+        ImageIO.write( imagen, fileext, baos );
+        baos.flush();
+
+        params.ancho = ancho
         baos.toByteArray()
     }
 
