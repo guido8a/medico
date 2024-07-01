@@ -53,6 +53,7 @@ Canvas para cargar la imagen
         %{--image.src="${request.contextPath}/principal/getImgnProd?ruta=levis1.png&tp=v&id=0"/>--}%
         image.src = "${createLink(controller: "examen", action: "getImage")}"
 
+        console.log('ancho', "${ancho}")
         image.onload = function() {
             // Dibujar la imagen en el canvas
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);

@@ -27,8 +27,7 @@ class ExamenController {
         return[examen: examen]
     }
 
-
-    def save_ajax(){
+def save_ajax(){
         def examen
 
         if(params.id){
@@ -76,7 +75,7 @@ class ExamenController {
     }
 
     def prueba() {
-
+        [ancho: 800, alto:1200]
     }
 
     def getImage() {
