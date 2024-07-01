@@ -59,26 +59,42 @@ Canvas para cargar la imagen
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
             // Dibujar las marcas
-            drawMark(ctx, 250, 570, "Marca 1");
-            drawMark(ctx, 250, 950, "Marca 2");
+//            drawMark(ctx, 108, 83, "Tope");
+//            drawMark(ctx, 108, 1027, "Origen");
+//            drawMark(ctx, 108, 1027, "Origen");
+//            drawMark(ctx, 108, 997, "Origen");
+//            drawMark(ctx, 108, 841, "Origen2");
+//            drawMark(ctx, 108, 810, "Origen3");
+//            drawMark(ctx, 690, 1053, "Final");
+
+            drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");
+            drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");
+            texto(ctx, 350, 260, "${data.exfs_imc}");
         };
 
         function drawMark(ctx, x, y, text) {
             // Configurar estilo de la marca
-            ctx.fillStyle = '#f08080';
+            ctx.fillStyle = '#80d080';
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
 
             // Dibujar círculo
             ctx.beginPath();
-            ctx.arc(x, y, 10, 0, Math.PI * 2);
+            ctx.arc(x, y, 7, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
 
             // Dibujar texto
-            ctx.fillStyle = '#4080d0';
+            ctx.fillStyle = '#003070';
+            ctx.font = '600 18px Arial';
+            ctx.fillText(text, x + 11, y + 7);
+        }
+
+        function texto(ctx, x, y, text) {
+            // Dibujar texto
+            ctx.fillStyle = '#003070';
             ctx.font = '900 18px Arial';
-            ctx.fillText(text, x + 15, y + 5);
+            ctx.fillText(text, x, y);
         }
     });
 </script>
