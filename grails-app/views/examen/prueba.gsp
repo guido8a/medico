@@ -25,6 +25,7 @@
 
 Canvas para cargar la imagen
 <canvas id="myCanvas" width="800" height="1200"></canvas>
+%{--<canvas id="myCanvas" width="1597" height="2013"></canvas>--}%
 
 
 <script type="text/javascript">
