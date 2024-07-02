@@ -97,9 +97,18 @@
         createEditRowExamenFisico();
     });
 
-
     $("#btnGraficoNinia").click(function() {
-        graficoNina();
+        var cita = '${cita?.id}'
+        var examen = '${examen?.id}'
+        if(cita){
+            if(examen){
+                graficoNina();
+            }else{
+                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ingrese los datos del examen físico" + '</strong>');
+            }
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     })
 
 </script>

@@ -1,23 +1,12 @@
+<div style="height: 700px; overflow: auto">
+    <canvas id="myCanvas" width="800" height="1200"></canvas>
+</div>
 
-<canvas id="myCanvas" width="800" height="1200"></canvas>
+%{--<canvas id="myCanvas" width="400" height="400"></canvas>--}%
 
 <script type="text/javascript">
-    $(".btnCrear").click(function() {
-        createEditRow();
-        return false;
-    });
 
-    $(".btnEditarExamen").click(function () {
-        var id = $(this).data("id");
-        createEditRow(id);
-    });
-
-    $(".btnEliminarExamen").click(function () {
-        var id = $(this).data("id");
-        deleteRow(id);
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
+    // document.addEventListener("DOMContentLoaded", function() {
         const canvas = document.getElementById('myCanvas');
         const ctx = canvas.getContext('2d');
         const image = new Image();
@@ -67,7 +56,7 @@
             ctx.font = '900 18px Arial';
             ctx.fillText(text, x, y);
         }
-    });
+    // });
 </script>
 
 </body>

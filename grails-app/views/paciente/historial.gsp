@@ -488,13 +488,15 @@
 
     function graficoNina() {
         var paciente = '${paciente?.id}';
+        var g = cargarLoader("Cargando...");
         $.ajax({
             type    : "POST",
-            url: "${createLink(controller: 'paciente', action:'graficoNina_ajax')}",
+            url: "${createLink(controller: 'examen', action:'graficoNina_ajax')}",
             data    : {
                 paciente: paciente
             },
             success : function (msg) {
+                g.modal("hide");
                 var b = bootbox.dialog({
                     id      : "dlgFraficoNina",
                     title   : "Gráfico Estadístico",

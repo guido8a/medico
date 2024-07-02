@@ -99,9 +99,6 @@ def save_ajax(){
     }
 
     def getImage() {
-//        byte[] imageInBytes = im()
-//        params.ancho = ancho
-//        params.alto = alto
         response.with{
             setHeader('Content-length', imagenBytes.length.toString())
             contentType = "image/${'png'}" // or the appropriate image content type
@@ -124,6 +121,28 @@ def save_ajax(){
 
         params.ancho = ancho
         baos.toByteArray()
+    }
+
+    def graficoNina_ajax(){
+        def paciente = Paciente.get(params.paciente)
+
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select exfspeso, exfstlla * 100 exfstlla, exfs_imc from exfs, hscl where pcnt__id = ${id} and " +
+                "exfs.hscl__id = hscl.hscl__id and exfsfcha = (select max(exfsfcha) from exfs, hscl " +
+                "where pcnt__id = ${id} and exfs.hscl__id = hscl.hscl__id)"
+        def data = cn.rows(sql.toString())[0]
+        println "--> $data , edad: $edad"
+
+        edad = (690-108)/18 * (edad - 2) + 108
+        data.exfstlla = Math.floor( (841 - (data.exfstlla - 75.0) / 5 * 31) )
+
+        data.exfspeso = Math.round( 1028 - (data.exfspeso - 10 ) / 5 * 31 )
+        println "*--> $data , edad: $edad"
+        imagenBytes = im()
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data]
     }
 
 
