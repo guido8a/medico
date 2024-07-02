@@ -184,7 +184,8 @@
             type: 'POST',
             url: '${createLink(controller: 'paciente', action: 'botones_ajax')}',
             data:{
-                id: cita
+                id: cita,
+                paciente: '${paciente?.id}'
             },
             success: function (msg){
                 $("#divBotones").html(msg)
@@ -483,6 +484,33 @@
                 $("#comentario").html(msg)
             }
         })
+    }
+
+    function graficoNina() {
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'paciente', action:'graficoNina_ajax')}",
+            data    : {
+                paciente: paciente
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgFraficoNina",
+                    title   : "Gráfico Estadístico",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cerrar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
     }
 
 </script>

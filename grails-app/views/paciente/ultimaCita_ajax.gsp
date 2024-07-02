@@ -217,7 +217,8 @@
             type: 'POST',
             url: '${createLink(controller: 'paciente', action: 'examenFisico_ajax')}',
             data:{
-                id: cita
+                id: cita,
+                paciente: '${paciente?.id}'
             },
             success: function (msg){
                 d.modal("hide");

@@ -335,7 +335,8 @@ class PacienteController {
     def examenFisico_ajax(){
         def cita = Historial.get(params.id)
         def examen = ExamenFisico.findByHistorial(cita)
-        return[examen: examen]
+        def paciente = Paciente.get(params.paciente)
+        return[examen: examen, paciente: paciente]
     }
 
     def tablaAntecedentes_ajax() {
@@ -396,7 +397,8 @@ class PacienteController {
 
     def botones_ajax(){
         def cita = Historial.get(params.id)
-        return [cita: cita]
+        def paciente = Paciente.get(params.paciente)
+        return [cita: cita, paciente: paciente]
     }
 
     def finalizarCita_ajax(){
@@ -417,5 +419,25 @@ class PacienteController {
         return [cita: cita]
     }
 
+    def graficoNina_ajax(){
+        def paciente = Paciente.get(params.paciente)
 
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select exfspeso, exfstlla * 100 exfstlla, exfs_imc from exfs, hscl where pcnt__id = ${id} and " +
+                "exfs.hscl__id = hscl.hscl__id and exfsfcha = (select max(exfsfcha) from exfs, hscl " +
+                "where pcnt__id = 4 and exfs.hscl__id = hscl.hscl__id)"
+        def data = cn.rows(sql.toString())[0]
+        println "--> $data , edad: $edad"
+
+        edad = (690-108)/18 * (edad - 2) + 108
+        data.exfstlla = Math.floor( (841 - (data.exfstlla - 75.0) / 5 * 31) )
+
+        data.exfspeso = Math.round( 1028 - (data.exfspeso - 10 ) / 5 * 31 )
+        println "*--> $data , edad: $edad"
+        imagenBytes = im()
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data]
+    }
 }

@@ -3,6 +3,14 @@
        title="Editar los datos del examen físico">
         <i class="fas fa-edit"></i>
     </a>
+
+    <g:if test="${paciente?.getNinoNina() == 'Niña'}">
+        <a href="#" class="btn btn-success col-md-12" id="btnGraficoNinia" title="Gráfico estadístico" style="margin-top: 5px">
+            <i class="fas fa-image"></i>
+        </a>
+    </g:if>
+
+
 </div>
 
 <div style="width:96%; float: left">
@@ -86,7 +94,12 @@
 
 <script type="text/javascript">
     $("#btnEditaExamenFisico").click(function () {
-//        var cita = $("#citaSeleccionada option:selected").val();
         createEditRowExamenFisico();
     });
+
+
+    $("#btnGraficoNinia").click(function() {
+        graficoNina();
+    })
+
 </script>
