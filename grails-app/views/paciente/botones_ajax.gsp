@@ -28,4 +28,10 @@
         location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${cita?.paciente?.id}'
     });
 
+    $("#btnImprimirReceta").click(function () {
+        var cita = $("#citaSeleccionada option:selected").val();
+        openLoader("Cargando...");
+        location.href = "${g.createLink(controller:'reportes', action: 'receta')}?cita=" + cita
+    });
+
 </script>

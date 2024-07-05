@@ -154,11 +154,7 @@
         });
     }
 
-    $("#btnImprimirReceta").click(function () {
-        var cita = $("#citaSeleccionada option:selected").val();
-        openLoader("Cargando...");
-        location.href = "${g.createLink(controller:'reportes', action: 'receta')}?cita=" + cita
-    });
+
 
     cargarComboCita($("#citaSeleccionada option:selected").val());
 
