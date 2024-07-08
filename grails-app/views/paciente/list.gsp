@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -7,6 +6,7 @@
         Lista de Pacientes
     </title>
 </head>
+
 <body>
 
 <div class="row" style="margin-bottom: 10px">
@@ -23,34 +23,53 @@
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
-                <span class="col-md-2">
-                    <label class="control-label text-info">Consultorio</label>
-                    <g:select name="empresa" class="empresa col-md-12 form-control" from="${seguridad.Empresa.list().sort{it.nombre}}" noSelection="[0: 'Todos']" value="${empresa ? empresa?.id : 0}" optionKey="id"
-                              optionValue="nombre"/>
-                </span>
-                <span class="col-md-2">
-                    <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Cédula', 2: 'Apellido', 3: 'Nombre']}" optionKey="key"
-                              optionValue="value"/>
-                </span>
-                <span class="col-md-2">
-                    <label class="control-label text-info">Criterio</label>
-                    <g:textField name="criterio" id="criterio" class="form-control"/>
-                </span>
-            </span>
-            <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-info" id="btnBuscarEmpresa"><i class="fa fa-search"></i></button>
-            </div>
-            <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
-            </div>
-        </div>
-    </fieldset>
+                %{--<span class="col-md-2">--}%
+                %{--<label class="control-label text-info">Consultorio</label>--}%
+                %{--<g:select name="empresa" class="empresa col-md-12 form-control" from="${seguridad.Empresa.list().sort{it.nombre}}" noSelection="[0: 'Todos']" value="${empresa ? empresa?.id : 0}" optionKey="id"--}%
+                %{--optionValue="nombre"/>--}%
+                %{--</span>--}%
+                <div class="row">
+                    <div class="col-md-1">
+                        <label class="control-label text-info">Buscar Por</label>
+                    </div>
 
-    <fieldset class="borde" style="border-radius: 4px">
-        <div id="divTablaPacientes" >
+                    <div class="col-md-2">
+                        <g:select name="buscarPor" class="buscarPor col-md-12 form-control"
+                                  from="${[1: 'Cédula', 2: 'Apellido', 3: 'Nombre']}" optionKey="key"
+                                  optionValue="value"/>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label class="control-label text-info">Criterio</label>
+                    </div>
+
+                    <div class="col-md-2">
+                        <g:textField name="criterio" id="criterio" class="form-control"/>
+                    </div>
+
+                    <div class="col-md-2" style="margin-top: 0px">
+                        <button class="btn btn-info" id="btnBuscarEmpresa"><i class="fa fa-search"></i> Buscar paciente
+                        </button>
+                    </div>
+
+                    <div class="col-md-1" style="margin-top: 0px; margin-left: -67px">
+                        <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i
+                                class="fa fa-eraser"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </span>
+
         </div>
-    </fieldset>
+
+</div>
+</fieldset>
+
+<fieldset class="borde" style="border-radius: 4px">
+    <div id="divTablaPacientes">
+    </div>
+</fieldset>
 </div>
 
 
@@ -62,7 +81,7 @@
         crearPaciente();
     });
 
-    $("#btnLimpiar").click(function  () {
+    $("#btnLimpiar").click(function () {
         $("#buscarPor").val(1);
         $("#criterio").val('');
         $("#empresa").val(0);
@@ -91,12 +110,12 @@
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'paciente', action: 'tablaPacientes_ajax')}',
-            data:{
+            data: {
                 buscarPor: buscarPor,
                 criterio: criterio,
                 empresa: empresa
             },
-            success: function (msg){
+            success: function (msg) {
                 d.modal("hide");
                 $("#divTablaPacientes").html(msg)
             }
@@ -172,34 +191,34 @@
 
     function deleteRow(itemId) {
         bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este paciente? Esta acción no se puede deshacer.</p>",
-            buttons : {
-                cancelar : {
-                    label     : "Cancelar",
-                    className : "btn-primary",
-                    callback  : function () {
+            title: "Alerta",
+            message: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este paciente? Esta acción no se puede deshacer.</p>",
+            buttons: {
+                cancelar: {
+                    label: "Cancelar",
+                    className: "btn-primary",
+                    callback: function () {
                     }
                 },
-                eliminar : {
-                    label     : "<i class='fa fa-trash'></i> Eliminar",
-                    className : "btn-danger",
-                    callback  : function () {
+                eliminar: {
+                    label: "<i class='fa fa-trash'></i> Eliminar",
+                    className: "btn-danger",
+                    callback: function () {
                         var v = cargarLoader("Eliminando...");
                         $.ajax({
-                            type    : "POST",
-                            url     : '${createLink(action:'borrarPaciente_ajax')}',
-                            data    : {
-                                id : itemId
+                            type: "POST",
+                            url: '${createLink(action:'borrarPaciente_ajax')}',
+                            data: {
+                                id: itemId
                             },
-                            success : function (msg) {
+                            success: function (msg) {
                                 v.modal("hide");
                                 var parts = msg.split("_");
-                                if(parts[0] === 'ok'){
-                                    log(parts[1],"success");
+                                if (parts[0] === 'ok') {
+                                    log(parts[1], "success");
                                     cargarTablaPacientes();
-                                }else{
-                                    log(parts[1],"error")
+                                } else {
+                                    log(parts[1], "error")
                                 }
                             }
                         });
@@ -211,29 +230,29 @@
 
     function crearPaciente() {
         $.ajax({
-            type    : "POST",
+            type: "POST",
             url: "${createLink(action:'datos_ajax')}",
-            data    : {
+            data: {
                 id: null
             },
-            success : function (msg) {
+            success: function (msg) {
                 var b = bootbox.dialog({
-                    id      : "dlgCreatePaciente",
-                    title   : "Datos del paciente",
+                    id: "dlgCreatePaciente",
+                    title: "Datos del paciente",
                     class: "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
                             }
                         },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
+                        guardar: {
+                            id: "btnSave",
+                            label: "<i class='fa fa-save'></i> Guardar",
+                            className: "btn-success",
+                            callback: function () {
                                 return submitFormPaciente();
                             } //callback
                         } //guardar
@@ -249,16 +268,16 @@
             var data = $form.serialize();
             var dialog = cargarLoader("Guardando...");
             $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : data,
-                success : function (msg) {
+                type: "POST",
+                url: $form.attr("action"),
+                data: data,
+                success: function (msg) {
                     dialog.modal('hide');
                     var parts = msg.split("_");
-                    if(parts[0] === 'ok'){
+                    if (parts[0] === 'ok') {
                         log(parts[1], "success");
                         cargarTablaPacientes();
-                    }else{
+                    } else {
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                         return false;
                     }
