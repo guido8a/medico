@@ -1319,7 +1319,6 @@ class PersonaController {
                 params.fecha = new Date()
             }
             params.autorizacion = params.autorizacion.encodeAsMD5()
-            params.unidadEjecutora = persona.unidadEjecutora
             texto = "Usuario actualizado correctamente"
         }else{
             persona = new Persona()

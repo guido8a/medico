@@ -16,6 +16,21 @@ option[selected]{
 
     <div class="modal-contenido">
         <g:form class="form-horizontal" name="frmPersona" role="form" controller="persona" action="savePersona_ajax" method="POST">
+
+            <div class="form-group keeptogether ${hasErrors(bean: personaInstance, field: 'empresa', 'error')}">
+                <div class="col-md-12">
+                    <span class="grupo">
+                        <label for="empresa" class="col-md-2 control-label">
+                            Consultorio
+                        </label>
+                        <span class="col-md-10">
+                            <g:select name="empresa" from="${seguridad.Empresa.list().sort{it.nombre}}" required="" optionKey="id" optionValue="nombre"
+                                      class="form-control input-sm required" value="${personaInstance?.empresa?.id}"/>
+                        </span>
+                    </span>
+                </div>
+            </div>
+
             <div class="form-group keeptogether ${hasErrors(bean: personaInstance, field: 'nombre', 'error')} ${hasErrors(bean: personaInstance, field: 'apellido', 'error')} required">
                 <div class="col-md-6">
                     <span class="grupo">
