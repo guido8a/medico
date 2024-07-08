@@ -8,7 +8,9 @@ class AgendaController {
     def dbConnectionService
 
     def agenda(){
-        [paciente: params.paciente]
+        def usuario = Persona.get(session.usuario.id)
+        def consultorio = usuario.empresa
+        [paciente: params.paciente, consultorio: consultorio]
     }
 
     def tabla_ajax(){

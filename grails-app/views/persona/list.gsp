@@ -24,7 +24,7 @@
 <elm:flashMessage tipo="${flash.tipo}" clase="${flash.clase}">${flash.message}</elm:flashMessage>
 
 <!-- botones -->
-<div class="btn-toolbar toolbar" style="margin-bottom: 15px">
+<div class="btn-toolbar toolbar" style="margin-bottom: 15px; margin-top: 10px">
     <div class="btn-group">
         <g:link action="form" class="btn btn-primary btnCrear">
             <i class="fa fa-user"></i> Nuevo Usuario
@@ -34,7 +34,7 @@
 
 <g:set var="admin" value="${seguridad.Permiso.findByCodigo('P013')}"/>
 
-<table class="table table-condensed table-bordered" width='100%'>
+<table class="table table-condensed table-bordered table-striped" width='100%'>
     <thead>
     <tr>
         <th style="width: 60px;" class="text-center">
@@ -85,7 +85,7 @@
         <g:sortableColumn property="login" title="Usuario" params="${params}"/>
         <g:sortableColumn property="nombre" title="Nombre" params="${params}"/>
         <g:sortableColumn property="apellido" title="Apellido" params="${params}"/>
-%{--        <g:sortableColumn property="departamento" title="Departamento" params="${params}"/>--}%
+        <th>Consultorio</th>
         <th style="width: 220px;">
             <g:select name="perfil" from="${Prfl.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre"
                       class="form-control input-sm perfiles" noSelection="['': 'Todos los perfiles']" value="${params.perfil}"/>
@@ -124,6 +124,7 @@
             <td><elm:textoBusqueda texto='${fieldValue(bean: personaInstance, field: "login")}' search='${params.search}'/></td>
             <td><elm:textoBusqueda texto='${fieldValue(bean: personaInstance, field: "nombre")}' search='${params.search}'/></td>
             <td><elm:textoBusqueda texto='${fieldValue(bean: personaInstance, field: "apellido")}' search='${params.search}'/></td>
+            <td>${personaInstance?.empresa?.nombre}</td>
             <td style="font-size: 10px">
                 <g:each in="${perfiles}" var="per" status="p">
                     ${p > 0 ? ', ' : ''}<strong>${per.perfil.nombre}</strong>
@@ -194,73 +195,27 @@
     });
 
     var tramites = 0;
+
     function submitForm() {
         var $form = $("#frmPersona");
-        var $btn = $("#dlgCreateEdit").find("#btnSave");
-        var idPersona = $("#trPersona").data("id");
         if ($form.valid()) {
 
-          var dialog = cargarLoader("Guardando...");
+            var dialog = cargarLoader("Guardando...");
 
             $.ajax({
                 type    : "POST",
-                url     : '${createLink(controller: 'persona', action:'save_ajax')}',
+                url     : '${createLink(controller: 'persona', action:'savePersona_ajax')}',
                 data    : $form.serialize(),
                 success : function (msg) {
-                    var parts = msg.split("*");
-                    if (parts[0] != "INFO") {
-                        log(parts[1], parts[0] == "SUCCESS" ? "success" : "error"); // log(msg, type, title, hide)
-                        if (parts[0] == "SUCCESS") {
-                            dialog.modal('hide');
-                            setTimeout(function () {
-                            location.reload(true);
-                            }, 1000);
-                        } else {
-                            spinner.replaceWith($btn);
-                            dialog.modal('hide');
-                            return false;
-                        }
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if (parts[0] === "ok") {
+                       log(parts[1],"success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
                     } else {
-                        // closeLoader();
-                        bootbox.dialog({
-                            title   : "Alerta",
-                            message : "<i class='fa fa-warning fa-3x pull-left text-warning text-shadow'></i>" + parts[1],
-                            buttons : {
-                                cancelar : {
-                                    label     : "Cancelar",
-                                    className : "btn-primary",
-                                    callback  : function () {
-                                    }
-                                },
-                                aceptar  : {
-                                    label     : "<i class='fa fa-thumbs-o-up '></i> Continuar",
-                                    className : "btn-success",
-                                    callback  : function () {
-                                        var $sel = $("#selWarning");
-                                        var resp = $sel.val();
-                                        var dpto = $sel.data("dpto");
-                                        if (resp == 1 || resp == "1") {
-                                            openLoader("Cambiando");
-                                            $.ajax({
-                                                type    : "POST",
-                                                url     : '${createLink(controller: 'persona', action:'cambioDpto_ajax')}',
-                                                data    : {
-                                                    id   : idPersona,
-                                                    dpto : dpto
-                                                },
-                                                success : function (msg) {
-                                                    var parts = msg.split("_");
-                                                    log(parts[1], parts[0] == "OK" ? "success" : "error"); // log(msg, type, title, hide)
-                                                    if (parts[0] == "OK") {
-                                                        location.reload(true);
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                        log(parts[1], "error")
                     }
                 }
             });
@@ -268,6 +223,7 @@
             return false;
         } //else
     }
+
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "<strong>Eliminar</strong> usuario del sistema",
@@ -284,7 +240,7 @@
                     label     : "<i class='fa fa-trash'></i> Eliminar Usuario",
                     className : "btn-danger",
                     callback  : function () {
-                       cargarLoader("Eliminando");
+                        var d = cargarLoader("Eliminando...");
                         $.ajax({
                             type    : "POST",
                             url     : '${createLink(controller: 'persona', action:'delete_ajax')}',
@@ -292,11 +248,16 @@
                                 id : itemId
                             },
                             success : function (msg) {
-                                dialog.modal('hide');
+                                d.modal('hide');
+                                closeLoader();
                                 var parts = msg.split("_");
-                                log(parts[1], parts[0] == "OK" ? "success" : "error"); // log(msg, type, title, hide)
-                                if (parts[0] == "OK") {
-                                    location.reload(true);
+                                if (parts[0] === "ok") {
+                                    log(parts[1],"success");
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 1000);
+                                }else{
+                                    log(parts[1],"error");
                                 }
                             }
                         });
@@ -337,9 +298,9 @@
                                 },
                                 success : function (msg) {
                                     var parts = msg.split("_");
-                                    log(parts[1], parts[0] == "OK" ? "success" : "error"); // log(msg, type, title, hide)
-                                    if (parts[0] == "OK") {
-                                        location.reload(true);
+                                    log(parts[1], parts[0] === "OK" ? "success" : "error"); // log(msg, type, title, hide)
+                                    if (parts[0] === "OK") {
+                                        location.reload();
                                     } else {
                                         closeLoader();
                                     }
@@ -378,7 +339,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    class   : "long",
+                    class   : "modal-lg",
                     title   : title + tipo,
                     message : msg,
                     buttons : {

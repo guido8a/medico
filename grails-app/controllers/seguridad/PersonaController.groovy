@@ -960,202 +960,20 @@ class PersonaController {
         }
     }
 
-
-    def save_ajax() {
-//        println "save_ajx: $params"
-
-        params.mail = params.mail.toString().toLowerCase()
-        def personaInstance = new Persona()
-        if (params.id) {
-            personaInstance = Persona.get(params.id)
-            if (!personaInstance) {
-                notFound_ajax()
-                return
-            }
-        } else {
-            params.fecha = new Date()
-            params.password = '123'.encodeAsMD5()
-        }
-        personaInstance.properties = params
-
-        if (!personaInstance.save(flush: true)) {
-            println "error al guardar la persona " + personaInstance.errors
-            render "ERROR*Ha ocurrido un error al guardar Persona: "
-        }else{
-            render "SUCCESS*${params.id ? 'Actualización' : 'Creación'} de Persona exitosa."
-        }
-
-//        def perfiles = params.perfilUsuario
-//
-//        if (perfiles) {
-//            def perfilesOld = Sesn.findAllByUsuario(personaInstance)
-//            def perfilesSelected = []
-//            def perfilesInsertar = []
-//            (perfiles.split("_")).each { perfId ->
-//                def perf = Prfl.get(perfId.toLong())
-//                if (!perfilesOld.perfil.id.contains(perf.id)) {
-//                    perfilesInsertar += perf
-//                } else {
-//                    perfilesSelected += perf
-//                }
-//            }
-//            def commons = perfilesOld.perfil.intersect(perfilesSelected)
-//            def perfilesDelete = perfilesOld.perfil.plus(perfilesSelected)
-//            perfilesDelete.removeAll(commons)
-//
-//            def errores = ""
-//
-//            perfilesInsertar.each { perfil ->
-//                def sesion = new Sesn()
-//                sesion.usuario = personaInstance
-//                sesion.perfil = perfil
-//                if (!sesion.save(flush: true)) {
-//                    errores += renderErrors(bean: sesion)
-//                    println "error al guardar sesion: " + sesion.errors
-//                }
-//            }
-//            perfilesDelete.each { perfil ->
-//                def sesion = Sesn.findAllByPerfilAndUsuario(perfil, personaInstance)
-//                try {
-//                    if (sesion.size() == 1) {
-//                        sesion.first().delete(flush: true)
-//                    } else {
-//                        errores += "Existen ${sesion.size()} registros del permiso " + perfil.nombre
-//                    }
-//                } catch (Exception e) {
-//                    errores += "Ha ocurrido un error al eliminar el perfil " + perfil.nombre
-//                    println "error al eliminar perfil: " + e
-//                }
-//            }
-//        }
-    } //save para grabar desde ajax
-
-
-    def cambioDpto_ajax() {
-        def persona = Persona.get(params.id)
-        def dpto = Departamento.get(params.dpto)
-        def dptoOld = persona.departamento
-        persona.departamento = dpto
-        if (persona.save(flush: true)) {
-            def rolPara = RolPersonaTramite.findByCodigo('R001');
-            def rolCopia = RolPersonaTramite.findByCodigo('R002');
-            def rolImprimir = RolPersonaTramite.findByCodigo('I005')
-
-            def tramites = PersonaDocumentoTramite.findAll("from PersonaDocumentoTramite as p inner join fetch p.tramite as tramites " +
-                    "where p.persona=${params.id} and  p.rolPersonaTramite in (${rolPara.id + "," + rolCopia.id + "," + rolImprimir.id}) and " +
-                    "p.fechaEnvio is not null and tramites.estadoTramite in (3,4) order by p.fechaEnvio desc ")
-            def errores = "", ok = 0
-            /**
-             * a cada trámite si el usuario cambia de departamento se cambia PRTR eliminando la persona destinaria
-             * y haciendo que aparezca su dpto como destinatario
-             * todo: revisar para que el trámite quede tal cual y no cambie el destinatario.. ver si se afecta el arbol
-             */
-            tramites.each { pr ->
-                if (pr.rolPersonaTramite.codigo == "I005") {
-                    pr.delete(flush: true)
-                } else {
-                    pr.persona = null
-                    pr.departamento = dptoOld
-                    def tramite = pr.tramite
-                    def observacionOriginal = pr.observaciones
-                    def accion = "Cambio de departamento"
-                    def solicitadoPor = ""
-                    def usuario = session.usuario.login
-                    def texto = "Trámite antes dirigido a " + persona.nombre + " " + persona.apellido
-                    def nuevaObservacion = ""
-                    pr.observaciones = tramitesService.observaciones(observacionOriginal, accion, solicitadoPor, usuario, texto, nuevaObservacion)
-                    observacionOriginal = tramite.observaciones
-                    tramite.observaciones = tramitesService.observaciones(observacionOriginal, accion, solicitadoPor, usuario, texto, nuevaObservacion)
-
-                    if (tramite.save(flush: true)) {
-                    } else {
-                        errores += renderErrors(bean: tramite)
-                        println tramite.errors
-                    }
-                    if (pr.save(flush: true)) {
-                        ok++
-                    } else {
-                        println pr.errors
-                        errores += renderErrors(bean: pr)
-                    }
-                }
-            }
-            if (errores != "") {
-                println "NOPE: " + errores
-                render "NO_" + errores
-            } else {
-                render "OK_Cambio realizado exitosamente"
-            }
-        } else {
-            render "NO_Ha ocurrido un error al cambiar el departamento de la persona.<br/>" + renderErrors(bean: persona)
-        }
-    } //cambio dpto
-
-    /*** se puede boirrar el usaurio siempre y cuando no haya registros en:
-     *   trmt.prsn__de: Persona.de
-     *   prtr.prsn__id: Persona.persona
-     *   accs.usro__id: Persona.usuario y Persona.asignadoPor
-     */
     def delete_ajax() {
-        def mnsj = ""
-        if (params.id) {
-            def personaInstance = Persona.get(params.id)
-            /** comprueba que se pueda borrar **/
-/*
-            if (Base.findByPersona(personaInstance)) {
-                mnsj += "La persona tiene entradas en la base de conocimiento\n"
-            }
-*/
-/*
-            if (Actividad.findByIngresa(personaInstance)) {
-                mnsj += "La persona ha ingresado actividades\n"
-            }
-            if (Actividad.findByResponsable(personaInstance)) {
-                mnsj += "La persona posee actividades que realziar\n"
-            }
-*/
-            if (Accs.findByUsuario(personaInstance)) {
-                mnsj += "La persona tiene permisos de ausentismo\n"
-            }
-            if (Accs.findByAsignadoPor(personaInstance)) {
-                mnsj += "La persona ha registrado ausentismo\n"
-            }
-            if (PermisoUsuario.findByAsignadoPor(personaInstance)) {
-                mnsj += "La persona ha realizado Asignación de permisos\n"
-            }
-            if (PermisoUsuario.findByModificadoPor(personaInstance)) {
-                mnsj += "La persona ha realizado Modificación de permisos\n"
-            }
-            if (personaInstance.activo) {
-                mnsj += "La persona se halla activa\n"
-            }
 
-            if (!mnsj) {
-                def prsn = personaInstance.nombre + " " + personaInstance.apellido
-                if (personaInstance) {
-                    try {
-                        Sesn.findAllByUsuario(personaInstance).each { pr ->
-                            pr.delete(flush: true)
-                        }
+        def persona = Persona.get(params.id)
 
-                        PermisoUsuario.findAllByPersona(personaInstance).each { pr ->
-                            pr.delete(flush: true)
-                        }
-
-                        personaInstance.delete(flush: true)
-                        render "OK_${prsn} ha sido eliminada(o) del sistema"
-                    } catch (e) {
-                        render "NO_" + mnsj
-                    }
-                } else {
-                    notFound_ajax()
-                }
-
-            } else {
-                render "NO_" + mnsj
+        if(persona){
+            try{
+                persona.delete(flush: true)
+                render "ok_Usuario borrado correctamente"
+            }catch(e){
+                println("Error al borrar el usuario " + persona.errors)
+                render "no_Error al borrar el usuario"
             }
-        } else {
-            notFound_ajax()
+        }else{
+            render "no_No se encontró el usuario"
         }
     } //delete para eliminar via ajax
 
@@ -1307,13 +1125,12 @@ class PersonaController {
 
     def savePersona_ajax(){
 
-//        println("params sp " + params)
-
         def persona
         def texto = ''
 
         if(params.id){
             persona = Persona.get(params.id)
+
             if(params.password != persona.password){
                 params.password = params.password.encodeAsMD5()
                 params.fecha = new Date()
@@ -1334,9 +1151,11 @@ class PersonaController {
         }else{
             params.fechaFin = null
         }
+
         persona.properties = params
 
         if(!persona.save(flush:true)){
+            render "no_Error al guardar el usuario"
             println("error al guardar el usuario " + persona.errors)
             render "no_" + texto
         }else{

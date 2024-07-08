@@ -16,6 +16,7 @@ option[selected]{
 
     <div class="modal-contenido">
         <g:form class="form-horizontal" name="frmPersona" role="form" controller="persona" action="savePersona_ajax" method="POST">
+            <g:hiddenField name="id" value="${personaInstance?.id}"/>
 
             <div class="form-group keeptogether ${hasErrors(bean: personaInstance, field: 'empresa', 'error')}">
                 <div class="col-md-12">
@@ -37,10 +38,9 @@ option[selected]{
                         <label for="nombre" class="col-md-4 control-label">
                             Nombre
                         </label>
-
-                        <div class="col-md-8">
-                            <g:textField name="nombre" maxlength="40" required="" class="form-control input-sm required" value="${personaInstance?.nombre}"/>
-                        </div>
+                        <span class="col-md-8">
+                            <g:textField name="nombre" maxlength="40" minlength="3" required="" class="form-control input-sm required" value="${personaInstance?.nombre}"/>
+                        </span>
                     </span>
                 </div>
 
@@ -49,10 +49,9 @@ option[selected]{
                         <label for="apellido" class="col-md-4 control-label">
                             Apellido
                         </label>
-
-                        <div class="col-md-8">
-                            <g:textField name="apellido" maxlength="40" required="" class="form-control input-sm required" value="${personaInstance?.apellido}"/>
-                        </div>
+                        <span class="col-md-8">
+                            <g:textField name="apellido" maxlength="40" minlength="3" required="" class="form-control input-sm required" value="${personaInstance?.apellido}"/>
+                        </span>
                     </span>
                 </div>
             </div>
@@ -63,9 +62,9 @@ option[selected]{
                             Cédula
                         </label>
 
-                        <div class="col-md-6">
+                        <span class="col-md-8">
                             <g:textField name="cedula" maxlength="10" class="form-control input-sm required digits" value="${personaInstance?.cedula}"/>
-                        </div>
+                        </span>
                     </span>
                 </div>
 
@@ -75,10 +74,10 @@ option[selected]{
                             Sexo
                         </label>
 
-                        <div class="col-md-8">
+                        <span class="col-md-8">
                             <g:select name="sexo" from="${['F': 'Femenino', 'M': 'Masculino']}" required="" optionKey="key" optionValue="value"
                                       class="form-control input-sm required" value="${personaInstance?.sexo}"/>
-                        </div>
+                        </span>
                     </span>
                 </div>
             </div>
@@ -89,11 +88,11 @@ option[selected]{
                             E-mail
                         </label>
 
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-envelope"></i>
+                        <span class="col-md-8">
+                            <span class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-envelope"></i>
                             </span><g:field type="email" name="mail" maxlength="63" class="form-control input-sm unique noEspacios" value="${personaInstance?.mail}"/>
-                            </div>
-                        </div>
+                            </span>
+                        </span>
                     </span>
                 </div>
 
@@ -178,7 +177,7 @@ option[selected]{
 
                         <div class="col-md-2">
                             <g:select name="activo" value="${personaInstance.activo}" class="form-control input-sm required" required=""
-                                      from="${[1: 'Sí', 0: 'No']}" optionKey="key" optionValue="value"/>
+                                      from="${[1: 'Sí', 0: 'No']}" optionKey="key" optionValue="value" />
                         </div>
 
                         <label for="discapacidad" class="col-md-2 control-label">
@@ -194,8 +193,7 @@ option[selected]{
             </div>
 
             <div class="form-group keeptogether ${hasErrors(bean: personaInstance, field: 'login', 'error')} ${hasErrors(bean: personaInstance, field: 'password', 'error')}">
-                <g:hiddenField name="id" value="${personaInstance?.id}"/>
-                <g:hiddenField name="unidadEjecutora" value="${unidad?.id}"/>
+
 
                 <div class="col-md-6">
                     <span class="grupo">
@@ -218,28 +216,24 @@ option[selected]{
                         </label>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-key"></i>
-                            </span><g:field type="password" name="password"  maxlength="63" class="form-control input-sm noEspacios required" value="${personaInstance?.password ?: ''}"/>
+                            </span><g:field type="password" name="password"  maxlength="63" class="form-control input-sm noEspacios required" value="${personaInstance?.password}" autocomplete="new-password"/>
                             </div>
                         </div>
                     </span>
                 </div>
             </div>
 
-
             <div class="form-group keeptogether ${hasErrors(bean: personaInstance, field: 'autorizacion', 'error')}">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <span class="grupo">
-                        <label for="autorizacion" class="col-md-2 control-label">
+                        <label for="autorizacion" class="col-md-4 control-label">
                             Autorización
                         </label>
-
-                        <div class="col-md-6">
-%{--                            <g:textField name="autorizacion" maxlength="63" class="form-control input-sm" value="${personaInstance?.autorizacion}"/>--}%
-
-                            <div class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-key"></i>
+                        <span class="col-md-8">
+                            <span class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-key"></i>
                             </span><g:field type="password" name="autorizacion"  maxlength="63" class="form-control input-sm noEspacios required" value="${personaInstance?.autorizacion ?: ''}"/>
-                            </div>
-                        </div>
+                            </span>
+                        </span>
                     </span>
                 </div>
             </div>
@@ -263,15 +257,15 @@ option[selected]{
                 label.remove();
             },
             rules         : {
-                mail : {
-                    remote: {
-                        url : "${createLink(action: 'validarMail_ajax')}",
-                        type: "post",
-                        data: {
-                            id: "${personaInstance?.id}"
-                        }
-                    }
-                },
+                %{--mail : {--}%
+                %{--    remote: {--}%
+                %{--        url : "${createLink(action: 'validarMail_ajax')}",--}%
+                %{--        type: "post",--}%
+                %{--        data: {--}%
+                %{--            id: "${personaInstance?.id}"--}%
+                %{--        }--}%
+                %{--    }--}%
+                %{--},--}%
                 login: {
                     remote: {
                         url : "${createLink(action: 'validarLogin_ajax')}",
@@ -293,7 +287,7 @@ option[selected]{
         });
 
         $(".form-control").keydown(function (ev) {
-            if (ev.keyCode == 13) {
+            if (ev.keyCode === 13) {
                 submitFormPersona();
                 return false;
             }

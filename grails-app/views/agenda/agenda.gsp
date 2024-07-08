@@ -97,7 +97,7 @@
         <label for="doctor" class="col-md-1 control-label" style="text-align: right">
             Doctor
         </label>
-        <g:select name="doctor" from="${seguridad.Persona.list([sort: 'apellido'])}"
+        <g:select name="doctor" from="${seguridad.Persona.findAllByEmpresa(consultorio).sort{it.apellido}}"
                   class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id" data-nombre="${{it.apellido + " " + it.nombre}}"
         />
     </div>
@@ -165,8 +165,68 @@
     }
 
     $(".btnNuevoPaciente").click(function () {
-        location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 1
+        %{--location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 1--}%
+        crearPaciente();
     });
+
+    function crearPaciente() {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'paciente', action:'datos_ajax')}",
+            data    : {
+                id: null
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreatePaciente",
+                    title   : "Datos del paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormPaciente();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
+
+    function submitFormPaciente() {
+        var $form = $("#frmPaciente");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
     cargaTabla($("#semana option:selected").val(), $("#doctor option:selected").val());
 

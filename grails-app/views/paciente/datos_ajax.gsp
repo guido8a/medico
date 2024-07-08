@@ -3,11 +3,18 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <label for="empresa" class="col-md-1 control-label text-info">
-                Consultorio
+%{--            <label for="empresa" class="col-md-1 control-label text-info">--}%
+%{--                Consultorio--}%
+%{--            </label>--}%
+%{--            <span class="col-md-4">--}%
+%{--                <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />--}%
+%{--            </span>--}%
+
+            <label for="cedula" class="col-md-2 control-label text-info">
+                Cédula
             </label>
-            <span class="col-md-4">
-                <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />
+            <span class="col-md-3">
+                <g:textField name="cedula" maxlength="10" minlength="10" required="" class="form-control required allCaps"  value="${paciente?.cedula}"/>
             </span>
 
             <label for="activo" class="col-md-1 control-label text-info">
@@ -19,7 +26,7 @@
                 </span>
             </span>
 
-            <label for="empresa" class="col-md-1 control-label text-info">
+            <label class="col-md-1 control-label text-info">
                 Foto
             </label>
             <span class="grupo">
@@ -34,13 +41,7 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <label for="cedula" class="col-md-1 control-label text-info">
-                Cédula
-            </label>
-            <span class="col-md-2">
-                <g:textField name="cedula" maxlength="10" minlength="10" required="" class="form-control required allCaps"  value="${paciente?.cedula}"/>
-            </span>
-            <label for="nombre" class="col-md-1 control-label text-info">
+               <label for="nombre" class="col-md-2 control-label text-info">
                 Nombre
             </label>
             <span class="grupo">

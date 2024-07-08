@@ -77,6 +77,9 @@ class PacienteController {
 
 //        println("params " + params)
 
+        def persona = Persona.get(session.usuario.id)
+        def consultorio = persona.empresa
+
         def paciente
 
         if(params.id){
@@ -84,6 +87,7 @@ class PacienteController {
         }else{
             paciente = new Paciente()
             paciente.fechaInicio = new Date()
+            paciente.empresa = consultorio
             paciente.activo = 1
         }
 
