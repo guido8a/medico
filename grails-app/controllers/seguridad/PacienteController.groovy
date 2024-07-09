@@ -76,39 +76,63 @@ class PacienteController {
     def savePaciente_ajax () {
 
 //        println("params " + params)
-
+        def error = 0
         def persona = Persona.get(session.usuario.id)
         def consultorio = persona.empresa
 
         def paciente
 
-        if(params.id){
-            paciente = Paciente.get(params.id)
-        }else{
-            paciente = new Paciente()
-            paciente.fechaInicio = new Date()
-            paciente.empresa = consultorio
-            paciente.activo = 1
-        }
+        def pacientes = Paciente.findAllByEmpresa(consultorio)
 
-        if(params.fechaNacimiento){
-            params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
-        }
+            if(params.id){
+                paciente = Paciente.get(params.id)
 
-        paciente.properties = params
+                if(params.numeroHistorial == paciente?.numeroHistorial){
+                    error = 0
+                }else{
+                    if(pacientes?.numeroHistorial?.contains(params.numeroHistorial)){
+                        error = 1
+                    }else{
+                        error = 0
+                    }
+                }
 
-        if(params.activo == '0'){
-            paciente.fechaFin = new Date()
-        }else{
-            paciente.fechaFin = null
-        }
+            }else{
+                paciente = new Paciente()
+                paciente.fechaInicio = new Date()
+                paciente.empresa = consultorio
+                paciente.activo = 1
 
-        if(!paciente.save(flush: true)){
-            println("error al guardar el paciente " + paciente.errors)
-            render"no_Error al guardar el paciente"
-        }else{
-            render "ok_Paciente guardado correctamente_${paciente?.id}"
-        }
+                if(pacientes?.numeroHistorial?.contains(params.numeroHistorial)){
+                    error = 1
+                }else{
+                    error = 0
+                }
+            }
+
+            if(params.fechaNacimiento){
+                params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
+            }
+
+            paciente.properties = params
+
+            if(params.activo == '0'){
+                paciente.fechaFin = new Date()
+            }else{
+                paciente.fechaFin = null
+            }
+
+
+            if(error == 1){
+                render "no_El número de historia clínica ya se encuentra asignado "
+            }else{
+                if(!paciente.save(flush: true)){
+                    println("error al guardar el paciente " + paciente.errors)
+                    render"no_Error al guardar el paciente"
+                }else{
+                    render "ok_Paciente guardado correctamente_${paciente?.id}"
+                }
+            }
     }
 
     def canton_ajax () {

@@ -217,10 +217,10 @@
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="numeroHistorial" class="col-md-2 control-label text-info">
-                Numero Historial
+                Numero de historia clínica
             </label>
             <span class="col-md-3">
-                <g:textField name="numeroHistorial" maxlength="4" class="form-control" value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
+                <g:textField name="numeroHistorial" maxlength="4" class="form-control required" required="" value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
             </span>
         </div>
     </div>
