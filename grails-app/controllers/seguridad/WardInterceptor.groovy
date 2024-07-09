@@ -23,6 +23,14 @@ class WardInterceptor {
             usro = session.usuario
         }
 
+        def app = ""
+
+        if (grails.util.Environment.getCurrent().name == 'development') {
+            app = '/'
+        } else {
+            app = '/medico/'
+        }
+
         if(session.an == 'saveTramite' && session.cn == 'tramite'){
             println("entro")
             return true
@@ -31,7 +39,8 @@ class WardInterceptor {
                 if(controllerName != "inicio" && actionName != "index") {
 //                    flash.message = "Usted ha superado el tiempo de inactividad máximo de la sesión"
                 }
-                render "<script type='text/javascript'> window.location.href = '/' </script>"
+                println "redireccionando a raiz de aplicación: $app"
+                render "<script type='text/javascript'> window.location.href = '${app}' </script>"
                 session.finalize()
                 return false
             }

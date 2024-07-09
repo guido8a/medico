@@ -8,6 +8,7 @@ import com.lowagie.text.pdf.PdfPCell
 import com.lowagie.text.pdf.PdfPTable
 import com.lowagie.text.pdf.PdfWriter
 import groovy.time.TimeCategory
+import seguridad.Persona
 
 import java.awt.*
 
@@ -30,7 +31,7 @@ class BuscarBaseController {
 
     def tablaBusquedaBase() {
 //        println "buscar .... $params"
-        def persona = session.usuario?.id
+        def persona = Persona.get(session.usuario?.id)
         def data = []
         def base = []
         def cn = dbConnectionService.getConnection()
@@ -41,7 +42,9 @@ class BuscarBaseController {
 
         def resultado = []
         buscar.each {pl ->
-            sql = "select base__id, sum(plbrvlor) valor from plbr where plbrplbr like '%${pl}%' group by base__id " +
+            sql = "select base.base__id, sum(plbrvlor) valor from plbr, base, prsn where plbrplbr like '%${pl}%' and " +
+                    "base.base__id = plbr.base__id and prsn.prsn__id = base.prsn__id and " +
+                    "empr__id = ${persona.empresa.id} group by base.base__id " +
                     "order by 2"
             println "sql: $sql"
             cn.eachRow(sql.toString()){d ->
@@ -74,7 +77,7 @@ class BuscarBaseController {
 //        println "resultado: ${resultado.id}"
         def fin = new Date()
         println "tiempo ejecución actualizar número tramite: ${TimeCategory.minus(fin, inicio)}"
-        return [bases: resultado, persona: persona, msg: msg]
+        return [bases: resultado, persona: persona.id, msg: msg]
     }
 
     def busquedaEnviados() {

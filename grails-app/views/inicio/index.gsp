@@ -202,7 +202,7 @@
 %{--                        <i class="fa fa-medkit fa-8x"></i>--}%
                     </div>
                     <div style="width: 450px; height: 120px">
-                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Vademecum</span></h2>
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Vademécum</span></h2>
                         <p class="mbr-fonts-style text1 mbr-text display-6">Catálogo de medicinas en sus diferentes presentaciones
                         y formas<br>
                         </p>
