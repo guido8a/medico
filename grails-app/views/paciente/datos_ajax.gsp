@@ -209,7 +209,18 @@
                 Responsable
             </label>
             <span class="col-md-9">
-                <g:textField name="responsable" style="resize: none" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
+                <g:textField name="responsable" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
+            <label for="numeroHistorial" class="col-md-2 control-label text-info">
+                Numero Historial
+            </label>
+            <span class="col-md-3">
+                <g:textField name="numeroHistorial" maxlength="4" class="form-control" value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
             </span>
         </div>
     </div>

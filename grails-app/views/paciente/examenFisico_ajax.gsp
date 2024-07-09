@@ -1,5 +1,5 @@
 <div style="width: 3%; float: left; margin-right: 5px">
-    <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaExamenFisico"
+    <a href="#" class="btn btn-info col-md-12" id="btnEditaExamenFisico"
        title="Editar los datos del examen físico">
         <i class="fas fa-edit"></i>
     </a>
@@ -9,8 +9,6 @@
             <i class="fas fa-image"></i>
         </a>
     </g:if>
-
-
 </div>
 
 <div style="width:96%; float: left">
@@ -98,8 +96,8 @@
     });
 
     $("#btnGraficoNinia").click(function() {
-        var cita = '${cita?.id}'
-        var examen = '${examen?.id}'
+        var cita = '${cita?.id}';
+        var examen = '${examen?.id}';
         if(cita){
             if(examen){
                 graficoNina();
@@ -110,5 +108,8 @@
             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
         }
     })
+
+
+
 
 </script>

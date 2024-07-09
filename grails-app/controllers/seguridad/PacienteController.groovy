@@ -372,13 +372,21 @@ class PacienteController {
     def datos_ajax(){
         def paciente
 
+        def usuario = Persona.get(session.usuario.id)
+        def empresa = usuario.empresa
+
+        def pacientes = Paciente.findAllByEmpresa(empresa)
+        def numeroActual = pacientes?.numeroHistorial?.max()
+
+        println("--_> " + numeroActual)
+
         if(params.id){
             paciente = Paciente.get(params.id)
         }else{
             paciente = new Paciente()
         }
 
-        return[paciente: paciente]
+        return[paciente: paciente, numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
     }
 
     def comboCitas_ajax() {
