@@ -61,27 +61,7 @@
         </div>
     </div>
 
-    <div class="row izquierda" style="margin-bottom: 15px">
-        <div class="col-md-12 input-group">
-            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
-                Fecha de nacimiento
-            </label>
-            <span class="grupo" >
-                <span class="col-md-2 arriba" >
-                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
-                </span>
-            </span>
-            <span class="col-md-2 mediano"></span>
-            <label for="estadoCivil" class="col-md-2 control-label text-info">
-                Estado Civil
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
-                </span>
-            </span>
-        </div>
-    </div>
+
 
     <div class="row izquierda" style="margin-bottom: 15px">
         <div class="col-md-12 input-group">
@@ -93,8 +73,15 @@
                     <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
                 </span>
             </span>
-            <span class="col-md-2 mediano"></span>
-            <label for="grupoSanguineo" class="col-md-2 control-label text-info">
+            <label for="estadoCivil" class="col-md-2 control-label text-info">
+                Estado Civil
+            </label>
+            <span class="grupo">
+                <span class="col-md-2">
+                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
+                </span>
+            </span>
+            <label for="grupoSanguineo" class="col-md-1 control-label text-info">
                 Grupo Sanguíneo
             </label>
             <span class="grupo">
@@ -112,6 +99,25 @@
             </label>
             <span class="col-md-9">
                 <g:textField name="ocupacion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.ocupacion}"/>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda" style="margin-bottom: 15px">
+        <div class="col-md-12 input-group">
+            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
+                Fecha de nacimiento
+            </label>
+            <span class="grupo" >
+                <span class="col-md-2 arriba" >
+                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
+                </span>
+            </span>
+            <label for="numeroHistorial" class="col-md-2 control-label text-info">
+                Numero de historia clínica
+            </label>
+            <span class="col-md-2">
+                <g:textField name="numeroHistorial" maxlength="4" class="form-control required" required="" value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
             </span>
         </div>
     </div>
@@ -216,12 +222,7 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <label for="numeroHistorial" class="col-md-2 control-label text-info">
-                Numero de historia clínica
-            </label>
-            <span class="col-md-3">
-                <g:textField name="numeroHistorial" maxlength="4" class="form-control required" required="" value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
-            </span>
+
         </div>
     </div>
 
