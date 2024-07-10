@@ -9,14 +9,14 @@
         <table class="table-bordered table-condensed " style="width: 100%">
             <tbody>
             <tr style="font-size: 16px">
-            <td style="width: 80%; background-color:#b7d6a9">
-                <g:if test="${cita?.comentarioFinal}">
-                    ${cita?.comentarioFinal}
-                </g:if>
-                <g:else>
-                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin comentario final</div>
-                </g:else>
-            </td>
+                <td style="width: 80%; background-color:#b7d6a9">
+                    <g:if test="${cita?.comentarioFinal}">
+                        ${cita?.comentarioFinal}
+                    </g:if>
+                    <g:else>
+                        <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin comentario final</div>
+                    </g:else>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -26,7 +26,12 @@
 <script type="text/javascript">
 
     $("#btnEditarComentario").click(function () {
-        createEditRowComentario();
+        var cita = '${cita?.id}';
+        if(cita){
+            createEditRowComentario();
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 
     function createEditRowComentario() {

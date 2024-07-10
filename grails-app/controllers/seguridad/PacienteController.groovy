@@ -385,7 +385,7 @@ class PacienteController {
     def examenLaboratorio_ajax(){
         def cita = Historial.get(params.id)
         def examenes = ExamenComplementario.findAllByHistorial(cita)
-        return[examenes: examenes]
+        return[examenes: examenes, cita: cita]
     }
 
     def tablaDatos_ajax(){

@@ -47,9 +47,13 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
     $("#btnEditaExamen").click(function () {
-        cargarExamenes();
+        var cita = '${cita?.id}';
+        if(cita){
+            cargarExamenes();
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 </script>

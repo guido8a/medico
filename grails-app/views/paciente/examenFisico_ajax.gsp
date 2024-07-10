@@ -92,7 +92,12 @@
 
 <script type="text/javascript">
     $("#btnEditaExamenFisico").click(function () {
-        createEditRowExamenFisico();
+        var cita = '${cita?.id}';
+        if(cita){
+            createEditRowExamenFisico();
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 
     $("#btnGraficoNinia").click(function() {
@@ -108,8 +113,5 @@
             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
         }
     })
-
-
-
 
 </script>

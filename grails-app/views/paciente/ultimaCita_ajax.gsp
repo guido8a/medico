@@ -8,17 +8,17 @@
     </div>
     <div style="width:96%; float: left">
         <table class="table-bordered table-condensed " style="width: 100%">
-        <tbody>
-        <tr style="font-size: 16px">
-            <td style="width: 20%" class="alert alert-success">Motivo de consulta:</td>
-            <td style="width: 80%; background-color: #b7d6a9">${cita?.motivo}</td>
-        </tr>
-        <tr style="font-size: 16px">
-            <td style="width: 20%" class="alert alert-success">Enfermedad actual:</td>
-            <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr style="font-size: 16px">
+                <td style="width: 20%" class="alert alert-success">Motivo de consulta:</td>
+                <td style="width: 80%; background-color: #b7d6a9">${cita?.motivo}</td>
+            </tr>
+            <tr style="font-size: 16px">
+                <td style="width: 20%" class="alert alert-success">Enfermedad actual:</td>
+                <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -37,47 +37,47 @@
     </div>
     <div style="width:96%; float: left">
 
-    <table class="table-bordered table-condensed " style="width: 100%">
-        <tbody>
-        <tr style="font-size: 16px">
-            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Diagnóstico:</td>
-            <td style="width: 80%; background-color:#b7d6a9">
-                <g:if test="${diagnosticos.size() > 0}">
-                    <table class="table table-bordered table-striped table-condensed table-hover">
-                        <thead>
-                        <tr style="width: 100%">
-                            <th style="width: 10%">Código</th>
-                            <th style="width: 50%">Descripción </th>
-                            <th style="width: 30%">Observaciones </th>
-                            <th style="width: 10%">Acciones </th>
-                        </tr>
-                        </thead>
-                        <tbody >
-                        <g:each in="${diagnosticos}" status="i" var="diagnostico">
+        <table class="table-bordered table-condensed " style="width: 100%">
+            <tbody>
+            <tr style="font-size: 16px">
+                <td style="width: 20%;font-weight: bolder" class="alert alert-success">Diagnóstico:</td>
+                <td style="width: 80%; background-color:#b7d6a9">
+                    <g:if test="${diagnosticos.size() > 0}">
+                        <table class="table table-bordered table-striped table-condensed table-hover">
+                            <thead>
                             <tr style="width: 100%">
-                                <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>
-                                <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
-                                <td style="width: 30%">${diagnostico?.descripcion}</td>
-                                <td style="width: 10%; text-align: center">
-                                    <a class="btn btn-info btn-xs btnObservacionesDiagnostico" href="#" rel="tooltip" title="Observaciones" data-id="${diagnostico.id}">
-                                        <i class="fa fa-book"></i>
-                                    </a>
-                                    <a class="btn btn-danger btn-xs btnBorrarDiagnostico" href="#" rel="tooltip" title="Eliminar" data-id="${diagnostico.id}">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
+                                <th style="width: 10%">Código</th>
+                                <th style="width: 50%">Descripción </th>
+                                <th style="width: 30%">Observaciones </th>
+                                <th style="width: 10%">Acciones </th>
                             </tr>
-                        </g:each>
-                        </tbody>
-                    </table>
-                </g:if>
-                <g:else>
-                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
-                </g:else>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                            </thead>
+                            <tbody >
+                            <g:each in="${diagnosticos}" status="i" var="diagnostico">
+                                <tr style="width: 100%">
+                                    <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>
+                                    <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
+                                    <td style="width: 30%">${diagnostico?.descripcion}</td>
+                                    <td style="width: 10%; text-align: center">
+                                        <a class="btn btn-info btn-xs btnObservacionesDiagnostico" href="#" rel="tooltip" title="Observaciones" data-id="${diagnostico.id}">
+                                            <i class="fa fa-book"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs btnBorrarDiagnostico" href="#" rel="tooltip" title="Eliminar" data-id="${diagnostico.id}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </g:each>
+                            </tbody>
+                        </table>
+                    </g:if>
+                    <g:else>
+                        <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
+                    </g:else>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -90,41 +90,41 @@
         </a>
     </div>
     <div style="width:96%; float: left">
-    <table class="table-bordered table-condensed " style="width: 100%">
-        <tbody>
+        <table class="table-bordered table-condensed " style="width: 100%">
+            <tbody>
 
-        <tr style="font-size: 16px">
-            <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>
-            <td style="width: 80%; background-color:#b7d6a9">
-                <g:if test="${tratamientos.size() > 0}">
-                    <table class="table table-bordered table-striped table-condensed table-hover">
-                        <thead>
-                        <tr style="width: 100%">
-                            <th style="width: 10%">Medicina </th>
-                            <th style="width: 10%">Concentración </th>
-                            <th style="width: 10%">Cantidad </th>
-                            <th style="width: 35%">Prescripción</th>
-                        </tr>
-                        </thead>
-                        <tbody >
-                        <g:each in="${tratamientos}" status="i" var="tratamiento">
+            <tr style="font-size: 16px">
+                <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>
+                <td style="width: 80%; background-color:#b7d6a9">
+                    <g:if test="${tratamientos.size() > 0}">
+                        <table class="table table-bordered table-striped table-condensed table-hover">
+                            <thead>
                             <tr style="width: 100%">
-                                <td style="width: 25%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
-                                <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
-                                <td style="width: 8%">${tratamiento?.cantidad}</td>
-                                <td style="width: 47%">${tratamiento?.descripcion}</td>
+                                <th style="width: 10%">Medicina </th>
+                                <th style="width: 10%">Concentración </th>
+                                <th style="width: 10%">Cantidad </th>
+                                <th style="width: 35%">Prescripción</th>
                             </tr>
-                        </g:each>
-                        </tbody>
-                    </table>
-                </g:if>
-                <g:else>
-                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
-                </g:else>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                            </thead>
+                            <tbody >
+                            <g:each in="${tratamientos}" status="i" var="tratamiento">
+                                <tr style="width: 100%">
+                                    <td style="width: 25%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
+                                    <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
+                                    <td style="width: 8%">${tratamiento?.cantidad}</td>
+                                    <td style="width: 47%">${tratamiento?.descripcion}</td>
+                                </tr>
+                            </g:each>
+                            </tbody>
+                        </table>
+                    </g:if>
+                    <g:else>
+                        <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
+                    </g:else>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -140,11 +140,20 @@
 
     $("#btnEditaCita").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
-        editaDatosCita(cita);
+        if(cita != null){
+            editaDatosCita(cita);
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 
     $("#btnUltimoExamenFisico").click(function () {
-        createEditRowExamenFisico();
+        var cita = $("#citaSeleccionada option:selected").val();
+        if(cita != null){
+            createEditRowExamenFisico();
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 
     function createEditRowExamenFisico(id) {
@@ -273,30 +282,34 @@
 
     $("#btnTratamiento").click(function () {
         var cita = "${cita?.id}";
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(controller: 'tratamiento', action:'tratamiento_ajax')}",
-            data    : {
-                cita: cita
-            },
-            success : function (msg) {
-                bcpc = bootbox.dialog({
-                    id      : "dlgTratamiento",
-                    title   : "Tratamiento de la cita",
-                    class: "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                                return submitTextoTratamiento();
+        if(cita){
+            $.ajax({
+                type    : "POST",
+                url: "${createLink(controller: 'tratamiento', action:'tratamiento_ajax')}",
+                data    : {
+                    cita: cita
+                },
+                success : function (msg) {
+                    bcpc = bootbox.dialog({
+                        id      : "dlgTratamiento",
+                        title   : "Tratamiento de la cita",
+                        class: "modal-lg",
+                        message : msg,
+                        buttons : {
+                            cancelar : {
+                                label     : "Cancelar",
+                                className : "btn-primary",
+                                callback  : function () {
+                                    return submitTextoTratamiento();
+                                }
                             }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
+                        } //buttons
+                    }); //dialog
+                } //success
+            }); //ajax
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 
     function submitTextoTratamiento() {
@@ -324,28 +337,32 @@
 
     $("#btnBuscarDiagnostico").click(function () {
         var cita = '${cita?.id}';
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(controller: 'historial', action:  'buscarDiagnostico_ajax')}",
-            data    : {
-                cita: cita
-            },
-            success : function (msg) {
-                dp = bootbox.dialog({
-                    id      : "dlgBuscarDiagnostico",
-                    title   : "Buscar diagnóstico",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
+        if(cita){
+            $.ajax({
+                type    : "POST",
+                url: "${createLink(controller: 'historial', action:  'buscarDiagnostico_ajax')}",
+                data    : {
+                    cita: cita
+                },
+                success : function (msg) {
+                    dp = bootbox.dialog({
+                        id      : "dlgBuscarDiagnostico",
+                        title   : "Buscar diagnóstico",
+                        message : msg,
+                        buttons : {
+                            cancelar : {
+                                label     : "Cancelar",
+                                className : "btn-primary",
+                                callback  : function () {
+                                }
                             }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
+                        } //buttons
+                    }); //dialog
+                } //success
+            }); //ajax
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+        }
     });
 
     function cerrarBusqueda(){
