@@ -134,7 +134,8 @@ class Paciente {
     }
 
     def getObstetricia() {
-        return ( (new Date() - this.fechaNacimiento)/365.25 >= 6 ) && (this.sexo == 'F')
+        println "obstetricia: ${(new Date() - this.fechaNacimiento)/365.25 >= 6 && (this.sexo == 'F')}"
+        return ( (new Date() - this.fechaNacimiento)/365.25 >= 6 && (this.sexo == 'F') )
     }
 
     def getNino() {
