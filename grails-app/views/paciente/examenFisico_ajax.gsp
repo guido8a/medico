@@ -41,10 +41,7 @@
             <td style="width: 10%" class="alert alert-success">Tensión arterial2:</td>
             <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole2} ${examen?.sistole2 ? '/' : ''} ${examen?.diastole2}</td>
         </tr>
-        <tr style="font-size: 16px">
-            <td style="width: 10%" class="alert alert-success">Piel y Faneras:</td>
-            <td style="width: 10%; background-color: #b7d6a9" colspan="7">${examen?.pielFaneras}</td>
-        </tr>
+
         </tbody>
     </table>
     <table class="table-bordered table-condensed " style="width: 100%">
@@ -85,6 +82,10 @@
             <td style="width: 40%; background-color: #b7d6a9">${examen?.extremidadesInferiores}</td>
             <td style="width: 10%" class="alert alert-success">Extremidades sup.:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.extremidadesSuperiores}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 10%" class="alert alert-success">Piel y Faneras:</td>
+            <td style="width: 10%; background-color: #b7d6a9" colspan="7">${examen?.pielFaneras}</td>
         </tr>
         </tbody>
     </table>
