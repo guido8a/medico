@@ -143,7 +143,8 @@
         if(cita != null){
             editaDatosCita(cita);
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     });
 
@@ -152,7 +153,8 @@
         if(cita != null){
             createEditRowExamenFisico();
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     });
 
@@ -308,7 +310,8 @@
                 } //success
             }); //ajax
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     });
 
@@ -361,7 +364,8 @@
                 } //success
             }); //ajax
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     });
 

@@ -96,7 +96,8 @@
         if(cita){
             createEditRowExamenFisico();
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     });
 
@@ -110,7 +111,8 @@
                 bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ingrese los datos del examen físico" + '</strong>');
             }
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     })
 

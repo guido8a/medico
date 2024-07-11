@@ -53,7 +53,8 @@
         if(cita){
             cargarExamenes();
         }else{
-            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione una cita" + '</strong>');
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
         }
     });
 </script>
