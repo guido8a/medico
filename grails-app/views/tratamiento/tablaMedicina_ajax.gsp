@@ -3,8 +3,8 @@
     <table class="table table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <thead>
         <tr>
-            <th style="width: 13%;">Nombre</th>
-            <th style="width: 30%;">Descripción</th>
+            <th style="width: 13%;">Nombre Comercial</th>
+            <th style="width: 30%;">Nombre Genérico</th>
             <th style="width: 25%;">Presentación</th>
             <th style="width: 10%;">Concentración</th>
             <th style="width: 10%;">Cantidad</th>

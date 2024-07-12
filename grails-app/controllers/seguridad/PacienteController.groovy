@@ -362,9 +362,7 @@ class PacienteController {
 
     def examenFisico_ajax(){
         def cita = Historial.get(params.id)
-        println("cita " + cita)
         def examen = ExamenFisico.findByHistorial(cita)
-        println("examen " + examen)
         def paciente = Paciente.get(params.paciente)
         return[examen: examen, paciente: paciente, cita: cita, examen: examen]
     }
@@ -402,15 +400,13 @@ class PacienteController {
         def pacientes = Paciente.findAllByEmpresa(empresa)
         def numeroActual = pacientes?.numeroHistorial?.max()
 
-        println("--_> " + numeroActual)
-
         if(params.id){
             paciente = Paciente.get(params.id)
         }else{
             paciente = new Paciente()
         }
 
-        return[paciente: paciente, numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
+        return[paciente: paciente,numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
     }
 
     def comboCitas_ajax() {
@@ -455,6 +451,18 @@ class PacienteController {
     def estado_ajax(){
         def cita = Historial.get(params.id)
         return [cita: cita]
+    }
+
+    def edad_ajax(){
+        def edad = 0
+        if(params.fecha){
+            def fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fecha)
+            edad = Math.round( (new Date() - fechaNacimiento)/365.25.toDouble() *10 ) /10
+        }else{
+            edad= 0
+        }
+
+        render edad
     }
 
 

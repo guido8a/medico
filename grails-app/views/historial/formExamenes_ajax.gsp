@@ -58,7 +58,7 @@
     });
 
     function cargarTipoExamen(grupo){
-        var examen = '${examen?.id}'
+        var examen = '${examen?.id}';
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'examen', action: 'tipoExamen_ajax')}',

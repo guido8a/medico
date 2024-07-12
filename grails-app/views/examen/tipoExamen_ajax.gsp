@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 
-    cargarExamen($("#tipoExamen option:selected").val())
+    cargarExamen($("#tipoExamen option:selected").val());
 
     $("#tipoExamen").change(function () {
         var tipo = $(this).val();
@@ -25,7 +25,7 @@
     });
 
     function cargarExamen(tipo){
-        var examen = '${examenComplementario?.id}'
+        var examen = '${examenComplementario?.id}';
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'examen', action: 'examen_ajax')}',

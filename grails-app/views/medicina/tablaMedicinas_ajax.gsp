@@ -3,8 +3,8 @@
         <thead>
         <tr>
             <th style="width: 8%">Código</th>
-            <th style="width: 15%">Descripción</th>
-            <th style="width: 12%">Nombre</th>
+            <th style="width: 15%">Nombre Genérico</th>
+            <th style="width: 12%">Nombre Comercial</th>
             <th style="width: 12%">Cuadro Básico</th>
             <th style="width: 10%">Forma</th>
             <th style="width: 8%">Concentración</th>

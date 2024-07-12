@@ -61,8 +61,6 @@
         </div>
     </div>
 
-
-
     <div class="row izquierda" style="margin-bottom: 15px">
         <div class="col-md-12 input-group">
             <label for="sexo" class="col-md-2 control-label text-info">
@@ -112,6 +110,12 @@
                 <span class="col-md-2 arriba" >
                     <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                 </span>
+            </span>
+            <label for="edadCalculo" class="col-md-1 control-label text-info">
+                Edad
+            </label>
+            <span class="col-md-2">
+                <g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad : 'N/A'}"/>
             </span>
             <label for="numeroHistorial" class="col-md-2 control-label text-info">
                 Numero de historia clínica
@@ -236,9 +240,26 @@
         locale: 'es',
         format: 'DD-MM-YYYY',
         sideBySide: true,
+        maxDate: new Date(),
         icons: {
         }
+    }).on('dp.change', function(e){
+        updateanios();
     });
+
+    function updateanios(){
+        var fecha = $("#fechaNacimiento").val();
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'edad_ajax')}',
+            data:{
+                fecha: fecha
+            },
+            success: function (msg) {
+                $("#edadCalculo").val(msg)
+            }
+        });
+    }
 
     function validarNum(ev) {
         /*

@@ -71,7 +71,7 @@ def save_ajax(){
 
     def examen_ajax(){
         def tipo = TipoExamen.get(params.tipo)
-        def examenes = Examen.findAllByTipoExamen(tipo)
+        def examenes = Examen.findAllByTipoExamen(tipo).sort{it.descripcion}
         def examen = ExamenComplementario.get(params.examen)
         def chequeados = DetalleExamen.findAllByExamenComplementario(examen)
 
