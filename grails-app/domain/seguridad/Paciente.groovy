@@ -128,9 +128,23 @@ class Paciente {
         residenciaOcasional(size: 0..255, blank: true, nullable: true)
     }
 
+// no funciona Sql en el dominio
+// def dataSource
+//
+//    def getConnection(){
+//        Sql sql = new Sql(dataSource)
+//        return sql
+//    }
+
 
     def getEdad() {
         return Math.round( (new Date() - this.fechaNacimiento)/365.25.toDouble() *10 ) /10
+//
+//        def select = "select replace( replace(replace(age(now()::date, pcntfcna)::text, 'years', 'años'), 'mons','meses'), " +
+//                "'days', 'dias') edad from pcnt where pcnt__id = ${this.id} "
+//        def cn = getConnection()
+//        def edad = cn.rows( select.toString() )[0].edad
+//        return edad
     }
 
     def getObstetricia() {

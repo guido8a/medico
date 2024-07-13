@@ -108,15 +108,19 @@
             </label>
             <span class="grupo" >
                 <span class="col-md-2 arriba" >
-                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required="" class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
+                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required=""
+                           class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
                 </span>
             </span>
-            <label for="edadCalculo" class="col-md-1 control-label text-info">
-                Edad
-            </label>
-            <span class="col-md-2">
-                <g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad : 'N/A'}"/>
+            <span class="col-md-3 text-info">
+                %{--Edad--}%
+                <span id="edadCalculo" class="form-control" readonly="">
+                             ${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}
+                </span>
             </span>
+            %{--<span class="col-md-2">--}%
+                %{--<g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}"/>--}%
+            %{--</span>--}%
             <label for="numeroHistorial" class="col-md-2 control-label text-info">
                 Numero de historia clínica
             </label>
@@ -236,6 +240,10 @@
 
     var di;
 
+    $( document ).ready(function() {
+        updateanios();
+    });
+
     $('#fechaNacimiento').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
@@ -256,7 +264,7 @@
                 fecha: fecha
             },
             success: function (msg) {
-                $("#edadCalculo").val(msg)
+                $("#edadCalculo").html(msg)
             }
         });
     }

@@ -4,7 +4,7 @@
 <head>
     <meta name="layout" content="main">
     <title>
-        Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}
+        Historia Clínica
     </title>
 </head>
 <body>
@@ -15,8 +15,11 @@
             <i class="fas fa-arrow-left"></i> Lista de pacientes
         </a>
     </div>
-    <div class="btn-group col-md-6" >
-        <span class="badge badge-pill badge-primary fa-2x">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}</span>
+    <div class="btn-group col-md-8" >
+        <span class="badge badge-pill badge-primary fa-2x">Historial del paciente: ${paciente?.apellido + " " + paciente?.nombre}
+        HC:${paciente?.numeroHistorial}
+        </span>
+        <span class="badge badge-pill badge-info fa-2x">HC:${paciente?.numeroHistorial}</span>
     </div>
 </div>
 

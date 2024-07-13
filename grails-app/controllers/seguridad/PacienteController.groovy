@@ -17,22 +17,22 @@ class PacienteController {
 
     def dbConnectionService
 
-    def list () {
+    def list() {
         def empresa
 
-        if(params.id){
+        if (params.id) {
             empresa = Empresa.get(params.id)
         }
 
         return [empresa: empresa]
     }
 
-    def tablaPacientes_ajax () {
+    def tablaPacientes_ajax() {
         def empresa
 
-        if(params.empresa != '0'){
+        if (params.empresa != '0') {
             empresa = Empresa.get(params.empresa)
-        }else{
+        } else {
             empresa = null
         }
 
@@ -41,14 +41,17 @@ class PacienteController {
         def sqlTx = ""
         def bscaEmp = empresa ? " and empr__id = ${empresa?.id}" : " "
 
-        if(params.buscarPor){
-            bsca = listaItems[params.buscarPor?.toInteger()-1]
-        }else{
+        if (params.buscarPor) {
+            bsca = listaItems[params.buscarPor?.toInteger() - 1]
+        } else {
             bsca = listaItems[0]
         }
 
         def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, " +
-                "replace( replace(replace(age(now()::date, pcntfcna)::text, 'years', 'años'), 'mons','meses'), 'days', 'dias') edad, " +
+                "replace( replace( replace(replace(age(now()::date, pcntfcna)::text, 'year', 'año'), 'mons','meses'), " +
+                "'day', 'dia'), 'mon', 'mes') edad, " +
+
+//                "replace( replace(replace(age(now()::date, pcntfcna)::text, 'years', 'años'), 'mons','meses'), 'days', 'dias') edad, " +
                 "grsndscr, pcntmail, pcntantc from pcnt, grsn "
         def txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
                 " $bsca ilike '%${params.criterio}%' "
@@ -61,160 +64,156 @@ class PacienteController {
 
     }
 
-    def form_ajax () {
+    def form_ajax() {
         def paciente
 
-        if(params.id){
+        if (params.id) {
             paciente = Paciente.get(params.id)
-        }else{
+        } else {
             paciente = new Paciente()
         }
 
-        return[paciente: paciente]
+        return [paciente: paciente]
     }
 
-    def savePaciente_ajax () {
+    def savePaciente_ajax() {
 
 //        println("params " + params)
         def error = 0
         def persona = Persona.get(session.usuario.id)
         def consultorio = persona.empresa
-
         def paciente
-
         def pacientes = Paciente.findAllByEmpresa(consultorio)
 
-            if(params.id){
-                paciente = Paciente.get(params.id)
+        if (params.id) {
+            paciente = Paciente.get(params.id)
+//            if (params.numeroHistorial == paciente?.numeroHistorial) {
+//                error = 0
+//            } else {
+//                if (pacientes?.numeroHistorial?.contains(params.numeroHistorial)) {
+//                    error = 1
+//                } else {
+//                    error = 0
+//                }
+//            }
 
-                if(params.numeroHistorial == paciente?.numeroHistorial){
-                    error = 0
-                }else{
-                    if(pacientes?.numeroHistorial?.contains(params.numeroHistorial)){
-                        error = 1
-                    }else{
-                        error = 0
-                    }
-                }
+        } else {
+            paciente = new Paciente()
+            paciente.fechaInicio = new Date()
+            paciente.empresa = consultorio
+            paciente.activo = 1
 
-            }else{
-                paciente = new Paciente()
-                paciente.fechaInicio = new Date()
-                paciente.empresa = consultorio
-                paciente.activo = 1
+//            if (pacientes?.numeroHistorial?.contains(params.numeroHistorial)) {
+//                error = 1
+//            } else {
+//                error = 0
+//            }
+        }
 
-                if(pacientes?.numeroHistorial?.contains(params.numeroHistorial)){
-                    error = 1
-                }else{
-                    error = 0
-                }
+        if (params.fechaNacimiento) {
+            params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
+        }
+
+        paciente.properties = params
+
+        if (params.activo == '0') {
+            paciente.fechaFin = new Date()
+        } else {
+            paciente.fechaFin = null
+        }
+
+//        if (error == 1) {
+//            render "no_El número de historia clínica ya se encuentra asignado "
+//        } else {
+            if (!paciente.save(flush: true)) {
+                println("error al guardar el paciente " + paciente.errors)
+                render "no_Error al guardar el paciente"
+            } else {
+                render "ok_Paciente guardado correctamente_${paciente?.id}"
             }
-
-            if(params.fechaNacimiento){
-                params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
-            }
-
-            paciente.properties = params
-
-            if(params.activo == '0'){
-                paciente.fechaFin = new Date()
-            }else{
-                paciente.fechaFin = null
-            }
-
-
-            if(error == 1){
-                render "no_El número de historia clínica ya se encuentra asignado "
-            }else{
-                if(!paciente.save(flush: true)){
-                    println("error al guardar el paciente " + paciente.errors)
-                    render"no_Error al guardar el paciente"
-                }else{
-                    render "ok_Paciente guardado correctamente_${paciente?.id}"
-                }
-            }
+//        }
     }
 
-    def canton_ajax () {
+    def canton_ajax() {
         def paciente
         def provincia = Provincia.get(params.provincia)
-        def cantones = Canton.findAllByProvincia(provincia).sort{it.nombre}
+        def cantones = Canton.findAllByProvincia(provincia).sort { it.nombre }
 
-        if(params.id){
+        if (params.id) {
             paciente = Paciente.get(params.id)
-        }else{
+        } else {
             paciente = null
         }
 
         return [paciente: paciente, cantones: cantones]
     }
 
-    def parroquia_ajax () {
+    def parroquia_ajax() {
         def paciente
         def canton = Canton.get(params.canton)
-        def parroquias = Parroquia.findAllByCanton(canton).sort{it.nombre}
+        def parroquias = Parroquia.findAllByCanton(canton).sort { it.nombre }
 
-        if(params.id){
+        if (params.id) {
             paciente = Paciente.get(params.id)
-        }else{
+        } else {
             paciente = null
         }
 
         return [paciente: paciente, parroquias: parroquias]
     }
 
-    def borrarPaciente_ajax(){
+    def borrarPaciente_ajax() {
         def paciente = Paciente.get(params.id)
 
-        try{
+        try {
             paciente.delete(flush: true)
             render "ok_Paciente borrado correctamente"
-        }catch(e){
+        } catch (e) {
             render "no_No se pudo borrar el paciente"
         }
     }
 
-    def show_ajax(){
-        def paciente = Paciente.get(params.id)
-        return[paciente:paciente]
-    }
-
-    def datos() {
-        def paciente
-        if(params.id){
-            paciente = Paciente.get(params.id)
-
-        }else{
-            paciente = new Paciente()
-        }
-        return[paciente:paciente, tipo: params.tipo]
-    }
-
-    def antecedentes_ajax(){
+    def show_ajax() {
         def paciente = Paciente.get(params.id)
         return [paciente: paciente]
     }
 
-    def cambiarEstado_ajax(){
+    def datos() {
+        def paciente
+        if (params.id) {
+            paciente = Paciente.get(params.id)
+
+        } else {
+            paciente = new Paciente()
+        }
+        return [paciente: paciente, tipo: params.tipo]
+    }
+
+    def antecedentes_ajax() {
+        def paciente = Paciente.get(params.id)
+        return [paciente: paciente]
+    }
+
+    def cambiarEstado_ajax() {
         def paciente = Paciente.get(params.id)
 
-        if(paciente.activo == 1){
+        if (paciente.activo == 1) {
             paciente.activo = 0
-        }else{
+        } else {
             paciente.activo = 1
         }
 
-        if(!paciente.save(flush: true)){
+        if (!paciente.save(flush: true)) {
             render "no"
             println("error al cambiar el estado " + paciente.errors)
-        }else{
+        } else {
             render "ok"
         }
     }
 
-    def foto_ajax(){
+    def foto_ajax() {
         def paciente = Paciente.get(params.id)
-        return[paciente: paciente]
+        return [paciente: paciente]
 
     }
 
@@ -269,7 +268,7 @@ class PacienteController {
             flash.message = "Error: Seleccione un archivo JPG, JPEG, PNG"
         }
 
-        redirect(action: "datos", params:[id: paciente?.id])
+        redirect(action: "datos", params: [id: paciente?.id])
         return
     }
 
@@ -279,8 +278,8 @@ class PacienteController {
         def nombreArchivo = paciente?.foto?.split("\\.")[0]
         def extensionArchivo = paciente?.foto?.split("\\.")[1]
 
-        byte[] imageInBytes = im(nombreArchivo, extensionArchivo , paciente?.id)
-        response.with{
+        byte[] imageInBytes = im(nombreArchivo, extensionArchivo, paciente?.id)
+        response.with {
             setHeader('Content-length', imageInBytes.length.toString())
             contentType = "image/${extensionArchivo}" // or the appropriate image content type
             outputStream << imageInBytes
@@ -288,7 +287,7 @@ class PacienteController {
         }
     }
 
-    byte[] im(nombre,ext,paciente) {
+    byte[] im(nombre, ext, paciente) {
         def pcnt = Paciente.get(paciente)
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
         ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${pcnt?.empresa?.id}/paciente/pac_" + pcnt?.id + "/" + nombre + "." + ext)), ext.toString(), baos)
@@ -299,23 +298,23 @@ class PacienteController {
         def paciente = Paciente.get(params.id)
         def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_" + paciente.id + "/${paciente.foto}"
 
-        try{
+        try {
             paciente.foto = null
             paciente.save(flush: true)
             def file = new File(path).delete()
             render "ok"
-        }catch(e){
+        } catch (e) {
             println("error al borrar la foto " + e)
             render "no"
         }
     }
 
-    def buscarCitas () {
+    def buscarCitas() {
         def listaCitas = [1: 'Fecha', 2: 'Motivo', 3: 'Diagnóstico']
-        return  [listaCitas: listaCitas, pcnt: params.pcnt]
+        return [listaCitas: listaCitas, pcnt: params.pcnt]
     }
 
-    def tablaCitas(){
+    def tablaCitas() {
         println("tablaCitas " + params)
         def cn = dbConnectionService.getConnection()
         def datos
@@ -323,9 +322,9 @@ class PacienteController {
 //        def listaItems = ['hsclfcha::text', 'hsclmotv', 'diagdscr']
         def listaItems = ['hsclfcha::text', 'hsclmotv']
         def bsca
-        if(params.buscarPor){
-            bsca = listaItems[params.buscarPor?.toInteger()-1]
-        }else{
+        if (params.buscarPor) {
+            bsca = listaItems[params.buscarPor?.toInteger() - 1]
+        } else {
             bsca = listaItems[0]
         }
 
@@ -339,32 +338,32 @@ class PacienteController {
         [data: datos, tipo: params.tipo]
     }
 
-    def citas (){
+    def citas() {
         def paciente = Paciente.get(params.id)
         return [paciente: paciente]
     }
 
-    def historial(){
+    def historial() {
         def paciente = Paciente.get(params.id)
-        def cita = Historial.findAllByPacienteAndEstado(paciente, "A",[sort: 'fecha', order: 'desc'])
-        def diagnosticos = cita? DiagnosticoxHistorial.findAllByHistorial(cita) : []
+        def cita = Historial.findAllByPacienteAndEstado(paciente, "A", [sort: 'fecha', order: 'desc'])
+        def diagnosticos = cita ? DiagnosticoxHistorial.findAllByHistorial(cita) : []
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def citas = Historial.findAllByPacienteAndEstadoNotEqual(paciente, 'N', [sort: 'fecha', order: 'desc'])
-        def citaPendiente = cita? cita.first() : []
+        def citaPendiente = cita ? cita.first() : []
         return [paciente: paciente, cita: citaPendiente, diagnosticos: diagnosticos, tratamientos: tratamientos, citas: citas, cita_actual: params.cita]
     }
 
-    def tablaTodasCitas_ajax(){
+    def tablaTodasCitas_ajax() {
         def paciente = Paciente.get(params.id)
-        def citas = Historial.findAllByPacienteAndEstado(paciente, "R",[sort: 'fecha', order: 'desc'])
+        def citas = Historial.findAllByPacienteAndEstado(paciente, "R", [sort: 'fecha', order: 'desc'])
         return [citas: citas]
     }
 
-    def examenFisico_ajax(){
+    def examenFisico_ajax() {
         def cita = Historial.get(params.id)
         def examen = ExamenFisico.findByHistorial(cita)
         def paciente = Paciente.get(params.paciente)
-        return[examen: examen, paciente: paciente, cita: cita, examen: examen]
+        return [examen: examen, paciente: paciente, cita: cita, examen: examen]
     }
 
     def tablaAntecedentes_ajax() {
@@ -375,23 +374,23 @@ class PacienteController {
     def ultimaCita_ajax() {
         def cita = Historial.get(params.id)
         def paciente = Paciente.get(params.paciente)
-        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita).sort{it.diagnostico.codigo}
+        def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita).sort { it.diagnostico.codigo }
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         return [cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, paciente: paciente]
     }
 
-    def examenLaboratorio_ajax(){
+    def examenLaboratorio_ajax() {
         def cita = Historial.get(params.id)
         def examenes = ExamenComplementario.findAllByHistorial(cita)
-        return[examenes: examenes, cita: cita]
+        return [examenes: examenes, cita: cita]
     }
 
-    def tablaDatos_ajax(){
+    def tablaDatos_ajax() {
         def paciente = Paciente.get(params.id)
-        return[paciente: paciente]
+        return [paciente: paciente]
     }
 
-    def datos_ajax(){
+    def datos_ajax() {
         def paciente
 
         def usuario = Persona.get(session.usuario.id)
@@ -400,13 +399,13 @@ class PacienteController {
         def pacientes = Paciente.findAllByEmpresa(empresa)
         def numeroActual = pacientes?.numeroHistorial?.max()
 
-        if(params.id){
+        if (params.id) {
             paciente = Paciente.get(params.id)
-        }else{
+        } else {
             paciente = new Paciente()
         }
 
-        return[paciente: paciente,numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
+        return [paciente: paciente, numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
     }
 
     def comboCitas_ajax() {
@@ -416,51 +415,60 @@ class PacienteController {
         return [citas: citas, cita: cita]
     }
 
-    def cambiarEstadoCita_ajax(){
+    def cambiarEstadoCita_ajax() {
         def cita = Historial.get(params.id)
 
         cita.estado = 'N'
 
-        if(!cita.save(flush: true)){
+        if (!cita.save(flush: true)) {
             println("Error al cambiar de estado la cita " + cita.errors)
             render "no_Error al dar de baja la cita"
-        }else{
+        } else {
             render "ok_Guardado correctamente"
         }
     }
 
-    def botones_ajax(){
+    def botones_ajax() {
         def cita = Historial.get(params.id)
         def paciente = Paciente.get(params.paciente)
         return [cita: cita, paciente: paciente]
     }
 
-    def finalizarCita_ajax(){
+    def finalizarCita_ajax() {
         def cita = Historial.get(params.id)
 
         cita.estado = 'R'
 
-        if(!cita.save(flush: true)){
+        if (!cita.save(flush: true)) {
             println("Error al cambiar de estado la cita " + cita.errors)
             render "no_Error al dar de baja la cita"
-        }else{
+        } else {
             render "ok_Guardado correctamente"
         }
     }
 
-    def estado_ajax(){
+    def estado_ajax() {
         def cita = Historial.get(params.id)
         return [cita: cita]
     }
 
-    def edad_ajax(){
-        def edad = 0
-        if(params.fecha){
-            def fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fecha)
-            edad = Math.round( (new Date() - fechaNacimiento)/365.25.toDouble() *10 ) /10
-        }else{
-            edad= 0
-        }
+    def edad_ajax() {
+        def cn = dbConnectionService.getConnection()
+        def fcna = new Date().parse("dd-MM-yyyy", params.fecha).format('yyyy-MM-dd')
+        def sql = "select replace( replace( replace(replace(age(now()::date, '${fcna}'::date)::text, 'year', 'año'), 'mons','meses'), " +
+                "'day', 'dia'), 'mon', 'mes') edad "
+        println "sql: $sql"
+        def edad = cn.rows( sql.toString() )[0]?.edad
+//        return edad
+
+//        if (params.fecha) {
+//            def fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fecha)
+//            edad = Math.round((new Date() - fechaNacimiento) / 365.25.toDouble() * 10) / 10 + " años"
+//        } else {
+//            edad = 0
+//        }
+
+
 
         render edad
     }
