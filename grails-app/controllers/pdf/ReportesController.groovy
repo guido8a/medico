@@ -907,7 +907,6 @@ class ReportesController {
 
             tratamientos.eachWithIndex {p, q->
 
-
                 def numerosALetras = NumberToLetterConverter.convertNumberToLetter(p?.cantidad ?: 0)
 
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])

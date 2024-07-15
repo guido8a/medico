@@ -18,11 +18,11 @@
 
     $("#btnDarBajaCita").click(function() {
         borrarCita();
-    })
+    });
 
     $("#btnTerminarCita").click(function() {
         finalizarCita();
-    })
+    });
 
     $("#btnNuevaCita").click(function () {
         location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${cita?.paciente?.id}'

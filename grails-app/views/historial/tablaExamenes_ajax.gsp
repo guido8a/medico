@@ -5,10 +5,10 @@
             <tr style="width: 100%">
                 <th style="width: 10%">Grupo </th>
                 <th style="width: 10%">Tipo </th>
-%{--                <th style="width: 15%">Examen </th>--}%
+                <th style="width: 20%">Examen </th>
                 <th style="width: 10%">Fecha </th>
-                <th style="width: 20%">Observaciones</th>
-                <th style="width: 10%">Examen asociado</th>
+                <th style="width: 15%">Observaciones</th>
+                <th style="width: 10%">Documento</th>
                 <th style="width:10%">Acciones</th>
             </tr>
             </thead>
@@ -18,9 +18,17 @@
                 <tr style="width: 100%">
                     <td style="width: 10%">${examen?.tipoExamen?.grupoExamen?.descripcion}</td>
                     <td style="width: 10%">${examen?.tipoExamen?.descripcion}</td>
-%{--                    <td style="width: 15%">${examen?.examen?.descripcion}</td>--}%
+                    <td style="width: 20%">
+                        <ul>
+                            <g:each in="${medico.DetalleExamen.findAllByExamenComplementario(examen)}">
+                                <li>
+                                    ${it?.examen?.descripcion}
+                                </li>
+                            </g:each>
+                        </ul>
+                    </td>
                     <td style="width: 10%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
-                    <td style="width: 20%">${examen?.observaciones}</td>
+                    <td style="width: 15%">${examen?.observaciones}</td>
                     <td style="width: 10%">
                         <g:if test="${examen?.path}">
                             ${examen?.path}

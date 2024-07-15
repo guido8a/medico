@@ -15,9 +15,10 @@
                             <tr style="width: 100%">
                                 <th style="width: 15%">Grupo </th>
                                 <th style="width: 15%">Tipo </th>
+                                <th style="width: 15%">Examen</th>
                                 <th style="width: 10%">Fecha </th>
                                 <th style="width: 25%">Observaciones</th>
-                                <th style="width: 10%">Documento asociado</th>
+                                %{--                                <th style="width: 10%">Documento</th>--}%
                             </tr>
                             </thead>
                             <tbody >
@@ -25,13 +26,22 @@
                                 <tr>
                                     <td style="width: 15%">${examen?.tipoExamen?.grupoExamen?.descripcion}</td>
                                     <td style="width: 25%">${examen?.tipoExamen?.descripcion}</td>
+                                    <td style="width: 25%">
+                                        <ul>
+                                            <g:each in="${medico.DetalleExamen.findAllByExamenComplementario(examen)}">
+                                                <li>
+                                                    ${it?.examen?.descripcion}
+                                                </li>
+                                            </g:each>
+                                        </ul>
+                                    </td>
                                     <td style="width: 10%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
                                     <td style="width: 25%">${examen?.observaciones}</td>
-                                    <td style="width: 10%">
-                                        <g:if test="${examen?.path}">
-                                            ${examen?.path}
-                                        </g:if>
-                                    </td>
+                                    %{--                                    <td style="width: 10%">--}%
+                                    %{--                                        <g:if test="${examen?.path}">--}%
+                                    %{--                                            ${examen?.path}--}%
+                                    %{--                                        </g:if>--}%
+                                    %{--                                    </td>--}%
                                 </tr>
                             </g:each>
                             </tbody>
