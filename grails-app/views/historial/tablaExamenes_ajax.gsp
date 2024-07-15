@@ -8,7 +8,7 @@
 %{--                <th style="width: 15%">Examen </th>--}%
                 <th style="width: 10%">Fecha </th>
                 <th style="width: 20%">Observaciones</th>
-                <th style="width: 10%">Documento asociado</th>
+                <th style="width: 10%">Examen asociado</th>
                 <th style="width:10%">Acciones</th>
             </tr>
             </thead>

@@ -889,10 +889,11 @@ class ReportesController {
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
-            addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaHeaderDetalles, new Paragraph("Rp:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaHeaderDetalles, new Paragraph("INDICACIONES:  ${cita?.tratamiento ?: ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan:2])
+//            addCellTabla(tablaHeaderDetalles, new Paragraph("INDICACIONES:  ${cita?.tratamiento ?: ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan:2])
+            addCellTabla(tablaHeaderDetalles, new Paragraph("INDICACIONES:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan:2])
 
             addCellTabla(tablaDetalles, tablaHeaderDetalles, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 5, pl: 0])
 

@@ -2,17 +2,6 @@
     Tratamiento del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
 </div>
 
-<div class="row izquierda">
-    <div class="col-md-12 input-group">
-        %{--        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>--}%
-        <label for="tratamiento" class="col-md-1 control-label text-info">
-            Tratamiento
-        </label>
-        <span class="col-md-11">
-            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 100px;"  value="${historial?.tratamiento}"/>
-        </span>
-    </div>
-</div>
 
 <div class="row" style="margin-bottom: 10px">
     <div class="col-md-2 btn-group" role="navigation">
@@ -28,6 +17,18 @@
         <div id="divTablaTratamiento" >
         </div>
     </fieldset>
+</div>
+
+<div class="row izquierda">
+    <div class="col-md-12 input-group">
+        %{--        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>--}%
+        <label for="tratamiento" class="col-md-1 control-label text-info">
+            Medidas generales
+        </label>
+        <span class="col-md-11">
+            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 100px;"  value="${historial?.tratamiento}"/>
+        </span>
+    </div>
 </div>
 
 <script type="text/javascript">
