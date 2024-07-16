@@ -13,7 +13,7 @@
     <div class="btn-group" role="navigation">
         <a href="#" class="btn btn-success btnNuevaMedicina">
             <i class="fa fa-medkit"></i>
-            Nueva Medicina
+            Nuevo Medicamento
         </a>
     </div>
 </div>
