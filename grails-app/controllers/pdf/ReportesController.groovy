@@ -950,7 +950,9 @@ class ReportesController {
         tablaPieDetalles.setTotalWidth(800)
         tablaPieDetalles.setWidths(arregloEnteros([46,8,46]))
 
-//        addCellTabla(tablaPieDetalles, new Paragraph("INDICACIONES GENERALES: ${cita?.tratamiento ?: ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE , colspan: 3])
+        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaPieDetalles, new Paragraph("${cita?.tratamiento ?: ''}", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE , colspan: 3])
 
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
