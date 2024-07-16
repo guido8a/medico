@@ -298,11 +298,19 @@
                         class: "modal-lg",
                         message : msg,
                         buttons : {
+                            guardar  : {
+                                id        : "btnSave",
+                                label     : "<i class='fa fa-save'></i> Guardar",
+                                className : "btn-success",
+                                callback  : function () {
+                                    return submitTextoTratamiento();
+                                } //callback
+                            }, //guardar,
                             cancelar : {
                                 label     : "Cancelar",
                                 className : "btn-primary",
                                 callback  : function () {
-                                    return submitTextoTratamiento();
+                                    // return submitTextoTratamiento();
                                 }
                             }
                         } //buttons
