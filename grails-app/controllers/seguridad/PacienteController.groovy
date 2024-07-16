@@ -387,7 +387,8 @@ class PacienteController {
 
     def tablaDatos_ajax() {
         def paciente = Paciente.get(params.id)
-        return [paciente: paciente]
+        def edad = calculaEdad( new Date().format('yyyy-MM-dd'), paciente?.fechaNacimiento.format('yyyy-MM-dd'))
+        return [paciente: paciente, edad: edad]
     }
 
     def datos_ajax() {
@@ -453,24 +454,17 @@ class PacienteController {
     }
 
     def edad_ajax() {
+        render calculaEdad(new Date().format('yyyy-MM-dd'), new Date().parse("dd-MM-yyyy", params.fecha).format('yyyy-MM-dd'))
+//        render edad
+    }
+
+    def calculaEdad(fcha, fcna) {
         def cn = dbConnectionService.getConnection()
-        def fcna = new Date().parse("dd-MM-yyyy", params.fecha).format('yyyy-MM-dd')
-        def sql = "select replace( replace( replace(replace(age(now()::date, '${fcna}'::date)::text, 'year', 'año'), 'mons','meses'), " +
+        def sql = "select replace( replace( replace(replace( age('${fcha}'::date, '${fcna}'::date)::text, 'year', 'año'), 'mons','meses'), " +
                 "'day', 'dia'), 'mon', 'mes') edad "
         println "sql: $sql"
         def edad = cn.rows( sql.toString() )[0]?.edad
-//        return edad
-
-//        if (params.fecha) {
-//            def fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fecha)
-//            edad = Math.round((new Date() - fechaNacimiento) / 365.25.toDouble() * 10) / 10 + " años"
-//        } else {
-//            edad = 0
-//        }
-
-
-
-        render edad
+        return edad
     }
 
 
