@@ -51,8 +51,8 @@
             <label for="habitos" class="col-md-2 control-label text-info">
                 Hábitos Urinarios
             </label>
-            <span class="col-md-8">
-                <g:textField name="habitosUrinario" maxlength="255" class="form-control" value="${paciente?.habitosUrinario}"/>
+            <span class="col-md-1">
+                <g:textField name="habitosUrinario" maxlength="2" class="form-control" value="${paciente?.habitosUrinario}"/>
             </span>
         </span>
     </div>
@@ -62,8 +62,8 @@
             <label for="habitos" class="col-md-2 control-label text-info">
                 Hábitos Defecatorios
             </label>
-            <span class="col-md-8">
-                <g:textField name="habitosDefecatorio"  maxlength="255" class="form-control" value="${paciente?.habitosDefecatorio}"/>
+            <span class="col-md-1">
+                <g:textField name="habitosDefecatorio"  maxlength="2" class="form-control" value="${paciente?.habitosDefecatorio}"/>
             </span>
         </span>
     </div>
@@ -101,7 +101,6 @@
         </span>
     </div>
 
-
     <g:if test="${paciente?.sexo == 'F'}">
         <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesGinecobstreticos', 'error')}">
             <span class="grupo">
@@ -114,7 +113,6 @@
             </span>
         </div>
     </g:if>
-
 
     <g:if test="${paciente?.nino}">
         <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesDespuesdeNacer', 'error')}">
@@ -140,5 +138,33 @@
         </div>
     </g:if>
 
-
 </g:form>
+
+<script type="text/javascript">
+
+    function validarNum(ev) {
+        /*
+         48-57      -> numeros
+         96-105     -> teclado numerico
+         188        -> , (coma)
+         190        -> . (punto) teclado
+         110        -> . (punto) teclado numerico
+         8          -> backspace
+         46         -> delete
+         9          -> tab
+         37         -> flecha izq
+         39         -> flecha der
+         */
+        return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
+            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39);
+    }
+
+
+    $("#habitosUrinario, #habitosDefecatorio").keydown(function (ev) {
+        return validarNum(ev);
+    });
+
+
+</script>

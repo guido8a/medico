@@ -4,6 +4,7 @@ class Examen {
 
     TipoExamen tipoExamen
     String descripcion
+    int numero
 
 
     static mapping = {
@@ -15,6 +16,7 @@ class Examen {
             id column: 'exam__id'
             tipoExamen column: 'tpex__id'
             descripcion column: 'examdscr'
+            numero column: 'examnmro'
         }
     }
 
@@ -22,5 +24,6 @@ class Examen {
     static constraints = {
         tipoExamen(blank: false, nullable: false)
         descripcion(blank: false, nullable: false, size: 0..255)
+        numero(blank: false, nullable: false)
     }
 }

@@ -34,8 +34,8 @@ class Paciente {
     String antecedentesDespuesdeNacer
     String alergias
     String habitosAlimentario
-    String habitosUrinario
-    String habitosDefecatorio
+    int habitosUrinario
+    int habitosDefecatorio
     String habitosFumador
     String habitosTomador
     String numeroHistorial
@@ -118,8 +118,8 @@ class Paciente {
         antecedentesOcupacionales(size: 0..255, blank: true, nullable: true)
         alergias(size: 0..255, blank: true, nullable: true)
         habitosAlimentario(size: 0..255, blank: true, nullable: true)
-        habitosUrinario(size: 0..255, blank: true, nullable: true)
-        habitosDefecatorio(size: 0..255, blank: true, nullable: true)
+        habitosUrinario(blank: true, nullable: true)
+        habitosDefecatorio(blank: true, nullable: true)
         habitosFumador(size: 0..255, blank: true, nullable: true)
         habitosTomador(size: 0..255, blank: true, nullable: true)
         numeroHistorial(size: 0..4, blank: true, nullable: true)
