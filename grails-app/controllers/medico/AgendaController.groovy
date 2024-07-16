@@ -10,7 +10,7 @@ class AgendaController {
     def agenda(){
         def usuario = Persona.get(session.usuario.id)
         def consultorio = usuario.empresa
-        [paciente: params.paciente, consultorio: consultorio]
+        [paciente: params.paciente, consultorio: consultorio, usuario: usuario]
     }
 
     def tabla_ajax(){

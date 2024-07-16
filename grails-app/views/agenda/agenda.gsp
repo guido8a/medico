@@ -98,7 +98,7 @@
             Doctor
         </label>
         <g:select name="doctor" from="${seguridad.Persona.findAllByEmpresa(consultorio).sort{it.apellido}}"
-                  class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id" data-nombre="${{it.apellido + " " + it.nombre}}"
+                  class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id" value="${usuario?.id}" data-nombre="${{it.apellido + " " + it.nombre}}"
         />
     </div>
 

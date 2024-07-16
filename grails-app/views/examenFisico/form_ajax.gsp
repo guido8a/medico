@@ -99,10 +99,10 @@
                     Tensión arterial 1
                 </label>
                 <span class="col-md-1">
-                    <g:textField name="sistole1" maxlength="4" class="form-control" value="${examen?.sistole1 ?: 0}" style="width: 60px"/>
+                    <g:textField name="sistole1" maxlength="4" class="form-control" value="${examen?.sistole1 ?: 0}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <span class="col-md-1" style="margin-left: -15px">/</span>
+                <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash"></i></span>
                 <span class="col-md-1">
                     <g:textField name="diastole1" maxlength="4" class="form-control" value="${examen?.diastole1 ?: 0}" style="margin-left: -55px"/>
                     <p class="help-block ui-helper-hidden"></p>
@@ -113,12 +113,12 @@
                 <label class="col-md-2 control-label text-info">
                     Tensión arterial 2
                 </label>
-                <span class="col-md-2">
+                <span class="col-md-1">
                     <g:textField name="sistole2" maxlength="4" class="form-control" value="${examen?.sistole2 ?: 0}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <span class="col-md-1" style="margin-left: -15px">/</span>
-                <span class="col-md-2">
+                <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash"></i></span>
+                <span class="col-md-1">
                     <g:textField name="diastole2" maxlength="4" class="form-control" value="${examen?.diastole2 ?: 0}" style="margin-left: -55px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
@@ -266,7 +266,6 @@
         }else{
             $("#imc").val(0)
         }
-
     });
 
     $('#fechaExamenFisico').datetimepicker({
