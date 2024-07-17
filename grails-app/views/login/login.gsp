@@ -32,7 +32,7 @@
         </a>
 
 
-        <div style="width: 100%;height: 60px;float: left; margin-bottom:5px; margin-top: 30px; text-align: center">
+        <div style="width: 100%;height: 60px;float: left; margin-bottom:5px; margin-top: 20px; text-align: center">
             <a href="#" id="ingresar" class="btn btn-info"
                style="width: 120px; margin: auto">
                 Ingresar <i class="fas fa-user-times"></i></a>
