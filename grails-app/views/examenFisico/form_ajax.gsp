@@ -102,7 +102,7 @@
                     <g:textField name="sistole1" maxlength="4" class="form-control" value="${examen?.sistole1 ?: 0}" style="width: 50px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash"></i></span>
+                <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash fa-rotate-90"></i></span>
                 <span class="col-md-1">
                     <g:textField name="diastole1" maxlength="4" class="form-control" value="${examen?.diastole1 ?: 0}" style="margin-left: -55px; width: 50px"/>
                     <p class="help-block ui-helper-hidden"></p>
@@ -117,7 +117,7 @@
                     <g:textField name="sistole2" maxlength="4" class="form-control" value="${examen?.sistole2 ?: 0}" style="width: 50px" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash"></i></span>
+                <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash fa-rotate-90"></i></span>
                 <span class="col-md-1">
                     <g:textField name="diastole2" maxlength="4" class="form-control" value="${examen?.diastole2 ?: 0}" style="margin-left: -55px; width: 50px"/>
                     <p class="help-block ui-helper-hidden"></p>
@@ -125,7 +125,8 @@
             </span>
         </div>
 
-        <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>
+        %{--<div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>--}%
+        <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center"></div>
 
 
 
@@ -241,10 +242,10 @@
 
         <div class="form-group ${hasErrors(bean: examen, field: 'pielFaneras', 'error')} ">
             <span class="grupo" >
-                <label class="col-md-2 control-label text-info">
+                <label class="col-md-1 control-label text-info">
                     Piel y Faneras
                 </label>
-                <span class="col-md-10" style="margin-top: 10px !important;">
+                <span class="col-md-11" style="margin-top: 10px !important;">
                     <g:textField name="pielFaneras" maxlength="255" class="form-control" value="${examen?.pielFaneras}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
