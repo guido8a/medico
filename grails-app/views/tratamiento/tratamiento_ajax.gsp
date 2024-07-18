@@ -21,7 +21,6 @@
 
 <div class="row izquierda">
     <div class="col-md-12 input-group">
-        %{--        <span class="col-md-2 label label-primary text-info mediano">Tratamiento</span>--}%
         <label for="tratamiento" class="col-md-1 control-label text-info">
             Medidas generales
         </label>

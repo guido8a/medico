@@ -51,22 +51,18 @@
             <label for="habitos" class="col-md-2 control-label text-info">
                 Hábitos Urinarios
             </label>
-            <span class="col-md-1">
-                <g:textField name="habitosUrinario" maxlength="2" class="form-control" value="${paciente?.habitosUrinario}"/>
+            <span class="col-md-2">
+                <g:field type="number" name="habitosUrinario" maxlength="2" class="form-control" value="${paciente?.habitosUrinario}"/>
+            </span>
+            <label for="habitos" class="col-md-2 control-label text-info">
+                Hábitos Defecatorios
+            </label>
+            <span class="col-md-2">
+                <g:field name="habitosDefecatorio" type="number" maxlength="2" class="form-control" value="${paciente?.habitosDefecatorio}"/>
             </span>
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: paciente, field: 'habitosDefecatorio', 'error')}">
-        <span class="grupo">
-            <label for="habitos" class="col-md-2 control-label text-info">
-                Hábitos Defecatorios
-            </label>
-            <span class="col-md-1">
-                <g:textField name="habitosDefecatorio"  maxlength="2" class="form-control" value="${paciente?.habitosDefecatorio}"/>
-            </span>
-        </span>
-    </div>
     <g:if test="${!paciente?.nino}">
         <div class="form-group ${hasErrors(bean: paciente, field: 'habitosFumador', 'error')}">
             <span class="grupo">

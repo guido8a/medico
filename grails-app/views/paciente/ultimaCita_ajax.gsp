@@ -100,7 +100,8 @@
                         <table class="table table-bordered table-striped table-condensed table-hover">
                             <thead>
                             <tr style="width: 100%">
-                                <th style="width: 10%">Medicina </th>
+                                <th style="width: 10%">Nombre Comercial </th>
+                                <th style="width: 10%">Nombre Genérico </th>
                                 <th style="width: 10%">Concentración </th>
                                 <th style="width: 10%">Cantidad </th>
                                 <th style="width: 35%">Prescripción</th>
@@ -109,10 +110,11 @@
                             <tbody >
                             <g:each in="${tratamientos}" status="i" var="tratamiento">
                                 <tr style="width: 100%">
-                                    <td style="width: 25%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
+                                    <td style="width: 15%">${tratamiento?.medicina ? tratamiento?.medicina?.nombre : ''}</td>
+                                    <td style="width: 30%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
                                     <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
                                     <td style="width: 8%">${tratamiento?.cantidad}</td>
-                                    <td style="width: 47%">${tratamiento?.descripcion}</td>
+                                    <td style="width: 52%">${tratamiento?.descripcion}</td>
                                 </tr>
                             </g:each>
                             </tbody>

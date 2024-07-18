@@ -99,12 +99,12 @@
                     Tensión arterial 1
                 </label>
                 <span class="col-md-1">
-                    <g:textField name="sistole1" maxlength="4" class="form-control" value="${examen?.sistole1 ?: 0}"/>
+                    <g:textField name="sistole1" maxlength="4" class="form-control" value="${examen?.sistole1 ?: 0}" style="width: 50px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash"></i></span>
                 <span class="col-md-1">
-                    <g:textField name="diastole1" maxlength="4" class="form-control" value="${examen?.diastole1 ?: 0}" style="margin-left: -55px"/>
+                    <g:textField name="diastole1" maxlength="4" class="form-control" value="${examen?.diastole1 ?: 0}" style="margin-left: -55px; width: 50px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -114,12 +114,12 @@
                     Tensión arterial 2
                 </label>
                 <span class="col-md-1">
-                    <g:textField name="sistole2" maxlength="4" class="form-control" value="${examen?.sistole2 ?: 0}" />
+                    <g:textField name="sistole2" maxlength="4" class="form-control" value="${examen?.sistole2 ?: 0}" style="width: 50px" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <span class="col-md-1" style="margin-left: -20px; margin-top: 10px"><i class="fa fa-slash"></i></span>
                 <span class="col-md-1">
-                    <g:textField name="diastole2" maxlength="4" class="form-control" value="${examen?.diastole2 ?: 0}" style="margin-left: -55px"/>
+                    <g:textField name="diastole2" maxlength="4" class="form-control" value="${examen?.diastole2 ?: 0}" style="margin-left: -55px; width: 50px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
