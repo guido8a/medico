@@ -27,9 +27,22 @@
 //            drawMark(ctx, 108, 810, "Origen3");
 //            drawMark(ctx, 690, 1053, "Final");
 
+            %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
+            %{--drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");--}%
+            %{--texto(ctx, 350, 260, "${data.exfs_imc}");--}%
+
+
+            console.log('data:', ${data.size()})
+            %{--var js_data = ${raw(jdata)}--}%
+//            js_data  = js_data.replace(/\"/g,'"');
+//            var json = JSON.parse(js_data)
+//            console.log('data[]:', json)
+            %{--for (var i=0; i < ${data.size()}; i++) {--}%
             drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");
             drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");
             texto(ctx, 350, 260, "${data.exfs_imc}");
+//            }
+
         };
 
         function drawMark(ctx, x, y, text) {

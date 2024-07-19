@@ -1,5 +1,6 @@
 package medico
 
+import grails.converters.JSON
 import seguridad.Empresa
 import seguridad.Paciente
 
@@ -139,10 +140,10 @@ def save_ajax(){
         data.exfstlla = Math.floor( (841 - (data.exfstlla - 75.0) / 5 * 31) )
 
         data.exfspeso = Math.round( 1028 - (data.exfspeso - 10 ) / 5 * 31 )
-        println "*--> $data , edad: $edad"
+        println "*--> ${data as JSON} , edad: ${[edad]}"
         imagenBytes = im()
 
-        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data]
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
     }
 
 
