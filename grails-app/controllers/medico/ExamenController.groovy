@@ -96,7 +96,7 @@ def save_ajax(){
         data.exfspeso = Math.round( 1028 - (data.exfspeso - 10 ) / 5 * 31 )
         println "*--> $data , edad: $edad"
         imagenBytes = im()
-        [ancho: ancho, alto: alto, edad: edad, data: data]
+        [ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
     }
 
     def getImage() {

@@ -68,6 +68,14 @@ Canvas para cargar la imagen
 //            drawMark(ctx, 108, 810, "Origen3");
 //            drawMark(ctx, 690, 1053, "Final");
 
+            console.log('data:', ${data.size()})
+            var js_data = ${jdata}
+//            js_data  = js_data.replace(/\"/g,'"');
+//            var json = JSON.parse(js_data)
+                console.log('data[]:', js_data)
+            console.log('data[]:', js_data)
+
+
             drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");
             drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");
             texto(ctx, 350, 260, "${data.exfs_imc}");

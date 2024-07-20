@@ -33,10 +33,12 @@
 
 
             console.log('data:', ${data.size()})
-            %{--var js_data = ${raw(jdata)}--}%
+            var js_data = ${jdata}
 //            js_data  = js_data.replace(/\"/g,'"');
 //            var json = JSON.parse(js_data)
-//            console.log('data[]:', json)
+            console.log('data[]:', js_data)
+            console.log('data[]:', js_data)
+
             %{--for (var i=0; i < ${data.size()}; i++) {--}%
             drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");
             drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");
