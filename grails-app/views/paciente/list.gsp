@@ -62,14 +62,12 @@
             </span>
 
         </div>
+    </fieldset>
 
-</div>
-</fieldset>
-
-<fieldset class="borde" style="border-radius: 4px">
-    <div id="divTablaPacientes">
-    </div>
-</fieldset>
+    <fieldset class="borde" style="border-radius: 4px">
+        <div id="divTablaPacientes">
+        </div>
+    </fieldset>
 </div>
 
 

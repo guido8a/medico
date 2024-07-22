@@ -47,7 +47,7 @@ class PacienteController {
             bsca = listaItems[0]
         }
 
-        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr, " +
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntpath, pcntnmbr, " +
                 "replace( replace( replace(replace(age(now()::date, pcntfcna)::text, 'year', 'año'), 'mons','meses'), " +
                 "'day', 'dia'), 'mon', 'mes') edad, " +
 
@@ -473,5 +473,92 @@ class PacienteController {
         return edad
     }
 
+    def cargarCitasAnteriores_ajax(){
+        def paciente = Paciente.get(params.id)
+        return [paciente: paciente]
+    }
+
+    def uploadCitasAnteriores(){
+        println "upload " + params
+
+        def acceptedExt = ["pdf"]
+
+        def paciente = Paciente.get(params.id)
+        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/"
+        new File(path).mkdirs()
+
+        def f = request.getFile('file')  //archivo = name del input type file
+        if (f && !f.empty) {
+            def fileName = f.getOriginalFilename() //nombre original del archivo
+            def ext
+            def parts = fileName.split("\\.")
+            fileName = ""
+            parts.eachWithIndex { obj, i ->
+                if (i < parts.size() - 1) {
+                    fileName += obj
+                } else {
+                    ext = obj
+                }
+            }
+            if (acceptedExt.contains(ext.toLowerCase())) {
+                fileName = fileName + "." + ext
+                def pathFile = path + fileName
+                def file = new File(pathFile)
+                println "subiendo archivo: $fileName"
+
+                f.transferTo(file)
+
+                def old = paciente.path
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                paciente.path = fileName
+                paciente.save(flush: true)
+
+            } else {
+                render "no_Seleccione un archivo PDF"
+                return
+            }
+        } else {
+            render "no_Seleccione un archivo PDF"
+            return
+        }
+
+        render "ok_Subido correctamente"
+    }
+
+    def borrarDocCitasAnteriores_ajax(){
+        def paciente = Paciente.get(params.id)
+
+        if(paciente?.path){
+            try{
+
+                def old = paciente.path
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                paciente.path = null
+                paciente.save(flush:true)
+                render "ok_Documento borrado correctamente"
+
+            }catch(e){
+                println("error al borrar el examen " + examen.errors)
+                render "no_Error al borrar el documento"
+            }
+        }else{
+            render "no_No se encontró el documento"
+        }
+
+    }
 
 }
