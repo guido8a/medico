@@ -34,7 +34,9 @@
                     <td style="width: 14%">${paciente.pcntmail}</td>
                     <td style="width: 10%; text-align: center">
                         <g:if test="${paciente?.pcntpath}">
-                            <i class="fas fa-check text-success fa-2x"></i>
+                            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">
+                                <i class="fa fa-download"></i>
+                            </g:link>
                         </g:if>
                         <g:else>
                             <i class="fas fa-times text-danger fa-2x"></i>

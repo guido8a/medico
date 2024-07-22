@@ -558,7 +558,28 @@ class PacienteController {
         }else{
             render "no_No se encontró el documento"
         }
+    }
 
+   def downloadDocumentoCitasAnteriores() {
+       def paciente = Paciente.get(params.id)
+        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/" + paciente.path
+
+        def file = new File(path)
+        if (file.exists()) {
+            def b = file.getBytes()
+
+            def ext = paciente.path.split("\\.")
+            ext = ext[ext.size() - 1]
+
+            response.setContentType(ext == 'pdf' ? "application/pdf" : "image/" + ext)
+            response.setHeader("Content-disposition", "attachment; filename=" + paciente.path)
+            response.setContentLength(b.length)
+            response.getOutputStream().write(b)
+        } else {
+            flash.clase = "alert-error"
+            flash.message = "No se encontró el documento " + " '" + paciente.path + "'"
+            redirect(action: "errores")
+        }
     }
 
 }
