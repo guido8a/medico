@@ -5,15 +5,15 @@
         <thead>
         <tr>
             <th style="width: 7%">Cédula</th>
-            <th style="width: 12%">Apellidos</th>
-            <th style="width: 12%">Nombres</th>
-            <th style="width: 12%">Edad</th>
+            <th style="width: 16%">Nombres</th>
+            <th style="width: 16%">Apellidos</th>
+            <th style="width: 15%">Edad</th>
 %{--            <th style="width: 20%">Antecedentes</th>--}%
             <th style="width: 5%">Grupo S.</th>
-            <th style="width: 14%">Mail</th>
-            <th style="width: 10%">Cargado</th>
+            <th style="width: 15%">Mail</th>
+            <th style="width: 8%">HC Anterior</th>
             <th style="width: 10%">Historial</th>
-            <th style="width: 10%">Anteriores</th>
+            <th style="width: 8%">Anteriores</th>
         </tr>
         </thead>
     </table>
@@ -26,13 +26,13 @@
             <g:each in="${datos}" status="i" var="paciente">
                 <tr data-id="${paciente.pcnt__id}">
                     <td style="width: 7%">${paciente.pcntcdla}</td>
-                    <td style="width: 12%">${paciente.pcntapll}</td>
-                    <td style="width: 12%">${paciente.pcntnmbr}</td>
-                    <td style="width: 12%">${paciente.edad}</td>
+                    <td style="width: 16%">${paciente.pcntnmbr}</td>
+                    <td style="width: 16%">${paciente.pcntapll}</td>
+                    <td style="width: 15%">${paciente.edad}</td>
 %{--                    <td style="width: 20%">${paciente.pcntantc}</td>--}%
                     <td style="width: 5%">${paciente.grsndscr}</td>
-                    <td style="width: 14%">${paciente.pcntmail}</td>
-                    <td style="width: 10%; text-align: center">
+                    <td style="width: 15%">${paciente.pcntmail}</td>
+                    <td style="width: 8%; text-align: center">
                         <g:if test="${paciente?.pcntpath}">
                             <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">
                                 <i class="fa fa-download"></i>
@@ -48,9 +48,10 @@
                             <i class="fas fa-book"></i> Historia Clínica
                         </a>
                     </td>
-                    <td style="width: 10%; text-align: center">
-                        <a href="#" class="btn btn-xs btn-info btnCargarCitasAnteriores" data-id="${paciente?.pcnt__id}" title="Cargar citas anteriores del paciente">
-                            <i class="fas fa-clipboard-check"></i> Anteriores
+                    <td style="width: 8%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-info btnCargarCitasAnteriores" data-id="${paciente?.pcnt__id}"
+                           title="Cargar la Historia Clínica anterior del paciente">
+                            <i class="fas fa-clipboard-check"></i> HC pdf
                         </a>
                     </td>
                 </tr>

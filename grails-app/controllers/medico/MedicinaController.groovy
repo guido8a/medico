@@ -66,6 +66,7 @@ class MedicinaController {
         }
 
         medicina.properties = params
+        println "medicina: ${medicina.forma} --> ${medicina.concentracion}"
 
         if(!medicina.save(flush: true)){
             println("error al guardar la medicina " + medicina.errors)
