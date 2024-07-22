@@ -43,6 +43,7 @@ class Paciente {
     String residenciaHabitual
     String residenciaOcasional
     String path
+    String facturar
 
     static mapping = {
         table 'pcnt'
@@ -88,6 +89,7 @@ class Paciente {
             residenciaHabitual column: 'pcntrdhb'
             residenciaOcasional column: 'pcntrdoc'
             path column: 'pcntpath'
+            facturar column: 'pcntfctr'
         }
     }
 
@@ -129,6 +131,7 @@ class Paciente {
         residenciaHabitual(size: 0..255, blank: true, nullable: true)
         residenciaOcasional(size: 0..255, blank: true, nullable: true)
         path(size: 0..255, blank: true, nullable: true)
+        facturar(size: 0..255, blank: true, nullable: true)
     }
 
 // no funciona Sql en el dominio

@@ -182,7 +182,7 @@
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="direccion" class="col-md-2 control-label text-info">
-                Dirección
+                Dirección domicilio
             </label>
             <span class="col-md-9">
                 <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.direccion}"/>
@@ -193,7 +193,7 @@
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="referencia" class="col-md-2 control-label text-info">
-                Referencia
+                Referencia de dirección
             </label>
             <span class="col-md-9">
                 <g:textField name="referencia" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>
@@ -207,11 +207,11 @@
                 Teléfonos
             </label>
             <span class="grupo">
-                <span class="col-md-3">
+                <span class="col-md-4">
                     <g:textField name="telefono" maxlength="31" class="form-control" value="${paciente?.telefono}"/>
                 </span>
             </span>
-            <span class="col-md-1 mediano"></span>
+            %{--<span class="col-md-1 mediano"></span>--}%
             <label for="mail" class="col-md-1 control-label text-info">
                 Email
             </label>
@@ -228,8 +228,14 @@
             <label for="responsable" class="col-md-2 control-label text-info">
                 Responsable
             </label>
-            <span class="col-md-9">
+            <span class="col-md-4">
                 <g:textField name="responsable" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
+            </span>
+            <label for="facturar" class="col-md-1 control-label text-info" style="margin-left: -10px; width: 85px">
+                Factuar a:
+            </label>
+            <span class="col-md-4">
+                <g:textField name="facturar" maxlength="127" class="form-control" value="${paciente?.facturar}"/>
             </span>
         </div>
     </div>
