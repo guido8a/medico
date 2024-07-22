@@ -14,7 +14,7 @@
                 Cédula
             </label>
             <span class="col-md-3">
-                <g:textField name="cedula" maxlength="10" minlength="10" required="" class="form-control required allCaps"  value="${paciente?.cedula}"/>
+                <g:textField name="cedula" maxlength="10" minlength="10" class="form-control allCaps"  value="${paciente?.cedula}"/>
             </span>
 
             <label for="activo" class="col-md-1 control-label text-info">
@@ -42,7 +42,7 @@
     <div class="row izquierda">
         <div class="col-md-12 input-group">
                <label for="nombre" class="col-md-2 control-label text-info">
-                Nombre
+                Nombres
             </label>
             <span class="grupo">
                 <span class="col-md-3">
@@ -50,7 +50,7 @@
                 </span>
             </span>
             <label for="apellido" class="col-md-1 control-label text-info">
-                Apellido
+                Apellidos
             </label>
             <span class="grupo">
                 <span class="col-md-3">
@@ -84,7 +84,10 @@
             </label>
             <span class="grupo">
                 <span class="col-md-2">
-                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.grupoSanguineo?.id}"/>
+                    <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list([sort: 'descripcion'])}" optionKey="id"
+                              optionValue="descripcion" class="form-control" value="${paciente?.grupoSanguineo?.id?:0}"
+                    />
+                    %{--noSelection="${[0:'Seleccione']}"--}%
                 </span>
             </span>
         </div>
@@ -114,18 +117,21 @@
             </span>
             <span class="col-md-3 text-info">
                 %{--Edad--}%
-                <span id="edadCalculo" class="form-control" readonly="">
-                             ${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}
+                %{--<span id="edadCalculo" class="form-control" readonly="">--}%
+                             %{--${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}--}%
+                %{--</span>--}%
+                <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">
                 </span>
             </span>
             %{--<span class="col-md-2">--}%
                 %{--<g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}"/>--}%
             %{--</span>--}%
-            <label for="numeroHistorial" class="col-md-2 control-label text-info">
+            <label for="numeroHistorial" class="col-md-3 control-label text-info">
                 Numero de historia clínica
             </label>
-            <span class="col-md-2">
-                <g:textField name="numeroHistorial" maxlength="4" class="form-control required" required="" value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
+            <span class="col-md-1">
+                <g:textField name="numeroHistorial" maxlength="5" class="form-control" style="width: 65px; margin-left: -20px"
+                             value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
             </span>
         </div>
     </div>

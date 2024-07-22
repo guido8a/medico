@@ -35,7 +35,7 @@
 
                     <div class="col-md-2">
                         <g:select name="buscarPor" class="buscarPor col-md-12 form-control"
-                                  from="${[1: 'Cédula', 2: 'Apellido', 3: 'Nombre']}" optionKey="key"
+                                  from="${[3: 'Nombre', 2: 'Apellido', 1: 'Cédula']}" optionKey="key"
                                   optionValue="value"/>
                     </div>
 

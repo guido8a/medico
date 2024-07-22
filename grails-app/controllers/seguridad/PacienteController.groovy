@@ -454,16 +454,22 @@ class PacienteController {
     }
 
     def edad_ajax() {
-        render calculaEdad(new Date().format('yyyy-MM-dd'), new Date().parse("dd-MM-yyyy", params.fecha).format('yyyy-MM-dd'))
-//        render edad
+        def fcha = ""
+        def resultado = ""
+        if(params.fecha){
+            fcha = new Date().parse("dd-MM-yyyy", params.fecha).format('yyyy-MM-dd')
+            resultado = calculaEdad(new Date().format('yyyy-MM-dd'), fcha)
+        }
+        render resultado
     }
 
     def calculaEdad(fcha, fcna) {
         def cn = dbConnectionService.getConnection()
         def sql = "select replace( replace( replace(replace( age('${fcha}'::date, '${fcna}'::date)::text, 'year', 'año'), 'mons','meses'), " +
-                "'day', 'dia'), 'mon', 'mes') edad "
+                    "'day', 'dia'), 'mon', 'mes') edad "
         println "sql: $sql"
         def edad = cn.rows( sql.toString() )[0]?.edad
+
         return edad
     }
 

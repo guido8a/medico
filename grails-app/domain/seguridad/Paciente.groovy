@@ -96,7 +96,7 @@ class Paciente {
         parroquia(blank: true, nullable: true)
         grupoSanguineo(blank: true, nullable: true)
         estadoCivil(blank: true, nullable: true)
-        cedula(size:0..10,blank: false, nullable: false)
+        cedula(size:0..10,blank: true, nullable: true)
         nombre(size: 0..31, blank: false, nullable: false)
         apellido(size: 0..31, blank: false, nullable: false)
         fechaInicio(blank: true, nullable: true)

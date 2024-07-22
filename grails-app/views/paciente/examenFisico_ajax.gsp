@@ -98,7 +98,7 @@
             createEditRowExamenFisico();
         }else{
             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
-                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
+                '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');
         }
     });
 
@@ -113,7 +113,7 @@
             }
         }else{
             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
-                '<strong style="font-size: 14px">' + "No ha seleccione una cita" + '</strong>');
+                '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');
         }
     })
 
