@@ -431,7 +431,9 @@ class PacienteController {
     def botones_ajax() {
         def cita = Historial.get(params.id)
         def paciente = Paciente.get(params.paciente)
-        return [cita: cita, paciente: paciente]
+        def dianosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+        def tratamientos = Tratamiento.findAllByHistorial(cita)
+        return [cita: cita, paciente: paciente, diagnosticos: dianosticos, tratamientos: tratamientos]
     }
 
     def finalizarCita_ajax() {

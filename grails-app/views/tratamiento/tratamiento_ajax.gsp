@@ -104,7 +104,8 @@
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
                         cargarTablaTratamientos();
-                        cargarUltimaCita('${historial?.id}');
+                        %{--cargarUltimaCita('${historial?.id}');--}%
+                        cargarComboCita('${historial?.id}');
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                         return false;
@@ -144,6 +145,7 @@
                                 if(parts[0] === 'ok'){
                                     log(parts[1],"success");
                                     cargarTablaTratamientos();
+                                    cargarComboCita('${historial?.id}');
                                 }else{
                                     bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                                     return false;

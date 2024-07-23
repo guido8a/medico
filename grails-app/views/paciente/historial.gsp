@@ -118,7 +118,7 @@
     }
 
     function finalizarCita() {
-        var cita = $("#citaSeleccionada option:selected").val()
+        var cita = $("#citaSeleccionada option:selected").val();
         bootbox.dialog({
             title: "Alerta",
             message: "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>" +
@@ -156,8 +156,6 @@
             }
         });
     }
-
-
 
     cargarComboCita($("#citaSeleccionada option:selected").val());
 

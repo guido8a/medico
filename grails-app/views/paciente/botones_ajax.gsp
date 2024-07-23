@@ -21,7 +21,17 @@
     });
 
     $("#btnTerminarCita").click(function() {
+        <g:if test="${diagnosticos}">
+        <g:if test="${tratamientos}">
         finalizarCita();
+        </g:if>
+        <g:else>
+        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "La cita no contiene tratamientos" + '</strong>');
+        </g:else>
+        </g:if>
+        <g:else>
+        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "La cita no contiene diagnósticos" + '</strong>');
+        </g:else>
     });
 
     $("#btnNuevaCita").click(function () {
