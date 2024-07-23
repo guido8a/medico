@@ -125,12 +125,12 @@ class PacienteController {
 //        if (error == 1) {
 //            render "no_El número de historia clínica ya se encuentra asignado "
 //        } else {
-            if (!paciente.save(flush: true)) {
-                println("error al guardar el paciente " + paciente.errors)
-                render "no_Error al guardar el paciente"
-            } else {
-                render "ok_Paciente guardado correctamente_${paciente?.id}"
-            }
+        if (!paciente.save(flush: true)) {
+            println("error al guardar el paciente " + paciente.errors)
+            render "no_Error al guardar el paciente"
+        } else {
+            render "ok_Paciente guardado correctamente_${paciente?.id}"
+        }
 //        }
     }
 
@@ -260,16 +260,15 @@ class PacienteController {
                 paciente.save(flush: true)
 
             } else {
-                flash.clase = "alert-error"
-                flash.message = "Error: Los formatos permitidos son: JPG, JPEG, PNG"
+                render  "no_Seleccione un archivo JPG, JPEG, PNG"
+                return
             }
         } else {
-            flash.clase = "alert-error"
-            flash.message = "Error: Seleccione un archivo JPG, JPEG, PNG"
+            render  "no_Seleccione un archivo JPG, JPEG, PNG"
+            return
         }
 
-        redirect(action: "datos", params: [id: paciente?.id])
-        return
+        render "ok_Imagen guardada correctamente"
     }
 
     def getImage() {
@@ -466,7 +465,7 @@ class PacienteController {
     def calculaEdad(fcha, fcna) {
         def cn = dbConnectionService.getConnection()
         def sql = "select replace( replace( replace(replace( age('${fcha}'::date, '${fcna}'::date)::text, 'year', 'año'), 'mons','meses'), " +
-                    "'day', 'dia'), 'mon', 'mes') edad "
+                "'day', 'dia'), 'mon', 'mes') edad "
         println "sql: $sql"
         def edad = cn.rows( sql.toString() )[0]?.edad
 
@@ -484,7 +483,7 @@ class PacienteController {
         def acceptedExt = ["pdf"]
 
         def paciente = Paciente.get(params.id)
-        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/"
+        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.id}/"
         new File(path).mkdirs()
 
         def f = request.getFile('file')  //archivo = name del input type file
@@ -510,7 +509,7 @@ class PacienteController {
 
                 def old = paciente.path
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/" + old
+                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.id}/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
@@ -540,7 +539,7 @@ class PacienteController {
 
                 def old = paciente.path
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/" + old
+                    def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.id}/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
@@ -560,9 +559,9 @@ class PacienteController {
         }
     }
 
-   def downloadDocumentoCitasAnteriores() {
-       def paciente = Paciente.get(params.id)
-        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.cedula}/citasAnteriores/" + paciente.path
+    def downloadDocumentoCitasAnteriores() {
+        def paciente = Paciente.get(params.id)
+        def path = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.id}/" + paciente.path
 
         def file = new File(path)
         if (file.exists()) {

@@ -71,8 +71,33 @@
 <script type="text/javascript">
 
     $("#submit").click(function () {
-        $("#frmUpload").submit();
+        // $("#frmUpload").submit();
+        return submitFormCitasAnteriores();
     });
+
+    function submitFormCitasAnteriores(){
+        var $form = $("#frmUpload");
+        var formData = new FormData($("#frmUpload")[0]);
+        var dialog = cargarLoader("Guardando...");
+        $.ajax({
+            type    : "POST",
+            url     : $form.attr("action"),
+            data    : formData,
+            processData: false,
+            contentType: false,
+            success : function (msg) {
+                dialog.modal('hide');
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                    cerrarDialogoImagen();
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }
+            }
+        });
+    }
 
     $(".btn-delete").click(function () {
         bootbox.confirm({
