@@ -40,7 +40,8 @@
             </label>
             <span class="grupo" >
                 <span class="col-md-2 " >
-                    <g:textField name="hora" class="form-control required" required value="${historial?.hora ?: '00:00'}"/>
+                    %{--<g:textField name="hora" class="form-control required" required value="${historial?.hora ?: '00:00'}"/>--}%
+                    <g:textField name="hora" class="form-control required" required value="${historial?.hora ?: hora}"/>
                 </span>
                 <span class="col-md-3" style="font-weight: bold">
                     (Formato de la hora ejemplo: 07:00)

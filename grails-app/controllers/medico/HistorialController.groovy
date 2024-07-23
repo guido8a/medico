@@ -548,6 +548,7 @@ class HistorialController {
     def cita_ajax(){
         def paciente = Paciente.get(params.paciente)
         def cita
+        def hora = new Date().format('HH:mm')
 
         if(params.id){
             cita = Historial.get(params.id)
@@ -555,7 +556,7 @@ class HistorialController {
             cita = new Historial()
         }
 
-        return [historial: cita, paciente: paciente]
+        return [historial: cita, paciente: paciente, hora: hora]
     }
 
     def comentario_ajax(){
