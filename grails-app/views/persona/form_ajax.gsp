@@ -19,7 +19,7 @@ option[selected]{
             <g:hiddenField name="id" value="${personaInstance?.id}"/>
 
             <div class="form-group keeptogether ${hasErrors(bean: personaInstance, field: 'empresa', 'error')}">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <span class="grupo">
                         <label for="empresa" class="col-md-2 control-label">
                             Consultorio
@@ -27,6 +27,18 @@ option[selected]{
                         <span class="col-md-10">
                             <g:select name="empresa" from="${seguridad.Empresa.list().sort{it.nombre}}" required="" optionKey="id" optionValue="nombre"
                                       class="form-control input-sm required" value="${personaInstance?.empresa?.id}"/>
+                        </span>
+                    </span>
+                </div>
+
+                <div class="col-md-6">
+                    <span class="grupo">
+                        <label for="tipoPersona" class="col-md-2 control-label">
+                            Tipo
+                        </label>
+                        <span class="col-md-10">
+                            <g:select name="tipoPersona" from="${seguridad.TipoPersona.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion"
+                                      class="form-control input-sm" value="${personaInstance?.tipoPersona?.id}"/>
                         </span>
                     </span>
                 </div>

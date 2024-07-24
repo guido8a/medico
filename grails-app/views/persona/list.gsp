@@ -30,6 +30,11 @@
             <i class="fa fa-user"></i> Nuevo Usuario
         </g:link>
     </div>
+    <div class="btn-group">
+        <g:link controller="tipoPersona" action="list" class="btn btn-success btnTipos">
+            <i class="fa fa-users"></i> Tipos de usuarios
+        </g:link>
+    </div>
 </div>
 
 <g:set var="admin" value="${seguridad.Permiso.findByCodigo('P013')}"/>
