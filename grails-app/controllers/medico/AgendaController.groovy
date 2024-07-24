@@ -162,4 +162,38 @@ class AgendaController {
         return [datos: datos]
     }
 
+    def agnd_semana(){
+        def usuario = Persona.get(session.usuario.id)
+        def consultorio = usuario.empresa
+        [consultorio: consultorio, usuario: usuario]
+    }
+
+    def tabla_agnd_ajax(){
+        println("tabla_agnd_ajax " + params)
+        def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
+        def cn = dbConnectionService.getConnection()
+        def smna = buscaSemana(params.fecha)
+        def usuario = Persona.get(session.usuario.id)
+        def consultorio = usuario.empresa
+        def sql = ""
+        println "semana --> $smna"
+
+        if(smna){
+            def semana = Semana.get(smna)
+            def doctor = Persona.get(params.doctor)
+            def horas = Hora.list([sort: 'numero'])
+            def dias  = Dias.list([sort: 'numero'])
+
+            sql = "select * from agnd_semana(${consultorio?.id}, ${smna})"
+            println "sql: $sql"
+            def resp = cn.rows(sql.toString())
+
+            return[horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]
+        }else{
+            return[existe: false]
+        }
+    }
+
+
+
 }
