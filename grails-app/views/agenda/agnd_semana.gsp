@@ -72,7 +72,6 @@
 </div>
 
 
-
 <script type="text/javascript">
     var id = null;
 
@@ -100,8 +99,8 @@
                 fecha: fecha
             },
             success: function (msg) {
-                $("#divTabla").html(msg);
-                $("#divTabla").focus();
+                $("#divTabla").html(msg).focus();
+                // $("#divTabla").focus();
             } //success
         });
         //location.reload()//ajax

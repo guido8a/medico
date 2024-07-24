@@ -194,6 +194,16 @@ class AgendaController {
         }
     }
 
+    def citasMedico_ajax () {
 
+        def arreglo = params.citas.split(",")
+        def citas = []
+
+        arreglo.each {
+            citas.add(Agenda.get(it))
+        }
+
+        return [citas: citas]
+    }
 
 }

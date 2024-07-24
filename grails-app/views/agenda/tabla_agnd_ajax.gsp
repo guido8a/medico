@@ -91,11 +91,31 @@
     </div>
 </g:else>
 
-
 <script type="text/javascript">
     $(".btnVerCita").click(function () {
         var agenda = $(this).data("agnd");
-        console.log('agenda', agenda)
-        %{--location.href="${createLink(controller: 'agenda', action: 'redireccion_ajax')}?id=" + id--}%
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'agenda', action:'citasMedico_ajax')}",
+            data    : {
+                citas: agenda
+            },
+            success : function (msg) {
+                var cta = bootbox.dialog({
+                    id      : "dlgTCitas",
+                    title   : "Citas",
+                    // class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
     });
 </script>
