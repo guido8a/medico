@@ -67,7 +67,17 @@
     </div>
 </div>
 
-<h3>Citas médicas Anteriores</h3>
+<div class="row">
+    <h3 class="col-md-3">Citas médicas Anteriores</h3>
+
+    <g:if test="${paciente?.path}">
+        <div class="col-md-2" style="float: right; margin-top: 10px">
+            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-info btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.id}">
+                <i class="fa fa-print"></i> Citas anteriores
+            </g:link>
+        </div>
+    </g:if>
+</div>
 
 <div id="divTablaCitas">
 
@@ -75,8 +85,12 @@
 
 <script type="text/javascript">
 
+    $("#btnDescargarCitasAnteriores").click(function () {
+
+    });
+
     function borrarCita() {
-        var cita = $("#citaSeleccionada option:selected").val()
+        var cita = $("#citaSeleccionada option:selected").val();
         bootbox.dialog({
             title: "Alerta",
             message: "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>" +
