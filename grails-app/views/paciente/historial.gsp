@@ -72,8 +72,9 @@
 
     <g:if test="${paciente?.path}">
         <div class="col-md-2" style="float: right; margin-top: 10px">
-            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-info btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.id}">
-                <i class="fa fa-print"></i> Citas anteriores
+            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btnDescargarDocCitasAnteriores"
+                    rel="tooltip" title="Descargar" id="${paciente?.id}">
+                <i class="fa fa-download"></i> Citas anteriores
             </g:link>
         </div>
     </g:if>

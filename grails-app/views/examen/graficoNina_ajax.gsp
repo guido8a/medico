@@ -32,18 +32,19 @@
             %{--texto(ctx, 350, 260, "${data.exfs_imc}");--}%
 
 
-            console.log('data:', ${data.size()})
-            var js_data = ${jdata}
-//            js_data  = js_data.replace(/\"/g,'"');
-//            var json = JSON.parse(js_data)
-            console.log('data[]:', js_data)
-            console.log('data[]:', js_data)
+            console.log('data:', "${jdata}" )
+            var js_data = "${jdata}"
+            js_data = js_data.replaceAll("&quot;", '"');
+            const dt = JSON.parse(js_data);
+            console.log('data:', dt[0] )
 
-            %{--for (var i=0; i < ${data.size()}; i++) {--}%
-            drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");
-            drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");
             texto(ctx, 350, 260, "${data.exfs_imc}");
-//            }
+
+            for (var i=0; i < dt.length; i++) {
+            %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
+            drawMark(ctx, ${edad}, dt[i].exfstlla, "Estatura" + i);
+            drawMark(ctx, ${edad}, dt[i].exfspeso, "Peso");
+            }
 
         };
 

@@ -33,10 +33,10 @@ option[selected]{
 
                 <div class="col-md-6">
                     <span class="grupo">
-                        <label for="tipoPersona" class="col-md-2 control-label">
-                            Tipo
+                        <label for="tipoPersona" class="col-md-4 control-label">
+                            Tipo de usuario
                         </label>
-                        <span class="col-md-10">
+                        <span class="col-md-8">
                             <g:select name="tipoPersona" from="${seguridad.TipoPersona.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion"
                                       class="form-control input-sm" value="${personaInstance?.tipoPersona?.id}"/>
                         </span>

@@ -179,7 +179,7 @@
             },
             success : function (msg) {
                 bootbox.dialog({
-                    title   : "Ver Persona",
+                    title   : "Ver Usuario - Médico",
                     message : msg,
                     buttons : {
                         ok : {
@@ -231,7 +231,7 @@
 
     function deleteRow(itemId) {
         bootbox.dialog({
-            title   : "<strong>Eliminar</strong> usuario del sistema",
+            title   : "Eliminar usuario del sistema",
             message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i>" +
                 "<p> ¿Está seguro que desea eliminar al usuario seleccionado? Esta acción no se puede deshacer.</p>",
             buttons : {
@@ -345,7 +345,7 @@
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
                     class   : "modal-lg",
-                    title   : title + tipo,
+                    title   : title + " Usuario - Médico",
                     message : msg,
                     buttons : {
                         cancelar : {

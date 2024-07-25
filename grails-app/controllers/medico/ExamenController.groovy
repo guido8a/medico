@@ -143,7 +143,7 @@ def save_ajax(){
         println "*--> ${data as JSON} , edad: ${[edad]}"
         imagenBytes = im()
 
-        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: [data] as JSON]
     }
 
 
