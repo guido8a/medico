@@ -9,7 +9,7 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-bottom: 15px; margin-top: 10px">
     <div class="btn-group">
-        <g:link controller="persona" action="list" class="btn btn-primary">
+        <g:link controller="inicio" action="parametros" class="btn btn-primary">
             <i class="fa fa-arrow-left"></i> Regresar
         </g:link>
         <a href="#" class="btn btn-success btnNuevoTipo">

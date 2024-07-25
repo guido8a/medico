@@ -86,10 +86,6 @@
 
 <script type="text/javascript">
 
-    $("#btnDescargarCitasAnteriores").click(function () {
-
-    });
-
     function borrarCita() {
         var cita = $("#citaSeleccionada option:selected").val();
         bootbox.dialog({

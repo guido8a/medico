@@ -96,6 +96,19 @@
                                 </div>
                             </li>
 
+                            <li>
+                                <g:link data-info="categoria" class="over tamano" controller="tipoPersona" action="list" >
+                                    <i class="fa-li fas fa-certificate text-info"></i> Tipo de usuarios
+                                </g:link>
+
+                                <div class="descripcion hidden">
+                                    <h4>Tipos de usuarios</h4>
+
+                                    <p> Administración de los diferentes tipos de usuarios del sistema
+                                    </p>
+                                </div>
+                            </li>
+
 
                         </ul>
                     </div>

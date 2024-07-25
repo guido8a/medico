@@ -85,19 +85,19 @@
     </div>
 
     %{--<div class="col-md-3">--}%
-        %{--<label for="semana" class="col-md-1 control-label" style="text-align: right">--}%
-            %{--Semana--}%
-        %{--</label>--}%
-        %{--<g:select name="semana" from="${medico.Semana.list([sort: "numero" ])}"--}%
-                  %{--class="form-control input-sm " optionValue="${{it?.fechaInicio?.format("dd-MM-yyyy")  + " - " +  it?.fechaFin?.format("dd-MM-yyyy") }}" optionKey="id"--}%
-        %{--/>--}%
+    %{--<label for="semana" class="col-md-1 control-label" style="text-align: right">--}%
+    %{--Semana--}%
+    %{--</label>--}%
+    %{--<g:select name="semana" from="${medico.Semana.list([sort: "numero" ])}"--}%
+    %{--class="form-control input-sm " optionValue="${{it?.fechaInicio?.format("dd-MM-yyyy")  + " - " +  it?.fechaFin?.format("dd-MM-yyyy") }}" optionKey="id"--}%
+    %{--/>--}%
     %{--</div>--}%
 
     <div class="col-md-3">
         <label for="doctor" class="col-md-1 control-label" style="text-align: right">
-            Doctor
+            Médico
         </label>
-        <g:select name="doctor" from="${seguridad.Persona.findAllByEmpresa(consultorio).sort{it.apellido}}"
+        <g:select name="doctor" from="${seguridad.Persona.findAllByEmpresaAndTipoPersonaInList(consultorio, tipo).sort{it.apellido}}"
                   class="form-control input-sm " optionValue="${{it.apellido + " " + it.nombre}}" optionKey="id" value="${usuario?.id}" data-nombre="${{it.apellido + " " + it.nombre}}"
         />
     </div>
@@ -137,19 +137,21 @@
 
 
     %{--$('#ini').datetimepicker({--}%
-        %{--locale: 'es',--}%
-        %{--format: 'DD-MM-YYYY',--}%
-        %{--sideBySide: true,--}%
-        %{--minDate: new Date(${min}),--}%
-        %{--maxDate: new Date(${max}),--}%
-        %{--icons: {--}%
-        %{--}--}%
+    %{--locale: 'es',--}%
+    %{--format: 'DD-MM-YYYY',--}%
+    %{--sideBySide: true,--}%
+    %{--minDate: new Date(${min}),--}%
+    %{--maxDate: new Date(${max}),--}%
+    %{--icons: {--}%
+    %{--}--}%
     %{--}).on('dp.change', function(e){--}%
-        %{--updateDias();--}%
+    %{--updateDias();--}%
     %{--});--}%
 
 
-    cargarNombre($("#doctor option:selected").val());
+    if($("#doctor option:selected").val()){
+        cargarNombre($("#doctor option:selected").val());
+    }
 
     function cargarNombre(id) {
         $.ajax({

@@ -2,6 +2,7 @@ package medico
 
 import seguridad.Paciente
 import seguridad.Persona
+import seguridad.TipoPersona
 
 class AgendaController {
 
@@ -9,8 +10,9 @@ class AgendaController {
 
     def agenda(){
         def usuario = Persona.get(session.usuario.id)
+        def tipoPersona = TipoPersona.findAllByCodigoInList(['E', 'M'])
         def consultorio = usuario.empresa
-        [paciente: params.paciente, consultorio: consultorio, usuario: usuario]
+        [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona]
     }
 
     def tabla_ajax(){
