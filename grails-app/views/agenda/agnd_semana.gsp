@@ -48,10 +48,14 @@
 
 <div class="btn-toolbar toolbar" style="margin-top: 10px">
     <div class="col-md-2">
-            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente}"  class="btn btn-sm btn-info"
-               style="float: left; margin-top: 25px" title="Retornar a historial del paciente">
-                <i class="fas fa-arrow-left"></i> Regresar
-            </a>
+%{--            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente}"  class="btn btn-sm btn-info"--}%
+%{--               style="float: left; margin-top: 25px" title="Retornar a historial del paciente">--}%
+%{--                <i class="fas fa-arrow-left"></i> Regresar--}%
+%{--            </a>--}%
+        <a href="${createLink(controller: 'agenda', action: 'agenda')}"  class="btn btn-sm btn-info"
+           style="float: left; margin-top: 25px" title="Retornar a agenda">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
     </div>
 
     <div class="col-md-6">

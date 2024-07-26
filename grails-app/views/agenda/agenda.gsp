@@ -83,15 +83,6 @@
         <input aria-label="" name="fecha" id='fecha' type='text' class="form-control" value="${new Date()?.format("dd-MM-yyyy")}" />
     </div>
 
-    %{--<div class="col-md-3">--}%
-    %{--<label for="semana" class="col-md-1 control-label" style="text-align: right">--}%
-    %{--Semana--}%
-    %{--</label>--}%
-    %{--<g:select name="semana" from="${medico.Semana.list([sort: "numero" ])}"--}%
-    %{--class="form-control input-sm " optionValue="${{it?.fechaInicio?.format("dd-MM-yyyy")  + " - " +  it?.fechaFin?.format("dd-MM-yyyy") }}" optionKey="id"--}%
-    %{--/>--}%
-    %{--</div>--}%
-
     <div class="col-md-3">
         <label for="doctor" class="col-md-1 control-label" style="text-align: right">
             Médico
@@ -108,6 +99,13 @@
                 Nuevo Paciente
             </a>
         </div>
+    </div>
+
+    <div class="col-md-2" style="float: right">
+        <a href="${createLink(controller: 'agenda', action: 'agnd_semana')}/${paciente}"  class="btn btn-sm btn-info"
+           style="margin-top: 25px" title="Agenda general">
+            Agenda general <i class="fas fa-arrow-right"></i>
+        </a>
     </div>
 
 </div>
