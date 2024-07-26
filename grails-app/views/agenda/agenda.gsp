@@ -102,7 +102,7 @@
     </div>
 
     <div class="col-md-2" style="float: right">
-        <a href="${createLink(controller: 'agenda', action: 'agnd_semana')}/${paciente}"  class="btn btn-sm btn-info"
+        <a href="${createLink(controller: 'agenda', action: 'agnd_semana')}?paciente=${paciente}"  class="btn btn-sm btn-info"
            style="margin-top: 25px" title="Agenda general">
             Agenda general <i class="fas fa-arrow-right"></i>
         </a>

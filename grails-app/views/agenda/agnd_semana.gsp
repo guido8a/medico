@@ -52,7 +52,7 @@
 %{--               style="float: left; margin-top: 25px" title="Retornar a historial del paciente">--}%
 %{--                <i class="fas fa-arrow-left"></i> Regresar--}%
 %{--            </a>--}%
-        <a href="${createLink(controller: 'agenda', action: 'agenda')}"  class="btn btn-sm btn-info"
+        <a href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=${paciente?.id}"  class="btn btn-sm btn-info"
            style="float: left; margin-top: 25px" title="Retornar a agenda">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>

@@ -176,7 +176,8 @@ class AgendaController {
     def agnd_semana(){
         def usuario = Persona.get(session.usuario.id)
         def consultorio = usuario.empresa
-        [consultorio: consultorio, usuario: usuario]
+        def paciente = Paciente.get(params.paciente)
+        [consultorio: consultorio, usuario: usuario, paciente: paciente]
     }
 
     def tabla_agnd_ajax(){
