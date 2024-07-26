@@ -56,13 +56,15 @@ class AgendaController {
     }
 
     def saveAgenda_ajax(){
-        def semana = Semana.get(params.semana)
 
+        def existe
+        def semana = Semana.get(params.semana)
         def agenda
         def cita
         def hora = Hora.get(params.hora)
         def dias = Dias.get(params.dias)
         def fecha = semana.fechaInicio + (dias.numero - 1)
+        def paciente = Paciente.get(params.paciente)
 
         def parte = hora.descripcion.split("-")
         def parte2 = parte[0].split(":")
@@ -73,8 +75,15 @@ class AgendaController {
         if(params.id){
             agenda = Agenda.get(params.id)
         }else{
-            agenda = new Agenda()
-            agenda.fechaInicio = new Date();
+            existe = Agenda.findByDiasAndHoraAndPaciente(dias, hora, paciente)
+
+            if(existe){
+                render "no_El día y horario ya se encuentran agendados para ese paciente"
+                return
+            }else{
+                agenda = new Agenda()
+                agenda.fechaInicio = new Date();
+            }
         }
 
         agenda.properties = params

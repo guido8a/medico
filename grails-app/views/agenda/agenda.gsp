@@ -74,7 +74,6 @@
                 <i class="fas fa-arrow-left"></i> Regresar a Pacientes
             </a>
         </g:else>
-
     </div>
 
     <div class="col-md-2">
@@ -275,7 +274,6 @@
         var semana = $("#semana option:selected").val();
         var doctor = $("#doctor option:selected").val();
         var fecha = $('#fecha').val();
-        console.log('fecha', fecha)
 
         $.ajax({
             type: "POST",
