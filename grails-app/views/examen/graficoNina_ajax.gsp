@@ -41,9 +41,8 @@
             texto(ctx, 350, 260, "${data.exfs_imc}");
 
             for (var i=0; i < dt.length; i++) {
-            %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
-            drawMark(ctx, ${edad}, dt[i].exfstlla, "Estatura" + i);
-            drawMark(ctx, ${edad}, dt[i].exfspeso, "Peso");
+                drawMark(ctx, dt[i].edad, dt[i].exfstlla, "");
+                drawMark(ctx, dt[i].edad, dt[i].exfspeso, "");
             }
 
         };
