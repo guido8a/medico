@@ -75,7 +75,7 @@ class AgendaController {
         if(params.id){
             agenda = Agenda.get(params.id)
         }else{
-            existe = Agenda.findByDiasAndHoraAndPaciente(dias, hora, paciente)
+            existe = Agenda.findByDiasAndHoraAndPacienteAndSemana(dias, hora, paciente, semana)
 
             if(existe){
                 render "no_El día y horario ya se encuentran agendados para ese paciente"
