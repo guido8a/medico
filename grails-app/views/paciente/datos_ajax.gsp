@@ -130,7 +130,7 @@
                 Numero de historia clínica
             </label>
             <span class="col-md-1">
-                <g:textField name="numeroHistorial" maxlength="5" class="form-control" style="width: 65px; margin-left: -20px"
+                <g:textField name="numeroHistorial" maxlength="6" class="form-control" style="width: 70px; margin-left: -25px"
                              value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
             </span>
         </div>
@@ -143,7 +143,8 @@
             </label>
             <span class="grupo">
                 <span class="col-md-3" style="margin-top: 24px">
-                    <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" optionKey="id" optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.provincia?.id}"/>
+                    <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" optionKey="id"
+                              optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.provincia?.id ?:17}"/>
                 </span>
             </span>
             <span class="grupo">

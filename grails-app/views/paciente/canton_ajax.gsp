@@ -2,7 +2,8 @@
 <label class="control-label text-info">
     Cantón
 </label>
-<g:select name="canton" from="${cantones}" optionKey="id" optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.id}"/>
+<g:select name="canton" from="${cantones}" optionKey="id" optionValue="nombre" class="form-control"
+          value="${paciente?.parroquia?.canton?.id ?: 178}"/>
 
 <script type="text/javascript">
 

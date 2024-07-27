@@ -126,7 +126,7 @@ class Paciente {
         habitosDefecatorio(blank: true, nullable: true)
         habitosFumador(size: 0..255, blank: true, nullable: true)
         habitosTomador(size: 0..255, blank: true, nullable: true)
-        numeroHistorial(size: 0..4, blank: true, nullable: true)
+        numeroHistorial(size: 0..6, blank: true, nullable: true)
         ocupacion(size: 0..255, blank: true, nullable: true)
         residenciaHabitual(size: 0..255, blank: true, nullable: true)
         residenciaOcasional(size: 0..255, blank: true, nullable: true)
