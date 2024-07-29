@@ -74,7 +74,7 @@
         <div class="col-md-2" style="float: right; margin-top: 10px">
             <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btnDescargarDocCitasAnteriores"
                     rel="tooltip" title="Descargar" id="${paciente?.id}">
-                <i class="fa fa-download"></i> Citas anteriores
+                <i class="fa fa-download"></i> HC Anterior
             </g:link>
         </div>
     </g:if>
