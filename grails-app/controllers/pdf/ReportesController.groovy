@@ -775,7 +775,9 @@ class ReportesController {
         def edad = ''
         def citaProxima
 
-        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha, [sort: 'fecha', order: 'desc'])
+        println "prox. cita: ${cita?.paciente} --> ${cita?.fecha}"
+        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
+                [sort: 'fecha', order: 'desc'])
 
        if(citasMayores){
            citaProxima = citasMayores[0]
