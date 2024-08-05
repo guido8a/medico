@@ -9,57 +9,54 @@
 
 <body>
 
-<div class="row" style="margin-bottom: 10px">
-    <div class="span9 btn-group" role="navigation">
-        <a href="#" class="btn btn-success btnNuevoPaciente">
-            <i class="fa fa-user"></i>
-            Nuevo Paciente
-        </a>
-    </div>
-</div>
-
-
 <div style="overflow: hidden">
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
         <div class="row-fluid" style="margin-left: 10px">
-            <span class="grupo">
+            %{--<span class="grupo">--}%
                 %{--<span class="col-md-2">--}%
                 %{--<label class="control-label text-info">Consultorio</label>--}%
                 %{--<g:select name="empresa" class="empresa col-md-12 form-control" from="${seguridad.Empresa.list().sort{it.nombre}}" noSelection="[0: 'Todos']" value="${empresa ? empresa?.id : 0}" optionKey="id"--}%
                 %{--optionValue="nombre"/>--}%
                 %{--</span>--}%
                 <div class="row">
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-success btnNuevoPaciente">
+                        <i class="fa fa-user"></i>
+                        Nuevo Paciente
+                    </a>
+
+                </div>
+                    %{--<div class="col-md-1">--}%
+                        %{--<label class="control-label text-info">Buscar Por</label>--}%
+                    %{--</div>--}%
+
+                    %{--<div class="col-md-2">--}%
+                        %{--<g:select name="buscarPor" class="buscarPor col-md-12 form-control"--}%
+                                  %{--from="${[3: 'Nombre', 2: 'Apellido', 1: 'Cédula']}" optionKey="key"--}%
+                                  %{--optionValue="value"/>--}%
+                    %{--</div>--}%
+
                     <div class="col-md-1">
-                        <label class="control-label text-info">Buscar Por</label>
+                        <label class="control-label text-info" style="margin-top: 10px">Buscar por:</label>
                     </div>
 
-                    <div class="col-md-2">
-                        <g:select name="buscarPor" class="buscarPor col-md-12 form-control"
-                                  from="${[3: 'Nombre', 2: 'Apellido', 1: 'Cédula']}" optionKey="key"
-                                  optionValue="value"/>
-                    </div>
-
-                    <div class="col-md-1">
-                        <label class="control-label text-info">Criterio</label>
-                    </div>
-
-                    <div class="col-md-2">
+                    <div class="col-md-2" style="margin-left: -25px">
                         <g:textField name="criterio" id="criterio" class="form-control"/>
                     </div>
 
-                    <div class="col-md-2" style="margin-top: 0px">
-                        <button class="btn btn-info" id="btnBuscarEmpresa"><i class="fa fa-search"></i> Buscar paciente
+                    <div class="col-md-2">
+                        <button class="btn btn-info" id="btnBuscarEmpresa"><i class="fa fa-search"></i> Buscar pacientes
                         </button>
                     </div>
 
-                    <div class="col-md-1" style="margin-top: 0px; margin-left: -67px">
+                    <div class="col-md-1" style="margin-top: 0px; margin-left: -65px">
                         <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i
                                 class="fa fa-eraser"></i>
                         </button>
                     </div>
                 </div>
 
-            </span>
+            %{--</span>--}%
 
         </div>
     </fieldset>
@@ -83,7 +80,7 @@
         $("#buscarPor").val(1);
         $("#criterio").val('');
         $("#empresa").val(0);
-        cargarTablaPacientes();
+//        cargarTablaPacientes();
     });
 
     $("#btnBuscarEmpresa").click(function () {

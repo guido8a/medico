@@ -74,7 +74,7 @@ class Paciente {
             antecedentesGinecobstreticos column: 'pcntango'
             habitos column: 'pcnthbto'
             foto column: 'pcntfoto'
-            responsable column: 'pcbtrspn'
+            responsable column: 'pcntrspn'
             antecedentesOcupacionales column: 'pcntocup'
             antecedentesAntesdeNacer column: 'pcntannc'
             antecedentesDespuesdeNacer column: 'pcntnacm'
