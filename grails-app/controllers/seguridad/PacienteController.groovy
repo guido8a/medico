@@ -593,4 +593,38 @@ class PacienteController {
         }
     }
 
+    def geo_ajax() {
+
+    }
+
+    def situacionGeografica() {
+//        println "situacionGeografica" + params
+        def comunidades
+        def orden;
+        def colorProv, colorCant, colorParr, colorComn;
+        def select = "select provnmbr, cntnnmbr, parrnmbr, prov.prov__id, cntn.cntn__id, parr.parr__id " +
+                "from prov, cntn, parr"
+        def txwh = "where cntn.prov__id = prov.prov__id and parr.cntn__id = cntn.cntn__id "
+        def campos = ['provnmbr', 'cntnnmbr', 'parrnmbr']
+        def cmpo = params.buscarPor.toInteger()
+        def sqlTx = ""
+
+        if (params.ordenar == '1') {
+            orden = "asc";
+        } else {
+            orden = "desc";
+        }
+
+        txwh += " and ${campos[cmpo - 1]} ilike '%${params.criterio}%'"
+
+        sqlTx = "${select} ${txwh} order by ${campos[cmpo - 1]} limit 1500".toString()
+        println "sql: cmpo: $cmpo $sqlTx"
+
+        def cn = dbConnectionService.getConnection()
+        comunidades = cn.rows(sqlTx)
+        [comunidades: comunidades, colorComn: colorComn, colorProv: colorProv, colorParr: colorParr, colorCant: colorCant]
+
+    }
+
+
 }

@@ -139,24 +139,67 @@
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="provincia" class="col-md-2 control-label text-info">
-                Provincia
+                Lugar de nacimiento
+                <a href="#" id="btnGeo" class="btn btn-xs btn-info" title="Foto del paciente">
+                    <i class="fa fa-search"></i> Buscar
+                </a>
             </label>
-            <span class="grupo">
-                <span class="col-md-3" style="margin-top: 24px">
-                    <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" optionKey="id"
-                              optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.provincia?.id ?:17}"/>
-                </span>
-            </span>
-            <span class="grupo">
-                <span class="col-md-3" id="divCanton">
-                </span>
-            </span>
-            <span class="grupo">
-                <span class="col-md-3" id="divParroquia">
-                </span>
-            </span>
+            %{--<span class="grupo">--}%
+                %{--<span class="col-md-3">--}%
+                    %{--<label for="provincia" class="control-label text-info">--}%
+                        %{--Provincia--}%
+                    %{--</label>--}%
+                    %{--<g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" optionKey="id"--}%
+                              %{--optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.provincia?.id ?:17}"/>--}%
+                %{--</span>--}%
+            %{--</span>--}%
+            %{--<span class="grupo">--}%
+                %{--<span class="col-md-3" id="divCanton">--}%
+                %{--</span>--}%
+            %{--</span>--}%
+            %{--<span class="grupo">--}%
+                %{--<span class="col-md-3" id="divParroquia">--}%
+                %{--</span>--}%
+            %{--</span>--}%
+            <div class="col-md-2" >Provincia
+            <g:textField style="width: 150px;" name="provinciakk.id" id="provNombre" class="form-control"
+                         value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
+            </div>
+
+            <div class="col-md-2" style="width: 220px; margin-left: 10px;">Cantón
+            <g:textField style="width: 210px;" name="cantonkk.id" id="cantNombre" class="form-control"
+                         value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
+            </div>
+
+            <div class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia
+            <g:hiddenField name="parroquia.id" id="hiddenParr" value="${obra?.comunidad?.parroquia?.id}"/>
+            <g:textField style="width: 255px;" name="parroquiakk.id" id="parrNombre" class="form-control"
+                         value="${obra?.comunidad?.parroquia?.nombre}" readonly="true" title="Parroquia"/>
+            </div>
+
         </div>
     </div>
+
+    %{--<div class="col-md-12">--}%
+
+        %{--<div class="col-md-2" style="width: 220px; margin-left: 10px;">Provincia--}%
+        %{--<g:textField style="width: 210px;" name="provinciakk.id" id="provNombre" class="form-control"--}%
+                     %{--value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>--}%
+        %{--</div>--}%
+
+        %{--<div class="col-md-2" style="width: 220px; margin-left: 10px;">Cantón--}%
+        %{--<g:textField style="width: 210px;" name="cantonkk.id" id="cantNombre" class="form-control"--}%
+                     %{--value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>--}%
+        %{--</div>--}%
+
+        %{--<div class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia--}%
+        %{--<g:hiddenField name="parroquia.id" id="hiddenParr" value="${obra?.comunidad?.parroquia?.id}"/>--}%
+        %{--<g:textField style="width: 190px;" name="parroquiakk.id" id="parrNombre" class="form-control"--}%
+                     %{--value="${obra?.comunidad?.parroquia?.nombre}" readonly="true" title="Parroquia"/>--}%
+        %{--</div>--}%
+
+    %{--</div>--}%
+
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
@@ -361,8 +404,35 @@
         }); //ajax
     } //createEdit
 
+    $("#btnGeo").click(function () {
+        var id = '${paciente?.id}'
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'paciente', action:'geo_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                di = bootbox.dialog({
+                    id      : "dlgGeo",
+                    title   : "Lugar de nacimiento",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }) //createEdit
+
     function cerrarDialogoImagen () {
         di.modal("hide");
     }
+
 
 </script>
