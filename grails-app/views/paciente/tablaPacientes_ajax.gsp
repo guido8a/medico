@@ -51,7 +51,7 @@
                     <td style="width: 8%; text-align: center">
                         <a href="#" class="btn btn-xs btn-info btnCargarCitasAnteriores" data-id="${paciente?.pcnt__id}"
                            title="Cargar la Historia Clínica anterior del paciente">
-                            <i class="fas fa-clipboard-check"></i> HC pdf
+                            <i class="fas fa-upload"></i> HC pdf
                         </a>
                     </td>
                 </tr>

@@ -311,11 +311,13 @@
 
     function submitFormAgendar() {
         var $form = $("#frmAgenda");
+        var dialog = cargarLoader("Guardando...");
         $.ajax({
             type: "POST",
             url: $form.attr("action"),
             data: $form.serialize(),
             success: function (msg) {
+                dialog.modal("hide");
                 var parts = msg.split("_");
                 if (parts[0] === 'ok') {
                     log(parts[1], "success");

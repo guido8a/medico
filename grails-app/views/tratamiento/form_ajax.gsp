@@ -7,7 +7,7 @@
     <div class="form-group ${hasErrors(bean: tratamiento, field: 'medicina', 'error')} ">
         <span class="grupo">
             <label for="medicinaNombre" class="col-md-2 control-label text-info">
-                Medicina
+                Nombre Genérico
             </label>
             <span class="col-md-8">
                 <g:hiddenField name="medicina" value="${tratamiento?.medicina?.id}"/>
@@ -17,6 +17,17 @@
                 <a href="#" id="btnBuscarMedicina" class="btn btn-sm btn-info" style="" title="Buscar medicina">
                     <i class="fa fa-search"></i> Buscar
                 </a>
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group ${hasErrors(bean: tratamiento, field: 'medicina', 'error')} ">
+        <span class="grupo">
+            <label for="medicinaNombreComercial" class="col-md-2 control-label text-info">
+                Nombre Comercial
+            </label>
+            <span class="col-md-8">
+                <g:textField name="medicinaNombreComercial" class="form-control " readonly="" value="${tratamiento?.medicina ? tratamiento?.medicina?.nombre : ''}"/>
             </span>
         </span>
     </div>
