@@ -1,59 +1,55 @@
-%{--<html>--}%
-
-%{--<body>--}%
-
-<table class="table table-bordered table-striped table-hover table-condensed" id="tabla">
-
-    <thead>
-    <tr>
-        <th style="background-color: ${colorProv};">Provincia</th>
-        <th style="background-color: ${colorCant};">Cantón</th>
-        <th style="background-color: ${colorParr};">Parroquia</th>
-        <th>Seleccionar</th>
-    </tr>
-    </thead>
-
-    <tbody>
-
-    <g:each in="${comunidades}" var="comn" status="i">
+<div role="main" style="margin-top: 5px;">
+    <table class="table table-bordered table-striped table-condensed table-hover" style="width: 100%">
+        <thead>
         <tr>
-            <td class="provincia" style="width: 10%">${comn.provnmbr}</td>
-            <td class="canton">${comn.cntnnmbr}</td>
-            <td class="parroquia">${comn.parrnmbr}</td>
-            <td style="width: 10%; text-align: center">
-                <a href="#" class="btn btn-xs btn-success btnpq" title="Seleccionar"  id="reg_${i}"
-                   parroquia="${comn?.parr__id}" parroquiaN="${comn?.parrnmbr}" provN="${comn?.provnmbr}"
-                   canton="${comn?.cntn__id}"  cantN="${comn?.cntnnmbr}">
-                    <i class="fa fa-check"></i>
-                </a>
-            </td>
+            <th style="background-color: ${colorProv};">Provincia</th>
+            <th style="background-color: ${colorCant};">Cantón</th>
+            <th style="background-color: ${colorParr};">Parroquia</th>
+            <th style="width: 12%;">Seleccionar</th>
         </tr>
-    </g:each>
-    </tbody>
+        </thead>
+    </table>
+</div>
 
-</table>
+<div class="" style="width: 99.7%;height: 400px; overflow-y: auto;float: right; margin-top: -20px">
+    <table class="table-bordered table-striped table-condensed table-hover" style="width: 100%">
+        <tbody>
+        <g:if test="${comunidades}">
+            <g:each in="${comunidades}" var="comn" status="i">
+                <tr>
+                    <td style="width: 23%;">${comn.provnmbr}</td>
+                    <td style="width: 30%;">${comn.cntnnmbr}</td>
+                    <td style="width: 15%;">${comn.parrnmbr}</td>
+                    <td style="width: 13%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-success btnSeleccionarGeo" title="Seleccionar" data-id="${comn?.parr__id}"
+                           data-parroquia="${comn?.parrnmbr}" data-canton="${comn?.cntnnmbr}" data-provincia="${comn?.provnmbr}" >
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </td>
+                </tr>
+            </g:each>
+        </g:if>
+        <g:else>
+            <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> No existen registros</div>
+        </g:else>
+        </tbody>
+    </table>
+</div>
 
 <script type="text/javascript">
 
-    $(".btnpq").click(function () {
-        console.log('btn')
-        var parroquia = $(this).attr("parroquia");
-        var canton = $(this).attr("canton");
-        console.log('-->', parroquia, canton)
+    $(".btnSeleccionarGeo").click(function () {
+        var parroquia = $(this).data("parroquia");
+        var canton = $(this).data("canton");
+        var provincia = $(this).data("provincia");
+        var idParroquia = $(this).data("id");
 
-        $("#hiddenParr").val($(this).attr("parroquia"));
-        $("#parrNombre").val($(this).attr("parroquiaN"));
-        $("#hiddenCntn").val($(this).attr("canton"));
-        $("#cantNombre").val($(this).attr("cantN"));
-        $("#provNombre").val($(this).attr("provN"));
+        $("#parroquia").val(idParroquia);
+        $("#parroquiaNombre").val(parroquia);
+        $("#canton").val(canton);
+        $("#provincia").val(provincia);
 
-//        $("#dlgGeo").dialog("close");
-        di.modal("hide");
-
-        return false;
+        cerrarLugarNacimiento();
     });
 
 </script>
-
-%{--</body>--}%
-%{--</html>--}%

@@ -138,9 +138,9 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <label for="provincia" class="col-md-2 control-label text-info">
+            <label class="col-md-2 control-label text-info">
                 Lugar de nacimiento
-                <a href="#" id="btnGeo" class="btn btn-xs btn-info" title="Foto del paciente">
+                <a href="#" id="btnGeo" class="btn btn-xs btn-info" title="Buscar el lugar de nacimiento">
                     <i class="fa fa-search"></i> Buscar
                 </a>
             </label>
@@ -162,19 +162,19 @@
                 %{--</span>--}%
             %{--</span>--}%
             <div class="col-md-2" >Provincia
-            <g:textField style="width: 150px;" name="provinciakk.id" id="provNombre" class="form-control"
-                         value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
+            <g:textField style="width: 150px;" name="provincia" class="form-control"
+                         value="${paciente?.parroquia?.canton?.provincia?.nombre}" readonly="true" title="Cantón"/>
             </div>
 
             <div class="col-md-2" style="width: 220px; margin-left: 10px;">Cantón
-            <g:textField style="width: 210px;" name="cantonkk.id" id="cantNombre" class="form-control"
-                         value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
+            <g:textField style="width: 210px;" name="canton" class="form-control"
+                         value="${paciente?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
             </div>
 
             <div class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia
-            <g:hiddenField name="parroquia.id" id="hiddenParr" value="${obra?.comunidad?.parroquia?.id}"/>
-            <g:textField style="width: 255px;" name="parroquiakk.id" id="parrNombre" class="form-control"
-                         value="${obra?.comunidad?.parroquia?.nombre}" readonly="true" title="Parroquia"/>
+            <g:hiddenField name="parroquia" value="${paciente?.parroquia?.id}"/>
+            <g:textField style="width: 255px;" name="parroquiaNombre" class="form-control"
+                         value="${paciente?.parroquia?.nombre}" readonly="true" title="Parroquia"/>
             </div>
 
         </div>
@@ -295,6 +295,7 @@
 <script type="text/javascript">
 
     var di;
+    var geo;
 
     $( document ).ready(function() {
         updateanios();
@@ -405,7 +406,7 @@
     } //createEdit
 
     $("#btnGeo").click(function () {
-        var id = '${paciente?.id}'
+        var id = '${paciente?.id}';
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'paciente', action:'geo_ajax')}",
@@ -413,7 +414,7 @@
                 id: id
             },
             success : function (msg) {
-                di = bootbox.dialog({
+                geo = bootbox.dialog({
                     id      : "dlgGeo",
                     title   : "Lugar de nacimiento",
                     message : msg,
@@ -428,11 +429,13 @@
                 }); //dialog
             } //success
         }); //ajax
-    }) //createEdit
+    }); //createEdit
 
     function cerrarDialogoImagen () {
         di.modal("hide");
     }
 
-
+    function cerrarLugarNacimiento(){
+        geo.modal("hide");
+    }
 </script>
