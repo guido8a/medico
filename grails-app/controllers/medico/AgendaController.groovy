@@ -218,4 +218,29 @@ class AgendaController {
         return [citas: citas]
     }
 
+    def buscarPaciente_ajax(){
+
+    }
+
+    def tablaListaPacientes_ajax(){
+        def listaItems = ['pcntnmbr', 'pcntappl', 'pcntcdla']
+        def bsca
+        def sqlTx = ""
+
+        if(params.buscarPor){
+            bsca = listaItems[params.buscarPor?.toInteger()-1]
+        }else{
+            bsca = listaItems[0]
+        }
+
+        def select = "select * from pcnt "
+        def txwh = " where pcnt__id  is not null and " +
+                " $bsca ilike '%${params.criterio}%' "
+        sqlTx = "${select} ${txwh} order by pcntapll limit 100".toString()
+        def cn = dbConnectionService.getConnection()
+        def datos = cn.rows(sqlTx)
+
+        [datos: datos]
+    }
+
 }

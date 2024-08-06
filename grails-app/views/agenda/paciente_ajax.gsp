@@ -7,11 +7,17 @@
 
     <div class="form-group">
         <span class="grupo">
-            <label for="paciente" class="col-md-2 control-label text-info">
+            <label class="col-md-2 control-label text-info">
                 Paciente
             </label>
-            <span class="col-md-4">
-                <g:select from="${seguridad.Paciente.list([sort: 'apellido'])}" optionKey="id" optionValue="${{it.apellido + " " + it.nombre }}"  name="paciente" class="form-control" value="${agenda?.paciente?.id}"/>
+            <span class="col-md-8">
+                <g:hiddenField name="paciente" value="${agenda?.paciente?.id}"/>
+                <g:textField name="pacienteNombre" class="form-control " readonly="" value="${agenda?.paciente ? (agenda?.paciente?.apellido + " " + agenda?.paciente?.nombre) : ''}"/>
+            </span>
+            <span class="col-md-2">
+                <a href="#" id="btnBuscarPaciente" class="btn btn-sm btn-info" style="" title="Buscar paciente">
+                    <i class="fa fa-search"></i> Buscar
+                </a>
             </span>
         </span>
     </div>
@@ -27,3 +33,37 @@
         </span>
     </div>
 </g:form>
+
+<script type="text/javascript">
+
+    var dpcnt;
+
+    $("#btnBuscarPaciente").click(function () {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'agenda', action:'buscarPaciente_ajax')}",
+            data    : {},
+            success : function (msg) {
+                dpcnt = bootbox.dialog({
+                    id      : "dlgBuscarPaciente",
+                    title   : "Buscar Paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+    function cerrarBusquedaPaciente(){
+        dpcnt.modal("hide");
+    }
+
+</script>
