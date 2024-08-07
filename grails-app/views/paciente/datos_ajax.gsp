@@ -421,7 +421,7 @@
                     buttons : {
                         cancelar : {
                             label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-gris",
+                            className : "btn-primary",
                             callback  : function () {
                             }
                         }

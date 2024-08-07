@@ -1,5 +1,6 @@
 package medico
 
+import seguridad.Empresa
 import seguridad.Paciente
 import seguridad.Persona
 import seguridad.TipoPersona
@@ -223,24 +224,69 @@ class AgendaController {
     }
 
     def tablaListaPacientes_ajax(){
-        def listaItems = ['pcntnmbr', 'pcntappl', 'pcntcdla']
+//        def listaItems = ['pcntnmbr', 'pcntappl', 'pcntcdla']
+//        def bsca
+//        def sqlTx = ""
+//
+//        if(params.buscarPor){
+//            bsca = listaItems[params.buscarPor?.toInteger()-1]
+//        }else{
+//            bsca = listaItems[0]
+//        }
+//
+//        def select = "select * from pcnt "
+//        def txwh = " where pcnt__id  is not null and " +
+//                " $bsca ilike '%${params.criterio}%' "
+//        sqlTx = "${select} ${txwh} order by pcntapll limit 100".toString()
+//        def cn = dbConnectionService.getConnection()
+//        def datos = cn.rows(sqlTx)
+//
+//        [datos: datos]
+
+
+        def empresa
+
+        if (params.empresa != '0') {
+            empresa = Empresa.get(params.empresa)
+        } else {
+            empresa = null
+        }
+
+        def listaItems = ['pcntcdla', 'pcntapll', 'pcntnmbr']
         def bsca
         def sqlTx = ""
+        def bscaEmp = empresa ? " and empr__id = ${empresa?.id}" : " "
 
-        if(params.buscarPor){
-            bsca = listaItems[params.buscarPor?.toInteger()-1]
-        }else{
+        if (params.buscarPor) {
+            bsca = listaItems[params.buscarPor?.toInteger() - 1]
+        } else {
             bsca = listaItems[0]
         }
 
-        def select = "select * from pcnt "
-        def txwh = " where pcnt__id  is not null and " +
-                " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by pcntapll limit 100".toString()
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntpath, pcntnmbr, " +
+                "replace( replace( replace(replace(age(now()::date, pcntfcna)::text, 'year', 'año'), 'mons','meses'), " +
+                "'day', 'dia'), 'mon', 'mes') edad, " +
+                "grsndscr, pcntmail, pcntantc from pcnt, grsn "
+
+        def criterio = params.criterio
+
+        def txwh = ""
+        try {
+            criterio = params.criterio.toInteger()
+            txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
+                    "pcntcdla ilike '%${params.criterio}%'"
+        } catch (e) {
+            txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
+                    "(pcntnmbr ilike '%${criterio}%' or pcntapll ilike '%${criterio}%')"
+        }
+        sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll ".toString()
+        println "sql: ${sqlTx}"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
+//        println datos
 
         [datos: datos]
+
     }
 
 }

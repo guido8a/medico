@@ -80,7 +80,7 @@
         $("#buscarPor").val(1);
         $("#criterio").val('');
         $("#empresa").val(0);
-//        cargarTablaPacientes();
+       cargarTablaPacientes();
     });
 
     $("#btnBuscarEmpresa").click(function () {

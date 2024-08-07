@@ -2,10 +2,10 @@
     <table class="table table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <thead>
         <tr>
-            <th style="background-color: ${colorProv};">Provincia</th>
-            <th style="background-color: ${colorCant};">Cantón</th>
-            <th style="background-color: ${colorParr};">Parroquia</th>
-            <th style="width: 12%;">Seleccionar</th>
+            <th style="background-color: ${colorProv}; width: 25%">Provincia</th>
+            <th style="background-color: ${colorCant};width: 25%">Cantón</th>
+            <th style="background-color: ${colorParr};width: 35%">Parroquia</th>
+            <th style="width: 15%;">Seleccionar</th>
         </tr>
         </thead>
     </table>
@@ -17,10 +17,10 @@
         <g:if test="${comunidades}">
             <g:each in="${comunidades}" var="comn" status="i">
                 <tr>
-                    <td style="width: 23%;">${comn.provnmbr}</td>
-                    <td style="width: 30%;">${comn.cntnnmbr}</td>
-                    <td style="width: 15%;">${comn.parrnmbr}</td>
-                    <td style="width: 13%; text-align: center">
+                    <td style="width: 25%;">${comn.provnmbr}</td>
+                    <td style="width: 25%;">${comn.cntnnmbr}</td>
+                    <td style="width: 35%;">${comn.parrnmbr}</td>
+                    <td style="width: 15%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnSeleccionarGeo" title="Seleccionar" data-id="${comn?.parr__id}"
                            data-parroquia="${comn?.parrnmbr}" data-canton="${comn?.cntnnmbr}" data-provincia="${comn?.provnmbr}" >
                             <i class="fa fa-check"></i>

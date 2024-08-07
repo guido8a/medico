@@ -24,7 +24,7 @@
                 <button class="btn btn-info" id="btn-consultar-geo"><i class="fa fa-search"></i></button>
             </div>
             <div class="col-md-1" style="margin-top: 20px; margin-left: -10px">
-                <button class="btn btn-warning" id="btnLimpiarListaMedicina" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+                <button class="btn btn-warning" id="btnLimpiarListaGeo" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
             </div>
         </div>
     </fieldset>
@@ -39,27 +39,49 @@
 
     cargarLugarNacimiento();
 
+    $("#btnLimpiarListaGeo").click(function () {
+        var buscarPor = $("#buscarPor-geo").val('1');
+        var criterio = $("#criterio-geo").val('');
+        var ordenar = $("#ordenar-geo").val('1');
+        cargarLugarNacimiento();
+    });
+
     $("#btn-consultar-geo").click(function () {
         cargarLugarNacimiento();
     });
 
     function cargarLugarNacimiento(){
-        var buscarPor = $("#buscarPor-geo option:selected").val();
+        var ln = cargarLoader("Cargando...");
+        var buscar = $("#buscarPor-geo option:selected").val();
         var criterio = $("#criterio-geo").val();
         var ordenar = $("#ordenar-geo option:selected").val();
         $.ajax({
             type: "POST",
             url: "${createLink(action:'situacionGeografica')}",
             data: {
-                buscarPor: buscarPor,
+                buscarPor: buscar,
                 criterio: criterio,
                 ordenar: ordenar
             },
             success: function (msg) {
+                ln.modal("hide");
                 $("#divTablaGeo").html(msg);
                 $("#dlgLoad").dialog("close");
             }
         });
     }
+
+    $("#buscarPor-geo, #ordenar-geo").change(function () {
+        cargarLugarNacimiento();
+    });
+
+    $(".form-control").keydown(function (ev) {
+        if (ev.keyCode === 13) {
+            cargarLugarNacimiento();
+            return false;
+        }
+        return true;
+    })
+
 
 </script>
