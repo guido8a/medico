@@ -6,7 +6,7 @@
                     <label class="control-label text-info">Buscar Por</label>
                     <g:select name="buscarPor-geo" class="buscarPor form-control"
                               from="['1': 'Provincia', '2': 'Cantón', '3': 'Parroquia']"
-                              style="" optionKey="key"
+                              style="" optionKey="key" value="${params.criterio ?: 3}"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-4">

@@ -598,7 +598,7 @@ class PacienteController {
     }
 
     def situacionGeografica() {
-//        println "situacionGeografica" + params
+        println "situacionGeografica" + params
         def comunidades
         def orden;
         def colorProv, colorCant, colorParr, colorComn;
@@ -606,8 +606,9 @@ class PacienteController {
                 "from prov, cntn, parr"
         def txwh = "where cntn.prov__id = prov.prov__id and parr.cntn__id = cntn.cntn__id "
         def campos = ['provnmbr', 'cntnnmbr', 'parrnmbr']
-        def cmpo = params.buscarPor.toInteger()
+        def cmpo = params.buscarPor?.toInteger()
         def sqlTx = ""
+        cmpo = cmpo?: 1
 
         if (params.ordenar == '1') {
             orden = "asc";
@@ -617,7 +618,7 @@ class PacienteController {
 
         txwh += " and ${campos[cmpo - 1]} ilike '%${params.criterio}%'"
 
-        sqlTx = "${select} ${txwh} order by ${campos[cmpo - 1]} ${orden} limit 1500".toString()
+        sqlTx = "${select} ${txwh} order by ${campos[cmpo - 1]} ${orden} limit 70".toString()
         println "sql: cmpo: $cmpo $sqlTx"
 
         def cn = dbConnectionService.getConnection()
