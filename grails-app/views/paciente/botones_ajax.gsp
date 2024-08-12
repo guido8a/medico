@@ -1,9 +1,15 @@
 <a href="#" class="btn btn-warning" id="btnNuevaCita" title="Agendar próxima cita" >
     <i class="fas fa-plus"></i> Agendar Cita
 </a>
-<a href="#" class="btn btn-info" id="btnImprimirReceta" title="Imprimir receta de la cita">
-    <i class="fas fa-print"></i> Imprimir receta
-</a>
+<g:if test="${cita?.motivo != 'Cita médica agendada'}">
+    <g:if test="${diagnosticos.size() > 0}">
+        <g:if test="${tratamientos.size() > 0}">
+            <a href="#" class="btn btn-info" id="btnImprimirReceta" title="Imprimir receta de la cita">
+                <i class="fas fa-print"></i> Imprimir receta
+            </a>
+        </g:if>
+    </g:if>
+</g:if>
 
 <g:if test="${cita?.estado == 'A'}">
     <a href="#" class="btn btn-success" id="btnTerminarCita" title="Finalizar la cita" >
