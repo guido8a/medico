@@ -3,12 +3,12 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-%{--            <label for="empresa" class="col-md-1 control-label text-info">--}%
-%{--                Consultorio--}%
-%{--            </label>--}%
-%{--            <span class="col-md-4">--}%
-%{--                <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />--}%
-%{--            </span>--}%
+            %{--            <label for="empresa" class="col-md-1 control-label text-info">--}%
+            %{--                Consultorio--}%
+            %{--            </label>--}%
+            %{--            <span class="col-md-4">--}%
+            %{--                <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />--}%
+            %{--            </span>--}%
 
             <label for="cedula" class="col-md-2 control-label text-info">
                 Cédula
@@ -41,7 +41,7 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-               <label for="nombre" class="col-md-2 control-label text-info">
+            <label for="nombre" class="col-md-2 control-label text-info">
                 Nombres
             </label>
             <span class="grupo">
@@ -87,7 +87,6 @@
                     <g:select name="grupoSanguineo" from="${medico.GrupoSanguineo.list([sort: 'descripcion'])}" optionKey="id"
                               optionValue="descripcion" class="form-control" value="${paciente?.grupoSanguineo?.id?:0}"
                     />
-                    %{--noSelection="${[0:'Seleccione']}"--}%
                 </span>
             </span>
         </div>
@@ -118,13 +117,13 @@
             <span class="col-md-3 text-info">
                 %{--Edad--}%
                 %{--<span id="edadCalculo" class="form-control" readonly="">--}%
-                             %{--${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}--}%
+                %{--${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}--}%
                 %{--</span>--}%
                 <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">
                 </span>
             </span>
             %{--<span class="col-md-2">--}%
-                %{--<g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}"/>--}%
+            %{--<g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}"/>--}%
             %{--</span>--}%
             <label for="numeroHistorial" class="col-md-3 control-label text-info">
                 Numero de historia clínica
@@ -144,23 +143,6 @@
                     <i class="fa fa-search"></i> Buscar
                 </a>
             </label>
-            %{--<span class="grupo">--}%
-                %{--<span class="col-md-3">--}%
-                    %{--<label for="provincia" class="control-label text-info">--}%
-                        %{--Provincia--}%
-                    %{--</label>--}%
-                    %{--<g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" optionKey="id"--}%
-                              %{--optionValue="nombre" class="form-control" value="${paciente?.parroquia?.canton?.provincia?.id ?:17}"/>--}%
-                %{--</span>--}%
-            %{--</span>--}%
-            %{--<span class="grupo">--}%
-                %{--<span class="col-md-3" id="divCanton">--}%
-                %{--</span>--}%
-            %{--</span>--}%
-            %{--<span class="grupo">--}%
-                %{--<span class="col-md-3" id="divParroquia">--}%
-                %{--</span>--}%
-            %{--</span>--}%
             <div class="col-md-2" >Provincia
             <g:textField style="width: 150px;" name="provincia" class="form-control"
                          value="${paciente?.parroquia?.canton?.provincia?.nombre}" readonly="true" title="Cantón"/>
@@ -171,36 +153,16 @@
                          value="${paciente?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
             </div>
 
-            <div class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia
-            <g:hiddenField name="parroquia" value="${paciente?.parroquia?.id}"/>
-            <g:textField style="width: 255px;" name="parroquiaNombre" class="form-control"
-                         value="${paciente?.parroquia?.nombre}" readonly="true" title="Parroquia"/>
-            </div>
+            <span class="grupo" >
+                <span class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia
+                <g:hiddenField name="parroquia" value="${paciente?.parroquia?.id}"/>
+                <g:textField style="width: 255px;" name="parroquiaNombre" required="" class="form-control required"
+                             value="${paciente?.parroquia?.nombre}" readonly="true"/>
+                </span>
+            </span>
 
         </div>
     </div>
-
-    %{--<div class="col-md-12">--}%
-
-        %{--<div class="col-md-2" style="width: 220px; margin-left: 10px;">Provincia--}%
-        %{--<g:textField style="width: 210px;" name="provinciakk.id" id="provNombre" class="form-control"--}%
-                     %{--value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>--}%
-        %{--</div>--}%
-
-        %{--<div class="col-md-2" style="width: 220px; margin-left: 10px;">Cantón--}%
-        %{--<g:textField style="width: 210px;" name="cantonkk.id" id="cantNombre" class="form-control"--}%
-                     %{--value="${obra?.comunidad?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>--}%
-        %{--</div>--}%
-
-        %{--<div class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia--}%
-        %{--<g:hiddenField name="parroquia.id" id="hiddenParr" value="${obra?.comunidad?.parroquia?.id}"/>--}%
-        %{--<g:textField style="width: 190px;" name="parroquiakk.id" id="parrNombre" class="form-control"--}%
-                     %{--value="${obra?.comunidad?.parroquia?.nombre}" readonly="true" title="Parroquia"/>--}%
-        %{--</div>--}%
-
-    %{--</div>--}%
-
-
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="residenciaHabitual" class="col-md-2 control-label text-info">
