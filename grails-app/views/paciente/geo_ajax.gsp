@@ -55,6 +55,9 @@
         var buscar = $("#buscarPor-geo option:selected").val();
         var criterio = $("#criterio-geo").val();
         var ordenar = $("#ordenar-geo option:selected").val();
+        if(!criterio) {
+            criterio = 'Turu'
+        }
         $.ajax({
             type: "POST",
             url: "${createLink(action:'situacionGeografica')}",
