@@ -6,6 +6,19 @@
     <title>
         Historia Clínica
     </title>
+
+    <style>
+
+    .modal{
+        overflow-y: auto;
+    }
+
+    .modal-open{
+        overflow:auto;
+    }
+
+    </style>
+
 </head>
 <body>
 
