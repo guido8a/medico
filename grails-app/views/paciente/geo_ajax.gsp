@@ -1,4 +1,4 @@
-<div style="overflow: hidden">
+<div>
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">

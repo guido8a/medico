@@ -5,11 +5,23 @@
     <title>
         Lista de Pacientes
     </title>
+
+    <style>
+
+    .modal{
+        overflow-y: auto;
+    }
+
+    .modal-open{
+        overflow:auto;
+    }
+
+    </style>
 </head>
 
-<body>
+<body class="scr">
 
-<div style="overflow: hidden">
+<div >
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
         <div class="row-fluid" style="margin-left: 10px">
             %{--<span class="grupo">--}%
@@ -72,7 +84,6 @@
     var di;
 
     $(".btnNuevoPaciente").click(function () {
-        %{--location.href="${createLink(controller: 'paciente', action: 'datos')}?tipo=" + 0--}%
         crearPaciente();
     });
 
