@@ -7,7 +7,7 @@
             <label for="antecedentesOcupacionales" class="col-md-2 control-label text-info">
                 Antecedentes patológicos personales
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
             </span>
         </span>
@@ -18,8 +18,9 @@
             <label for="alergias" class="col-md-2 control-label text-info">
                 Alergias
             </label>
-            <span class="col-md-8">
-                <g:textArea name="alergias" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.alergias}"/>
+            <span class="col-md-10">
+                <g:textField name="alergias" maxlength="255" class="form-control"
+                            value="${paciente?.alergias}"/>
             </span>
         </span>
     </div>
@@ -29,7 +30,7 @@
             <label for="antecedentesPatologicosFam" class="col-md-2 control-label text-info">
                 Antecedentes patológicos familiares
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textArea name="antecedentesPatologicosFam" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesPatologicosFam}"/>
             </span>
         </span>
@@ -40,7 +41,7 @@
             <label for="habitos" class="col-md-2 control-label text-info">
                 Hábitos Alimentarios
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textField name="habitosAlimentario" maxlength="255" class="form-control" value="${paciente?.habitosAlimentario}"/>
             </span>
         </span>
@@ -69,7 +70,7 @@
                 <label for="habitos" class="col-md-2 control-label text-info">
                     Hábitos Fumador
                 </label>
-                <span class="col-md-8">
+                <span class="col-md-10">
                     <g:textField name="habitosFumador"  maxlength="255" class="form-control" value="${paciente?.habitosFumador}"/>
                 </span>
             </span>
@@ -80,7 +81,7 @@
                 <label for="habitos" class="col-md-2 control-label text-info">
                     Hábitos Tomador
                 </label>
-                <span class="col-md-8">
+                <span class="col-md-10">
                     <g:textField name="habitosTomador"  maxlength="255" class="form-control" value="${paciente?.habitosTomador}"/>
                 </span>
             </span>
@@ -91,7 +92,7 @@
             <label for="habitos" class="col-md-2 control-label text-info">
                 Otros Hábitos
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textField name="habitos"  maxlength="255" class="form-control" value="${paciente?.habitos}"/>
             </span>
         </span>
@@ -103,7 +104,7 @@
                 <label for="antecedentesGinecobstreticos" class="col-md-2 control-label text-info">
                     Antecedentes Gineco Obstétricos
                 </label>
-                <span class="col-md-8">
+                <span class="col-md-10">
                     <g:textArea name="antecedentesGinecobstreticos" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesGinecobstreticos}"/>
                 </span>
             </span>
@@ -116,7 +117,7 @@
                 <label for="habitos" class="col-md-2 control-label text-info">
                     Datos al nacer
                 </label>
-                <span class="col-md-8">
+                <span class="col-md-10">
                     <g:textField name="antecedentesDespuesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesDespuesdeNacer}"/>
                 </span>
             </span>
@@ -127,8 +128,8 @@
                 <label for="antecedentesAntesdeNacer" class="col-md-2 control-label text-info">
                     Vida antenatal
                 </label>
-                <span class="col-md-8">
-                    <g:textField name="antecedentesAntesdeNacer"  maxlength="255" class="form-control" value="${paciente?.antecedentesAntesdeNacer}"/>
+                <span class="col-md-10">
+                    <g:textArea name="antecedentesAntesdeNacer"  style="resize: none; height: 70px" maxlength="1024" class="form-control" value="${paciente?.antecedentesAntesdeNacer}"/>
                 </span>
             </span>
         </div>

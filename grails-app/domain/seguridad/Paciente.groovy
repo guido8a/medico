@@ -117,7 +117,7 @@ class Paciente {
         foto(size: 0..255, blank: true, nullable: true)
         responsable(size: 0..63, blank: true, nullable: true)
         habitos(size: 0..255, blank: true, nullable: true)
-        antecedentesAntesdeNacer(size: 0..255, blank: true, nullable: true)
+        antecedentesAntesdeNacer(size: 0..1023, blank: true, nullable: true)
         antecedentesDespuesdeNacer(size: 0..255, blank: true, nullable: true)
         antecedentesOcupacionales(size: 0..255, blank: true, nullable: true)
         alergias(size: 0..255, blank: true, nullable: true)
