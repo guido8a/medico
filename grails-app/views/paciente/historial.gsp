@@ -70,9 +70,6 @@
 
 </div>
 
-<div id="comentario">
-
-</div>
 
 <div class="row">
     <div class="col-md-6" id="divBotones">
@@ -495,18 +492,7 @@
         })
     }
 
-    function cargarComentario(cita){
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'historial', action: 'comentario_ajax')}',
-            data:{
-                id: cita
-            },
-            success: function (msg){
-                $("#comentario").html(msg)
-            }
-        })
-    }
+
 
     function graficoNina() {
         var paciente = '${paciente?.id}';
@@ -536,6 +522,8 @@
             } //success
         }); //ajax
     }
+
+
 
 </script>
 

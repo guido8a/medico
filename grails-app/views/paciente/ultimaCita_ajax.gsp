@@ -139,6 +139,10 @@
 
         </div>
 
+        <div id="comentario">
+
+        </div>
+
     </g:if>
 
 </g:if>
@@ -491,5 +495,22 @@
             }
         });
     }
+
+    cargarComentario('${cita?.id}');
+
+    function cargarComentario(cita){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'historial', action: 'comentario_ajax')}',
+            data:{
+                id: cita
+            },
+            success: function (msg){
+                $("#comentario").html(msg)
+            }
+        })
+    }
+
+
 
 </script>
