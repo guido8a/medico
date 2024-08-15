@@ -48,10 +48,15 @@ class TratamientoController {
         }
 
         def select = "select * from mdcn "
+//        def txwh = " where mdcn__id  is not null and " +
+//                " $bsca ilike '%${params.criterio}%' "
+
         def txwh = " where mdcn__id  is not null and " +
-                " $bsca ilike '%${params.criterio}%' "
-        def tpo = " and mdcntpmd ilike '%${params.tipoMedicina}%' "
-        sqlTx = "${select} ${txwh} ${tpo} order by mdcndscr limit 100".toString()
+                " (mdcndscr ilike '%${params.criterio}%' or mdcnnmbr ilike '%${params.criterio}%') "
+
+//        def tpo = " and mdcntpmd ilike '%${params.tipoMedicina}%' "
+//        sqlTx = "${select} ${txwh} ${tpo} order by mdcndscr limit 100".toString()
+        sqlTx = "${select} ${txwh} order by mdcndscr limit 100".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
