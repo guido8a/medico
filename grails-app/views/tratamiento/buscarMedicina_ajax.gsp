@@ -12,16 +12,19 @@
 %{--                    <g:select name="buscarPorMedicina" class="buscarPorMedicina col-md-12 form-control" from="${[ 1: 'Nombre Comercial', 2: 'Nombre Genérico', 3: 'Código']}" optionKey="key"--}%
 %{--                              optionValue="value"/>--}%
 %{--                </span>--}%
-                <span class="col-md-6">
+                <span class="col-md-1">
                     <label class="control-label text-info">Criterio</label>
+                </span>
+                <span class="col-md-6">
                     <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
                 </span>
             </span>
-            <div class="col-md-1" style="margin-top: 20px">
+            <div class="col-md-2 btn-group" >
                 <button class="btn btn-info" id="btnBuscarListaMedicina"><i class="fa fa-search"></i></button>
-            </div>
-            <div class="col-md-1" style="margin-top: 20px">
                 <button class="btn btn-warning" id="btnLimpiarListaMedicina" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+            </div>
+            <div class="col-md-1">
+
             </div>
         </div>
     </fieldset>
