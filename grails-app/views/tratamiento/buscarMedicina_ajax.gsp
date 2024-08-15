@@ -1,17 +1,18 @@
 <div style="overflow: hidden">
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
-        <div class="row" style="margin-left: 60px; margin-top:0px">
+        <div class="row" >
             <div class="col-md-2" style="text-align: right">
                     <label class="control-label text-info">Buscar por:</label>
             </div>
             <div class="col-md-3">
                 <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <button class="btn btn-info" id="btnBuscarListaMedicina"><i class="fa fa-search"></i></button>
-            </div>
-            <div class="col-md-1">
                 <button class="btn btn-warning" id="btnLimpiarListaMedicina" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+            </div>
+            <div class="col-md-2" style="float: right">
+                <button class="btn btn-success" id="btnNuevaMedicina"><i class="fa fa-file"></i> Nueva Medicina</button>
             </div>
         </div>
     </fieldset>
@@ -29,6 +30,83 @@
 </div>
 
 <script type="text/javascript">
+
+    var dnm;
+
+    $("#btnNuevaMedicina").click(function () {
+        createEditRowMedicina()
+    });
+
+    function createEditRowMedicina(id) {
+        var title = id ? "Editar " : "Crear ";
+        var data = id ? {id : id}: {};
+
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller:'medicina' , action: 'form_ajax')}",
+            data    : data,
+            success : function (msg) {
+                dnm = bootbox.dialog({
+                    id      : "dlgCreateEdit",
+                    title   : title + " Medicina",
+                    // class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormMedicina();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormMedicina() {
+        var $form = $("#frmMedicina");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarMedicinas();
+                        cerrarNuevaMedicina();
+                    }else{
+                        if(parts[0] === 'err'){
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }else{
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
+                        }
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+    function cerrarNuevaMedicina() {
+        dnm.modal("hide");
+    }
 
     cargarMedicinas();
 
