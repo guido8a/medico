@@ -964,7 +964,7 @@ class ReportesController {
 
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaPieDetalles, new Paragraph("PRÓXIMA CITA : ${citaProxima ? citaProxima?.fecha?.format("dd-MM-yyyy") : ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaPieDetalles, new Paragraph("PRÓXIMA CITA : ${citaProxima ? citaProxima?.fecha?.format("dd-MM-yyyy") + " " + citaProxima?.hora : ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
         addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])

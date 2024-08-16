@@ -4,7 +4,7 @@
         <thead>
         <tr>
             <th style="width: 15%;">Código</th>
-            <th style="width: 45%;">Descripción</th>
+            <th style="width: 45%;">Nombre genérico</th>
             <th style="width: 17%;">Presentación</th>
             <th style="width: 13%;">Concentración</th>
             <th style="width: 10%;">Seleccionar</th>

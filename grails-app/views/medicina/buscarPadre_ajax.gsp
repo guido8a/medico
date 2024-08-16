@@ -4,7 +4,7 @@
             <span class="grupo">
                 <span class="col-md-4">
                     <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPorPadre" class="buscarPorPadre col-md-12 form-control" from="${[1: 'Descripción', 2: 'Código']}" optionKey="key"
+                    <g:select name="buscarPorPadre" class="buscarPorPadre col-md-12 form-control" from="${[1: 'Nombre', 2: 'Código']}" optionKey="key"
                               optionValue="value"/>
                 </span>
                 <span class="col-md-4">

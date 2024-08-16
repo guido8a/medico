@@ -90,6 +90,7 @@ class MedicinaController {
         }else{
             bsca = listaItems[0]
         }
+
         def select = "select * from mdcn "
         def txwh = " where mdcn__id  is not null and mdcnpdre is null and " +
                 " $bsca ilike '%${params.criterio}%' "
