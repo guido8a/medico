@@ -1,130 +1,82 @@
 
+<g:if test="${cita?.id}">
 
-<div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
-    <div style="width: 3%; float: left; margin-right: 5px">
-        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de la cita médica">
-            <i class="fas fa-edit"></i>
-        </a>
-    </div>
-    <div style="width:96%; float: left">
-        <table class="table-bordered table-condensed " style="width: 100%">
-            <tbody>
-            <tr style="font-size: 16px">
-                <td style="width: 20%" class="alert alert-success">Motivo de consulta:</td>
-                <td style="width: 80%; background-color: #b7d6a9">${cita?.motivo}</td>
-            </tr>
-            <tr style="font-size: 16px">
-                <td style="width: 20%" class="alert alert-success">Enfermedad actual:</td>
-                <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<g:if test="${cita?.motivo != 'Cita médica agendada'}">
 
-    <h4>Examen Físico</h4>
-
-    <div id="divExamenFisico">
-
-    </div>
-
-    <h4>Diagnóstico</h4>
     <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
         <div style="width: 3%; float: left; margin-right: 5px">
-            <a href="#" class="btn btn-info col-md-12" role="alert" id="btnBuscarDiagnostico" title="Editar los datos del diagnóstico">
+            <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de la cita médica">
                 <i class="fas fa-edit"></i>
             </a>
         </div>
         <div style="width:96%; float: left">
-
             <table class="table-bordered table-condensed " style="width: 100%">
                 <tbody>
                 <tr style="font-size: 16px">
-                    <td style="width: 80%; background-color:#b7d6a9">
-                        <g:if test="${diagnosticos.size() > 0}">
-                            <table class="table table-bordered table-striped table-condensed table-hover">
-                                <thead>
-                                <tr style="width: 100%">
-                                    <th style="width: 10%">Código</th>
-                                    <th style="width: 50%">Descripción </th>
-                                    <th style="width: 30%">Observaciones </th>
-                                    <th style="width: 10%">Acciones </th>
-                                </tr>
-                                </thead>
-                                <tbody >
-                                <g:each in="${diagnosticos}" status="i" var="diagnostico">
-                                    <tr style="width: 100%">
-                                        <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>
-                                        <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
-                                        <td style="width: 30%">${diagnostico?.descripcion}</td>
-                                        <td style="width: 10%; text-align: center">
-                                            <a class="btn btn-info btn-xs btnObservacionesDiagnostico" href="#" rel="tooltip" title="Observaciones" data-id="${diagnostico.id}">
-                                                <i class="fa fa-book"></i>
-                                            </a>
-                                            <a class="btn btn-danger btn-xs btnBorrarDiagnostico" href="#" rel="tooltip" title="Eliminar" data-id="${diagnostico.id}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </g:each>
-                                </tbody>
-                            </table>
-                        </g:if>
-                        <g:else>
-                            <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
-                        </g:else>
-                    </td>
+                    <td style="width: 20%" class="alert alert-success">Motivo de consulta:</td>
+                    <td style="width: 80%; background-color: #b7d6a9">${cita?.motivo}</td>
+                </tr>
+                <tr style="font-size: 16px">
+                    <td style="width: 20%" class="alert alert-success">Enfermedad actual:</td>
+                    <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <g:if test="${diagnosticos.size() > 0}">
+    <g:if test="${cita?.motivo != 'Cita médica agendada'}">
 
-        <h4>Tratamiento</h4>
+        <h4>Examen Físico</h4>
 
+        <div id="divExamenFisico">
+
+        </div>
+
+        <h4>Diagnóstico</h4>
         <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
             <div style="width: 3%; float: left; margin-right: 5px">
-                <a href="#" class="btn btn-info col-md-12" role="alert" id="btnTratamiento" title="Editar los datos del tratamiento">
+                <a href="#" class="btn btn-info col-md-12" role="alert" id="btnBuscarDiagnostico" title="Editar los datos del diagnóstico">
                     <i class="fas fa-edit"></i>
                 </a>
             </div>
             <div style="width:96%; float: left">
+
                 <table class="table-bordered table-condensed " style="width: 100%">
                     <tbody>
-
                     <tr style="font-size: 16px">
-                        %{--                <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>--}%
                         <td style="width: 80%; background-color:#b7d6a9">
-                            <g:if test="${tratamientos.size() > 0}">
+                            <g:if test="${diagnosticos.size() > 0}">
                                 <table class="table table-bordered table-striped table-condensed table-hover">
                                     <thead>
                                     <tr style="width: 100%">
-                                        <th style="width: 10%">Nombre Comercial </th>
-                                        <th style="width: 10%">Nombre Genérico </th>
-                                        <th style="width: 10%">Concentración </th>
-                                        <th style="width: 10%">Cantidad </th>
-                                        <th style="width: 35%">Prescripción</th>
+                                        <th style="width: 10%">Código</th>
+                                        <th style="width: 50%">Descripción </th>
+                                        <th style="width: 30%">Observaciones </th>
+                                        <th style="width: 10%">Acciones </th>
                                     </tr>
                                     </thead>
                                     <tbody >
-                                    <g:each in="${tratamientos}" status="i" var="tratamiento">
+                                    <g:each in="${diagnosticos}" status="i" var="diagnostico">
                                         <tr style="width: 100%">
-                                            <td style="width: 15%">${tratamiento?.medicina ? tratamiento?.medicina?.nombre : ''}</td>
-                                            <td style="width: 30%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
-                                            <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
-                                            <td style="width: 8%">${tratamiento?.cantidad}</td>
-                                            <td style="width: 52%">${tratamiento?.descripcion}</td>
+                                            <td style="width: 10%">${diagnostico?.diagnostico?.codigo}</td>
+                                            <td style="width: 50%">${diagnostico?.diagnostico?.descripcion}</td>
+                                            <td style="width: 30%">${diagnostico?.descripcion}</td>
+                                            <td style="width: 10%; text-align: center">
+                                                <a class="btn btn-info btn-xs btnObservacionesDiagnostico" href="#" rel="tooltip" title="Observaciones" data-id="${diagnostico.id}">
+                                                    <i class="fa fa-book"></i>
+                                                </a>
+                                                <a class="btn btn-danger btn-xs btnBorrarDiagnostico" href="#" rel="tooltip" title="Eliminar" data-id="${diagnostico.id}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </g:each>
                                     </tbody>
                                 </table>
                             </g:if>
                             <g:else>
-                                <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
+                                <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin diagnósticos</div>
                             </g:else>
                         </td>
                     </tr>
@@ -133,19 +85,75 @@
             </div>
         </div>
 
-        <h4>Exámenes Complementarios</h4>
+        <g:if test="${diagnosticos.size() > 0}">
 
-        <div id="divExamenLaboratorio">
+            <h4>Tratamiento</h4>
 
-        </div>
+            <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+                <div style="width: 3%; float: left; margin-right: 5px">
+                    <a href="#" class="btn btn-info col-md-12" role="alert" id="btnTratamiento" title="Editar los datos del tratamiento">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </div>
+                <div style="width:96%; float: left">
+                    <table class="table-bordered table-condensed " style="width: 100%">
+                        <tbody>
 
-        <div id="comentario">
+                        <tr style="font-size: 16px">
+                            %{--                <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>--}%
+                            <td style="width: 80%; background-color:#b7d6a9">
+                                <g:if test="${tratamientos.size() > 0}">
+                                    <table class="table table-bordered table-striped table-condensed table-hover">
+                                        <thead>
+                                        <tr style="width: 100%">
+                                            <th style="width: 10%">Nombre Comercial </th>
+                                            <th style="width: 10%">Nombre Genérico </th>
+                                            <th style="width: 10%">Concentración </th>
+                                            <th style="width: 10%">Cantidad </th>
+                                            <th style="width: 35%">Prescripción</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        <g:each in="${tratamientos}" status="i" var="tratamiento">
+                                            <tr style="width: 100%">
+                                                <td style="width: 15%">${tratamiento?.medicina ? tratamiento?.medicina?.nombre : ''}</td>
+                                                <td style="width: 30%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
+                                                <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
+                                                <td style="width: 8%">${tratamiento?.cantidad}</td>
+                                                <td style="width: 52%">${tratamiento?.descripcion}</td>
+                                            </tr>
+                                        </g:each>
+                                        </tbody>
+                                    </table>
+                                </g:if>
+                                <g:else>
+                                    <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin tratamiento</div>
+                                </g:else>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        </div>
+            <h4>Exámenes Complementarios</h4>
 
+            <div id="divExamenLaboratorio">
+
+            </div>
+
+            <div id="comentario">
+
+            </div>
+
+        </g:if>
     </g:if>
-
 </g:if>
+<g:else>
+    <div class="alert alert-warning" style="font-weight: bold; font-size: 12px; text-align: center">
+        <i class="fa fa-exclamation-triangle text-danger fa-2x"></i> <strong style="font-size: 14px; font-weight: bold"> No existe una cita seleccionada </strong>
+    </div>
+</g:else>
 
 <script type="text/javascript">
 

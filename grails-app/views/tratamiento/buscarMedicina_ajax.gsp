@@ -2,7 +2,7 @@
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
         <div class="row" >
             <div class="col-md-2" style="text-align: right">
-                    <label class="control-label text-info">Buscar por:</label>
+                <label class="control-label text-info">Buscar por:</label>
             </div>
             <div class="col-md-3">
                 <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
@@ -75,30 +75,34 @@
     function submitFormMedicina() {
         var $form = $("#frmMedicina");
         if ($form.valid()) {
-            var data = $form.serialize();
-            var dialog = cargarLoader("Guardando...");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : data,
-                success : function (msg) {
-                    dialog.modal('hide');
-                    var parts = msg.split("_");
-                    if(parts[0] === 'ok'){
-                        log(parts[1], "success");
-                        cargarMedicinas();
-                        cerrarNuevaMedicina();
-                    }else{
-                        if(parts[0] === 'err'){
-                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                            return false;
+
+            var tipo = $("#tipoMedicamento option:selected").val();
+            var padre = $("#padre").val();
+
+            if(tipo === 'C' && !padre){
+                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione un medicamente genérico padre" + '</strong>');
+                return false
+            }else{
+                var data = $form.serialize();
+                var dialog = cargarLoader("Guardando...");
+                $.ajax({
+                    type    : "POST",
+                    url     : $form.attr("action"),
+                    data    : data,
+                    success : function (msg) {
+                        dialog.modal('hide');
+                        var parts = msg.split("_");
+                        if(parts[0] === 'ok'){
+                            log(parts[1], "success");
+                            cargarMedicinas();
+                            cerrarNuevaMedicina();
                         }else{
                             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                             return false;
                         }
                     }
-                }
-            });
+                });
+            }
         } else {
             return false;
         }
