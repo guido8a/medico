@@ -10,12 +10,28 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="btn-group" role="navigation">
+    <div class="btn-group col-md-4" role="navigation">
         <a href="#" class="btn btn-success btnNuevaMedicina">
             <i class="fa fa-medkit"></i>
             Nuevo Medicamento
         </a>
     </div>
+
+    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
+        <div class="row" >
+            <div class="col-md-2" style="text-align: right">
+                <label class="control-label text-info">Buscar por:</label>
+            </div>
+            <div class="col-md-3">
+                <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i></button>
+                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
+            </div>
+        </div>
+    </fieldset>
+
 </div>
 
 <div style="overflow: hidden">
@@ -47,20 +63,6 @@
 %{--    </fieldset>--}%
 
 
-    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
-        <div class="row" >
-            <div class="col-md-2" style="text-align: right">
-                <label class="control-label text-info">Buscar por:</label>
-            </div>
-            <div class="col-md-3">
-                <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i></button>
-                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
-            </div>
-        </div>
-    </fieldset>
 
 
     <fieldset class="borde" style="border-radius: 4px">
