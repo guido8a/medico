@@ -67,7 +67,7 @@ class ExamenFisico {
             cabezaCraneo column: 'exfscbcn'
             cabezaCara column: 'exfscbca'
             pielFaneras column: 'exfsplfn'
-            perimetroCefalico column: 'exfspmcf'
+            perimetroCefalico column: 'exfsprcf'
         }
     }
 
