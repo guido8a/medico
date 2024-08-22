@@ -46,17 +46,6 @@ class ExamenFisicoController {
             params.fecha = new Date().parse("dd-MM-yyyy", params.fechaExamenFisico)
         }
 
-        params.peso = params.peso.toDouble()
-        params.talla = params.talla.toDouble()
-        params.temperatura = params.temperatura.toDouble()
-        params.imc = params.imc.toDouble()
-        params.so2 = params.so2.toDouble()
-        params.glucosa = params.glucosa.toDouble()
-        params.sistole1 = params.sistole1.toDouble()
-        params.diastole1 = params.diastole1.toDouble()
-        params.sistole2 = params.sistole2.toDouble()
-        params.diastole2 = params.diastole2.toDouble()
-
         if(params.peso == '' || !params.peso){
             params.peso = 0
         }
@@ -104,6 +93,23 @@ class ExamenFisicoController {
         if(params.diastole2 == '' || !params.diastole2){
             params.diastole2 = 0
         }
+
+        if(params.fc == '' || !params.fc){
+            params.fc = 0
+        }
+
+        params.peso = params.peso.toDouble()
+        params.talla = params.talla.toDouble()
+        params.temperatura = params.temperatura.toDouble()
+        params.imc = params.imc.toDouble()
+        params.so2 = params.so2.toDouble()
+        params.glucosa = params.glucosa.toDouble()
+        params.sistole1 = params.sistole1.toDouble()
+        params.diastole1 = params.diastole1.toDouble()
+        params.sistole2 = params.sistole2.toDouble()
+        params.diastole2 = params.diastole2.toDouble()
+        params.fc = params.fc.toDouble()
+
 
         examen.properties = params
 
