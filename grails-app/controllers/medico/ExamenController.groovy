@@ -109,7 +109,7 @@ def save_ajax(){
     }
 
     byte[] im() {
-        def path = "/var/medico/ninos2a20.png"
+        def path = "/var/medico/imc_ninas2a20.jpeg"
         BufferedImage imagen = ImageIO.read(new File(path));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 

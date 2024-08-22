@@ -80,7 +80,8 @@
             var padre = $("#padre").val();
 
             if(tipo === 'C' && !padre){
-                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Seleccione un medicamente genérico padre" + '</strong>');
+                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                    '<strong style="font-size: 14px">' + "Seleccione el medicamente genérico al que pertenece este medicamento comercial" + '</strong>');
                 return false
             }else{
                 var data = $form.serialize();
