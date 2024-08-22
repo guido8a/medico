@@ -31,6 +31,7 @@ class ExamenFisico {
     String cabezaCraneo
     String cabezaCara
     String pielFaneras
+    double perimetroCefalico = 0
 
     static mapping = {
         table 'exfs'
@@ -66,6 +67,7 @@ class ExamenFisico {
             cabezaCraneo column: 'exfscbcn'
             cabezaCara column: 'exfscbca'
             pielFaneras column: 'exfsplfn'
+            perimetroCefalico column: 'exfspmcf'
         }
     }
 
@@ -96,5 +98,6 @@ class ExamenFisico {
         diastole2(blank: true, nullable: true)
         cabezaCraneo(size: 0..255, blank: true, nullable: true)
         pielFaneras(size: 0..255, blank: true, nullable: true)
+        perimetroCefalico(blank: true, nullable: true)
     }
 }
