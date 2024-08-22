@@ -19,32 +19,49 @@
 </div>
 
 <div style="overflow: hidden">
-    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
-        <div class="row-fluid" style="margin-left: 10px">
-            <span class="grupo">
-                <span class="col-md-2">
-                    <label class="control-label text-info">Tipo</label>
-                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['C': 'Comercial', 'G': 'Genérico']}" optionKey="key"
-                              optionValue="value"/>
-                </span>
-                <span class="col-md-2">
-                    <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Nombre Comercial', 2: 'Nombre Genérico', 3 : 'Código']}" optionKey="key"
-                              optionValue="value"/>
-                </span>
-                <span class="col-md-4">
-                    <label class="control-label text-info">Criterio</label>
-                    <g:textField name="criterio" id="criterio" class="form-control"/>
-                </span>
-            </span>
-            <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i> Buscar</button>
+%{--    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">--}%
+%{--        <div class="row-fluid" style="margin-left: 10px">--}%
+%{--            <span class="grupo">--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <label class="control-label text-info">Tipo</label>--}%
+%{--                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['C': 'Comercial', 'G': 'Genérico']}" optionKey="key"--}%
+%{--                              optionValue="value"/>--}%
+%{--                </span>--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <label class="control-label text-info">Buscar Por</label>--}%
+%{--                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Nombre Comercial', 2: 'Nombre Genérico', 3 : 'Código']}" optionKey="key"--}%
+%{--                              optionValue="value"/>--}%
+%{--                </span>--}%
+%{--                <span class="col-md-4">--}%
+%{--                    <label class="control-label text-info">Criterio</label>--}%
+%{--                    <g:textField name="criterio" id="criterio" class="form-control"/>--}%
+%{--                </span>--}%
+%{--            </span>--}%
+%{--            <div class="col-md-1" style="margin-top: 20px">--}%
+%{--                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i> Buscar</button>--}%
+%{--            </div>--}%
+%{--            <div class="col-md-1" style="margin-top: 20px">--}%
+%{--                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i> Limpiar</button>--}%
+%{--            </div>--}%
+%{--        </div>--}%
+%{--    </fieldset>--}%
+
+
+    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
+        <div class="row" >
+            <div class="col-md-2" style="text-align: right">
+                <label class="control-label text-info">Buscar por:</label>
             </div>
-            <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i> Limpiar</button>
+            <div class="col-md-3">
+                <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i></button>
+                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
             </div>
         </div>
     </fieldset>
+
 
     <fieldset class="borde" style="border-radius: 4px">
         <div id="divTablaMedicinas" >
@@ -56,22 +73,22 @@
 <script type="text/javascript">
     var di;
 
-    $("#tipoMedicina").change(function () {
-        cargarTablaMedicinas();
-    });
+    // $("#tipoMedicina").change(function () {
+    //     cargarTablaMedicinas();
+    // });
 
-    $("#buscarPor").change(function () {
-        cargarTablaMedicinas();
-    });
+    // $("#buscarPor").change(function () {
+    //     cargarTablaMedicinas();
+    // });
 
     $(".btnNuevaMedicina").click(function () {
         createEditRow();
     });
 
     $("#btnLimpiar").click(function  () {
-        $("#buscarPor").val(1);
-        $("#criterio").val('');
-        $("#tipoMedicina").val('G');
+        // $("#buscarPor").val(1);
+        $("#criterioMedicina").val('');
+        // $("#tipoMedicina").val('G');
         cargarTablaMedicinas();
     });
 
@@ -91,16 +108,16 @@
 
     function cargarTablaMedicinas() {
         var d = cargarLoader("Cargando...");
-        var buscarPor = $("#buscarPor option:selected").val();
-        var criterio = $("#criterio").val();
-        var tipoMedicina = $("#tipoMedicina option:selected").val();
+        // var buscarPor = $("#buscarPor option:selected").val();
+        var criterio = $("#criterioMedicina").val();
+        // var tipoMedicina = $("#tipoMedicina option:selected").val();
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'medicina', action: 'tablaMedicinas_ajax')}',
             data:{
-                buscarPor: buscarPor,
+                // buscarPor: buscarPor,
                 criterio: criterio,
-                tipoMedicina: tipoMedicina
+                // tipoMedicina: tipoMedicina
             },
             success: function (msg){
                 d.modal("hide");
@@ -244,6 +261,16 @@
     function cerrarDialogoImagen () {
         di.modal("hide");
     }
+
+    $(".form-control").keydown(function (ev) {
+        if (ev.keyCode === 13) {
+            cargarTablaMedicinas();
+            return false;
+        }
+        return true;
+    })
+
+
 </script>
 
 </body>
