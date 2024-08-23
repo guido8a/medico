@@ -20,9 +20,9 @@
 
         // Dibujar las marcas
            drawMark(ctx, 70, 156, "Tope");
-           drawMark(ctx, 70, 857, "Origen");
+           drawMark(ctx, 68, 857, "Origen 2");
            // drawMark(ctx, 108, 1027, "Origen");
-           drawMark(ctx, 70, 1040, "Origen");
+           drawMark(ctx, 68, 1060, "Origen");
            // drawMark(ctx, 108, 841, "Origen2");
            // drawMark(ctx, 108, 810, "Origen3");
            drawMark(ctx, 717, 1060, "Final");
