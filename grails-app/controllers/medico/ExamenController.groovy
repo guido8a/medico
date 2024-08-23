@@ -85,7 +85,7 @@ def save_ajax(){
         def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
         def sql = "select exfspeso, exfstlla * 100 exfstlla, exfs_imc from exfs, hscl where pcnt__id = ${id} and " +
                 "exfs.hscl__id = hscl.hscl__id and exfsfcha = (select max(exfsfcha) from exfs, hscl " +
-                "where pcnt__id = 4 and exfs.hscl__id = hscl.hscl__id)"
+                "where pcnt__id = ${id} and exfs.hscl__id = hscl.hscl__id)"
         def data = cn.rows(sql.toString())[0]
         println "--> $data , edad: $edad"
 
@@ -102,14 +102,113 @@ def save_ajax(){
     def getImage() {
         response.with{
             setHeader('Content-length', imagenBytes.length.toString())
-            contentType = "image/${'png'}" // or the appropriate image content type
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
             outputStream << imagenBytes
             outputStream.flush()
         }
     }
 
-    byte[] im() {
-        def path = "/var/medico/imc_ninas2a20.jpeg"
+    def getImage2() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+    def getImage3() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+    def getImage4() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+    def getImage5() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+    def getImage6() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+
+    def getImage7() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+
+    def getImage8() {
+        response.with{
+            setHeader('Content-length', imagenBytes.length.toString())
+            contentType = "image/${'jpeg'}" // or the appropriate image content type
+            outputStream << imagenBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] im(tipo) {
+        println("TIPO " + tipo)
+
+        def path = ''
+
+        def imcNina = "/var/medico/imc_ninas2a20.jpeg"
+        def imcNino = "/var/medico/imc_ninos2a20.jpeg"
+        def pcNina = "/var/medico/pcefalico_ninas5.jpeg"
+        def pcNino = "/var/medico/pcefalico_ninos5.jpeg"
+        def pesoNina = "/var/medico/peso_ninas05.jpeg"
+        def pesoNino = "/var/medico/peso_ninos05.jpeg"
+        def tallaNina = "/var/medico/talla_ninas5.jpeg"
+        def tallaNino = "/var/medico/talla_ninos5.jpeg"
+
+        switch (tipo) {
+            case "imcNina":
+                path = imcNina
+                break;
+            case 'imcNino':
+                path = imcNino
+                break;
+            case "pcNina":
+                path = pcNina
+                break;
+            case "pcNino":
+                path = pcNino
+                break;
+            case "pesoNina":
+                path = pesoNina
+                break;
+            case "pesoNino":
+                path = pesoNino
+                break;
+            case "tallaNina":
+                path = tallaNina
+                break;
+            case "tallaNino":
+                path = tallaNino
+                break;
+        }
+
+
         BufferedImage imagen = ImageIO.read(new File(path));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -124,9 +223,8 @@ def save_ajax(){
         baos.toByteArray()
     }
 
-    def graficoNina_ajax(){
+    def imcNina_ajax(){
         def paciente = Paciente.get(params.paciente)
-
         def cn = dbConnectionService.getConnection()
         def id = paciente?.id
         def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
@@ -149,7 +247,189 @@ def save_ajax(){
             d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
         }
         println "*--> ${data as JSON}"
-        imagenBytes = im()
+        imagenBytes = im("imcNina")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def imcNino_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("imcNino")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def pcNina_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("pcNina")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def pcNino_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("pcNino")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def pesoNina_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("pesoNina")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def pesoNino_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("pesoNino")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def tallaNina_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("tallaNina")
+
+        return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def tallaNino_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def cn = dbConnectionService.getConnection()
+        def id = paciente?.id
+        def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
+                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+                "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        println "antes --> edad: $edad"
+        edad = (690-108)/18 * (edad - 2) + 108
+        println "--> edad: $edad"
+
+        for (d in data) {
+            d.edad = (690-108)/18 * (d.edad - 2) + 108
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
+            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+        }
+        println "*--> ${data as JSON}"
+        imagenBytes = im("tallaNino")
 
         return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
     }

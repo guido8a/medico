@@ -5,9 +5,40 @@
     </a>
 
     <g:if test="${paciente?.getNinoNina() == 'Niña'}">
-        <a href="#" class="btn btn-success col-md-12" id="btnGraficoNinia" title="Gráfico estadístico" style="margin-top: 5px">
-            <i class="fas fa-image"></i>
-        </a>
+        <g:if test="${edad > 2 && edad < 20}">
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoIMCNinia" title="Gráfico estadístico IMC" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+        </g:if>
+        <g:if test="${edad < 5}">
+            <a href="#" class="btn btn-warning col-md-12" id="btnGraficoPCNinia" title="Gráfico estadístico ENCEFÁLICO" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+            <a href="#" class="btn btn-info col-md-12" id="btnGraficoPesoNinia" title="Gráfico estadístico PESO" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoTallaNinia" title="Gráfico estadístico TALLA" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+        </g:if>
+    </g:if>
+    <g:if test="${paciente?.getNinoNina() == 'Niño'}">
+        <g:if test="${edad > 2 && edad < 20}">
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoIMCNino" title="Gráfico estadístico IMC" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+        </g:if>
+        <g:if test="${edad < 5}">
+            <a href="#" class="btn btn-warning col-md-12" id="btnGraficoPCNino" title="Gráfico estadístico ENCEFÁLICO" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+            <a href="#" class="btn btn-info col-md-12" id="btnGraficoPesoNino" title="Gráfico estadístico PESO" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoTallaNino" title="Gráfico estadístico TALLA" style="margin-top: 5px">
+                <i class="fas fa-image"></i>
+            </a>
+        </g:if>
     </g:if>
 </div>
 
@@ -102,12 +133,44 @@
         }
     });
 
-    $("#btnGraficoNinia").click(function() {
+    $("#btnGraficoIMCNinia").click(function() {
+        tipoGrafico("imcNina")
+    });
+
+    $("#btnGraficoIMCNino").click(function() {
+        tipoGrafico("imcNino")
+    });
+
+    $("#btnGraficoPCNinia").click(function () {
+        tipoGrafico("pcNina")
+    });
+
+    $("#btnGraficoPCNino").click(function () {
+        tipoGrafico("pcNino")
+    });
+
+    $("#btnGraficoPesoNinia").click(function () {
+        tipoGrafico("pesoNina")
+    });
+
+    $("#btnGraficoPesoNino").click(function () {
+        tipoGrafico("pesoNino")
+    });
+
+    $("#btnGraficoTallaNinia").click(function () {
+        tipoGrafico("tallaNina")
+    });
+
+    $("#btnGraficoTallaNino").click(function () {
+        tipoGrafico("tallaNino")
+    });
+
+    function tipoGrafico(tipo) {
         var cita = '${cita?.id}';
         var examen = '${examen?.id}';
         if(cita){
             if(examen){
-                graficoNina();
+                cargarGrafico(tipo);
             }else{
                 bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ingrese los datos del examen físico" + '</strong>');
             }
@@ -115,6 +178,6 @@
             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
                 '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');
         }
-    })
+    }
 
 </script>

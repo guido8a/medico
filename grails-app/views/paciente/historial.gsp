@@ -491,22 +491,58 @@
         })
     }
 
-
-
-    function graficoNina() {
+    function cargarGrafico(tipo) {
         var paciente = '${paciente?.id}';
         var g = cargarLoader("Cargando...");
+        var url = "";
+        var titulo = '';
+
+        switch (tipo) {
+            case "imcNina":
+                url = "${createLink(controller: 'examen', action:'imcNina_ajax')}";
+                titulo = 'IMC Niña';
+                break;
+            case 'imcNino':
+                url =  "${createLink(controller: 'examen', action:'imcNino_ajax')}";
+                titulo = 'IMC Niño';
+                break;
+            case "pcNina":
+                url =  "${createLink(controller: 'examen', action:'pcNina_ajax')}";
+                titulo = 'Perímetro Cefálico Niña';
+                break;
+            case "pcNino":
+                url =  "${createLink(controller: 'examen', action:'pcNino_ajax')}";
+                titulo = 'Perímetro Cefálico Niño';
+                break;
+            case "pesoNina":
+                url =  "${createLink(controller: 'examen', action:'pesoNina_ajax')}";
+                titulo = 'Peso Niña';
+                break;
+            case "pesoNino":
+                url =  "${createLink(controller: 'examen', action:'pesoNino_ajax')}";
+                titulo = 'Peso Niño';
+                break;
+            case "tallaNina":
+                url =  "${createLink(controller: 'examen', action:'tallaNina_ajax')}";
+                titulo = 'Talla Niña';
+                break;
+            case "tallaNino":
+                url =  "${createLink(controller: 'examen', action:'tallaNino_ajax')}";
+                titulo = 'Talla Niño';
+                break;
+        }
+
         $.ajax({
             type    : "POST",
-            url: "${createLink(controller: 'examen', action:'graficoNina_ajax')}",
+            url: url,
             data    : {
                 paciente: paciente
             },
             success : function (msg) {
                 g.modal("hide");
                 var b = bootbox.dialog({
-                    id      : "dlgFraficoNina",
-                    title   : "Gráfico Estadístico",
+                    id      : "dlgFraficos",
+                    title   : "Gráfico Estadístico " + titulo,
                     class: "modal-lg",
                     message : msg,
                     buttons : {
@@ -521,8 +557,6 @@
             } //success
         }); //ajax
     }
-
-
 
 </script>
 

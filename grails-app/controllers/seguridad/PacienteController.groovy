@@ -373,7 +373,8 @@ class PacienteController {
         def cita = Historial.get(params.id)
         def examen = ExamenFisico.findByHistorial(cita)
         def paciente = Paciente.get(params.paciente)
-        return [examen: examen, paciente: paciente, cita: cita, examen: examen]
+        def edad = (new Date() - paciente.fechaNacimiento)/365.25
+        return [examen: examen, paciente: paciente, cita: cita, edad: edad]
     }
 
     def tablaAntecedentes_ajax() {
