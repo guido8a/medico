@@ -11,21 +11,20 @@
     const ctx = canvas.getContext('2d');
     const image = new Image();
 
-    image.src = "${createLink(controller: "examen", action: "getImage5")}"
+    image.src = "${createLink(controller: "examen", action: "getImage5")}";
 
-    console.log('ancho', "${ancho}")
+    %{--console.log('ancho', "${ancho}")--}%
     image.onload = function() {
         // Dibujar la imagen en el canvas
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         // Dibujar las marcas
-//            drawMark(ctx, 108, 83, "Tope");
-//            drawMark(ctx, 108, 1027, "Origen");
-//            drawMark(ctx, 108, 1027, "Origen");
-//            drawMark(ctx, 108, 997, "Origen");
-//            drawMark(ctx, 108, 841, "Origen2");
-//            drawMark(ctx, 108, 810, "Origen3");
-//            drawMark(ctx, 690, 1053, "Final");
+           drawMark(ctx, 63, 148, "Tope");
+           drawMark(ctx, 63, 1037, "Origen");
+           drawMark(ctx, 63, 925, "Origen2");
+           // drawMark(ctx, 108, 841, "Origen2");
+           // drawMark(ctx, 108, 810, "Origen3");
+           drawMark(ctx, 715, 1037, "Final");
 
         %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
         %{--drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");--}%
@@ -36,7 +35,7 @@
         var js_data = "${jdata}"
         js_data = js_data.replaceAll("&quot;", '"');
         const dt = JSON.parse(js_data);
-        console.log('data:', dt[0] )
+        // console.log('data:', dt[0] )
 
         texto(ctx, 350, 260, "${data.exfs_imc}");
 

@@ -19,13 +19,13 @@
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         // Dibujar las marcas
-//            drawMark(ctx, 108, 83, "Tope");
-//            drawMark(ctx, 108, 1027, "Origen");
-//            drawMark(ctx, 108, 1027, "Origen");
-//            drawMark(ctx, 108, 997, "Origen");
-//            drawMark(ctx, 108, 841, "Origen2");
-//            drawMark(ctx, 108, 810, "Origen3");
-//            drawMark(ctx, 690, 1053, "Final");
+        drawMark(ctx, 70, 156, "Tope");
+        drawMark(ctx, 70, 857, "Origen 2");
+        // drawMark(ctx, 108, 1027, "Origen");
+        drawMark(ctx, 70, 1060, "Origen");
+        // drawMark(ctx, 108, 841, "Origen2");
+        // drawMark(ctx, 108, 810, "Origen3");
+        drawMark(ctx, 717, 1060, "Final");
 
         %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
         %{--drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");--}%
