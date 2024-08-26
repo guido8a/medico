@@ -17,25 +17,25 @@
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         // Dibujar las marcas
-           drawMark(ctx, 110, 83, "Tope");
-           drawMark(ctx, 110, 1063, "Origen2");
-           drawMark(ctx, 110, 1027, "Origen");
-           drawMark(ctx, 110, 841, "Origen3");
-           drawMark(ctx, 110, 765, "Origen4");
-           drawMark(ctx, 691, 1063, "Final");
+        //    drawMark(ctx, 110, 83, "Tope");
+        //    drawMark(ctx, 110, 1063, "Origen2");
+        //    drawMark(ctx, 110, 1027, "Origen");
+        //    drawMark(ctx, 110, 841, "Origen3");
+        //    drawMark(ctx, 110, 765, "Origen4");
+        //    drawMark(ctx, 691, 1063, "Final");
 
         %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
         %{--drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");--}%
         %{--texto(ctx, 350, 260, "${data.exfs_imc}");--}%
 
 
-        console.log('data:', "${jdata}" )
-        var js_data = "${jdata}"
+        %{--console.log('data:', "${jdata}" )--}%
+        var js_data = "${jdata}";
         js_data = js_data.replaceAll("&quot;", '"');
         const dt = JSON.parse(js_data);
-        console.log('data:', dt[0] )
+        // console.log('data:', dt[0] )
 
-        texto(ctx, 350, 260, "${data.exfs_imc}");
+        %{--texto(ctx, 350, 260, "${data.exfs_imc}");--}%
 
         for (var i=0; i < dt.length; i++) {
             drawMark(ctx, dt[i].edad, dt[i].exfstlla, "");

@@ -264,13 +264,13 @@ def save_ajax(){
         def data = cn.rows(sql.toString())
 
         println "antes --> edad: $edad"
-        edad = (690-108)/18 * (edad - 2) + 108
+        edad = (691-110)/18 * (edad - 2) + 110
         println "--> edad: $edad"
 
         for (d in data) {
-            d.edad = (690-108)/18 * (d.edad - 2) + 108
-            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
-            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+            d.edad = (691-110)/18 * (d.edad - 2) + 110
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 26) )
+            d.exfspeso = Math.round( 1063 - (d.exfspeso - 10 ) / 5 * 31)
         }
         println "*--> ${data as JSON}"
         imagenBytes = im("imcNino")
