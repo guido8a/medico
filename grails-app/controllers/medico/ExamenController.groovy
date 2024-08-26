@@ -283,7 +283,7 @@ def save_ajax(){
         def cn = dbConnectionService.getConnection()
         def id = paciente?.id
         def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
-        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfsprcf * 100 exfsprcf, " +
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, " +
                 "exfsprcf from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
                 "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
         println "sql: $sql"
@@ -295,7 +295,7 @@ def save_ajax(){
 
         for (d in data) {
             d.edad = (717-68)/5 * (d.edad - 0) + 68
-            d.exfsprcf = Math.floor( (857 - (d.exfsprcf - 32.0) / 5 * 22) )
+            d.exfsprcf = Math.floor( (1020 - (d.exfsprcf - 32.0) * 40.2) )
         }
         println "*--> ${data as JSON}"
         imagenBytes = im("pcNina")
