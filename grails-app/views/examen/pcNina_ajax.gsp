@@ -19,10 +19,10 @@
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         // Dibujar las marcas
-           drawMark(ctx, 70, 156, "Tope");
+           drawMark(ctx, 68, 156, "Tope");
            drawMark(ctx, 68, 857, "Origen 2");
            // drawMark(ctx, 108, 1027, "Origen");
-           drawMark(ctx, 68, 1060, "Origen");
+           drawMark(ctx, 68, 1020, "Origen");
            // drawMark(ctx, 108, 841, "Origen2");
            // drawMark(ctx, 108, 810, "Origen3");
            drawMark(ctx, 717, 1060, "Final");
@@ -38,11 +38,11 @@
         const dt = JSON.parse(js_data);
         console.log('data:', dt[0] )
 
-        texto(ctx, 350, 260, "${data.exfs_imc}");
+        texto(ctx, 350, 260, "${data.exfsprcf}");
 
         for (var i=0; i < dt.length; i++) {
-            drawMark(ctx, dt[i].edad, dt[i].exfstlla, "");
-            drawMark(ctx, dt[i].edad, dt[i].exfspeso, "");
+            drawMark(ctx, dt[i].edad, dt[i].exfsprcf, "");
+            // drawMark(ctx, dt[i].edad, dt[i].exfspeso, "");
         }
 
     };

@@ -16,7 +16,6 @@
             </span>
         </div>
 
-
         <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores numéricos</div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'peso', 'error')} ">
@@ -93,9 +92,23 @@
             </span>
         </div>
 
+        <div class="form-group ${hasErrors(bean: examen, field: 'perimetroCefalico', 'error')} ">
+
+        </div>
+
         <div class="form-group ${hasErrors(bean: examen, field: 'sistole', 'error')} ">
             <span class="grupo">
-                <label class="col-md-2 control-label text-info">
+                <label class="col-md-1 control-label text-info">
+                    P. Cefálico
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="perimetroCefalico" class="form-control" value="${examen?.perimetroCefalico ?: 0}"  />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+
+            <span class="grupo" >
+                <label class="col-md-2 control-label text-info" style="margin-left: -20px">
                     Tensión arterial 1
                 </label>
                 <span class="col-md-1">
@@ -110,7 +123,7 @@
             </span>
 
             <span class="grupo">
-                <label class="col-md-2 control-label text-info">
+                <label class="col-md-2 control-label text-info" style="margin-left: -30px">
                     Tensión arterial 2
                 </label>
                 <span class="col-md-1">
