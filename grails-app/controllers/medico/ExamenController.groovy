@@ -397,7 +397,7 @@ def save_ajax(){
 
         for (d in data) {
             d.edad = (695-133)/5 * (d.edad - 0) + 133
-            d.exfstlla = Math.floor( (935 - (d.exfstlla - 0) * 75) )
+            d.exfstlla = Math.floor( (947 - (d.exfstlla * 100 - 45) / 5 * 44) )
         }
         println "*--> ${data as JSON}"
         imagenBytes = im("tallaNina")
