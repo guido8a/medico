@@ -308,20 +308,19 @@ def save_ajax(){
         def cn = dbConnectionService.getConnection()
         def id = paciente?.id
         def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
-        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
-                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, " +
+                "exfsprcf from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
                 "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
         println "sql: $sql"
         def data = cn.rows(sql.toString())
 
         println "antes --> edad: $edad"
-        edad = (690-108)/18 * (edad - 2) + 108
+        edad = (717-70)/5 * (edad - 0) + 70
         println "--> edad: $edad"
 
         for (d in data) {
-            d.edad = (690-108)/18 * (d.edad - 2) + 108
-            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
-            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+            d.edad = (717-70)/5 * (d.edad - 0) + 70
+            d.exfsprcf = Math.floor((1060 - (d.exfsprcf - 32.0) * 40.1) )
         }
         println "*--> ${data as JSON}"
         imagenBytes = im("pcNino")
@@ -359,22 +358,21 @@ def save_ajax(){
         def cn = dbConnectionService.getConnection()
         def id = paciente?.id
         def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
-        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
-                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso " +
+                " from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
                 "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
-        println "sql: $sql"
+//        println "sql: $sql"
         def data = cn.rows(sql.toString())
 
-        println "antes --> edad: $edad"
-        edad = (690-108)/18 * (edad - 2) + 108
-        println "--> edad: $edad"
+//        println "antes --> edad: $edad"
+        edad = (710-65)/5 * (edad - 0) + 65
+//        println "--> edad: $edad"
 
         for (d in data) {
-            d.edad = (690-108)/18 * (d.edad - 2) + 108
-            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
-            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+            d.edad = (710-65)/5 * (d.edad - 0) + 65
+            d.exfspeso = Math.round(965 - (d.exfspeso - 2 ) * 35.3 )
         }
-        println "*--> ${data as JSON}"
+//        println "*--> ${data as JSON}"
         imagenBytes = im("pesoNino")
 
         return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
@@ -410,20 +408,19 @@ def save_ajax(){
         def cn = dbConnectionService.getConnection()
         def id = paciente?.id
         def edad = (new Date() - Paciente.get(id).fechaNacimiento)/365.25
-        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfspeso, exfstlla * 100 exfstlla, " +
-                "exfs_imc from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
+        def sql = "select ((hsclfcha::date - pcntfcna)/365.25)::numeric(4,1) edad, exfstlla * 100 exfstlla  " +
+                " from exfs, hscl, pcnt where pcnt.pcnt__id = ${id} and hscl.pcnt__id = pcnt.pcnt__id and " +
                 "exfs.hscl__id = hscl.hscl__id order by hsclfcha"
         println "sql: $sql"
         def data = cn.rows(sql.toString())
 
         println "antes --> edad: $edad"
-        edad = (690-108)/18 * (edad - 2) + 108
+        edad = (717-63)/5 * (edad - 0) + 63
         println "--> edad: $edad"
 
         for (d in data) {
-            d.edad = (690-108)/18 * (d.edad - 2) + 108
-            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 31) )
-            d.exfspeso = Math.round( 1028 - (d.exfspeso - 10 ) / 5 * 31 )
+            d.edad = (717-63)/5 * (d.edad - 0) + 63
+            d.exfstlla = Math.floor((990 - (d.exfstlla - 45) / 5 * 53) )
         }
         println "*--> ${data as JSON}"
         imagenBytes = im("tallaNino")

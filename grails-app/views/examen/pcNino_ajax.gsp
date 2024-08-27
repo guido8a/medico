@@ -11,38 +11,34 @@
     const ctx = canvas.getContext('2d');
     const image = new Image();
 
-    image.src = "${createLink(controller: "examen", action: "getImage4")}"
+    image.src = "${createLink(controller: "examen", action: "getImage4")}";
 
-    console.log('ancho', "${ancho}")
+    console.log('ancho', "${ancho}");
     image.onload = function() {
         // Dibujar la imagen en el canvas
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         // Dibujar las marcas
-        drawMark(ctx, 70, 156, "Tope");
-        drawMark(ctx, 70, 857, "Origen 2");
-        // drawMark(ctx, 108, 1027, "Origen");
-        drawMark(ctx, 70, 1060, "Origen");
-        // drawMark(ctx, 108, 841, "Origen2");
-        // drawMark(ctx, 108, 810, "Origen3");
-        drawMark(ctx, 717, 1060, "Final");
+        // drawMark(ctx, 70, 156, "Tope");
+        // drawMark(ctx, 70, 857, "Origen 2");
+        // drawMark(ctx, 70, 1060, "Origen");
+        // drawMark(ctx, 717, 1060, "Final");
 
         %{--drawMark(ctx, ${edad}, ${data.exfstlla}, "Estatura");--}%
         %{--drawMark(ctx, ${edad}, ${data.exfspeso}, "Peso");--}%
         %{--texto(ctx, 350, 260, "${data.exfs_imc}");--}%
 
 
-        console.log('data:', "${jdata}" )
-        var js_data = "${jdata}"
+        %{--console.log('data:', "${jdata}" )--}%
+        var js_data = "${jdata}";
         js_data = js_data.replaceAll("&quot;", '"');
         const dt = JSON.parse(js_data);
-        console.log('data:', dt[0] )
+        // console.log('data:', dt[0] )
 
-        texto(ctx, 350, 260, "${data.exfs_imc}");
+        %{--texto(ctx, 350, 260, "${data.exfs_imc}");--}%
 
         for (var i=0; i < dt.length; i++) {
-            drawMark(ctx, dt[i].edad, dt[i].exfstlla, "");
-            drawMark(ctx, dt[i].edad, dt[i].exfspeso, "");
+            drawMark(ctx, dt[i].edad, dt[i].exfsprcf, "");
         }
 
     };
