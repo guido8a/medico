@@ -1,10 +1,11 @@
 package seguridad
 
+import audita.Auditable
 import geografia.Parroquia
 import medico.EstadoCivil
 import medico.GrupoSanguineo
 
-class Paciente {
+class Paciente implements Auditable {
 
     Empresa empresa
     Parroquia parroquia
