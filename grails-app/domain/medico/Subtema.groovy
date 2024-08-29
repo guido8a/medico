@@ -1,6 +1,8 @@
 package medico
 
-class Subtema {
+import audita.Auditable
+
+class Subtema implements Auditable{
 
     static auditable = true
     Tema tema

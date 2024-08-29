@@ -1,8 +1,9 @@
 package medico
 
+import audita.Auditable
 import seguridad.Persona
 
-class Base  {
+class Base  implements Auditable{
     Persona persona
     Subtema subtema
 //    Tema tema

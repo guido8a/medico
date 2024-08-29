@@ -1,9 +1,10 @@
 package medico
 
+import audita.Auditable
 import seguridad.Paciente
 import seguridad.Persona
 
-class Historial {
+class Historial implements Auditable{
 
     Persona persona
     Paciente paciente

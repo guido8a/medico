@@ -1,6 +1,8 @@
 package medico
 
-class DiagnosticoxHistorial {
+import audita.Auditable
+
+class DiagnosticoxHistorial implements Auditable {
 
     Diagnostico diagnostico
     Historial historial

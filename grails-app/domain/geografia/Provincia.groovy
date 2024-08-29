@@ -1,6 +1,8 @@
 package geografia
 
-class Provincia {
+import audita.Auditable
+
+class Provincia implements Auditable{
     int numero
     String nombre
     double longitud

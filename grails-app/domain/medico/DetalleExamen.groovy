@@ -1,6 +1,8 @@
 package medico
 
-class DetalleExamen {
+import audita.Auditable
+
+class DetalleExamen implements Auditable {
 
     ExamenComplementario examenComplementario
     Examen examen

@@ -1,6 +1,8 @@
 package medico
 
-class Diagnostico {
+import audita.Auditable
+
+class Diagnostico implements Auditable{
 
     String codigo
     String descripcion

@@ -1,6 +1,8 @@
 package medico
 
-class Dias {
+import audita.Auditable
+
+class Dias implements Auditable{
 
     int numero
     String nombre

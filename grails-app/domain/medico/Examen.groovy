@@ -1,6 +1,8 @@
 package medico
 
-class Examen {
+import audita.Auditable
+
+class Examen implements Auditable{
 
     TipoExamen tipoExamen
     String descripcion

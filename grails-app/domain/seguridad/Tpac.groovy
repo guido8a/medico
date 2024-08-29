@@ -1,6 +1,8 @@
 package seguridad
 
-class Tpac {
+import audita.Auditable
+
+class Tpac implements Auditable{
 
     static auditable = true
     String tipo

@@ -1,6 +1,8 @@
 package medico
 
-class Medicina {
+import audita.Auditable
+
+class Medicina implements Auditable{
 
     Medicina padre
     Laboratorio laboratorio

@@ -1,6 +1,8 @@
 package medico
 
-class Tratamiento {
+import audita.Auditable
+
+class Tratamiento implements Auditable{
 
     Historial historial
     Medicina medicina

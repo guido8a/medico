@@ -1,6 +1,8 @@
 package medico
 
-class Hora {
+import audita.Auditable
+
+class Hora implements Auditable{
 
 
     int numero

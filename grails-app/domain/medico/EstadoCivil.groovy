@@ -1,6 +1,8 @@
 package medico
 
-class EstadoCivil {
+import audita.Auditable
+
+class EstadoCivil implements Auditable{
 
     String descripcion
 

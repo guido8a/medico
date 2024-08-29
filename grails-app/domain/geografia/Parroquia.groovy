@@ -1,10 +1,12 @@
 package geografia
 
+import audita.Auditable
+
 /**
  * Clase para conectar con la tabla 'parr' de la base de datos<br/>
  * Guarda la lista de parroquias por cantón
  */
-class Parroquia {
+class Parroquia implements Auditable{
     /**
      * Cantón al cual pertenece la parroquia
      */

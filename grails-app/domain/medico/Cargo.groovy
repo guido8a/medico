@@ -1,6 +1,8 @@
 package medico
 
-class Cargo {
+import audita.Auditable
+
+class Cargo implements Auditable{
 
     static auditable = true
     String descripcion

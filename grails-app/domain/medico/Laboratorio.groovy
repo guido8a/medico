@@ -1,6 +1,8 @@
 package medico
 
-class Laboratorio {
+import audita.Auditable
+
+class Laboratorio implements Auditable{
     static auditable = true
     String nombre
 

@@ -1,6 +1,8 @@
 package medico
 
-class Semana {
+import audita.Auditable
+
+class Semana implements Auditable{
 
     int numero
     Date fechaInicio

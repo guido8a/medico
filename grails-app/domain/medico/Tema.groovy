@@ -1,6 +1,8 @@
 package medico
 
-class Tema  {
+import audita.Auditable
+
+class Tema  implements Auditable{
     static auditable = true
     String nombre
 

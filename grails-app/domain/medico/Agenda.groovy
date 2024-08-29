@@ -1,9 +1,10 @@
 package medico
 
+import audita.Auditable
 import seguridad.Paciente
 import seguridad.Persona
 
-class Agenda {
+class Agenda implements Auditable{
 
     Paciente paciente
     Persona persona

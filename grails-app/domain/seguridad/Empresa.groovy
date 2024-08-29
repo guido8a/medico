@@ -1,8 +1,9 @@
 package seguridad
 
+import audita.Auditable
 import geografia.Canton
 
-class Empresa {
+class Empresa implements Auditable{
 
     TipoEmpresa tipoEmpresa
     TipoIdentificacion tipoIdentificacion

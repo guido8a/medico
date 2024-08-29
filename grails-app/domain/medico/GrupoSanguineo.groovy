@@ -1,6 +1,8 @@
 package medico
 
-class GrupoSanguineo {
+import audita.Auditable
+
+class GrupoSanguineo implements Auditable{
 
     String descripcion
 

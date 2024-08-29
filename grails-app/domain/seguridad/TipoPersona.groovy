@@ -1,6 +1,8 @@
 package seguridad
 
-class TipoPersona {
+import audita.Auditable
+
+class TipoPersona implements Auditable{
 
     String codigo
     String descripcion

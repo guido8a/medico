@@ -1,6 +1,8 @@
 package geografia
 
-class Canton   {
+import audita.Auditable
+
+class Canton implements Auditable{
 
     Provincia provincia
     Integer numero

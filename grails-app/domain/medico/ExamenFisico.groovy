@@ -1,8 +1,9 @@
 package medico
 
+import audita.Auditable
 import seguridad.Paciente
 
-class ExamenFisico {
+class ExamenFisico implements Auditable{
 
     Historial historial
     Date fecha

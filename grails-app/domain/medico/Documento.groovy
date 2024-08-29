@@ -1,8 +1,9 @@
 package medico
 
+import audita.Auditable
 import seguridad.Empresa
 
-class Documento {
+class Documento implements Auditable{
 
     Empresa empresa
     String descripcion
