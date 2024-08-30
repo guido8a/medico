@@ -97,15 +97,21 @@
         </div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'sistole', 'error')} ">
-            <span class="grupo">
-                <label class="col-md-1 control-label text-info">
-                    P. Cefálico
-                </label>
-                <span class="col-md-2">
-                    <g:textField name="perimetroCefalico" class="form-control" value="${examen?.perimetroCefalico ?: 0}"  />
-                    <p class="help-block ui-helper-hidden"></p>
+
+            <g:if test="${historial?.paciente?.edad < 5}">
+                <span class="grupo">
+                    <label class="col-md-1 control-label text-info">
+                        P. Cefálico
+                    </label>
+                    <span class="col-md-2">
+                        <g:textField name="perimetroCefalico" class="form-control" value="${examen?.perimetroCefalico ?: 0}"  />
+                        <p class="help-block ui-helper-hidden"></p>
+                    </span>
                 </span>
-            </span>
+            </g:if>
+
+
+
 
             <span class="grupo" >
                 <label class="col-md-2 control-label text-info" style="margin-left: -20px">

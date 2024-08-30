@@ -98,7 +98,7 @@
         </span>
     </div>
 
-    <g:if test="${paciente?.sexo == 'F'}">
+    <g:if test="${paciente?.obstetricia}">
         <div class="form-group ${hasErrors(bean: paciente, field: 'antecedentesGinecobstreticos', 'error')}">
             <span class="grupo">
                 <label for="antecedentesGinecobstreticos" class="col-md-2 control-label text-info">

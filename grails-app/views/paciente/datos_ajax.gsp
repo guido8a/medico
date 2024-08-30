@@ -76,7 +76,7 @@
             </label>
             <span class="grupo">
                 <span class="col-md-2">
-                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}"/>
+                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}" noSelection="[null : 'Ninguno']"/>
                 </span>
             </span>
             <label for="grupoSanguineo" class="col-md-1 control-label text-info">

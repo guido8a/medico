@@ -18,7 +18,7 @@
                                 <th style="width: 15%">Examen</th>
                                 <th style="width: 10%">Fecha </th>
                                 <th style="width: 25%">Observaciones</th>
-                                %{--                                <th style="width: 10%">Documento</th>--}%
+                                                                <th style="width: 10%">Documento</th>
                             </tr>
                             </thead>
                             <tbody >
@@ -37,11 +37,16 @@
                                     </td>
                                     <td style="width: 10%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
                                     <td style="width: 25%">${examen?.observaciones}</td>
-                                    %{--                                    <td style="width: 10%">--}%
-                                    %{--                                        <g:if test="${examen?.path}">--}%
-                                    %{--                                            ${examen?.path}--}%
-                                    %{--                                        </g:if>--}%
-                                    %{--                                    </td>--}%
+                                    <td style="width: 10%; text-align: center">
+                                        <g:if test="${examen?.path}">
+                                            ${examen?.path}
+                                        </g:if>
+                                        <g:if test="${examen?.path}">
+                                            <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${examen.id}">
+                                                <i class="fa fa-download"></i>
+                                            </g:link>
+                                        </g:if>
+                                    </td>
                                 </tr>
                             </g:each>
                             </tbody>

@@ -72,8 +72,10 @@
             <td style="width: 10%" class="alert alert-success">Tensión arterial2:</td>
             <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole2} ${examen?.sistole2 ? '/' : ''} ${examen?.diastole2}</td>
 
-            <td style="width: 10%;" class="alert alert-success">P. Cefálico:</td>
-            <td style="width: 10%; background-color: #b7d6a9">${examen?.perimetroCefalico}</td>
+            <g:if test="${edad < 5}">
+                <td style="width: 10%;" class="alert alert-success">P. Cefálico:</td>
+                <td style="width: 10%; background-color: #b7d6a9">${examen?.perimetroCefalico}</td>
+            </g:if>
         </tr>
 
         </tbody>
