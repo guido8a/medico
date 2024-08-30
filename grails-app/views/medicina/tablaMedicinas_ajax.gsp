@@ -27,7 +27,7 @@
                     <td style="width: 8%">${medicina.mdcncdgo}</td>
                     <td style="width: 15%">${medicina.mdcndscr}</td>
                     <td style="width: 12%">${medicina.mdcnnmbr}</td>
-                    <td style="width: 12%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>
+                    <td style="width: 12%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo?:'S/C' + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>
                     <td style="width: 10%">${medicina.mdcnfrma}</td>
                     <td style="width: 8%">${medicina.mdcncnct}</td>
                     <td style="width: 10%">${medicina.mdcntpmd == 'G' ? 'GENÉRICO' : 'COMERCIAL'}</td>

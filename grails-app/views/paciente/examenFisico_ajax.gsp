@@ -6,36 +6,36 @@
 
     <g:if test="${paciente?.getNinoNina() == 'Niña'}">
         <g:if test="${edad > 2 && edad < 20}">
-            <a href="#" class="btn btn-success col-md-12" id="btnGraficoIMCNinia" title="Gráfico estadístico IMC" style="margin-top: 5px">
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoIMCNinia" title="Gráfico del IMC" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
         </g:if>
         <g:if test="${edad < 5}">
-            <a href="#" class="btn btn-warning col-md-12" id="btnGraficoPCNinia" title="Gráfico estadístico ENCEFÁLICO" style="margin-top: 5px">
+            <a href="#" class="btn btn-warning col-md-12" id="btnGraficoPCNinia" title="Gráfico del Perímetro Cefálico" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
-            <a href="#" class="btn btn-info col-md-12" id="btnGraficoPesoNinia" title="Gráfico estadístico PESO" style="margin-top: 5px">
+            <a href="#" class="btn btn-info col-md-12" id="btnGraficoPesoNinia" title="Gráfico del Peso" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
-            <a href="#" class="btn btn-success col-md-12" id="btnGraficoTallaNinia" title="Gráfico estadístico TALLA" style="margin-top: 5px">
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoTallaNinia" title="Gráfico de la Talla" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
         </g:if>
     </g:if>
     <g:if test="${paciente?.getNinoNina() == 'Niño'}">
         <g:if test="${edad > 2 && edad < 20}">
-            <a href="#" class="btn btn-success col-md-12" id="btnGraficoIMCNino" title="Gráfico estadístico IMC" style="margin-top: 5px">
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoIMCNino" title="Gráfico del IMC" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
         </g:if>
         <g:if test="${edad < 5}">
-            <a href="#" class="btn btn-warning col-md-12" id="btnGraficoPCNino" title="Gráfico estadístico ENCEFÁLICO" style="margin-top: 5px">
+            <a href="#" class="btn btn-warning col-md-12" id="btnGraficoPCNino" title="Gráfico del Perímetro Cefálico" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
-            <a href="#" class="btn btn-info col-md-12" id="btnGraficoPesoNino" title="Gráfico estadístico PESO" style="margin-top: 5px">
+            <a href="#" class="btn btn-info col-md-12" id="btnGraficoPesoNino" title="Gráfico del Peso" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
-            <a href="#" class="btn btn-success col-md-12" id="btnGraficoTallaNino" title="Gráfico estadístico TALLA" style="margin-top: 5px">
+            <a href="#" class="btn btn-success col-md-12" id="btnGraficoTallaNino" title="Gráfico de la Talla" style="margin-top: 5px">
                 <i class="fas fa-image"></i>
             </a>
         </g:if>

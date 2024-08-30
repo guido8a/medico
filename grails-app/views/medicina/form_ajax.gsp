@@ -10,7 +10,8 @@
                     Nombre genérico
                 </label>
                 <span class="col-md-8">
-                    <g:textField name="nombrePadre" class="form-control allCaps" readonly=""  value="${ medicina?.padre ?  (medicina?.padre?.codigo + " - "  + medicina.padre?.descripcion) : ''}"/>
+                    <g:textField name="nombrePadre" class="form-control allCaps" readonly=""
+                                 value="${ medicina?.padre ?  (medicina?.padre?.codigo?:'' + " - "  + medicina.padre?.descripcion) : ''}"/>
                 </span>
                 <span class="col-md-1">
                     <a href="#" class="btn btn-xs btn-info btnBuscarPadre" title="Buscar Padre">
