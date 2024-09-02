@@ -13,7 +13,7 @@
     </table>
 </div>
 
-<div class="" style="width: 99.7%;height: 500px; overflow-y: auto;float: right; margin-top: -20px">
+<div class="" style="width: 99.7%;height: 350px; overflow-y: auto;float: right; margin-top: -20px">
     <table class="table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <tbody>
         <g:each in="${datos}" var="dato" status="i">

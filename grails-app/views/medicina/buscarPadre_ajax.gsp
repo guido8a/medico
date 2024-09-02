@@ -2,20 +2,23 @@
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
-%{--                <span class="col-md-4">--}%
-%{--                    <label class="control-label text-info">Buscar Por</label>--}%
-%{--                    <g:select name="buscarPorPadre" class="buscarPorPadre col-md-12 form-control" from="${[1: 'Nombre', 2: 'Código']}" optionKey="key"--}%
-%{--                              optionValue="value"/>--}%
-%{--                </span>--}%
-                <span class="col-md-8">
+                %{--                <span class="col-md-4">--}%
+                %{--                    <label class="control-label text-info">Buscar Por</label>--}%
+                %{--                    <g:select name="buscarPorPadre" class="buscarPorPadre col-md-12 form-control" from="${[1: 'Nombre', 2: 'Código']}" optionKey="key"--}%
+                %{--                              optionValue="value"/>--}%
+                %{--                </span>--}%
+                <span class="col-md-1">
                     <label class="control-label text-info">Criterio</label>
+                </span>
+                <span class="col-md-8">
+
                     <g:textField name="criterioPadre" id="criterioPadre" class="form-control"/>
                 </span>
             </span>
-            <div class="col-md-1" style="margin-top: 20px">
+            <div class="col-md-1" >
                 <button class="btn btn-info" id="btnBuscarListaPadre"><i class="fa fa-search"></i></button>
             </div>
-            <div class="col-md-1" style="margin-top: 20px">
+            <div class="col-md-1" >
                 <button class="btn btn-warning" id="btnLimpiarPadre" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
             </div>
         </div>
