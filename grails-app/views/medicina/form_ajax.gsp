@@ -7,7 +7,7 @@
     <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} ">
         <span class="grupo">
             <label for="padre" class="col-md-2 control-label text-info">
-                Nombre genérico
+                Medicamento genérico
             </label>
             <span class="col-md-8">
                 <g:textField name="nombrePadre" class="form-control allCaps" readonly=""
@@ -166,7 +166,7 @@
                 dp = bootbox.dialog({
                     id      : "dlgBuscarPadre",
                     title   : "Buscar Medicina Padre",
-                    class: "modal-lg",
+                    // class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {

@@ -95,6 +95,8 @@
 
 <script type="text/javascript">
 
+    var dep;
+
     function borrarCita() {
         var cita = $("#citaSeleccionada option:selected").val();
         bootbox.dialog({
@@ -306,7 +308,7 @@
                 id: '${paciente?.id}'
             },
             success : function (msg) {
-                var b = bootbox.dialog({
+                dep = bootbox.dialog({
                     id      : "dlgCreateEditAntecedentes",
                     title   : "Datos del paciente",
                     class: "modal-lg",
@@ -347,6 +349,7 @@
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
                         cargarDatos();
+                        cerrarDialogoEditaPaciente();
                         cargarTablaAntecedentes();
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
@@ -354,6 +357,7 @@
                     }
                 }
             });
+            return false;
         } else {
             return false;
         }
@@ -556,6 +560,10 @@
                 }); //dialog
             } //success
         }); //ajax
+    }
+
+    function cerrarDialogoEditaPaciente(){
+        dep.modal("hide");
     }
 
 </script>

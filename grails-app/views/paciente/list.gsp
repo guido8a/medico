@@ -82,6 +82,7 @@
 
 <script type="text/javascript">
     var di;
+    var dcp;
 
     $(".btnNuevoPaciente").click(function () {
         crearPaciente();
@@ -242,7 +243,7 @@
                 id: null
             },
             success: function (msg) {
-                var b = bootbox.dialog({
+                dcp = bootbox.dialog({
                     id: "dlgCreatePaciente",
                     title: "Datos del paciente",
                     class: "modal-lg",
@@ -282,6 +283,7 @@
                     var parts = msg.split("_");
                     if (parts[0] === 'ok') {
                         log(parts[1], "success");
+                        cerrarDialogoCrearPaciente();
                         cargarTablaPacientes();
                     } else {
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
@@ -289,9 +291,14 @@
                     }
                 }
             });
+            return false;
         } else {
             return false;
         }
+    }
+
+    function cerrarDialogoCrearPaciente(){
+        dcp.modal("hide");
     }
 
 

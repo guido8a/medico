@@ -78,7 +78,7 @@ class MedicinaController {
 
     def saveMedicina_ajax() {
         def medicina
-        def existe = Medicina.findByNombre(params.nombre)
+        def existe = Medicina.findByNombreOrNombre(params.nombre?.toUpperCase(), params.nombre.toLowerCase())
 
         if(params.tipoMedicamento == 'C'){
             params.laboratorio = params.laboratorio
@@ -89,7 +89,7 @@ class MedicinaController {
         if(params.id){
             medicina = Medicina.get(params.id)
             if(existe?.id != medicina?.id){
-                render "err_Ya existe una medicina con ese nombre comercial"
+                render "err_Ya existe una medicina con ese nombre"
                 return
             }
 
@@ -97,7 +97,7 @@ class MedicinaController {
             medicina = new Medicina()
 
             if(existe){
-                render "err_Ya existe una medicina con ese nombre comercial"
+                render "err_Ya existe una medicina con ese nombre"
                 return
             }
         }
@@ -117,24 +117,37 @@ class MedicinaController {
     }
 
     def tablaPadres_ajax(){
-        def listaItems = ['mdcndscr', 'mdcncdgo', 'mdcntipo']
-        def bsca
+//        def listaItems = ['mdcndscr', 'mdcncdgo', 'mdcntipo']
+//        def bsca
+//        def sqlTx = ""
+//
+//        if(params.buscarPor){
+//            bsca = listaItems[params.buscarPor?.toInteger()-1]
+//        }else{
+//            bsca = listaItems[0]
+//        }
+//
+//        def select = "select * from mdcn "
+//        def txwh = " where mdcn__id  is not null and mdcnpdre is null and mdcntpmd = 'G' and " +
+//                " $bsca ilike '%${params.criterio}%' "
+//        sqlTx = "${select} ${txwh} order by mdcndscr ".toString()
+//        def cn = dbConnectionService.getConnection()
+//        def datos = cn.rows(sqlTx)
+//
+//        [datos: datos]
+
+
         def sqlTx = ""
 
-        if(params.buscarPor){
-            bsca = listaItems[params.buscarPor?.toInteger()-1]
-        }else{
-            bsca = listaItems[0]
-        }
-
         def select = "select * from mdcn "
-        def txwh = " where mdcn__id  is not null and mdcnpdre is null and mdcntpmd = 'G' and " +
-                " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by mdcndscr ".toString()
+        def txwh = " where mdcn__id  is not null and " +
+                " (mdcndscr ilike '%${params.criterio}%' or mdcncdgo ilike '%${params.criterio}%') "
+        sqlTx = "${select} ${txwh} order by mdcndscr limit 100".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
         [datos: datos]
+
     }
 
     def show_ajax () {

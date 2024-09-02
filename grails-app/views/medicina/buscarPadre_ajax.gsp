@@ -2,12 +2,12 @@
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
-                <span class="col-md-4">
-                    <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPorPadre" class="buscarPorPadre col-md-12 form-control" from="${[1: 'Nombre', 2: 'Código']}" optionKey="key"
-                              optionValue="value"/>
-                </span>
-                <span class="col-md-4">
+%{--                <span class="col-md-4">--}%
+%{--                    <label class="control-label text-info">Buscar Por</label>--}%
+%{--                    <g:select name="buscarPorPadre" class="buscarPorPadre col-md-12 form-control" from="${[1: 'Nombre', 2: 'Código']}" optionKey="key"--}%
+%{--                              optionValue="value"/>--}%
+%{--                </span>--}%
+                <span class="col-md-8">
                     <label class="control-label text-info">Criterio</label>
                     <g:textField name="criterioPadre" id="criterioPadre" class="form-control"/>
                 </span>
@@ -49,7 +49,7 @@
             type: 'POST',
             url: '${createLink(controller: 'medicina', action: 'tablaPadres_ajax')}',
             data:{
-                buscarPor: buscarPor,
+                // buscarPor: buscarPor,
                 criterio: criterio
             },
             success: function (msg){

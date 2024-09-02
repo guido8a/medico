@@ -94,9 +94,23 @@ class PacienteController {
         def consultorio = persona.empresa
         def paciente
         def pacientes = Paciente.findAllByEmpresa(consultorio)
+        def existeCedula
+
+        if(params.cedula){
+            existeCedula = Paciente.findByCedula(params.cedula)
+        }
+
 
         if (params.id) {
             paciente = Paciente.get(params.id)
+
+            if(params.cedula){
+                if(existeCedula?.id != paciente?.id){
+                    render "err_Ya existe un paciente con esa cédula asignada"
+                    return
+                }
+            }
+
 //            if (params.numeroHistorial == paciente?.numeroHistorial) {
 //                error = 0
 //            } else {
@@ -112,6 +126,13 @@ class PacienteController {
             paciente.fechaInicio = new Date()
             paciente.empresa = consultorio
             paciente.activo = 1
+
+            if(params.cedula){
+                if(existeCedula){
+                    render "err_Ya existe un paciente con esa cédula asignada"
+                    return
+                }
+            }
 
 //            if (pacientes?.numeroHistorial?.contains(params.numeroHistorial)) {
 //                error = 1

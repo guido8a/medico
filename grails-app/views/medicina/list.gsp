@@ -34,38 +34,7 @@
 
 </div>
 
-%{--<div style="overflow: hidden">--}%
 <div style="overflow: hidden">
-%{--    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">--}%
-%{--        <div class="row-fluid" style="margin-left: 10px">--}%
-%{--            <span class="grupo">--}%
-%{--                <span class="col-md-2">--}%
-%{--                    <label class="control-label text-info">Tipo</label>--}%
-%{--                    <g:select name="tipoMedicina" class="col-md-12 form-control" from="${['C': 'Comercial', 'G': 'Genérico']}" optionKey="key"--}%
-%{--                              optionValue="value"/>--}%
-%{--                </span>--}%
-%{--                <span class="col-md-2">--}%
-%{--                    <label class="control-label text-info">Buscar Por</label>--}%
-%{--                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Nombre Comercial', 2: 'Nombre Genérico', 3 : 'Código']}" optionKey="key"--}%
-%{--                              optionValue="value"/>--}%
-%{--                </span>--}%
-%{--                <span class="col-md-4">--}%
-%{--                    <label class="control-label text-info">Criterio</label>--}%
-%{--                    <g:textField name="criterio" id="criterio" class="form-control"/>--}%
-%{--                </span>--}%
-%{--            </span>--}%
-%{--            <div class="col-md-1" style="margin-top: 20px">--}%
-%{--                <button class="btn btn-info" id="btnBuscarMedicina"><i class="fa fa-search"></i> Buscar</button>--}%
-%{--            </div>--}%
-%{--            <div class="col-md-1" style="margin-top: 20px">--}%
-%{--                <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i> Limpiar</button>--}%
-%{--            </div>--}%
-%{--        </div>--}%
-%{--    </fieldset>--}%
-
-
-
-
     <fieldset class="borde" style="border-radius: 4px">
         <div id="divTablaMedicinas" >
         </div>
@@ -75,6 +44,7 @@
 
 <script type="text/javascript">
     var di;
+    var dcm;
 
     // $("#tipoMedicina").change(function () {
     //     cargarTablaMedicinas();
@@ -138,7 +108,7 @@
             url: "${createLink(action:'form_ajax')}",
             data    : data,
             success : function (msg) {
-                var b = bootbox.dialog({
+                dcm = bootbox.dialog({
                     id      : "dlgCreateEdit",
                     title   : title + " Medicina",
                     // class: "modal-lg",
@@ -178,6 +148,7 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
+                        cerrarDialogoCrearMedicina();
                         cargarTablaMedicinas();
                     }else{
                         if(parts[0] === 'err'){
@@ -190,6 +161,7 @@
                     }
                 }
             });
+            return false
         } else {
             return false;
         }
@@ -271,7 +243,11 @@
             return false;
         }
         return true;
-    })
+    });
+
+    function cerrarDialogoCrearMedicina () {
+        dcm.modal("hide");
+    }
 
 
 </script>

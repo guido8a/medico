@@ -5,15 +5,15 @@
         <thead>
         <tr>
             <th style="width: 7%">Cédula</th>
-            <th style="width: 16%">Nombres</th>
-            <th style="width: 16%">Apellidos</th>
+            <th style="width: 14%">Nombres</th>
+            <th style="width: 14%">Apellidos</th>
             <th style="width: 15%">Edad</th>
-%{--            <th style="width: 20%">Antecedentes</th>--}%
             <th style="width: 5%">Grupo S.</th>
-            <th style="width: 15%">Mail</th>
+            <th style="width: 13%">Mail</th>
             <th style="width: 8%">HC Anterior</th>
             <th style="width: 10%">Historial</th>
             <th style="width: 8%">Anteriores</th>
+            <th style="width: 7%">Acciones</th>
         </tr>
         </thead>
     </table>
@@ -26,12 +26,11 @@
             <g:each in="${datos}" status="i" var="paciente">
                 <tr data-id="${paciente.pcnt__id}">
                     <td style="width: 7%">${paciente.pcntcdla}</td>
-                    <td style="width: 16%">${paciente.pcntnmbr}</td>
-                    <td style="width: 16%">${paciente.pcntapll}</td>
+                    <td style="width: 14%">${paciente.pcntnmbr}</td>
+                    <td style="width: 14%">${paciente.pcntapll}</td>
                     <td style="width: 15%">${paciente.edad}</td>
-%{--                    <td style="width: 20%">${paciente.pcntantc}</td>--}%
                     <td style="width: 5%">${paciente.grsndscr}</td>
-                    <td style="width: 15%">${paciente.pcntmail}</td>
+                    <td style="width: 13%">${paciente.pcntmail}</td>
                     <td style="width: 8%; text-align: center">
                         <g:if test="${paciente?.pcntpath}">
                             <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">
@@ -54,6 +53,11 @@
                             <i class="fas fa-upload"></i> HC pdf
                         </a>
                     </td>
+                    <td style="width: 7%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-danger btnBorrarPaciente" data-id="${paciente?.pcnt__id}" title="Borrar paciente">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             </g:each>
         </g:if>
@@ -67,6 +71,50 @@
 <script type="text/javascript">
 
     var cd;
+
+    $(".btnBorrarPaciente").click(function () {
+        var id = $(this).data("id");
+        borrarPaciente(id);
+    });
+
+    function borrarPaciente(id) {
+        bootbox.dialog({
+            title: "Alerta",
+            message: "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><strong style='font-size: 14px'>" +
+                "¿Está seguro que desea borrar el paciente seleccionado?</strong>",
+            closeButton: false,
+            buttons: {
+                cancelar: {
+                    label: "Cancelar",
+                    className: "btn-primary",
+                    callback: function () {
+                    }
+                },
+                eliminar: {
+                    label: "<i class='fa fa-trash'></i> Borrar",
+                    className: "btn-danger",
+                    callback: function () {
+                        $.ajax({
+                            type: "POST",
+                            url: '${createLink(controller: 'paciente', action:'borrarPaciente_ajax')}',
+                            data: {
+                                id: id
+                            },
+                            success: function (msg) {
+                                var parts = msg.split("_");
+                                if (parts[0] === 'ok') {
+                                    log(parts[1], "success");
+                                    cargarTablaPacientes();
+                                } else {
+                                    log(parts[1], "error")
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 
     $(".btnCargarCitasAnteriores").click(function () {
         var id = $(this).data("id");
