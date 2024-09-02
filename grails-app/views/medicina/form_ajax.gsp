@@ -154,7 +154,12 @@
 
     $("#tipoMedicamento").change(function () {
         var tipo = $(this).val();
-        cargarLaboratorio(tipo)
+        cargarLaboratorio(tipo);
+        if(tipo === 'C'){
+            $("#nombre").addClass("required");
+        }else{
+            $("#nombre").removeClass("required");
+        }
     });
 
     $(".btnBuscarPadre").click(function () {
