@@ -78,6 +78,7 @@ class MedicinaController {
 
     def saveMedicina_ajax() {
         def medicina
+        def existe = Medicina.findByNombre(params.nombre)
 
         if(params.tipoMedicamento == 'C'){
             params.laboratorio = params.laboratorio
@@ -87,12 +88,21 @@ class MedicinaController {
 
         if(params.id){
             medicina = Medicina.get(params.id)
+            if(existe?.id != medicina?.id){
+                render "err_Ya existe una medicina con ese nombre comercial"
+                return
+            }
+
         }else{
             medicina = new Medicina()
+
+            if(existe){
+                render "err_Ya existe una medicina con ese nombre comercial"
+                return
+            }
         }
 
         medicina.properties = params
-        println "medicina: ${medicina.forma} --> ${medicina.concentracion}"
 
         if(!medicina.save(flush: true)){
             println("error al guardar la medicina " + medicina.errors)

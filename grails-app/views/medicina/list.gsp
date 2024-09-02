@@ -34,6 +34,7 @@
 
 </div>
 
+%{--<div style="overflow: hidden">--}%
 <div style="overflow: hidden">
 %{--    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">--}%
 %{--        <div class="row-fluid" style="margin-left: 10px">--}%

@@ -4,22 +4,22 @@
     <g:hiddenField name="id" value="${medicina?.id}" />
     <g:hiddenField name="padre" value="${medicina?.padre?.id}" />
 
-        <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} ">
-            <span class="grupo">
-                <label for="padre" class="col-md-2 control-label text-info">
-                    Nombre genérico
-                </label>
-                <span class="col-md-8">
-                    <g:textField name="nombrePadre" class="form-control allCaps" readonly=""
-                                 value="${ medicina?.padre ?  (medicina?.padre?.codigo?:'' + " - "  + medicina.padre?.descripcion) : ''}"/>
-                </span>
-                <span class="col-md-1">
-                    <a href="#" class="btn btn-xs btn-info btnBuscarPadre" title="Buscar Padre">
-                        <i class="fas fa-search"></i> Buscar
-                    </a>
-                </span>
+    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} ">
+        <span class="grupo">
+            <label for="padre" class="col-md-2 control-label text-info">
+                Nombre genérico
+            </label>
+            <span class="col-md-8">
+                <g:textField name="nombrePadre" class="form-control allCaps" readonly=""
+                             value="${ medicina?.padre ?  (medicina?.padre?.codigo?:'' + " - "  + medicina.padre?.descripcion) : ''}"/>
             </span>
-        </div>
+            <span class="col-md-1">
+                <a href="#" class="btn btn-xs btn-info btnBuscarPadre" title="Buscar Padre">
+                    <i class="fas fa-search"></i> Buscar
+                </a>
+            </span>
+        </span>
+    </div>
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipo', 'error')} ">
         <span class="grupo">
@@ -74,7 +74,7 @@
     <div class="form-group ${hasErrors(bean: medicina, field: 'descripcion', 'error')} required">
         <span class="grupo">
             <label for="descripcion" class="col-md-2 control-label text-info">
-                Descripción
+                Nombre genérico
             </label>
             <span class="col-md-10">
                 <g:textField name="descripcion" maxlength="255" minlenght="10" required="" class="form-control required" value="${medicina?.descripcion}"/>
@@ -85,7 +85,7 @@
     <div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} ">
         <span class="grupo">
             <label for="nombre" class="col-md-2 control-label text-info">
-                Nombre
+                Nombre comercial
             </label>
             <span class="col-md-10">
                 <g:textField name="nombre" maxlength="255" minlenght="10"  class="form-control " value="${medicina?.nombre}"/>
@@ -155,7 +155,7 @@
     $("#tipoMedicamento").change(function () {
         var tipo = $(this).val();
         cargarLaboratorio(tipo)
-      });
+    });
 
     $(".btnBuscarPadre").click(function () {
         $.ajax({
