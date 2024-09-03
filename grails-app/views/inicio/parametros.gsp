@@ -109,6 +109,19 @@
                                 </div>
                             </li>
 
+                            <li>
+                                <g:link data-info="categoria" class="over tamano" controller="laboratorio" action="list" >
+                                    <i class="fa-li fas fa-certificate text-info"></i> Laboratorios
+                                </g:link>
+
+                                <div class="descripcion hidden">
+                                    <h4>Laboratorios</h4>
+
+                                    <p> Administración de los diferentes tipos laboratorios
+                                    </p>
+                                </div>
+                            </li>
+
 
                         </ul>
                     </div>
