@@ -66,6 +66,10 @@
                                 class="fa fa-eraser"></i>
                         </button>
                     </div>
+
+                    <div class="col-md-3" style="margin-top: 0px; margin-left: -5px">
+                        <label class="control-label text-info" style="margin-top: 10px">Pacientes en el sistema: ${pacientes}</label>
+                    </div>
                 </div>
 
             %{--</span>--}%

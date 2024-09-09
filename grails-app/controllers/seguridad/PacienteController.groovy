@@ -18,23 +18,21 @@ class PacienteController {
     def dbConnectionService
 
     def list() {
+        def usuario = Persona.get(session.usuario.id)
+        def consultorio = usuario.empresa
         def empresa
-
         if (params.id) {
             empresa = Empresa.get(params.id)
         }
+        def pacientes = Paciente.countByEmpresa(consultorio)
 
-        return [empresa: empresa]
+        return [empresa: empresa, pacientes: pacientes]
     }
 
     def tablaPacientes_ajax() {
-        def empresa
-
-        if (params.empresa != '0') {
-            empresa = Empresa.get(params.empresa)
-        } else {
-            empresa = null
-        }
+        println "tablaPacientes_ajax: $params"
+        def usuario = Persona.get(session.usuario.id)
+        def empresa = usuario.empresa
 
         def listaItems = ['pcntcdla', 'pcntapll', 'pcntnmbr']
         def bsca
