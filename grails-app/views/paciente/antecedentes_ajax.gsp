@@ -8,7 +8,7 @@
                 Antecedentes patológicos personales
             </label>
             <span class="col-md-10">
-                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
+                <g:textArea name="antecedentesOcupacionales" style="resize: none; height: 70px" class="form-control" value="${paciente?.antecedentesOcupacionales}"/>
             </span>
         </span>
     </div>
@@ -31,7 +31,7 @@
                 Antecedentes patológicos familiares
             </label>
             <span class="col-md-10">
-                <g:textArea name="antecedentesPatologicosFam" style="resize: none; height: 70px" maxlength="255" class="form-control" value="${paciente?.antecedentesPatologicosFam}"/>
+                <g:textArea name="antecedentesPatologicosFam" style="resize: none; height: 70px" class="form-control" value="${paciente?.antecedentesPatologicosFam}"/>
             </span>
         </span>
     </div>
