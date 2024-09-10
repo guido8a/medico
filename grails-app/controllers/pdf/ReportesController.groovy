@@ -928,7 +928,13 @@ class ReportesController {
 
             tratamientos.eachWithIndex {p, q->
 
-                def numerosALetras = NumberToLetterConverter.convertNumberToLetter(p?.cantidad ?: 0)
+//                println "convierte de números a letras"
+                def numerosALetras
+                if(p?.cantidad == 1){
+                    numerosALetras = 'UNO'
+                } else {
+                    numerosALetras = NumberToLetterConverter.convertNumberToLetter(p?.cantidad ?: 0)
+                }
 
                 addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
                 addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.descripcion + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
