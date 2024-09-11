@@ -78,7 +78,8 @@ class MedicinaController {
 
     def saveMedicina_ajax() {
         def medicina
-        def existe = Medicina.findByNombreOrNombre(params.nombre?.toUpperCase(), params.nombre.toLowerCase())
+//        def existe = Medicina.findByNombreOrNombre(params.nombre?.toUpperCase(), params.nombre.toLowerCase())
+        def existe = Medicina.findByNombreIlike(params.nombre)
 
         if(params.tipoMedicamento == 'C'){
             params.laboratorio = params.laboratorio
@@ -86,20 +87,19 @@ class MedicinaController {
             params.laboratorio = null
         }
 
+        println "existe_id: ${existe?.id} == ${medicina?.id}"
         if(params.id){
             medicina = Medicina.get(params.id)
-            if(existe?.id != medicina?.id){
-                render "err_Ya existe una medicina con ese nombre"
-                return
-            }
-
+//            if(existe?.id != medicina?.id){
+//                render "err_Ya existe una medicina con ese nombre"
+//                return
+//            }
         }else{
-            medicina = new Medicina()
-
             if(existe){
                 render "err_Ya existe una medicina con ese nombre"
                 return
             }
+            medicina = new Medicina()
         }
 
         medicina.properties = params
