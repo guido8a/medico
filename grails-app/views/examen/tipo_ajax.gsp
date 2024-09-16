@@ -1,0 +1,1 @@
+<g:select name="tipoExamen" from="${tipos}" class="form-control" optionKey="id"   optionValue="descripcion" />

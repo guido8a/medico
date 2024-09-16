@@ -69,6 +69,18 @@
                                 </div>
                             </li>
 
+                            <li>
+                                <g:link data-info="categoria" class="over tamano" controller="tipoExamen" action="list" >
+                                    <i class="fa-li fas fa-certificate text-info"></i> Tipos de Exámenes
+                                </g:link>
+
+                                <div class="descripcion hidden">
+                                    <h4>Tipos de Exámenes</h4>
+
+                                    <p> Administración de las diferentes tipos de exámenes
+                                    </p>
+                                </div>
+                            </li>
 
                             <li>
                                 <g:link data-info="categoria" class="over tamano" controller="tema" action="list" >

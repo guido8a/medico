@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Lista de Exámenes</title>
+    <title>Lista de Tipos de Exámenes</title>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     </div>
     <div class="btn-group">
         <g:link action="form" class="btn btn-success btnCrear">
-            <i class="fa fa-clipboard-list"></i> Nuevo Examen
+            <i class="fa fa-clipboard-list"></i> Nuevo Tipo
         </g:link>
     </div>
 </div>
@@ -27,6 +27,12 @@
         <div class="row-fluid" style="margin-left: 10px">
             <span class="grupo">
                 <span class="col-md-1">
+                    <label class="control-label text-info">Grupo Examen</label>
+                </span>
+                <span class="col-md-3">
+                    <g:select name="grupo" from="${medico.GrupoExamen.list([sort: 'descripcion'])}" class="form-control" optionKey="id" optionValue="descripcion" noSelection="[null: 'TODOS']" />
+                </span>
+                <span class="col-md-1">
                     <label class="control-label text-info">Criterio</label>
                 </span>
                 <span class="col-md-4">
@@ -34,7 +40,7 @@
                 </span>
             </span>
             <div class="col-md-1">
-                <button class="btn btn-info" id="btnBuscarExamen"><i class="fa fa-search"></i>Buscar</button>
+                <button class="btn btn-info" id="btnBuscarTipoExamen"><i class="fa fa-search"></i>Buscar</button>
             </div>
             <div class="col-md-1">
                 <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i>Limpiar</button>
@@ -51,33 +57,38 @@
 <script type="text/javascript">
     var id = null;
 
-    $("#btnLimpiar").click(function  () {
-        $("#criterio").val('');
-        cargarTablaExamenes();
+    $("#grupo").change(function () {
+        cargarTablaTipoExamenes();
     });
 
-    $("#btnBuscarExamen").click(function () {
-        cargarTablaExamenes();
+    $("#btnLimpiar").click(function  () {
+        $("#criterio").val('');
+        cargarTablaTipoExamenes();
+    });
+
+    $("#btnBuscarTipoExamen").click(function () {
+        cargarTablaTipoExamenes();
     });
 
     $("#criterio").keydown(function (ev) {
         if (ev.keyCode === 13) {
-            cargarTablaExamenes();
+            cargarTablaTipoExamenes();
             return false;
         }
         return true;
     });
 
-    cargarTablaExamenes();
+    cargarTablaTipoExamenes();
 
-    function cargarTablaExamenes(){
+    function cargarTablaTipoExamenes(){
         var d = cargarLoader("Cargando...");
-        var buscarPor = $("#buscarPor option:selected").val();
+        var grupo = $("#grupo option:selected").val();
         var criterio = $("#criterio").val();
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'examen', action: 'tablaExamen_ajax')}',
+            url: '${createLink(controller: 'tipoExamen', action: 'tablaTipoExamen_ajax')}',
             data:{
+                grupo: grupo,
                 criterio: criterio
             },
             success: function (msg){
@@ -92,13 +103,13 @@
         if ($form.valid()) {
             $.ajax({
                 type    : "POST",
-                url     : '${createLink(controller: 'examen', action:'save_ajax')}',
+                url     : '${createLink(controller: 'tipoExamen', action:'save_ajax')}',
                 data    : $form.serialize(),
                 success : function (msg) {
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
-                        cargarTablaExamenes();
+                        cargarTablaTipoExamenes();
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                         return false;
@@ -112,7 +123,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold; font-size: 14px'> ¿Está seguro que desea eliminar el examen seleccionado?.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold; font-size: 14px'> ¿Está seguro que desea eliminar el tipo seleccionado?.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -126,7 +137,7 @@
                     callback  : function () {
                         $.ajax({
                             type    : "POST",
-                            url     : '${createLink(controller: 'examen', action:'delete_ajax')}',
+                            url     : '${createLink(controller: 'tipoExamen', action:'delete_ajax')}',
                             data    : {
                                 id : itemId
                             },
@@ -134,7 +145,7 @@
                                 var parts = msg.split("_");
                                 if(parts[0] === 'ok'){
                                     log(parts[1],"success");
-                                    cargarTablaExamenes();
+                                    cargarTablaTipoExamenes();
                                 }else{
                                     bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                                     return false;
@@ -151,7 +162,7 @@
         var data = id ? { id: id } : {};
         $.ajax({
             type    : "POST",
-            url     : "${createLink(controller: 'examen', action:'form_ajax')}",
+            url     : "${createLink(controller: 'tipoExamen', action:'form_ajax')}",
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({

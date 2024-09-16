@@ -8,13 +8,23 @@
 
         <div class="form-group ${hasErrors(bean: examen, field: 'tipo', 'error')} ">
             <span class="grupo">
-                <label for="tipo" class="col-md-2 control-label text-info">
-                    Tipo
+                <label for="grupo" class="col-md-2 control-label text-info">
+                    Grupo
                 </label>
                 <span class="col-md-8">
-                    <g:textArea name="tipo" maxlength="255" class="form-control required" value="${examen?.tipo}" style="height: 75px; resize: none"/>
+                    <g:select name="grupo" from="${medico.GrupoExamen.list([sort: 'descripcion'])}" class="form-control" optionKey="id" optionValue="descripcion" />
                 </span>
+            </span>
+        </div>
 
+        <div class="form-group ${hasErrors(bean: examen, field: 'tipo', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-2 control-label text-info">
+                    Tipo
+                </label>
+                <span class="col-md-8" id="divTipoExamen">
+
+                </span>
             </span>
         </div>
 
@@ -26,13 +36,45 @@
                 <span class="col-md-8">
                     <g:textArea name="descripcion" maxlength="255" class="form-control required" value="${examen?.descripcion}" style="height: 75px; resize: none"/>
                 </span>
-
             </span>
         </div>
 
+        <div class="form-group ${hasErrors(bean: examen, field: 'numero', 'error')} ">
+            <span class="grupo">
+                <label for="numero" class="col-md-2 control-label text-info">
+                    Número
+                </label>
+                <span class="col-md-3">
+                    <g:textField name="numero" maxlength="4" class="form-control" value="${examen?.numero}"/>
+                </span>
+            </span>
+        </div>
     </g:form>
 
     <script type="text/javascript">
+
+        cargarTipoExamen();
+
+        $("#grupo").change(function () {
+            cargarTipoExamen();
+        });
+
+        function cargarTipoExamen(){
+            var d = cargarLoader("Cargando...");
+            var grupo = $("#grupo option:selected").val();
+            $.ajax({
+                type: 'POST',
+                url: '${createLink(controller: 'examen', action: 'tipo_ajax')}',
+                data:{
+                    id: grupo
+                },
+                success: function (msg){
+                    d.modal("hide");
+                    $("#divTipoExamen").html(msg)
+                }
+            })
+        }
+
         var validator = $("#frmExamen").validate({
             errorClass     : "help-block",
             errorPlacement : function (error, element) {

@@ -16,8 +16,7 @@ class ExamenController {
     def dbConnectionService
 
     def list(){
-        def examenes = Examen.list().sort{it.descripcion}
-        return [examenes: examenes]
+
     }
 
     def form_ajax(){
@@ -32,7 +31,7 @@ class ExamenController {
         return[examen: examen]
     }
 
-def save_ajax(){
+    def save_ajax(){
         def examen
 
         if(params.id){
@@ -426,6 +425,17 @@ def save_ajax(){
         imagenBytes = im("tallaNino")
 
         return [paciente: paciente, ancho: ancho, alto: alto, edad: edad, data: data, jdata: data as JSON]
+    }
+
+    def tablaExamen_ajax(){
+        def examenes = Examen.findAllByDescripcionIlike('%' + params.criterio + '%').sort{a,b -> a.tipoExamen.grupoExamen?.descripcion <=> b.tipoExamen.grupoExamen?.descripcion ?: a.descripcion <=> b.descripcion}.take(50)
+        return [examenes: examenes]
+    }
+
+    def tipo_ajax(){
+        def grupo = GrupoExamen.get(params.id)
+        def tipos = TipoExamen.findAllByGrupoExamen(grupo, [sort: 'descripcion'])
+        return [tipos: tipos]
     }
 
 
