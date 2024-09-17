@@ -35,8 +35,8 @@ class Paciente implements Auditable {
     String antecedentesDespuesdeNacer
     String alergias
     String habitosAlimentario
-    int habitosUrinario
-    int habitosDefecatorio
+    String habitosUrinario
+    String habitosDefecatorio
     String habitosFumador
     String habitosTomador
     String numeroHistorial

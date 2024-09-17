@@ -52,14 +52,14 @@
             <label for="habitos" class="col-md-2 control-label text-info">
                 Hábitos Urinarios
             </label>
-            <span class="col-md-2">
-                <g:field type="number" name="habitosUrinario" maxlength="2" class="form-control" value="${paciente?.habitosUrinario}"/>
+            <span class="col-md-4">
+                <g:textField name="habitosUrinario" maxlength="63" class="form-control" value="${paciente?.habitosUrinario}"/>
             </span>
             <label for="habitos" class="col-md-2 control-label text-info">
                 Hábitos Defecatorios
             </label>
-            <span class="col-md-2">
-                <g:field name="habitosDefecatorio" type="number" maxlength="2" class="form-control" value="${paciente?.habitosDefecatorio}"/>
+            <span class="col-md-4">
+                <g:textField name="habitosDefecatorio" maxlength="63" class="form-control" value="${paciente?.habitosDefecatorio}"/>
             </span>
         </span>
     </div>
@@ -159,9 +159,9 @@
     }
 
 
-    $("#habitosUrinario, #habitosDefecatorio").keydown(function (ev) {
-        return validarNum(ev);
-    });
+//    $("#habitosUrinario, #habitosDefecatorio").keydown(function (ev) {
+//        return validarNum(ev);
+//    });
 
 
 </script>
