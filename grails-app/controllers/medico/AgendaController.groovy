@@ -13,7 +13,7 @@ class AgendaController {
         def usuario = Persona.get(session.usuario.id)
         def tipoPersona = TipoPersona.findAllByCodigoInList(['E', 'M'])
         def consultorio = usuario.empresa
-        [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona]
+        [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona, cita_actual: params.cita]
     }
 
     def tabla_ajax(){

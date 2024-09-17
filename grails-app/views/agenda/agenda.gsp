@@ -63,7 +63,8 @@
 <div class="btn-toolbar toolbar" style="margin-top: 10px">
     <div class="col-md-2">
         <g:if test="${paciente}">
-            <a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente}"  class="btn btn-sm btn-info"
+            %{--<a href="${createLink(controller: 'paciente', action: 'historial')}/${paciente}"  class="btn btn-sm btn-info"--}%
+            <a href="${createLink(controller: 'paciente', action: 'historial')}?id=${paciente}&cita=${params.cita}"  class="btn btn-sm btn-info"
                style="float: left; margin-top: 25px" title="Retornar a historial del paciente">
                 <i class="fas fa-arrow-left"></i> Regresar a Historial
             </a>
@@ -337,7 +338,8 @@
             data: {
                 fecha: fecha,
                 semana: semana,
-                doctor: doctor
+                doctor: doctor,
+                cita: "${params.cita}"
             },
             success: function (msg) {
                 $("#divTabla").html(msg);

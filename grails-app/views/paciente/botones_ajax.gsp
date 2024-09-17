@@ -41,7 +41,8 @@
     });
 
     $("#btnNuevaCita").click(function () {
-        location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${cita?.paciente?.id}'
+        location.href="${createLink(controller: 'agenda', action: 'agenda')}?paciente=" + '${cita?.paciente?.id}'+
+            '&cita=' + ${cita?.id}
     });
 
     $("#btnImprimirReceta").click(function () {

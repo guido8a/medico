@@ -184,12 +184,14 @@
     function cargarComboCita(actual){
         var paciente = '${paciente?.id}';
         var d = cargarLoader("Cargando...");
+        console.log('cita actual', ${params.cita_actual})
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'paciente', action: 'comboCitas_ajax')}',
             data:{
                 id: paciente,
-                cita: actual
+                cita: actual,
+                cita_anterior: "${cita_actual}"
             },
             success: function (msg){
                 d.modal("hide");
