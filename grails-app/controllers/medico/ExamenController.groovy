@@ -428,7 +428,9 @@ class ExamenController {
     }
 
     def tablaExamen_ajax(){
-        def examenes = Examen.findAllByDescripcionIlike('%' + params.criterio + '%').sort{a,b -> a.tipoExamen.grupoExamen?.descripcion <=> b.tipoExamen.grupoExamen?.descripcion ?: a.descripcion <=> b.descripcion}.take(50)
+        def examenes = Examen.findAllByDescripcionIlike('%' + params.criterio + '%').sort{a,b -> a.tipoExamen.grupoExamen?.descripcion <=>
+                b.tipoExamen.grupoExamen?.descripcion ?: a.descripcion <=>
+                b.descripcion}.take(50)
         return [examenes: examenes]
     }
 
