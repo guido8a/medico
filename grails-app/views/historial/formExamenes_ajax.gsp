@@ -40,7 +40,7 @@
                     Observaciones
                 </label>
                 <span class="col-md-9">
-                    <g:textArea name="observaciones" maxlength="255" class="form-control" value="${examen?.observaciones}"  style="resize: none; height: 60px;" />
+                    <g:textArea name="observaciones" maxlength="511" class="form-control" value="${examen?.observaciones}"  style="resize: none; height: 60px;" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>

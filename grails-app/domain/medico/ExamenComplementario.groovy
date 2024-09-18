@@ -31,6 +31,6 @@ class ExamenComplementario implements Auditable {
         historial(blank: false, nullable: false)
         fecha(blank: true, nullable: true)
         path(blank: true, nullable: true, size: 0..255)
-        observaciones(blank: true, nullable: true, size: 0..255)
+        observaciones(blank: true, nullable: true, size: 0..511)
     }
 }
