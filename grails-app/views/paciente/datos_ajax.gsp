@@ -238,7 +238,7 @@
                 <g:textField name="responsable" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
             </span>
             <label for="facturar" class="col-md-1 control-label text-info" style="margin-left: -10px; width: 85px">
-                Factuar a:
+                Facturar a:
             </label>
             <span class="col-md-4">
                 <g:textField name="facturar" maxlength="127" class="form-control" value="${paciente?.facturar}"/>
