@@ -15,8 +15,8 @@
 
             <g:each in="${tratamientos}" status="i" var="tratamiento">
                 <tr style="width: 100%">
-                    <td style="width: 18%">${tratamiento?.medicina ? tratamiento?.medicina?.nombre : ''}</td>
-                    <td style="width: 22%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
+                    <td style="width: 18%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
+                    <td style="width: 22%">${tratamiento?.medicina ? tratamiento?.medicina?.padre?.descripcion : ''}</td>
                     <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
                     <td style="width: 6%">${tratamiento?.cantidad}</td>
                     <td style="width: 32%">${tratamiento?.descripcion}</td>

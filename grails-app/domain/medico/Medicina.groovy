@@ -14,7 +14,7 @@ class Medicina implements Auditable{
     String observaciones
     String concentracion
     String tipoMedicamento
-    String nombre
+//    String nombre
     int cantidad
 
     static mapping = {
@@ -34,7 +34,7 @@ class Medicina implements Auditable{
             concentracion column: 'mdcncnct'
             tipoMedicamento column: 'mdcntpmd'
             laboratorio column: 'labt__id'
-            nombre column: 'mdcnnmbr'
+//            nombre column: 'mdcnnmbr'
             cantidad column: 'mdcncntd'
         }
     }
@@ -50,7 +50,7 @@ class Medicina implements Auditable{
         concentracion(size:0..255,blank: true, nullable: true)
         tipoMedicamento(blank: true, nullable: true)
         laboratorio(blank: true, nullable: true)
-        nombre(blank: true, nullable: true)
+//        nombre(blank: true, nullable: true)
         cantidad(blank: true, nullable: true)
     }
 }

@@ -25,9 +25,10 @@
             <g:each in="${datos}" status="i" var="medicina">
                 <tr data-id="${medicina.mdcn__id}">
                     <td style="width: 8%">${medicina.mdcncdgo}</td>
-                    <td style="width: 15%">${medicina.mdcndscr}</td>
-                    <td style="width: 12%">${medicina.mdcnnmbr}</td>
-                    <td style="width: 12%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo?:'S/C' + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>
+                    <td style="width: 15%">${medicina.pdredscr}</td>
+                    <td style="width: 12%">${medicina.mdcndscr}</td>
+                    %{--<td style="width: 12%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo?:'S/C' + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>--}%
+                    <td style="width: 12%">${medicina.mdcnpdre ? (medicina.pdrecdgo?:'S/C' + " - " + medicina.pdredscr) : ''}</td>
                     <td style="width: 10%">${medicina.mdcnfrma}</td>
                     <td style="width: 8%">${medicina.mdcncnct}</td>
                     <td style="width: 10%">${medicina.mdcntpmd == 'G' ? 'GENÉRICO' : 'COMERCIAL'}</td>

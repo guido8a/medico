@@ -27,7 +27,8 @@
                 Nombre Comercial
             </label>
             <span class="col-md-8">
-                <g:textField name="medicinaNombreComercial" class="form-control " readonly="" value="${tratamiento?.medicina ? tratamiento?.medicina?.nombre : ''}"/>
+                <g:textField name="medicinaNombreComercial" class="form-control " readonly=""
+                             value="${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}"/>
             </span>
         </span>
     </div>
