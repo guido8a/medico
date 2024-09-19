@@ -149,7 +149,7 @@ class MedicinaController {
         def sqlTx = ""
 
         def select = "select * from mdcn "
-        def txwh = " where mdcn__id  is not null and " +
+        def txwh = " where mdcntpmd = 'G' and " +
                 " (mdcndscr ilike '%${params.criterio}%' or mdcncdgo ilike '%${params.criterio}%') "
         sqlTx = "${select} ${txwh} order by mdcndscr limit 100".toString()
         def cn = dbConnectionService.getConnection()

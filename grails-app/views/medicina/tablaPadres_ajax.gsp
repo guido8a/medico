@@ -23,7 +23,8 @@
                 <td style="width: 17%;">${dato.mdcnfrma}</td>
                 <td style="width: 13%;">${dato.mdcncnct}</td>
                 <td style="width: 10%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-success btnSelPadre" title="Seleccionar" data-id="${dato.mdcn__id}" data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}">
+                    <a href="#" class="btn btn-xs btn-success btnSelPadre" title="Seleccionar" data-id="${dato.mdcn__id}"
+                       data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}">
                         <i class="fa fa-check"></i>
                     </a>
                 </td>
