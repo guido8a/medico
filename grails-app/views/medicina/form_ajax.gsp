@@ -68,13 +68,14 @@
             <span class="col-md-4">
                 <g:textField name="codigo" maxlength="15" class="form-control allCaps"  value="${medicina?.codigo}"/>
             </span>
+            <span class="col-md-6" style="font-size: 12px; margin-left: -25px">(Se usa sólo para medicamentos genércios)</span>
         </span>
     </div>
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'descripcion', 'error')} required">
         <span class="grupo">
             <label for="descripcion" class="col-md-2 control-label text-info">
-                Nombre genérico
+                Nombre
             </label>
             <span class="col-md-10">
                 <g:textField name="descripcion" maxlength="255" minlenght="10" required="" class="form-control required" value="${medicina?.descripcion}"/>
@@ -82,16 +83,16 @@
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} ">
-        <span class="grupo">
-            <label for="nombre" class="col-md-2 control-label text-info">
-                Nombre comercial
-            </label>
-            <span class="col-md-10">
-                <g:textField name="nombre" maxlength="255" minlenght="10"  class="form-control " value="${medicina?.nombre}"/>
-            </span>
-        </span>
-    </div>
+    %{--<div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} ">--}%
+        %{--<span class="grupo">--}%
+            %{--<label for="nombre" class="col-md-2 control-label text-info">--}%
+                %{--Nombre comercial--}%
+            %{--</label>--}%
+            %{--<span class="col-md-10">--}%
+                %{--<g:textField name="nombre" maxlength="255" minlenght="10"  class="form-control " value="${medicina?.nombre}"/>--}%
+            %{--</span>--}%
+        %{--</span>--}%
+    %{--</div>--}%
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'forma', 'error')} ">
         <span class="grupo">

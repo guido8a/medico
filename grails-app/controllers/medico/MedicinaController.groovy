@@ -79,7 +79,7 @@ class MedicinaController {
     def saveMedicina_ajax() {
         def medicina
 //        def existe = Medicina.findByNombreOrNombre(params.nombre?.toUpperCase(), params.nombre.toLowerCase())
-        def existe = Medicina.findByNombreIlike(params.nombre)
+        def existe = Medicina.findByNombreIlikeAndForma(params.descripcion, params.forma)
 
         if(params.tipoMedicamento == 'C'){
             params.laboratorio = params.laboratorio
