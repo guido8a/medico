@@ -98,6 +98,10 @@ class ExamenFisicoController {
             params.fc = 0
         }
 
+        if(params.perimetroCefalico == '' || !params.perimetroCefalico){
+            params.perimetroCefalico = 0
+        }
+
         params.peso = params.peso.toDouble()
         params.talla = params.talla.toDouble()
         params.temperatura = params.temperatura.toDouble()
@@ -109,6 +113,7 @@ class ExamenFisicoController {
         params.sistole2 = params.sistole2.toDouble()
         params.diastole2 = params.diastole2.toDouble()
         params.fc = params.fc.toDouble()
+        params.perimetroCefalico = params.perimetroCefalico.toDouble()
 
 
         examen.properties = params

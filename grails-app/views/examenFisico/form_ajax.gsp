@@ -25,7 +25,7 @@
                 </label>
                 <span class="col-md-2">
                     <span class="input-group input-group-sm">
-                        <g:textField name="peso" maxlength="4" class="form-control" value="${examen?.peso ?: 0}" />
+                        <g:textField name="peso" maxlength="6" class="form-control" value="${examen?.peso ?: 0}" />
                         <span class="input-group-addon">kg</span>
                     </span>
                 </span>
@@ -52,7 +52,7 @@
                 </label>
                 <span class="col-md-2">
                     <span class="input-group input-group-sm">
-                        <g:textField name="ic" maxlength="4" class="form-control" value="${examen?.ic ?: 0}" title="Índice de cintura" />
+                        <g:textField name="ic" maxlength="6" class="form-control" value="${examen?.ic ?: 0}" title="Índice de cintura" />
                         <span class="input-group-addon">cm</span>
                     </span>
                 </span>
