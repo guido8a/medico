@@ -122,7 +122,7 @@
                 Concentración
             </label>
             <span class="col-md-10">
-                <g:textField name="concentracion" maxlength="15" class="form-control" value="${medicina?.concentracion}"/>
+                <g:textField name="concentracion" maxlength="255" class="form-control" value="${medicina?.concentracion}"/>
             </span>
         </span>
     </div>

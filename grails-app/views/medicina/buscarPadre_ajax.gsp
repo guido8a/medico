@@ -58,6 +58,10 @@
             success: function (msg){
                 e.modal("hide");
                 $("#divTablaPadres").html(msg)
+                setTimeout(function() {
+//                    console.log("criterio");
+                    $("#criterioPadre").trigger('focus');
+                }, 100);
             }
         })
     }
@@ -69,5 +73,12 @@
         }
         return true;
     })
+
+//    $( document ).ready(function(){
+//        setTimeout(function() {
+//            $('#criterioPadre').focus();
+//        }, 100);
+//    });
+
 
 </script>
