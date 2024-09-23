@@ -67,7 +67,7 @@
                 Enfermedad actual
             </label>
             <span class="col-md-10">
-                <g:textArea name="actual" class="form-control" style="resize: none; height: 200px;"  value="${historial?.actual}"/>
+                <g:textArea name="actual" class="form-control" style="resize: none; height: 160px;"  value="${historial?.actual}"/>
             </span>
         </div>
     </div>
@@ -77,7 +77,7 @@
                 Exámenes
             </label>
             <span class="col-md-10">
-                <g:textArea name="examenes" maxlength="255" class="form-control" style="resize: none; height: 60px;"  value="${historial?.examenes}"/>
+                <g:textArea name="examenes" maxlength="511" class="form-control" style="resize: none; height: 100px;"  value="${historial?.examenes}"/>
             </span>
         </div>
     </div>

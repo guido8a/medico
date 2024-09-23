@@ -24,7 +24,7 @@
 
     <fieldset style="border-radius: 4px; margin-top: 5px">
         <div class="alert alert-warning">
-            * Máxima cantidad de registros en pantalla 100
+            * Máxima cantidad de registros en pantalla 50
         </div>
     </fieldset>
 </div>

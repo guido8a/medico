@@ -10,36 +10,52 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="btn-group" role="navigation">
+    <div class="btn-group col-md-4" role="navigation">
         <a href="#" class="btn btn-success btnNuevoDiagnostico">
             <i class="fa fa-bug"></i>
             Nuevo Diagnóstico
         </a>
     </div>
-</div>
 
-<div style="overflow: hidden">
-    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">
-        <div class="row-fluid" style="margin-left: 10px">
-            <span class="grupo">
-                <span class="col-md-2">
-                    <label class="control-label text-info">Buscar Por</label>
-                    <g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Código', 2: 'Descripción']}" optionKey="key"
-                              optionValue="value"/>
-                </span>
-                <span class="col-md-2">
-                    <label class="control-label text-info">Criterio</label>
-                    <g:textField name="criterio" id="criterio" class="form-control"/>
-                </span>
-            </span>
-            <div class="col-md-1" style="margin-top: 20px">
-                <button class="btn btn-info" id="btnBuscarDiagnostico"><i class="fa fa-search"></i></button>
+    <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
+        <div class="row" style="margin-top: -6px" >
+            <div class="col-md-2" style="text-align: right">
+                <label class="control-label text-info">Buscar por:</label>
             </div>
-            <div class="col-md-1" style="margin-top: 20px">
+            <div class="col-md-3">
+                <g:textField name="criterio" id="criterio" class="form-control"/>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" id="btnBuscarDiagnostico"><i class="fa fa-search"></i></button>
                 <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
             </div>
         </div>
     </fieldset>
+
+</div>
+
+<div style="overflow: hidden">
+    %{--<fieldset class="borde" style="border-radius: 4px; margin-bottom: 10px">--}%
+        %{--<div class="row-fluid" style="margin-left: 10px">--}%
+            %{--<span class="grupo">--}%
+                %{--<span class="col-md-2">--}%
+                    %{--<label class="control-label text-info">Buscar Por</label>--}%
+                    %{--<g:select name="buscarPor" class="buscarPor col-md-12 form-control" from="${[1: 'Código', 2: 'Descripción']}" optionKey="key"--}%
+                              %{--optionValue="value"/>--}%
+                %{--</span>--}%
+                %{--<span class="col-md-2">--}%
+                    %{--<label class="control-label text-info">Criterio</label>--}%
+                    %{--<g:textField name="criterio" id="criterio" class="form-control"/>--}%
+                %{--</span>--}%
+            %{--</span>--}%
+            %{--<div class="col-md-1" style="margin-top: 20px">--}%
+                %{--<button class="btn btn-info" id="btnBuscarDiagnostico"><i class="fa fa-search"></i></button>--}%
+            %{--</div>--}%
+            %{--<div class="col-md-1" style="margin-top: 20px">--}%
+                %{--<button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</fieldset>--}%
 
     <fieldset class="borde" style="border-radius: 4px">
         <div id="divTablaDiagnosticos" >

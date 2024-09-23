@@ -53,7 +53,7 @@ class Historial implements Auditable{
         motivo(size:0..255,blank: true, nullable: true)
         actual(blank: true, nullable: true)
         tratamiento(size:0..255,blank: true, nullable: true)
-        examenes(size:0..255,blank: true, nullable: true)
+        examenes(size:0..511,blank: true, nullable: true)
         proximaCita(blank: true, nullable: true)
         observaciones(size:0..255,blank: true, nullable: true)
         estado(size: 1..1, inList: ["A", "R", "N"], blank: false, attributes: ['mensaje': 'Estado Realizada, Agendada, No realizada'])

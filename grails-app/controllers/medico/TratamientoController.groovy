@@ -47,16 +47,19 @@ class TratamientoController {
             bsca = 'mdcndscr'
         }
 
-        def select = "select * from mdcn "
+//        def select = "select * from mdcn "
 //        def txwh = " where mdcn__id  is not null and " +
-//                " $bsca ilike '%${params.criterio}%' "
+//                " (mdcndscr ilike '%${params.criterio}%' or mdcnnmbr ilike '%${params.criterio}%') "
 
-        def txwh = " where mdcn__id  is not null and " +
-                " (mdcndscr ilike '%${params.criterio}%' or mdcnnmbr ilike '%${params.criterio}%') "
+        def select = "select m.mdcn__id, m.mdcnpdre, m.mdcntipo, m.mdcndscr, m.mdcncdgo, m.mdcnfrma, m.mdcncnct, " +
+                "m.mdcnetdo, m.mdcnobsr, m.mdcntpmd, m.labt__id, m.mdcncntd, p.mdcndscr pdredscr, p.mdcncdgo pdrecdgo " +
+                "from mdcn m left join mdcn p on p.mdcn__id = m.mdcnpdre "
+        def txwh = " where m.mdcn__id is not null and " +
+                " (m.mdcndscr ilike '%${params.criterio}%' or m.mdcnnmbr ilike '%${params.criterio}%') "
 
 //        def tpo = " and mdcntpmd ilike '%${params.tipoMedicina}%' "
 //        sqlTx = "${select} ${txwh} ${tpo} order by mdcndscr limit 100".toString()
-        sqlTx = "${select} ${txwh} order by mdcndscr limit 100".toString()
+        sqlTx = "${select} ${txwh} order by mdcndscr limit 50".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 

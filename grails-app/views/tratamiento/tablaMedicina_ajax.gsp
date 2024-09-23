@@ -20,14 +20,14 @@
         <g:if test="${datos}">
             <g:each in="${datos}" var="dato" status="i">
                 <tr>
-                    <td style="width: 23%;">${dato.mdcnnmbr}</td>
-                    <td style="width: 30%;">${dato.mdcndscr}</td>
+                    <td style="width: 23%;">${dato.mdcndscr}</td>
+                    <td style="width: 30%;">${dato.pdredscr}</td>
                     <td style="width: 15%;">${dato.mdcnfrma}</td>
                     <td style="width: 10%;">${dato.mdcncnct}</td>
                     <td style="width: 10%;">${dato.mdcncntd}</td>
                     <td style="width: 13%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnSelMedicina" title="Seleccionar" data-id="${dato.mdcn__id}"
-                           data-nombre="${dato.mdcndscr}" data-comercial="${dato.mdcnnmbr}" data-codigo="${dato.mdcncdgo}" data-con="${dato.mdcncnct}" data-can="${dato.mdcncntd}" data-obs="${dato.mdcnobsr}">
+                           data-nombre="${dato.pdredscr}" data-comercial="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}" data-con="${dato.mdcncnct}" data-can="${dato.mdcncntd}" data-obs="${dato.mdcnobsr}">
                             <i class="fa fa-check"></i>
                         </a>
                     </td>
