@@ -8,7 +8,8 @@
                 Código
             </label>
             <span class="col-md-4">
-                <g:textField name="codigo" maxlength="7" required="" class="form-control required allCaps"  value="${diagnostico?.codigo}"/>
+                <g:textField name="codigo" maxlength="7" required="" class="form-control required allCaps" readonly="true"
+                             value="${diagnostico?.codigo}"/>
             </span>
         </span>
     </div>

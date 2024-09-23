@@ -27,12 +27,16 @@ class DiagnosticoController {
         def diagnostico
         def codigo
         def cn = dbConnectionService.getConnection()
-        def sql = "select max()"
+        def sql = "select coalesce(max(substr(diagcdgo,4,7)::int + 1),1) nmro from diag where diagcdgo ilike 'int%'"
+        def nmro = cn.rows(sql.toString())[0].nmro
+
         if(params.id){
             diagnostico = Diagnostico.get(params.id)
         }else{
             diagnostico = new Diagnostico()
-//            codigo = Diagnostico.
+            codigo = 'INT' + completa(nmro, 3)
+            diagnostico.codigo = codigo
+            println "código: $codigo"
         }
 
         return [diagnostico: diagnostico]
@@ -70,6 +74,13 @@ class DiagnosticoController {
                 render "no_Error al borrar el diagnóstico"
             }
         }
+    }
+
+    def completa(txto, nmro) {
+        def respuesta = ""
+        respuesta = '0' * (nmro.toInteger() - txto.toString().size().toInteger() ) + txto
+        println "resp: $respuesta"
+        return respuesta
     }
 
 }
