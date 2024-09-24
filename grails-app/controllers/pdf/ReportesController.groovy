@@ -9,8 +9,10 @@ import com.lowagie.text.Paragraph
 import com.lowagie.text.Phrase
 import com.lowagie.text.Rectangle
 import com.lowagie.text.pdf.PdfContentByte
+import com.lowagie.text.pdf.PdfImportedPage
 import com.lowagie.text.pdf.PdfPCell
 import com.lowagie.text.pdf.PdfPTable
+import com.lowagie.text.pdf.PdfReader
 import com.lowagie.text.pdf.PdfWriter
 import jxl.WorkbookSettings
 import jxl.write.Label
@@ -786,7 +788,7 @@ class ReportesController {
         def edad = ''
         def citaProxima
 
-        println "prox. cita: ${cita?.paciente} --> ${cita?.fecha}"
+//        println "prox. cita: ${cita?.paciente} --> ${cita?.fecha}"
         def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
                 [sort: 'fecha', order: 'desc'])
 
@@ -831,7 +833,7 @@ class ReportesController {
         Document document
         document = new Document(PageSize.A4.rotate());
 //        document = new Document(PageSize.A4);
-        document.setMargins(28, 30, 5, 28)  //se 28 equivale a 1 cm: izq, derecha, arriba y abajo
+        document.setMargins(28, 30, 350, 28)  //se 28 equivale a 1 cm: izq, derecha, arriba y abajo
         def pdfw = PdfWriter.getInstance(document, baos);
 //        document.resetHeader()
 //        document.resetFooter()
@@ -855,16 +857,15 @@ class ReportesController {
 //        addEmptyLine(preface, 1);
 //        document.add(preface);
 
-        PdfPTable tablaImagen = new PdfPTable(3);
-        tablaImagen.setWidthPercentage(100);
-        tablaImagen.setWidths(arregloEnteros([45,10,45]))
-        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        tablaImagen.setSpacingAfter(20f);
+//        PdfPTable tablaImagen = new PdfPTable(3);
+//        tablaImagen.setWidthPercentage(100);
+//        tablaImagen.setWidths(arregloEnteros([45,10,45]))
+//        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        tablaImagen.setSpacingAfter(20f);
 
         PdfPTable tablaDetalles = null
-        PdfPTable tablaDetalles2 = null
 
         def printHeaderDetalle = {
             def tablaHeaderDetalles = new PdfPTable(5);
@@ -1044,26 +1045,27 @@ class ReportesController {
         tablaDetalles.setWidths(arregloEnteros([6, 20, 62, 12]))
         tablaDetalles.setSpacingAfter(1f);
 
-        def tablaPieDetalles = new PdfPTable(3);
-        tablaPieDetalles.setTotalWidth(800)
-        tablaPieDetalles.setWidths(arregloEnteros([46,8,46]))
+//        def tablaPieDetalles = new PdfPTable(3);
+//        tablaPieDetalles.setTotalWidth(800)
+//        tablaPieDetalles.setWidths(arregloEnteros([46,8,46]))
 
 //        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 //        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 //        addCellTabla(tablaPieDetalles, new Paragraph("${cita?.tratamiento ?: ''}", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE , colspan: 3])
 
-        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaPieDetalles, new Paragraph("PRÓXIMA CITA : ${citaProxima ? citaProxima?.fecha?.format("dd-MM-yyyy") + " " + citaProxima?.hora : ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-
-        addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaPieDetalles, new Paragraph("PRÓXIMA CITA : ${citaProxima ? citaProxima?.fecha?.format("dd-MM-yyyy") + " " + citaProxima?.hora : ''}", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//
+//        addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaPieDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        addCellTabla(tablaPieDetalles, new Paragraph(cita?.persona?.empresa?.direccion, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
 //        tablaPieDetalles.writeSelectedRows(0, -1, 36, tablaPieDetalles.getTotalHeight(), pdfw.getDirectContent());
-        tablaPieDetalles.writeSelectedRows(0, -1, 36, 50, pdfw.getDirectContent());
 
-        document.add(tablaImagen)
+//        tablaPieDetalles.writeSelectedRows(0, -1, 36, 50, pdfw.getDirectContent());
+
+//        document.add(tablaImagen)
         printHeaderDetalle();
         printTratamiento();
         printTratamientoFin();
@@ -1071,10 +1073,13 @@ class ReportesController {
         document.close();
         pdfw.close()
         byte[] b = baos.toByteArray();
-        response.setContentType("application/pdf")
-        response.setHeader("Content-disposition", "attachment; filename=" + name)
-        response.setContentLength(b.length)
-        response.getOutputStream().write(b)
+//        response.setContentType("application/pdf")
+//        response.setHeader("Content-disposition", "attachment; filename=" + name)
+//        response.setContentLength(b.length)
+//        response.getOutputStream().write(b)
+
+        encabezadoYnumeracion(b, name, "",
+                "${name}.pdf", cita?.persona?.empresa?.direccion, empr)
 
     }
 
@@ -1210,8 +1215,95 @@ class ReportesController {
         response.setHeader("Content-disposition", "attachment; filename=" + name)
         response.setContentLength(b.length)
         response.getOutputStream().write(b)
-
-
     }
+
+
+    def encabezadoYnumeracion (f, tituloReporte, subtitulo, nombreReporte, textoFooter, empresa) {
+
+        def titulo = new java.awt.Color(30, 140, 160)
+        com.lowagie.text.Font fontTitulo = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 12, com.lowagie.text.Font.BOLD, titulo);
+        com.lowagie.text.Font fontTitulo16 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 16, com.lowagie.text.Font.BOLD, titulo);
+        com.lowagie.text.Font fontTitulo8 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL, titulo);
+
+        def path = "/var/medico/empresa/emp_${empresa}/logo.jpeg"
+        Image logo = Image.getInstance(path);
+        def longitud = logo.getHeight()
+        logo.scalePercent( (100/longitud * 100).toInteger() )
+        logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
+
+        def baos = new ByteArrayOutputStream()
+
+        com.lowagie.text.Document document
+        document = new com.lowagie.text.Document(com.lowagie.text.PageSize.A4.rotate());
+//        document = new com.lowagie.text.Document(com.lowagie.text.PageSize.A4);
+
+        def pdfw = com.lowagie.text.pdf.PdfWriter.getInstance(document, baos);
+
+        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase(textoFooter, new com.lowagie.text.Font(fontTitulo8)), false);
+        footer1.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+        footer1.setBorder(com.lowagie.text.Rectangle.TOP);
+        footer1.setAlignment(com.lowagie.text.Element.ALIGN_CENTER);
+        document.setFooter(footer1);
+
+        document.open();
+
+        com.lowagie.text.pdf.PdfContentByte cb = pdfw.getDirectContent();
+
+        PdfReader reader = new PdfReader(f);
+        for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+            document.newPage();
+            PdfImportedPage page = pdfw.getImportedPage(reader, i);
+            cb.addTemplate(page, 0, 0);
+//            def en = encabezado(tituloReporte, subtitulo, fontTitulo16, fontTitulo)
+            def en = encabezado(logo)
+            numeracion(i,reader.getNumberOfPages()).writeSelectedRows(0, -1, -1, 25, cb)
+            document.add(en)
+        }
+
+        document.close();
+        byte[] b = baos.toByteArray();
+
+        response.setContentType("application/pdf")
+        response.setHeader("Content-disposition", "attachment; filename=" + nombreReporte)
+        response.setContentLength(b.length)
+        response.getOutputStream().write(b)
+    }
+
+    def encabezado (logo) {
+//    def encabezado (titulo, subtitulo, fontTitulo, fontSub) {
+//        Paragraph preface = new Paragraph();
+//        preface.setAlignment(Element.ALIGN_CENTER);
+//        preface.add(new Paragraph(titulo, fontTitulo));
+//        preface.add(new Paragraph(subtitulo, fontSub));
+
+        com.lowagie.text.Font fontThTiny = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.BOLD);
+
+        PdfPTable tablaImagen = new PdfPTable(3);
+        tablaImagen.setWidthPercentage(100);
+        tablaImagen.setWidths(arregloEnteros([45,10,45]))
+        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        tablaImagen.setSpacingAfter(20f);
+
+//        return preface
+        return tablaImagen
+    }
+
+    def numeracion(x, y) {
+        com.lowagie.text.Font fontTd10 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 10, com.lowagie.text.Font.NORMAL);
+        PdfPTable table = new PdfPTable(2);
+        table.setTotalWidth(440);
+        table.setLockedWidth(true);
+        table.getDefaultCell().setFixedHeight(20);
+        table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+        table.addCell("");
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(new Paragraph(String.format("Página %d de %d", x, y), fontTd10) );
+        return table;
+    }
+
+
+
 
 }
