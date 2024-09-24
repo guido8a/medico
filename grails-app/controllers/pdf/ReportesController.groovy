@@ -633,7 +633,7 @@ class ReportesController {
         def row = 0
         WritableSheet sheet = workbook.createSheet('puntajes', 0)
 
-         //DATOS FINCA
+        //DATOS FINCA
 
         // fija el ancho de la columna
         sheet.setColumnView(0,30)
@@ -777,7 +777,7 @@ class ReportesController {
     def receta() {
 
         def cita = Historial.get(params.cita)
-        def edadCalculada = calculaEdad( new Date().format('yyyy-MM-dd'), cita?.paciente?.fechaNacimiento.format('yyyy-MM-dd'))
+        def edadCalculada = calculaEdad( new Date().format('yyyy-MM-dd'), cita?.paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
         def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita)
         def diagnosticos = ''
@@ -790,11 +790,11 @@ class ReportesController {
         def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
                 [sort: 'fecha', order: 'desc'])
 
-       if(citasMayores){
-           citaProxima = citasMayores[0]
-       }else{
-           citaProxima = null
-       }
+        if(citasMayores){
+            citaProxima = citasMayores[0]
+        }else{
+            citaProxima = null
+        }
 
         if(listaDiagnosticos?.size()?:0 > 0){
             listaDiagnosticos.each {
@@ -855,7 +855,6 @@ class ReportesController {
 //        addEmptyLine(preface, 1);
 //        document.add(preface);
 
-
         PdfPTable tablaImagen = new PdfPTable(3);
         tablaImagen.setWidthPercentage(100);
         tablaImagen.setWidths(arregloEnteros([45,10,45]))
@@ -865,6 +864,7 @@ class ReportesController {
         tablaImagen.setSpacingAfter(20f);
 
         PdfPTable tablaDetalles = null
+        PdfPTable tablaDetalles2 = null
 
         def printHeaderDetalle = {
             def tablaHeaderDetalles = new PdfPTable(5);
@@ -922,11 +922,18 @@ class ReportesController {
         }
 
         def printTratamiento = {
-            def tablaTratamientoDetalles = new PdfPTable(5);
-            tablaTratamientoDetalles.setWidthPercentage(100);
-            tablaTratamientoDetalles.setWidths(arregloEnteros([5, 41, 8, 5, 41]))
+            def band
+
+            def tablaTratamientoDetalles1 = new PdfPTable(5);
+            tablaTratamientoDetalles1.setWidthPercentage(100);
+            tablaTratamientoDetalles1.setWidths(arregloEnteros([5, 41, 8, 5, 41]))
+
+            def tablaTratamientoDetalles2 = new PdfPTable(5);
+            tablaTratamientoDetalles2.setWidthPercentage(100);
+            tablaTratamientoDetalles2.setWidths(arregloEnteros([5, 41, 8, 5, 41]))
 
             tratamientos.eachWithIndex {p, q->
+
 
 //                println "convierte de números a letras"
                 def numerosALetras
@@ -936,48 +943,101 @@ class ReportesController {
                     numerosALetras = NumberToLetterConverter.convertNumberToLetter(p?.cantidad ?: 0)
                 }
 
-//                println "${p.medicina.descripcion} padre: ${p.medicina.nombre} ${p.medicina.concentracion ?:''} "
+                if(q <= 4){
+                    band = '1'
+                }else{
+                    band = '2'
+                }
 
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-//                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.padre?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.medicina?.padre?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
-                addCellTabla(tablaTratamientoDetalles, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-//                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.nombre ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.descripcion ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-//                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.nombre ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.descripcion ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                if(q <= 4){
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph(p?.medicina?.padre?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph(p?.medicina?.padre?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph((p?.medicina?.forma ?: '') + " # " + p?.cantidad?.toString() + " (" + numerosALetras + ")", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph(p?.descripcion  ?: '', fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph((p?.medicina?.descripcion ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph((p?.medicina?.descripcion ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-                addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph((p?.medicina?.forma ?: '') + " # " + p?.cantidad?.toString() + " (" + numerosALetras + ")", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph(p?.descripcion  ?: '', fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
-                tablaTratamientoDetalles.setSpacingAfter(10f);
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles1, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+                    tablaTratamientoDetalles1.setSpacingAfter(10f);
+                }else{
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph(p?.medicina?.padre?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph(p?.medicina?.padre?.descripcion  ?: '' + " ( ${p?.medicina?.padre?.descripcion ?: ''} )", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph((p?.medicina?.descripcion ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph((q + 1)?.toString() + ".-", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph((p?.medicina?.descripcion ?: '') + " " + (p?.medicina?.concentracion ?:''), fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph((p?.medicina?.forma ?: '') + " # " + p?.cantidad?.toString() + " (" + numerosALetras + ")", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph(p?.descripcion  ?: '', fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+                    addCellTabla(tablaTratamientoDetalles2, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+                    tablaTratamientoDetalles1.setSpacingAfter(10f);
+                }
+
             }
 
-            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaTratamientoDetalles, new Paragraph("${cita?.tratamiento ?: ''}", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+//            addCellTabla(tablaTratamientoDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//            addCellTabla(tablaTratamientoDetalles, new Paragraph("${cita?.tratamiento ?: ''}", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//
 
-            addCellTabla(tablaDetalles, tablaTratamientoDetalles, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 5, pl: 0])
+            addCellTabla(tablaDetalles, tablaTratamientoDetalles1, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 5, pl: 0])
+            if(tratamientos.size() > 4){
+                addCellTabla(tablaDetalles, tablaTratamientoDetalles2, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 5, pl: 0])
+            }
 
-            tablaTratamientoDetalles.setSpacingAfter(10f);
+//            tablaTratamientoDetalles.setSpacingAfter(10f);
         }
+
+        def printTratamientoFin = {
+
+            def tablaTratamientoDetallesFin = new PdfPTable(5);
+            tablaTratamientoDetallesFin.setWidthPercentage(100);
+            tablaTratamientoDetallesFin.setWidths(arregloEnteros([5, 41, 8, 5, 41]))
+
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("${cita?.tratamiento ?: ''}", fontThTiny2), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+            addCellTabla(tablaDetalles, tablaTratamientoDetallesFin, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 5, pl: 0])
+
+            tablaTratamientoDetallesFin.setSpacingAfter(10f);
+        }
+
 
         tablaDetalles = new PdfPTable(4);
         tablaDetalles.setWidthPercentage(100);
@@ -1006,6 +1066,7 @@ class ReportesController {
         document.add(tablaImagen)
         printHeaderDetalle();
         printTratamiento();
+        printTratamientoFin();
         document.add(tablaDetalles)
         document.close();
         pdfw.close()
