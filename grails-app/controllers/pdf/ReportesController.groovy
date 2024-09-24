@@ -875,10 +875,10 @@ class ReportesController {
 //            def fondo = new java.awt.Color(240, 240, 240);
 
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaHeaderDetalles, new Paragraph("Receta # :" + cita?.numero?.toString(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_RIGHT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaHeaderDetalles, new Paragraph("Receta #" + cita?.numero?.toString(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_RIGHT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaHeaderDetalles, new Paragraph("Receta # :" + cita?.numero?.toString(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_RIGHT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaHeaderDetalles, new Paragraph("Receta #" + cita?.numero?.toString(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_RIGHT, valign: Element.ALIGN_MIDDLE])
 
             addCellTabla(tablaHeaderDetalles, new Paragraph("Quito,", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph(cita?.fecha?.format("dd-MM-yyyy"), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
