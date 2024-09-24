@@ -833,7 +833,7 @@ class ReportesController {
         Document document
         document = new Document(PageSize.A4.rotate());
 //        document = new Document(PageSize.A4);
-        document.setMargins(28, 30, 350, 28)  //se 28 equivale a 1 cm: izq, derecha, arriba y abajo
+        document.setMargins(28, 30, 150, 28)  //se 28 equivale a 1 cm: izq, derecha, arriba y abajo
         def pdfw = PdfWriter.getInstance(document, baos);
 //        document.resetHeader()
 //        document.resetFooter()
@@ -1251,10 +1251,24 @@ class ReportesController {
 
         PdfReader reader = new PdfReader(f);
         for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+
+            int rotation = reader.getPageRotation(i);
+            float pageWidth = reader.getPageSizeWithRotation(i).getWidth();
+            float pageHeight = reader.getPageSizeWithRotation(i).getHeight();
+
             document.newPage();
             PdfImportedPage page = pdfw.getImportedPage(reader, i);
-            cb.addTemplate(page, 0, 0);
-//            def en = encabezado(tituloReporte, subtitulo, fontTitulo16, fontTitulo)
+
+            if (rotation == 0) {
+                cb.addTemplate(page, 0,0);
+            } else if (rotation == 90) {
+                cb.addTemplate(page, 0, -1f, 1f, 0, 0, pageHeight);
+            } else if (rotation == 180) {
+                cb.addTemplate(page, 1f, 0, 0, -1f, pageWidth, pageHeight);
+            } else if (rotation == 270) {
+                cb.addTemplate(page, 0, -1f, 1f, 0, 0, pageHeight);
+            }
+
             def en = encabezado(logo)
             numeracion(i,reader.getNumberOfPages()).writeSelectedRows(0, -1, -1, 25, cb)
             document.add(en)
