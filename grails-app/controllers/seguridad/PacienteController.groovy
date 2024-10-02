@@ -87,18 +87,16 @@ class PacienteController {
 
     def savePaciente_ajax() {
 
-//        println("params " + params)
+        println("params " + params)
         def error = 0
-        def persona = Persona.get(session.usuario.id)
-        def consultorio = persona.empresa
         def paciente
         def existeCedula
 
         if(params.cedula){
             existeCedula = Paciente.findByCedula(params.cedula)
+            println "existe_id: ${existeCedula?.id}"
         }
 
-        println "existe_id: ${existeCedula?.id}"
         if(params.id){
             paciente = Paciente.get(params.id)
         }else{
@@ -106,6 +104,10 @@ class PacienteController {
                 render "err_Ya existe un paciente con esta cédula"
                 return
             }
+
+            def persona = Persona.get(session.usuario.id)
+            def consultorio = persona.empresa
+
             paciente = new Paciente()
             paciente.fechaInicio = new Date()
             paciente.empresa = consultorio

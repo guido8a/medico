@@ -61,10 +61,6 @@ class CantonController {
                     flash.clase = "alert-success"
                     flash.message = "Se ha actualizado correctamente Canton " + cantonInstance.nombre
 
-
-
-
-
                 } else {
                     flash.clase = "alert-success"
                     flash.message = "Se ha creado correctamente Canton " + cantonInstance.nombre

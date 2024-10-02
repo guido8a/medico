@@ -86,7 +86,7 @@
             <label for="direccion" class="col-md-2 control-label text-info">
                 Dirección
             </label>
-            <span class="col-md-8">
+            <span class="col-md-10">
                 <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${empresa?.direccion}"/>
             </span>
         </span>

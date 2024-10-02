@@ -19,6 +19,19 @@ class WardInterceptor {
         session.cn = controllerName
         session.pr = params
         def usro
+
+        if( actionName.toString().toLowerCase().contains('save') ){
+            if(!session){
+                println("graba sin sesión")
+            } else {
+                println "session: ${session.usuario}"
+            }
+            flash.clase = "alert-success"
+            flash.message = "Se han guardado los datos y terminado la sesión por inactividad en el sistema"
+
+            return true
+        }
+
         if(session) {
             usro = session.usuario
         }

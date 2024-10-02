@@ -1232,6 +1232,7 @@ class ReportesController {
         com.lowagie.text.Font fontTitulo = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 12, com.lowagie.text.Font.BOLD, titulo);
         com.lowagie.text.Font fontTitulo16 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 16, com.lowagie.text.Font.BOLD, titulo);
         com.lowagie.text.Font fontTitulo8 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL, titulo);
+        com.lowagie.text.Font fontTitulo8d = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL, titulo);
 
         def path = "/var/medico/empresa/emp_${empresa}/logo.jpeg"
         Image logo = Image.getInstance(path);
@@ -1247,9 +1248,11 @@ class ReportesController {
 
         def pdfw = com.lowagie.text.pdf.PdfWriter.getInstance(document, baos);
 
-        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase(textoFooter, new com.lowagie.text.Font(fontTitulo8)), false);
-//        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase(textoFooter, new com.lowagie.text.Font(fontTitulo8)),
-//                new com.lowagie.text.Phrase(textoFooter, new com.lowagie.text.Font(fontTitulo8)) );
+        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase(textoFooter + "         " + textoFooter, new com.lowagie.text.Font(fontTitulo8)), false);
+
+//        def parr2 = new com.lowagie.text.Phrase(textoFooter, new com.lowagie.text.Font(fontTitulo8d))
+//        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase(textoFooter + "  Pg.", new com.lowagie.text.Font(fontTitulo8)),
+//                new com.lowagie.text.Phrase("     " + textoFooter, new com.lowagie.text.Font(fontTitulo8d)) );
 //        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase('', new com.lowagie.text.Font(fontTitulo8)), false);
         footer1.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
         footer1.setBorder(com.lowagie.text.Rectangle.TOP);
