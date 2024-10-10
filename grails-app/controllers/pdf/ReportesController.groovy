@@ -779,7 +779,7 @@ class ReportesController {
     }
 
     def receta() {
-
+        def cn = dbConnectionService.getConnection()
         def cita = Historial.get(params.cita)
         def edadCalculada = calculaEdad( new Date().format('yyyy-MM-dd'), cita?.paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
         def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
@@ -789,16 +789,20 @@ class ReportesController {
         def empr = usuario.empresa.id
         def edad = ''
         def citaProxima
+        def citaHora
 
 //        println "prox. cita: ${cita?.paciente} --> ${cita?.fecha}"
-        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
-                [sort: 'fecha', order: 'desc'])
+//        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
+//                [sort: 'fecha', order: 'desc'])
+        def sql = "select hsclfcha, hsclhora from hscl where pcnt__id = ${cita.paciente.id} and hsclfcha > '${cita.fecha}' " +
+                "order by 1 limit 1"
+        println "sql: $sql"
 
-        if(citasMayores){
-            citaProxima = citasMayores[0]
-        }else{
-            citaProxima = null
+        cn.eachRow(sql.toString()) { d ->
+            citaProxima = d.hsclfcha
+            citaHora = d.hsclhora
         }
+
 
         if(listaDiagnosticos?.size()?:0 > 0){
             listaDiagnosticos.each {
@@ -831,7 +835,7 @@ class ReportesController {
         com.lowagie.text.Font fontThTiny4 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 9, com.lowagie.text.Font.NORMAL);
         com.lowagie.text.Font fontThTiny2 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.NORMAL);
         com.lowagie.text.Font fontThTiny5 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.ITALIC);
-        com.lowagie.text.Font times8normal = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL);
+        com.lowagie.text.Font times8normal = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.BOLD);
 
         Document document
         document = new Document(PageSize.A4.rotate());
@@ -1039,7 +1043,8 @@ class ReportesController {
             addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("PRÓXIMA CITA : ${citaProxima ? citaProxima?.fecha?.format("EEEE, dd-MMMM-yyyy") + " " + citaProxima?.hora : ''}", fontThTiny5), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("PRÓXIMA CITA: ${citaProxima ? citaProxima.format('EEEE, dd-MMMM-yyyy') : ''}" + " a las " + "${(citaHora? citaHora + ' horas': '')}", times8normal),
+                    [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
 
             addCellTabla(tablaDetalles, tablaTratamientoDetallesFin, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 5, pl: 0])
