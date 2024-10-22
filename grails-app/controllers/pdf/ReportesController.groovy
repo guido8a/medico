@@ -794,7 +794,8 @@ class ReportesController {
 //        println "prox. cita: ${cita?.paciente} --> ${cita?.fecha}"
 //        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
 //                [sort: 'fecha', order: 'desc'])
-        def sql = "select hsclfcha, hsclhora from hscl where pcnt__id = ${cita.paciente.id} and hsclfcha > '${cita.fecha}' " +
+        def hora = "${cita?.fecha?.format('yyyy-MM-dd')} ${cita?.hora}"
+        def sql = "select hsclfcha, hsclhora from hscl where pcnt__id = ${cita.paciente.id} and hsclfcha > '${hora}' " +
                 "order by 1 limit 1"
         println "sql: $sql"
 
