@@ -31,6 +31,7 @@ class AgendaController {
             def dias  = Dias.list([sort: 'numero'])
 
             sql = "select * from agenda(${doctor?.id}, ${smna})"
+            println "sql: $sql"
             def resp = cn.rows(sql.toString())
 
             return[horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]

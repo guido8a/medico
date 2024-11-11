@@ -13,7 +13,7 @@
             <tr data-id="${h?.lun?.split(';')[0]}" >
             <td width="9%" style="font-weight: bold; background-color: #435a83; color: #fff;">${h?.hora}</td>
             <g:if test="${h?.lun?.size() > 10}">
-                <td width="10%" data-id="${h?.lun?.split(';')[2]}" class="${h?.lun?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.lun?.split(';')[2]}" class="${h?.lun?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h?.lun?.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.lun?.split(';')[2]}" data-paciente="${h.lun.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
@@ -38,7 +38,7 @@
             </g:else>
 
             <g:if test="${h?.mar?.size() > 10}">
-                <td width="10%" data-id="${h?.mar?.split(';')[2]}"  class="${h?.mar?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.mar?.split(';')[2]}"  class="${h?.mar?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.mar.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.mar?.split(';')[2]}" data-paciente="${h.mar.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
@@ -63,7 +63,7 @@
             </g:else>
 
             <g:if test="${h?.mie?.size() > 10}">
-                <td width="10%" data-id="${h?.mie?.split(';')[2]}"  class="${h?.mie?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.mie?.split(';')[2]}"  class="${h?.mie?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.mie.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.mie?.split(';')[2]}" data-paciente="${h.mie.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
@@ -88,7 +88,7 @@
             </g:else>
 
             <g:if test="${h?.jue?.size() > 10}">
-                <td width="10%" data-id="${h?.jue?.split(';')[2]}"  class="${h?.jue?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.jue?.split(';')[2]}"  class="${h?.jue?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.jue.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.jue?.split(';')[2]}" data-paciente="${h.jue.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
@@ -113,7 +113,7 @@
             </g:else>
 
             <g:if test="${h?.vie?.size() > 10}">
-                <td width="10%" data-id="${h?.vie?.split(';')[2]}"  class="${h?.vie?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.vie?.split(';')[2]}"  class="${h?.vie?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.vie.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.vie?.split(';')[2]}" data-paciente="${h.vie.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
@@ -138,7 +138,7 @@
             </g:else>
 
             <g:if test="${h?.sab?.size() > 10}">
-                <td width="10%" data-id="${h?.sab?.split(';')[2]}"  class="${h?.sab?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.sab?.split(';')[2]}"  class="${h?.sab?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong>  ${h.sab.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.sab?.split(';')[2]}" data-paciente="${h.sab.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
@@ -163,7 +163,7 @@
             </g:else>
 
             <g:if test="${h?.dom?.size() > 10}">
-                <td width="10%" data-id="${h?.dom?.split(';')[2]}"  class="${h?.dom?.split(';')[3] == 'S' ? 'usado' : 'otro'}">
+                <td width="10%" data-id="${h?.dom?.split(';')[2]}"  class="${h?.dom?.split(';')[5] == 'C' ? 'usado' : 'otro'}">
                     <strong style="color: #4e75ed">Paciente:</strong> ${h.dom.split(';')[4]}
                     <br>
                     <a href="#" data-hora="${h?.dom?.split(';')[2]}" data-paciente="${h.dom.split(';')[4]}" class="btn btn-xs btn-info btnVerCita"
