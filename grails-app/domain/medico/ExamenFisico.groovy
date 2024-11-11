@@ -10,6 +10,7 @@ class ExamenFisico implements Auditable{
     String cabeza
     String cuello
     String torax
+    String axilas
     String cardioPulmonar
     String abdomen
     String regionLumbar
@@ -31,6 +32,10 @@ class ExamenFisico implements Auditable{
     int diastole2 = 0
     String cabezaCraneo
     String cabezaCara
+    String ojos
+    String oidos
+    String nariz
+    String boca
     String pielFaneras
     double perimetroCefalico = 0
 
@@ -46,6 +51,7 @@ class ExamenFisico implements Auditable{
             cabeza column: 'exfscbza'
             cuello column: 'exfscllo'
             torax column: 'exfstrax'
+            axilas column: 'exfsaxla'
             cardioPulmonar column: 'exfscrpl'
             abdomen column: 'exfsabdm'
             regionLumbar column: 'exfsrglb'
@@ -67,6 +73,10 @@ class ExamenFisico implements Auditable{
             diastole2 column: 'exfstad2'
             cabezaCraneo column: 'exfscbcn'
             cabezaCara column: 'exfscbca'
+            ojos column: 'exfsojos'
+            oidos column: 'exfsoido'
+            nariz column: 'exfsnarz'
+            boca column: 'exfsboca'
             pielFaneras column: 'exfsplfn'
             perimetroCefalico column: 'exfsprcf'
         }
@@ -78,6 +88,7 @@ class ExamenFisico implements Auditable{
         cabeza(size: 0..255, blank: true, nullable: true)
         cuello(size: 0..255, blank: true, nullable: true)
         torax(size: 0..255, blank: true, nullable: true)
+        axilas(size: 0..255, blank: true, nullable: true)
         cardioPulmonar(size: 0..255, blank: true, nullable: true)
         abdomen(size: 0..255, blank: true, nullable: true)
         regionLumbar(size: 0..255, blank: true, nullable: true)
@@ -98,6 +109,11 @@ class ExamenFisico implements Auditable{
         sistole2(blank: true, nullable: true)
         diastole2(blank: true, nullable: true)
         cabezaCraneo(size: 0..255, blank: true, nullable: true)
+        cabezaCara(size: 0..255, blank: true, nullable: true)
+        ojos(size: 0..255, blank: true, nullable: true)
+        oidos(size: 0..255, blank: true, nullable: true)
+        nariz(size: 0..255, blank: true, nullable: true)
+        boca(size: 0..255, blank: true, nullable: true)
         pielFaneras(size: 0..255, blank: true, nullable: true)
         perimetroCefalico(blank: true, nullable: true)
     }

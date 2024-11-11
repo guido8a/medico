@@ -92,6 +92,18 @@
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cabezaCara}</td>
         </tr>
         <tr style="font-size: 16px">
+            <td style="width: 11%" class="alert alert-success">Ojos:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.ojos}</td>
+            <td style="width: 10%" class="alert alert-success">Oídos:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.oidos}</td>
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 11%" class="alert alert-success">Nariz:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.nariz}</td>
+            <td style="width: 10%" class="alert alert-success">Boca:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.boca}</td>
+        </tr>
+        <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-success">Cuello:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cuello}</td>
             <td style="width: 10%" class="alert alert-success">Cardiopulmonar:</td>
@@ -99,12 +111,14 @@
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-success">Tórax:</td>
-            <td style="width: 40%; background-color: #b7d6a9" colspan="3">${examen?.torax}</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.torax}</td>
+            <td style="width: 10%" class="alert alert-success">Axilas y glándulas mamarias:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.axilas}</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-success">Abdomen:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.abdomen}</td>
-            <td style="width: 10%" class="alert alert-success">Región Lumbar:</td>
+            <td style="width: 10%" class="alert alert-success">Columna vertebral:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.regionLumbar}</td>
         </tr>
         <tr style="font-size: 16px">

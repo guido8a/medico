@@ -174,17 +174,36 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'cuello', 'error')} ">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
-                    Cuello
+                    Ojos
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.cuello ?: 'Normal'}" />
+                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.ojos ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Cardio Pulmonar
+                    Oídos
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.cardioPulmonar ?: 'Normal'}" />
+                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.oidos ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: examen, field: 'cuello', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-1 control-label text-info">
+                    Nariz
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.nariz ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+                <label class="col-md-1 control-label text-info" style="text-align: left">
+                    Boca
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.boca ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -195,10 +214,17 @@
                 <label class="col-md-1 control-label text-info">
                     Torax
                 </label>
-                <span class="col-md-11">
+                <span class="col-md-5">
                     <g:textField name="torax" maxlength="255" class="form-control" value="${examen?.torax ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
+            </span>
+            <label class="col-md-1 control-label text-info" style="text-align: left">
+                Axilas y glándulas mamarias
+            </label>
+            <span class="col-md-5">
+                <g:textField name="axilas" maxlength="255" class="form-control" value="${examen?.regionLumbar ?: 'Normal'}" />
+                <p class="help-block ui-helper-hidden"></p>
             </span>
         </div>
 
@@ -212,7 +238,8 @@
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Región Lumbar
+                    %{--Región Lumbar--}%
+                    Columna vertebral
                 </label>
                 <span class="col-md-5">
                     <g:textField name="regionLumbar" maxlength="255" class="form-control" value="${examen?.regionLumbar ?: 'Normal'}" />
