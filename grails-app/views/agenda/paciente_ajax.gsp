@@ -24,6 +24,17 @@
 
     <div class="form-group">
         <span class="grupo">
+            <label for="tipo" class="col-md-2 control-label text-info">
+                Tipo
+            </label>
+            <span class="col-md-6">
+               <g:select name="tipo" from="${['C' : 'Consulta Médica' ,'E' : 'Examen de Laboratorio']}" class="form-control" optionKey="key" optionValue="value" value="${agenda?.tipo}" />
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group">
+        <span class="grupo">
             <label for="observaciones" class="col-md-2 control-label text-info">
                 Observaciones
             </label>

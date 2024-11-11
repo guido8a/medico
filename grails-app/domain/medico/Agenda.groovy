@@ -14,7 +14,7 @@ class Agenda implements Auditable{
     Date fechaInicio
     Date fechaFin
     String observaciones
-
+    String tipo
 
     /**
      * Define el mapeo entre los campos del dominio y las columnas de la base de datos
@@ -35,6 +35,7 @@ class Agenda implements Auditable{
             fechaInicio column: 'agndfcin'
             fechaFin column: 'agndfcfn'
             observaciones column: 'agndobsr'
+            tipo column: 'agndtipo'
         }
     }
     /**
@@ -49,6 +50,7 @@ class Agenda implements Auditable{
         fechaInicio(blank: true, nullable: true, attributes: [mensaje: 'Inicio'])
         fechaFin(blank: true, nullable: true, attributes: [mensaje: 'Fin'])
         observaciones(blank: true, nullable: true, attributes: [mensaje: 'Observaciones'])
+        tipo(blank: true, nullable: true, size: 0..1)
 
     }
 }
