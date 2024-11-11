@@ -27,7 +27,8 @@
     }
     .otro {
         text-align: center !important;
-        background-color: #edc384;
+        /*background-color: #edc384;*/
+        background-image: repeating-linear-gradient(#ddb374, #fff3d4, #ddb374)
     }
     .clase_hoy {
         text-align: center !important;
