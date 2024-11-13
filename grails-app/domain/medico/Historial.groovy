@@ -20,6 +20,9 @@ class Historial implements Auditable{
     String hora
     int numero
     String comentarioFinal
+    String motivoExterno
+    String informeExterno
+    Persona medicoExterno
 
     static mapping = {
         table 'hscl'
@@ -42,6 +45,10 @@ class Historial implements Auditable{
             hora column: 'hsclhora'
             numero column: 'hsclnmro'
             comentarioFinal column: 'hsclcmnt'
+            motivoExterno column: 'hsclmtex'
+            informeExterno column: 'hsclifex'
+            medicoExterno column: 'prsnextr'
+
         }
     }
 
@@ -60,5 +67,8 @@ class Historial implements Auditable{
         hora(blank: false, nullable: false,  attributes: ['mensaje': 'Hora'])
         numero(blank: true, nullable: true)
         comentarioFinal(size:0..255,blank: true, nullable: true)
+        motivoExterno(size:0..255,blank: true, nullable: true)
+        informeExterno(size:0..255,blank: true, nullable: true)
+        medicoExterno(blank: true, nullable: true)
     }
 }
