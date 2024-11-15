@@ -582,4 +582,36 @@ class HistorialController {
         }
     }
 
+    def interconsulta_ajax(){
+
+        def cita
+
+        if(params.id){
+            cita = Historial.get(params.id)
+        }else{
+            cita = new Historial()
+        }
+
+        return [cita: cita]
+    }
+
+    def saveInterconsulta_ajax (){
+        def cita
+
+        if(params.id){
+            cita = Historial.get(params.id)
+        }else{
+            cita = new Historial()
+        }
+
+        cita.properties = params
+
+        if(!cita.save(flush:true)){
+            println("Error al guardar " + cita.errors)
+            render "no_Error al guardar"
+        }else{
+            render "ok_Guardado correctamente"
+        }
+    }
+
 }

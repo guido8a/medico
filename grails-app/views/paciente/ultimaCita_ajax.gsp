@@ -1,8 +1,5 @@
 
 <g:if test="${cita?.id}">
-
-
-
     <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
         <div style="width: 3%; float: left; margin-right: 5px">
             <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de la cita médica">
@@ -20,6 +17,41 @@
                     <td style="width: 20%" class="alert alert-success">Enfermedad actual:</td>
                     <td style="width: 80%; background-color:#b7d6a9">${cita?.actual}</td>
                 </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
+        <div style="width: 3%; float: left; margin-right: 5px">
+            <a href="#" class="btn btn-info col-md-12" id="btnEditarInterconsulta" title="Editar los datos de la interconsulta">
+                <i class="fas fa-edit"></i>
+            </a>
+        </div>
+        <div style="width:96%; float: left">
+            <table class="table-bordered table-condensed " style="width: 100%">
+                <tbody>
+
+                <g:if test="${cita?.motivoExterno}">
+                    <tr style="font-size: 16px">
+                        <td style="width: 20%" class="alert alert-info">Médico de consulta Externa:</td>
+                        <td style="width: 80%" class="alert alert-info">${(cita?.medicoExterno?.apellido ?: '') + " " + (cita?.medicoExterno?.nombre ?: '')}</td>
+                    </tr>
+                    <tr style="font-size: 16px">
+                        <td style="width: 20%" class="alert alert-info">Motivo de consulta Externa:</td>
+                        <td style="width: 80%" class="alert alert-info">${cita?.motivoExterno}</td>
+                    </tr>
+                    <tr style="font-size: 16px">
+                        <td style="width: 20%" class="alert alert-info">Informe externo:</td>
+                        <td style="width: 80%" class="alert alert-info">${cita?.informeExterno}</td>
+                    </tr>
+                </g:if>
+                <g:else>
+                    <tr style="font-size: 16px">
+                        <td style="width: 20%" class="alert alert-info">Consulta Externa:</td>
+                        <td style="width: 80%" class="alert alert-info">${"NINGUNA"}</td>
+                    </tr>
+                </g:else>
                 </tbody>
             </table>
         </div>
@@ -158,6 +190,16 @@
 <script type="text/javascript">
 
     var dp;
+
+    $("#btnEditarInterconsulta").click(function () {
+        var cita = $("#citaSeleccionada option:selected").val();
+        if(cita != null){
+            editaInterconsulta();
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');
+        }
+    });
 
     $("#btnEditaCita").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
@@ -519,6 +561,64 @@
         })
     }
 
+    function editaInterconsulta() {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'historial', action:'interconsulta_ajax')}",
+            data    : {
+                id: '${cita?.id}'
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditInterconsulta",
+                    title   : "Interconsulta",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormInterconsulta();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
 
+    function submitFormInterconsulta() {
+        var $form = $("#frmInterconsulta");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarUltimaCita('${cita?.id}');
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
 
 </script>
