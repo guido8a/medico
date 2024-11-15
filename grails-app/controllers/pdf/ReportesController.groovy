@@ -810,20 +810,18 @@ class ReportesController {
 
         if(listaDiagnosticos?.size()?:0 > 0){
             listaDiagnosticos.each {
-
-                cantidadCaracteres += it.diagnostico.descripcion.length()
-
                 diagnosticos += (it.diagnostico.codigo + " - " + it.diagnostico.descripcion)
                 diagnosticos += ", "
             }
         }else{
             diagnosticos = ''
         }
+        cantidadCaracteres += diagnosticos.length()
 
-        println("--> " +  cantidadCaracteres)
+        println "--> $cantidadCaracteres  long: ${diagnosticos.length()}"
 
         if(cantidadCaracteres > 0){
-            altura = cantidadCaracteres / 45
+            altura = cantidadCaracteres / 50
             altura = Math.ceil(altura)
             altura = altura <= 1 ? 1 : altura.toInteger()
             adicional = altura*5
