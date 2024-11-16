@@ -17,7 +17,7 @@
     }
     .usado {
         text-align: center !important;
-        background-image: repeating-linear-gradient(#81aadf, #e1ffff, #81aadf)
+        background-image: repeating-linear-gradient(#91baef, #b1caff, #81aadf)
     }
     .conjunta {
         text-align: center !important;
