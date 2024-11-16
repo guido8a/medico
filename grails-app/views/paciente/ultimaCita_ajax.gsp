@@ -34,21 +34,21 @@
 
                 <g:if test="${cita?.motivoExterno}">
                     <tr style="font-size: 16px">
-                        <td style="width: 20%" class="alert alert-info">Médico de consulta Externa:</td>
+                        <td style="width: 20%" class="alert alert-info">Médico de interconsulta:</td>
                         <td style="width: 80%" class="alert alert-info">${(cita?.medicoExterno?.apellido ?: '') + " " + (cita?.medicoExterno?.nombre ?: '')}</td>
                     </tr>
                     <tr style="font-size: 16px">
-                        <td style="width: 20%" class="alert alert-info">Motivo de consulta Externa:</td>
+                        <td style="width: 20%" class="alert alert-info">Motivo de consulta:</td>
                         <td style="width: 80%" class="alert alert-info">${cita?.motivoExterno}</td>
                     </tr>
                     <tr style="font-size: 16px">
-                        <td style="width: 20%" class="alert alert-info">Informe externo:</td>
+                        <td style="width: 20%" class="alert alert-info">Informe:</td>
                         <td style="width: 80%" class="alert alert-info">${cita?.informeExterno}</td>
                     </tr>
                 </g:if>
                 <g:else>
                     <tr style="font-size: 16px">
-                        <td style="width: 20%" class="alert alert-info">Consulta Externa:</td>
+                        <td style="width: 20%" class="alert alert-info">Interconsulta:</td>
                         <td style="width: 80%" class="alert alert-info">${"NINGUNA"}</td>
                     </tr>
                 </g:else>
