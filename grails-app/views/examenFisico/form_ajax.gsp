@@ -64,33 +64,47 @@
                 <label class="col-md-1 control-label text-info">
                     Temperatura
                 </label>
-                <span class="col-md-2">
-                    <g:textField name="temperatura" maxlength="4" class="form-control" value="${examen?.temperatura ?: 0}" />
+                <span class="col-md-1">
+                    <g:textField name="temperatura" maxlength="4" class="form-control" value="${examen?.temperatura ?: 0}"
+                    style="width: 55px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     SO2
                 </label>
-                <span class="col-md-2">
-                    <g:textField name="so2" maxlength="4" class="form-control" value="${examen?.so2 ?: 95}" />
+                <span class="col-md-1">
+                    <g:textField name="so2" maxlength="4" class="form-control" value="${examen?.so2 ?: 95}"
+                                 style="width: 55px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     FC
                 </label>
-                <span class="col-md-2">
-                    <g:textField name="fc" maxlength="10" class="form-control" value="${examen?.fc ?: 0}" title="Frecuencia cardíaca" />
+                <span class="col-md-1">
+                    <g:textField name="fc" maxlength="10" class="form-control" value="${examen?.fc ?: 0}" title="Frecuencia cardíaca"
+                                 style="width: 55px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Glucosa
+                <label class="col-md-2 control-label text-info" style="text-align: left">
+                    Glucosa ayunas
                 </label>
-                <span class="col-md-2">
-                    <g:textField name="glucosa" maxlength="10" class="form-control" value="${examen?.glucosa ?: 0}" />
+                <span class="col-md-1">
+                    <g:textField name="glucosa" maxlength="10" class="form-control" value="${examen?.glucosa ?: 0}"
+                                 style="width: 55px; margin-left: -40px"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+
+                <label class="col-md-2 control-label text-info" style="text-align: left">
+                    Glucosa pospandrial
+                </label>
+                <span class="col-md-1">
+                    <g:textField name="glucosaPp" maxlength="10" class="form-control" value="${examen?.glucosaPp ?: 0}"
+                    style="width: 55px; margin-left: -40px"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
         </div>
+
 
         <div class="form-group ${hasErrors(bean: examen, field: 'perimetroCefalico', 'error')} ">
 
@@ -171,20 +185,39 @@
             </span>
         </div>
 
-        <div class="form-group ${hasErrors(bean: examen, field: 'cuello', 'error')} ">
+        <div class="form-group ${hasErrors(bean: examen, field: 'ojos', 'error')} ">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
                     Ojos
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.ojos ?: 'Normal'}" />
+                    <g:textField name="ojos" maxlength="255" class="form-control" value="${examen?.ojos ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
                     Oídos
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.oidos ?: 'Normal'}" />
+                    <g:textField name="oidos" maxlength="255" class="form-control" value="${examen?.oidos ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: examen, field: 'nariz', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-1 control-label text-info">
+                    Nariz
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="nariz" maxlength="255" class="form-control" value="${examen?.nariz ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+                <label class="col-md-1 control-label text-info" style="text-align: left">
+                    Boca
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="boca" maxlength="255" class="form-control" value="${examen?.boca ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -193,17 +226,17 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'cuello', 'error')} ">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
-                    Nariz
+                    Cuello
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.nariz ?: 'Normal'}" />
+                    <g:textField name="cuello" maxlength="255" class="form-control" value="${examen?.cuello ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
                 <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Boca
+                    Cardiopulmo-nar
                 </label>
                 <span class="col-md-5">
-                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.boca ?: 'Normal'}" />
+                    <g:textField name="cardioPulmonar" maxlength="255" class="form-control" value="${examen?.cardioPulmonar ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>

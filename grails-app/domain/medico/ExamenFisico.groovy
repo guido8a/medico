@@ -26,6 +26,7 @@ class ExamenFisico implements Auditable{
     double so2
     double fc
     double glucosa
+    double glucosaPp
     int sistole1 = 0
     int diastole1 = 0
     int sistole2 = 0
@@ -67,6 +68,7 @@ class ExamenFisico implements Auditable{
             so2 column: 'exfs_so2'
             fc column: 'exfs__fc'
             glucosa column: 'exfsglcs'
+            glucosaPp column: 'exfsglpp'
             sistole1 column: 'exfstas1'
             diastole1 column: 'exfstad1'
             sistole2 column: 'exfstas2'
@@ -104,6 +106,7 @@ class ExamenFisico implements Auditable{
         so2(blank: true, nullable: true)
         fc(blank: true, nullable: true)
         glucosa(blank: true, nullable: true)
+        glucosaPp(blank: true, nullable: true)
         sistole1(blank: true, nullable: true)
         diastole1(blank: true, nullable: true)
         sistole2(blank: true, nullable: true)
