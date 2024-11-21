@@ -80,7 +80,7 @@
                 Código
             </label>
             <span class="col-md-6">
-                <g:textField name="codigo" maxlength="15" class="form-control allCaps required"  required="" value="${medicina?.codigo}"/>
+                <g:textField name="codigo" maxlength="15" class="form-control allCaps" value="${medicina?.codigo}"/>
             </span>
             <label for="estado" class="col-md-1 control-label text-info">
                 Estado
