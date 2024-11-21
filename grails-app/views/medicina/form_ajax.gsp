@@ -4,8 +4,26 @@
     <g:hiddenField name="id" value="${medicina?.id}" />
     <g:hiddenField name="padre" value="${medicina?.padre?.id}" />
 
-    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} ">
+
+    <div class="form-group ${hasErrors(bean: medicina, field: 'tipoMedicamento', 'error')} required">
         <span class="grupo">
+            <label for="tipoMedicamento" class="col-md-2 control-label text-info">
+                Tipo de medicamento
+            </label>
+            <span class="col-md-4">
+                <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
+            </span>
+            <label for="codigo" class="col-md-2 control-label text-info">
+                Tipo
+            </label>
+            <span class="col-md-2">
+                <g:textField name="tipo" maxlength="4" class="form-control " readonly=""  value="${medicina?.tipo}"/>
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'padre')} ">
+        <span class="grupo" id="divMedicamento">
             <label for="padre" class="col-md-2 control-label text-info">
                 Medicamento genérico
             </label>
@@ -21,54 +39,27 @@
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: medicina, field: 'tipo', 'error')} ">
-        <span class="grupo">
-            <label for="codigo" class="col-md-2 control-label text-info">
-                Tipo
-            </label>
-            <span class="col-md-2">
-                <g:textField name="tipo" maxlength="4" class="form-control allCaps"  value="${medicina?.tipo?:'CNMB'}"/>
-            </span>
-        </span>
-        <span class="col-md-3" style="font-size: 12px">(Cuadro nacional de medicamentos básicos)</span>
-        <span class="grupo">
-            <label for="estado" class="col-md-2 control-label text-info">
-                Estado
-            </label>
-            <span class="col-md-3">
-                <g:select name="estado" class="form-control" from="${['A': 'Activo', 'B': 'Inactivo']}" optionValue="value" optionKey="key" value="${medicina?.estado}"/>
-            </span>
-        </span>
-    </div>
+%{--    <div class="form-group ${hasErrors(bean: medicina, field: 'tipo', 'error')} ">--}%
+
+%{--        <span class="col-md-3" style="font-size: 12px">(Cuadro nacional de medicamentos básicos)</span>--}%
+%{--        <span class="grupo">--}%
+%{--            <label for="estado" class="col-md-2 control-label text-info">--}%
+%{--                Estado--}%
+%{--            </label>--}%
+%{--            <span class="col-md-3">--}%
+%{--                <g:select name="estado" class="form-control" from="${['A': 'Activo', 'B': 'Inactivo']}" optionValue="value" optionKey="key" value="${medicina?.estado}"/>--}%
+%{--            </span>--}%
+%{--        </span>--}%
+%{--    </div>--}%
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipoMedicamento', 'error')} required">
-        <span class="grupo">
-            <label for="tipoMedicamento" class="col-md-2 control-label text-info">
-                Medicina
-            </label>
-            <span class="col-md-4">
-                <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
-            </span>
-        </span>
         <span class="grupo hidden" id="divLaboratorio">
             <label for="laboratorio" class="col-md-2 control-label text-info">
                 Laboratorio
             </label>
-            <span class="col-md-4">
+            <span class="col-md-6">
                 <g:select name="laboratorio" class="form-control" from="${medico.Laboratorio.list([sort: 'nombre'])}" optionValue="nombre" optionKey="id" value="${medicina?.laboratorio?.id}"/>
             </span>
-        </span>
-    </div>
-
-    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'error')}">
-        <span class="grupo">
-            <label for="codigo" class="col-md-2 control-label text-info">
-                Código
-            </label>
-            <span class="col-md-4">
-                <g:textField name="codigo" maxlength="15" class="form-control allCaps"  value="${medicina?.codigo}"/>
-            </span>
-            <span class="col-md-6" style="font-size: 12px; margin-left: -25px">(Se usa sólo para medicamentos genércios)</span>
         </span>
     </div>
 
@@ -79,6 +70,23 @@
             </label>
             <span class="col-md-10">
                 <g:textField name="descripcion" maxlength="255" minlenght="10" required="" class="form-control required" value="${medicina?.descripcion}"/>
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group ${hasErrors(bean: medicina, field: 'codigo', 'error')}">
+        <span class="grupo">
+            <label for="codigo" class="col-md-2 control-label text-info">
+                Código
+            </label>
+            <span class="col-md-6">
+                <g:textField name="codigo" maxlength="15" class="form-control allCaps required"  required="" value="${medicina?.codigo}"/>
+            </span>
+            <label for="estado" class="col-md-1 control-label text-info">
+                Estado
+            </label>
+            <span class="col-md-3">
+                <g:select name="estado" class="form-control" from="${['A': 'Activo', 'B': 'Inactivo']}" optionValue="value" optionKey="key" value="${medicina?.estado}"/>
             </span>
         </span>
     </div>
@@ -102,19 +110,20 @@
             <span class="col-md-6">
                 <g:textField name="forma" maxlength="255"  class="form-control required" value="${medicina?.forma}"/>
             </span>
-        </span>
-    </div>
-
-    <div class="form-group ${hasErrors(bean: medicina, field: 'cantidad', 'error')} ">
-        <span class="grupo">
-            <label for="cantidad" class="col-md-2 control-label text-info">
+            <label for="cantidad" class="col-md-1 control-label text-info">
                 Cantidad
             </label>
-            <span class="col-md-4">
+            <span class="col-md-3">
                 <g:textField name="cantidad" maxlength="5"  class="form-control required" value="${medicina?.cantidad}"/>
             </span>
         </span>
     </div>
+
+%{--    <div class="form-group ${hasErrors(bean: medicina, field: 'cantidad', 'error')} ">--}%
+%{--        <span class="grupo">--}%
+%{--        --}%
+%{--        </span>--}%
+%{--    </div>--}%
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'concentracion', 'error')} ">
         <span class="grupo">
@@ -148,8 +157,12 @@
     function cargarLaboratorio(tipo){
         if(tipo === 'C'){
             $("#divLaboratorio").removeClass("hidden");
+            $("#divMedicamento").removeClass("hidden");
+            $("#tipo").val("COM");
         }else{
             $("#divLaboratorio").addClass("hidden");
+            $("#divMedicamento").addClass("hidden");
+            $("#tipo").val("CNMB");
         }
     }
 
