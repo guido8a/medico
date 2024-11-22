@@ -24,7 +24,7 @@
                 <td style="width: 13%;">${dato.mdcncnct}</td>
                 <td style="width: 10%; text-align: center">
                     <a href="#" class="btn btn-xs btn-success btnSelPadre" title="Seleccionar" data-id="${dato.mdcn__id}"
-                       data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}">
+                       data-nombre="${dato.mdcndscr}" data-codigo="${dato.mdcncdgo}" data-forma="${dato.mdcnfrma}" data-concentracion="${dato.mdcncnct}" data-cantidad="${dato.mdcncntd}" data-observaciones="${dato.mdcnobsr}">
                         <i class="fa fa-check"></i>
                     </a>
                 </td>
@@ -40,9 +40,18 @@
         var id = $(this).data("id");
         var codigo = $(this).data("codigo");
         var descripcion = $(this).data("nombre");
+        var cantidad = $(this).data("cantidad");
+        var concentracion = $(this).data("concentracion");
+        var forma = $(this).data("forma");
+        var observaciones = $(this).data("observaciones");
+
 
         $("#padre").val(id);
         $("#nombrePadre").val(codigo + " - " + descripcion);
+        $("#cantidad").val(cantidad);
+        $("#forma").val(forma);
+        $("#concentracion").val(concentracion);
+        $("#observaciones").val(observaciones);
 
         cerrarPadre();
 

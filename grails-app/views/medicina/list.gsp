@@ -10,7 +10,7 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="btn-group col-md-4" role="navigation">
+    <div class="btn-group col-md-3" role="navigation">
         <a href="#" class="btn btn-success btnNuevaMedicina">
             <i class="fa fa-medkit"></i>
             Nuevo Medicamento
@@ -22,7 +22,7 @@
             <div class="col-md-2" style="text-align: right">
                 <label class="control-label text-info">Buscar por:</label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <g:textField name="criterioMedicina" id="criterioMedicina" class="form-control"/>
             </div>
             <div class="col-md-2">
