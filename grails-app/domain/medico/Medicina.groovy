@@ -16,6 +16,7 @@ class Medicina implements Auditable{
     String tipoMedicamento
 //    String nombre
     int cantidad
+    int ultimo
 
     static mapping = {
         table 'mdcn'
@@ -36,6 +37,7 @@ class Medicina implements Auditable{
             laboratorio column: 'labt__id'
 //            nombre column: 'mdcnnmbr'
             cantidad column: 'mdcncntd'
+            ultimo column: 'mdcnultm'
         }
     }
 
@@ -52,5 +54,6 @@ class Medicina implements Auditable{
         laboratorio(blank: true, nullable: true)
 //        nombre(blank: true, nullable: true)
         cantidad(blank: true, nullable: true)
+        ultimo(blank: true, nullable: true)
     }
 }

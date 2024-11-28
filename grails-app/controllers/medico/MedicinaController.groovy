@@ -159,12 +159,21 @@ class MedicinaController {
         def datos = cn.rows(sqlTx)
 
         [datos: datos]
-
     }
 
     def show_ajax () {
         def medicina = Medicina.get(params.id)
         return[medicina:medicina]
+    }
+
+    def buscarCodigo_ajax() {
+
+        def tipo = params.tipo
+        def ultimoCodigo = Medicina.findAllByTipoMedicamento(tipo)?.ultimo?.max() + 1
+        def texto = params.tipo == 'G' ? 'GEN-' : 'COM-'
+        def codigo = texto + ultimoCodigo
+
+        render  "ok_${codigo}_${ultimoCodigo}"
     }
 
 }

@@ -3,7 +3,7 @@
 <g:form class="form-horizontal" name="frmMedicina" role="form" controller="medicina" action="saveMedicina_ajax" method="POST">
     <g:hiddenField name="id" value="${medicina?.id}" />
     <g:hiddenField name="padre" value="${medicina?.padre?.id}" />
-
+    <g:hiddenField name="ultimo" value="${medicina?.ultimo}" />
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipoMedicamento', 'error')} required">
         <span class="grupo">
@@ -39,19 +39,6 @@
         </span>
     </div>
 
-%{--    <div class="form-group ${hasErrors(bean: medicina, field: 'tipo', 'error')} ">--}%
-
-%{--        <span class="col-md-3" style="font-size: 12px">(Cuadro nacional de medicamentos básicos)</span>--}%
-%{--        <span class="grupo">--}%
-%{--            <label for="estado" class="col-md-2 control-label text-info">--}%
-%{--                Estado--}%
-%{--            </label>--}%
-%{--            <span class="col-md-3">--}%
-%{--                <g:select name="estado" class="form-control" from="${['A': 'Activo', 'B': 'Inactivo']}" optionValue="value" optionKey="key" value="${medicina?.estado}"/>--}%
-%{--            </span>--}%
-%{--        </span>--}%
-%{--    </div>--}%
-
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipoMedicamento', 'error')} required">
         <span class="grupo hidden" id="divLaboratorio">
             <label for="laboratorio" class="col-md-2 control-label text-info">
@@ -80,7 +67,7 @@
                 Código
             </label>
             <span class="col-md-6">
-                <g:textField name="codigo" maxlength="15" class="form-control allCaps" value="${medicina?.codigo}"/>
+                <g:textField name="codigo" readonly="" maxlength="15" class="form-control allCaps" value="${medicina?.codigo}"/>
             </span>
             <label for="estado" class="col-md-1 control-label text-info">
                 Estado
@@ -90,17 +77,6 @@
             </span>
         </span>
     </div>
-
-    %{--<div class="form-group ${hasErrors(bean: medicina, field: 'nombre', 'error')} ">--}%
-        %{--<span class="grupo">--}%
-            %{--<label for="nombre" class="col-md-2 control-label text-info">--}%
-                %{--Nombre comercial--}%
-            %{--</label>--}%
-            %{--<span class="col-md-10">--}%
-                %{--<g:textField name="nombre" maxlength="255" minlenght="10"  class="form-control " value="${medicina?.nombre}"/>--}%
-            %{--</span>--}%
-        %{--</span>--}%
-    %{--</div>--}%
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'forma', 'error')} ">
         <span class="grupo">
@@ -118,12 +94,6 @@
             </span>
         </span>
     </div>
-
-%{--    <div class="form-group ${hasErrors(bean: medicina, field: 'cantidad', 'error')} ">--}%
-%{--        <span class="grupo">--}%
-%{--        --}%
-%{--        </span>--}%
-%{--    </div>--}%
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'concentracion', 'error')} ">
         <span class="grupo">
@@ -152,6 +122,26 @@
 
     var dp;
 
+    <g:if test="${!medicina?.id}">
+    cargarCodigo();
+    </g:if>
+
+    function cargarCodigo(){
+        var tipo = $("#tipoMedicamento option:selected").val();
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'medicina', action: 'buscarCodigo_ajax')}',
+            data:{
+                tipo: tipo
+            },
+            success: function (msg){
+                var parts = msg.split("_");
+                $("#codigo").val(parts[1]);
+                $("#ultimo").val(parts[2]);
+            }
+        })
+    }
+
     cargarLaboratorio($("#tipoMedicamento option:selected").val());
 
     function cargarLaboratorio(tipo){
@@ -174,6 +164,11 @@
         }else{
             $("#nombre").removeClass("required");
         }
+
+        <g:if test="${!medicina?.id}">
+        cargarCodigo();
+        </g:if>
+
     });
 
     $(".btnBuscarPadre").click(function () {
@@ -203,6 +198,31 @@
     function cerrarPadre(){
         dp.modal("hide");
     }
+
+    function validarNum(ev) {
+        /*
+         48-57      -> numeros
+         96-105     -> teclado numerico
+         188        -> , (coma)
+         190        -> . (punto) teclado
+         110        -> . (punto) teclado numerico
+         8          -> backspace
+         46         -> delete
+         9          -> tab
+         37         -> flecha izq
+         39         -> flecha der
+         */
+        return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
+            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39);
+    }
+
+    $("#cantidad").keydown(function (ev) {
+        return validarNum(ev);
+    });
+
+
 
     $("#frmMedicina").validate({
         errorClass     : "help-block",
