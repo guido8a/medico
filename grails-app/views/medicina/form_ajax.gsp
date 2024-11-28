@@ -11,7 +11,13 @@
                 Tipo de medicamento
             </label>
             <span class="col-md-4">
-                <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
+                <g:if test="${medicina?.id}">
+                    <g:select name="tipoMedicamento" class="form-control" from="${ medicina?.tipoMedicamento == 'G' ? ['G': 'GENÉRICO'] : ['C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
+                </g:if>
+                <g:else>
+                    <g:select name="tipoMedicamento" class="form-control" from="${['G': 'GENÉRICO', 'C': 'COMERCIAL']}" optionValue="value" optionKey="key" value="${medicina?.tipoMedicamento}"/>
+                </g:else>
+
             </span>
             <label for="codigo" class="col-md-2 control-label text-info">
                 Tipo
