@@ -4,7 +4,7 @@
         <tr>
             <th style="width: 8%">Código</th>
             <th style="width: 15%">Nombre Genérico</th>
-            <th style="width: 12%">Nombre Comercial</th>
+            <th style="width: 12%">Nombre</th>
             <th style="width: 12%">Cuadro Básico</th>
             <th style="width: 10%">Forma</th>
             <th style="width: 8%">Concentración</th>
@@ -25,7 +25,7 @@
             <g:each in="${datos}" status="i" var="medicina">
                 <tr data-id="${medicina.mdcn__id}">
                     <td style="width: 8%">${medicina.mdcncdgo}</td>
-                    <td style="width: 15%">${medicina.pdredscr}</td>
+                    <td style="width: 15%">${medicina.mdcntpmd == 'G' ? medicina.mdcndscr : medicina.pdredscr}</td>
                     <td style="width: 12%">${medicina.mdcndscr}</td>
                     %{--<td style="width: 12%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo?:'S/C' + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>--}%
                     <td style="width: 12%">${medicina.mdcnpdre ? (medicina.pdrecdgo?:'S/C' + " - " + medicina.pdredscr) : ''}</td>
