@@ -34,6 +34,7 @@
 
 <script type="text/javascript">
 
+    var fe;
 
     $(".btn-new").click(function () {
         createEditRow();
@@ -67,7 +68,7 @@
             url: "${createLink(action:'formExamenes_ajax')}",
             data    : data,
             success : function (msg) {
-                var b = bootbox.dialog({
+                fe = bootbox.dialog({
                     id      : "dlgCreateEditExamen",
                     title   : title + " Examen",
                     class: "modal-lg",
@@ -107,6 +108,7 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
+                        cerrarDialogoCrearExamen();
                         cargarTablaExamenes();
                         cargarUltimaCita('${historial?.id}');
                     }else{
@@ -120,9 +122,12 @@
                     }
                 }
             });
+            return false;
         } else {
             return false;
         }
+
+
     }
 
     function deleteRow(itemId) {
@@ -165,6 +170,11 @@
             }
         });
     }
+
+    function cerrarDialogoCrearExamen () {
+        fe.modal("hide");
+    }
+
 
 </script>
 
