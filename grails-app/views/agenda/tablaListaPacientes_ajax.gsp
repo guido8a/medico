@@ -3,25 +3,25 @@
     <table class="table table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <thead>
         <tr>
-            <th style="width: 13%;">Apellidos</th>
+            <th style="width: 30%;">Apellidos</th>
             <th style="width: 30%;">Nombres</th>
-            <th style="width: 25%;">Cédula</th>
+            <th style="width: 28%;">Cédula</th>
             <th style="width: 12%;">Seleccionar</th>
         </tr>
         </thead>
     </table>
 </div>
 
-<div class="" style="width: 99.7%;height: 400px; overflow-y: auto;float: right; margin-top: -20px">
+<div class="" style="width: 99.7%;height: 350px; overflow-y: auto;float: right; margin-top: -20px">
     <table class="table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <tbody>
         <g:if test="${datos}">
             <g:each in="${datos}" var="dato" status="i">
                 <tr>
-                    <td style="width: 13%;">${dato.pcntapll}</td>
+                    <td style="width: 30%;">${dato.pcntapll}</td>
                     <td style="width: 30%;">${dato.pcntnmbr}</td>
-                    <td style="width: 25%;">${dato.pcntcdla}</td>
-                    <td style="width: 13%; text-align: center">
+                    <td style="width: 28%;">${dato.pcntcdla}</td>
+                    <td style="width: 12%; text-align: center">
                         <a href="#" class="btn btn-xs btn-success btnSelPaciente" title="Seleccionar" data-id="${dato.pcnt__id}"
                            data-nombre="${dato.pcntapll + " " + dato.pcntnmbr}">
                             <i class="fa fa-check"></i>

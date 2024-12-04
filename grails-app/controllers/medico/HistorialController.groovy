@@ -395,24 +395,45 @@ class HistorialController {
     def borrarExamen_ajax(){
         def examen = ExamenComplementario.get(params.id)
         def historial = examen.historial
+        def errores = ''
 
         if(examen){
             try{
 
-                def old = examen.path
-                if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/" + old
-                    def oldFile = new File(oldPath)
-                    if (oldFile.exists()) {
-                        oldFile.delete()
+                def detalles = DetalleExamen.findAllByExamenComplementario(examen)
+
+                println("--> " + detalles)
+
+                if(detalles.size() > 0){
+                    detalles.each {
+                        if(!it.delete(flush:true)){
+                            errores += it.errors
+                        }else{
+                            errores += ''
+                        }
                     }
                 }
 
-                examen.delete(flush:true)
-                render "ok_Examen borrado correctamente"
+                println("err  " + errores)
 
+                if(errores != ''){
+                    println("error al borrar el detalle del examen " + errores)
+                    render "no_Error al borrar el detalle del examen"
+                }else{
+                    def old = examen.path
+                    if (old && old.trim() != "") {
+                        def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/" + old
+                        def oldFile = new File(oldPath)
+                        if (oldFile.exists()) {
+                            oldFile.delete()
+                        }
+                    }
+
+                    examen.delete(flush:true)
+                    render "ok_Examen borrado correctamente"
+                }
             }catch(e){
-                println("error al borrar el examen " + examen.errors)
+                println("error al borrar el examen " + examen.errors + e)
                 render "no_Error al borrar el examen"
             }
         }else{
@@ -612,6 +633,11 @@ class HistorialController {
         }else{
             render "ok_Guardado correctamente"
         }
+    }
+
+    def comboExterno_ajax(){
+        def cita = Historial.get(params.id)
+        return [cita: cita]
     }
 
 }

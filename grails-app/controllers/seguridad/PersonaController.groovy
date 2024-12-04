@@ -1046,37 +1046,37 @@ class PersonaController {
             if(errores == ''){
                 if(perfilesDelete){
 
-                  if(sesionActual.usuario.id == personaInstance.id){
-                     if(perfilesDelete.contains(sesionActual.perfil)){
-                         bandera = true
-                     }else{
-                         perfilesDelete.each { perfil ->
-                             def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
+                    if(sesionActual.usuario.id == personaInstance.id){
+                        if(perfilesDelete.contains(sesionActual.perfil)){
+                            bandera = true
+                        }else{
+                            perfilesDelete.each { perfil ->
+                                def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
 
-                             if(perfilB){
-                                 perfilB.fechaFin = new Date()
+                                if(perfilB){
+                                    perfilB.fechaFin = new Date()
 
-                                 if(!perfilB.save(flush: true)){
-                                     errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
-                                     println "error al eliminar perfil: " + perfilB.errors
-                                 }
-                             }
-                         }
-                     }
-                  }else{
-                      perfilesDelete.each { perfil ->
-                          def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
+                                    if(!perfilB.save(flush: true)){
+                                        errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
+                                        println "error al eliminar perfil: " + perfilB.errors
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        perfilesDelete.each { perfil ->
+                            def perfilB = Sesn.findByPerfilAndUsuarioAndFechaFinIsNull(perfil, personaInstance)
 
-                          if(perfilB){
-                              perfilB.fechaFin = new Date()
+                            if(perfilB){
+                                perfilB.fechaFin = new Date()
 
-                              if(!perfilB.save(flush: true)){
-                                  errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
-                                  println "error al eliminar perfil: " + perfilB.errors
-                              }
-                          }
-                      }
-                  }
+                                if(!perfilB.save(flush: true)){
+                                    errores += "Ha ocurrido un error al eliminar el perfil " + perfilB.errors
+                                    println "error al eliminar perfil: " + perfilB.errors
+                                }
+                            }
+                        }
+                    }
 
                     if(bandera){
                         render "er_No puede borrar el perfil ${sesionActual}, está actualmente en uso"
@@ -1232,5 +1232,11 @@ class PersonaController {
         }else{
             render "ok"
         }
+    }
+
+    def formExterno_ajax(){
+        def personaInstance = new Persona()
+        def total = Persona.count()
+        return  [personaInstance: personaInstance, adicional: total+1]
     }
 }

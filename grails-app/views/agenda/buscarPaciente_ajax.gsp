@@ -11,12 +11,12 @@
 %{--                    <label class="control-label text-info">Criterio</label>--}%
 %{--                    <g:textField name="criterioPaciente" id="criterioPaciente" class="form-control"/>--}%
 %{--                </span>--}%
-                <span class="col-md-4">
+                <span class="col-md-6">
                     <label class="control-label text-info">Buscar Por</label>
                     <g:textField name="criterioPaciente" id="criterioPaciente" class="form-control"/>
                 </span>
             </span>
-            <div class="col-md-2" style="margin-top: 20px">
+            <div class="col-md-3" style="margin-top: 20px">
                 <button class="btn btn-info" id="btnBuscarListaPacientes"><i class="fa fa-search"></i></button>
 %{--            </div>--}%
 %{--            <div class="col-md-1" style="margin-top: 20px">--}%

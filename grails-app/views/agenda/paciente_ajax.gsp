@@ -58,7 +58,7 @@
                 dpcnt = bootbox.dialog({
                     id      : "dlgBuscarPaciente",
                     title   : "Buscar Paciente",
-                    class: "modal-lg",
+                    // class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {
