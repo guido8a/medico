@@ -268,7 +268,8 @@ class ExamenController {
 
         for (d in data) {
             d.edad = (691-110)/18 * (d.edad - 2) + 110
-            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 26) )
+//            d.exfstlla = Math.floor( (841 - (d.exfstlla - 75.0) / 5 * 26) )
+            d.exfstlla = Math.floor( (841 - (d.exfstlla - 80) / 5 * 32) )
             d.exfspeso = Math.round( 1063 - (d.exfspeso - 10 ) / 5 * 31)
         }
         println "*--> ${data as JSON}"
