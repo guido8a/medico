@@ -176,4 +176,17 @@ class MedicinaController {
         render  "ok_${codigo}_${ultimoCodigo}"
     }
 
+    def borrarMedicina_ajax(){
+
+        def medicina = Medicina.get(params.id)
+
+        try{
+            medicina.delete(flush:true)
+            render "ok_Borrado correctamente"
+        }catch(e){
+            println("error al borrar la medicina " + medicina.errors)
+            render "no_Error al borrar la medicina"
+        }
+    }
+
 }

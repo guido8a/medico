@@ -39,9 +39,9 @@
                         <a href="#" class="btn btn-xs btn-success btnEditarMedicina" data-id="${medicina.mdcn__id}" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        %{--                    <a href="#" class="btn btn-xs btn-danger btnEliminarMedicina" data-id="${medicina.mdcn__id}" title="Eliminar">--}%
-                        %{--                        <i class="fas fa-trash"></i>--}%
-                        %{--                    </a>--}%
+                                            <a href="#" class="btn btn-xs btn-danger btnEliminarMedicina" data-id="${medicina.mdcn__id}" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
                     </td>
                 </tr>
             </g:each>
@@ -70,10 +70,10 @@
         createEditRow(id);
     });
 
-    // $(".btnEliminarMedicina").click(function () {
-    //     var id = $(this).data("id");
-    //     deleteRow(id);
-    // });
+    $(".btnEliminarMedicina").click(function () {
+        var id = $(this).data("id");
+        deleteRow(id);
+    });
 
 
 </script>
