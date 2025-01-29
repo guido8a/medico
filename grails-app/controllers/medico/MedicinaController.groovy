@@ -177,15 +177,26 @@ class MedicinaController {
     }
 
     def borrarMedicina_ajax(){
-
+        println "borrar: $params"
         def medicina = Medicina.get(params.id)
+        def usado
 
         try{
             medicina.delete(flush:true)
             render "ok_Borrado correctamente"
         }catch(e){
-            println("error al borrar la medicina " + medicina.errors)
-            render "no_Error al borrar la medicina"
+            usado = Medicina.countByPadre(medicina)
+            if(usado){
+                println("error al borrar la medicina " + medicina.errors)
+                render "no_Error al borrar la medicina, es medicina genérica (${params.id})"
+                return
+            }
+            usado = Tratamiento.findByMedicina(medicina)
+            if(usado){
+                println("error al borrar la medicina " + medicina.errors)
+                render "no_Error al borrar la medicina, está en tratamiento (${params.id})"
+                return
+            }
         }
     }
 

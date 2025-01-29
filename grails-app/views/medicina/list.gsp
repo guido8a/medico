@@ -170,7 +170,9 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold; font-size: 14px'> Está seguro que desea dar de baja esta medicina? </p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i>" +
+            "<p style='font-weight: bold; font-size: 14px'> " +
+            "Está seguro que desea dar de baja esta medicina? </p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
