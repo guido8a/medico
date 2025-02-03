@@ -130,29 +130,29 @@
                 <div style="width:96%; float: left">
                     <table class="table-bordered table-condensed " style="width: 100%">
                         <tbody>
-
                         <tr style="font-size: 16px">
-                            %{--                <td style="width: 20%;font-weight: bolder" class="alert alert-success">Tratamiento:</td>--}%
                             <td style="width: 80%; background-color:#b7d6a9">
                                 <g:if test="${tratamientos.size() > 0}">
                                     <table class="table table-bordered table-striped table-condensed table-hover">
                                         <thead>
                                         <tr style="width: 100%">
-                                            <th style="width: 10%">Nombre Comercial </th>
-                                            <th style="width: 10%">Nombre Genérico </th>
+                                            <th style="width: 15%">Nombre Comercial </th>
+                                            <th style="width: 12%">Nombre Genérico </th>
                                             <th style="width: 10%">Concentración </th>
-                                            <th style="width: 10%">Cantidad </th>
-                                            <th style="width: 35%">Prescripción</th>
+                                            <th style="width: 8%">Cantidad </th>
+                                            <th style="width: 50%">Prescripción</th>
+                                            <th style="width: 5%">Orden</th>
                                         </tr>
                                         </thead>
                                         <tbody >
                                         <g:each in="${tratamientos}" status="i" var="tratamiento">
                                             <tr style="width: 100%">
                                                 <td style="width: 15%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
-                                                <td style="width: 30%">${tratamiento?.medicina ? tratamiento?.medicina?.padre?.descripcion : ''}</td>
+                                                <td style="width: 12%">${tratamiento?.medicina ? tratamiento?.medicina?.padre?.descripcion : ''}</td>
                                                 <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
                                                 <td style="width: 8%">${tratamiento?.cantidad}</td>
-                                                <td style="width: 52%">${tratamiento?.descripcion}</td>
+                                                <td style="width: 50%">${tratamiento?.descripcion}</td>
+                                                <td style="width: 5%">${tratamiento?.orden}</td>
                                             </tr>
                                         </g:each>
                                         </tbody>
