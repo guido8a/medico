@@ -3,12 +3,12 @@
         <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
             <tr style="width: 100%">
+                <th style="width: 5%">Orden</th>
                 <th style="width: 17%">Nombre Comercial</th>
                 <th style="width: 22%">Nombre Genérico </th>
                 <th style="width: 10%">Concentración </th>
                 <th style="width: 6%">Cantidad </th>
                 <th style="width: 32%">Prescripción</th>
-                <th style="width: 5%">Orden</th>
                 <th style="width: 13%">Acciones</th>
             </tr>
             </thead>
@@ -16,12 +16,12 @@
 
             <g:each in="${tratamientos}" status="i" var="tratamiento">
                 <tr style="width: 100%">
+                    <td style="width: 5%">${tratamiento?.orden}</td>
                     <td style="width: 17%">${tratamiento?.medicina ? tratamiento?.medicina?.descripcion : ''}</td>
                     <td style="width: 22%">${tratamiento?.medicina ? tratamiento?.medicina?.padre?.descripcion : ''}</td>
                     <td style="width: 10%">${tratamiento?.medicina?.concentracion}</td>
                     <td style="width: 6%">${tratamiento?.cantidad}</td>
                     <td style="width: 32%">${tratamiento?.descripcion}</td>
-                    <td style="width: 5%">${tratamiento?.orden}</td>
                     <td style="width: 13%">
                         <a class="btn btn-success btn-xs btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${tratamiento.id}">
                             <i class="fa fa-edit"></i>
