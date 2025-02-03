@@ -783,7 +783,7 @@ class ReportesController {
         def cita = Historial.get(params.cita)
         def edadCalculada = calculaEdad( new Date().format('yyyy-MM-dd'), cita?.paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
         def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
-        def tratamientos = Tratamiento.findAllByHistorial(cita)
+        def tratamientos = Tratamiento.findAllByHistorial(cita, [sort: 'orden'])
         def diagnosticos = ''
         def usuario = Persona.get(session.usuario.id)
         def empr = usuario.empresa.id
