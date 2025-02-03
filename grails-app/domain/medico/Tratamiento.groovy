@@ -8,6 +8,7 @@ class Tratamiento implements Auditable{
     Medicina medicina
     String descripcion
     int cantidad = 0
+    int orden
 
     static mapping = {
         table 'trtm'
@@ -20,6 +21,7 @@ class Tratamiento implements Auditable{
             medicina column: 'mdcn__id'
             descripcion column: 'trtmdscr'
             cantidad column: 'trtmcntd'
+            orden column: 'trtmordn'
         }
     }
 
@@ -28,5 +30,6 @@ class Tratamiento implements Auditable{
         medicina(blank: true, nullable: true)
         descripcion(size: 0..255, blank: false, nullable: false)
         cantidad(blank: true, nullable: true)
+        orden(blank: true, nullable: true)
     }
 }

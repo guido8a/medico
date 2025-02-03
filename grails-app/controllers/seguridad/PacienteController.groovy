@@ -382,7 +382,7 @@ class PacienteController {
         def cita = Historial.get(params.id)
         def paciente = Paciente.get(params.paciente)
         def diagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita).sort { it.diagnostico.codigo }
-        def tratamientos = Tratamiento.findAllByHistorial(cita)
+        def tratamientos = Tratamiento.findAllByHistorial(cita).sort{it.orden}
         return [cita: cita, diagnosticos: diagnosticos, tratamientos: tratamientos, paciente: paciente]
     }
 

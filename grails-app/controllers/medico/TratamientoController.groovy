@@ -11,7 +11,7 @@ class TratamientoController {
 
     def tablaTratamiento_ajax(){
         def historial = Historial.get(params.id)
-        def tratamientos = Tratamiento.findAllByHistorial(historial)
+        def tratamientos = Tratamiento.findAllByHistorial(historial).sort{it.orden}
         return [historial: historial, tratamientos: tratamientos]
     }
 

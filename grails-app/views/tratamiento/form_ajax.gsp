@@ -64,8 +64,15 @@
                 <g:textField name="cantidad"  class="form-control"  value="${tratamiento?.cantidad}"/>
             </span>
         </span>
+        <span class="grupo">
+            <label for="orden" class="col-md-2 control-label text-info">
+                Orden
+            </label>
+            <span class="col-md-2">
+                <g:textField name="orden"  class="form-control"  value="${tratamiento?.orden ?: 1}"/>
+            </span>
+        </span>
     </div>
-
 
     <div class="form-group ${hasErrors(bean: tratamiento, field: 'descripcion', 'error')} required">
         <span class="grupo">
