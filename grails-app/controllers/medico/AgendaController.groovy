@@ -9,14 +9,14 @@ class AgendaController {
 
     def dbConnectionService
 
-    def agenda(){
+    def agenda() {
         def usuario = Persona.get(session.usuario.id)
         def tipoPersona = TipoPersona.findAllByCodigoInList(['E', 'M'])
         def consultorio = usuario.empresa
         [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona, cita_actual: params.cita]
     }
 
-    def tabla_ajax(){
+    def tabla_ajax() {
         println("tabla_ajax " + params)
         def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
         def cn = dbConnectionService.getConnection()
@@ -24,40 +24,40 @@ class AgendaController {
         def sql = ""
         println "semana --> $smna"
 
-        if(smna){
+        if (smna) {
             def semana = Semana.get(smna)
             def doctor = Persona.get(params.doctor)
             def horas = Hora.list([sort: 'numero'])
-            def dias  = Dias.list([sort: 'numero'])
+            def dias = Dias.list([sort: 'numero'])
 
             sql = "select * from agenda(${doctor?.id}, ${smna})"
             println "sql: $sql"
             def resp = cn.rows(sql.toString())
 
-            return[horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]
-        }else{
-            return[existe: false]
+            return [horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]
+        } else {
+            return [existe: false]
         }
     }
 
-    def paciente_ajax(){
+    def paciente_ajax() {
         println "paciente_ajax: $params"
-        def semana = Semana.get( buscaSemana(params.fecha) )
+        def semana = Semana.get(buscaSemana(params.fecha))
         def doctor = Persona.get(params.doctor)
         def agenda
 
-        if(params.id){
+        if (params.id) {
             agenda = Agenda.get(params.id)
-            return[semana: semana, persona: doctor, dia: agenda?.dias, hora: agenda?.hora, agenda: agenda]
-        }else{
+            return [semana: semana, persona: doctor, dia: agenda?.dias, hora: agenda?.hora, agenda: agenda]
+        } else {
             def dia = Dias.get(params.dia)
             def hora = Hora.get(params.hora)
             agenda = new Agenda();
-            return[semana: semana, persona: doctor, dia: dia, hora: hora, agenda: agenda]
+            return [semana: semana, persona: doctor, dia: dia, hora: hora, agenda: agenda]
         }
     }
 
-    def saveAgenda_ajax(){
+    def saveAgenda_ajax() {
 
         def existe
         def semana = Semana.get(params.semana)
@@ -74,15 +74,15 @@ class AgendaController {
         fecha.setMinutes(parte2[1]?.toInteger())
         fecha.setHours(parte2[0]?.toInteger())
 
-        if(params.id){
+        if (params.id) {
             agenda = Agenda.get(params.id)
-        }else{
+        } else {
             existe = Agenda.findByDiasAndHoraAndPacienteAndSemana(dias, hora, paciente, semana)
 
-            if(existe){
+            if (existe) {
                 render "no_El día y horario ya se encuentran agendados para ese paciente"
                 return
-            }else{
+            } else {
                 agenda = new Agenda()
                 agenda.fechaInicio = new Date();
             }
@@ -90,13 +90,13 @@ class AgendaController {
 
         agenda.properties = params
 
-        if(!agenda.save(flush: true)){
+        if (!agenda.save(flush: true)) {
             println("error al agendar la cita " + agenda.errors)
             render "no_Error al agendar la cita"
-        }else{
-            if(params.id){
+        } else {
+            if (params.id) {
                 render "ok_Cita agendada correctamente"
-            }else{
+            } else {
 
                 def consultorio = Persona.get(agenda.persona.id)?.empresa
                 def numeroActual = consultorio?.numero
@@ -110,14 +110,14 @@ class AgendaController {
                 cita.persona = agenda.persona
                 cita.motivo = 'Cita médica agendada'
                 cita.numero = numeroActual + 1
-                if(!cita.save(flush:true)){
-                    agenda.delete(flush:true)
+                if (!cita.save(flush: true)) {
+                    agenda.delete(flush: true)
                     println("error al agendar la cita " + cita.errors)
                     render "no_Error al agendar la cita"
-                }else{
-                    if(!params.id){
+                } else {
+                    if (!params.id) {
                         consultorio.numero = numeroActual + 1
-                        consultorio.save(flush:true)
+                        consultorio.save(flush: true)
                     }
                     render "ok_Cita agendada correctamente"
                 }
@@ -125,31 +125,31 @@ class AgendaController {
         }
     }
 
-    def borrarCita_ajax(){
+    def borrarCita_ajax() {
         def agenda = Agenda.get(params.id)
         def cita = Historial.findByAgenda(agenda)
 
-        try{
-            cita.delete(flush:true)
+        try {
+            cita.delete(flush: true)
             agenda.delete(flush: true)
             render "ok_Borrado correctamente"
-        }catch(e){
+        } catch (e) {
             println("error al borrar la cita " + agenda.errors)
             render "no_Error al borrar la cita"
         }
     }
 
-    def nombre_ajax(){
+    def nombre_ajax() {
         def doctor = Persona.get(params.id)
         render "" + doctor?.apellido + " " + doctor?.nombre
     }
 
-    def redireccion_ajax(){
+    def redireccion_ajax() {
         def agenda = Agenda.get(params.id)
         def cita = Historial.findByAgenda(agenda)
         def paciente = agenda.paciente
 //        redirect(controller: 'historial', action: 'cita', params:[paciente: paciente?.id, id:cita?.id])
-        redirect(controller: 'paciente', action: 'historial', params:[id: paciente?.id, cita:cita?.id])
+        redirect(controller: 'paciente', action: 'historial', params: [id: paciente?.id, cita: cita?.id])
     }
 
     def buscaSemana(fecha) {
@@ -160,29 +160,29 @@ class AgendaController {
         return smna
     }
 
-    def agendaNuevo(){
+    def agendaNuevo() {
 
     }
 
-    def tablaAgendamiento_ajax(){
+    def tablaAgendamiento_ajax() {
         def datos
-        if(params.tipo == '1'){
+        if (params.tipo == '1') {
             datos = 1
-        }else{
+        } else {
             datos = null
         }
 
         return [datos: datos]
     }
 
-    def agnd_semana(){
+    def agnd_semana() {
         def usuario = Persona.get(session.usuario.id)
         def consultorio = usuario.empresa
         def paciente = Paciente.get(params.paciente)
         [consultorio: consultorio, usuario: usuario, paciente: paciente]
     }
 
-    def tabla_agnd_ajax(){
+    def tabla_agnd_ajax() {
         println("tabla_agnd_ajax " + params)
         def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
         def cn = dbConnectionService.getConnection()
@@ -192,23 +192,23 @@ class AgendaController {
         def sql = ""
         println "semana --> $smna"
 
-        if(smna){
+        if (smna) {
             def semana = Semana.get(smna)
             def doctor = Persona.get(params.doctor)
             def horas = Hora.list([sort: 'numero'])
-            def dias  = Dias.list([sort: 'numero'])
+            def dias = Dias.list([sort: 'numero'])
 
             sql = "select * from agnd_semana(${consultorio?.id}, ${smna})"
             println "sql: $sql"
             def resp = cn.rows(sql.toString())
 
-            return[horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]
-        }else{
-            return[existe: false]
+            return [horario: resp, existe: true, horas: horas, dias: dias, semana: semana, indice: (fcha - semana.fechaInicio)]
+        } else {
+            return [existe: false]
         }
     }
 
-    def citasMedico_ajax () {
+    def citasMedico_ajax() {
 
         def arreglo = params.citas.split(",")
         def citas = []
@@ -220,11 +220,11 @@ class AgendaController {
         return [citas: citas]
     }
 
-    def buscarPaciente_ajax(){
+    def buscarPaciente_ajax() {
 
     }
 
-    def tablaListaPacientes_ajax(){
+    def tablaListaPacientes_ajax() {
 //        def listaItems = ['pcntnmbr', 'pcntappl', 'pcntcdla']
 //        def bsca
 //        def sqlTx = ""
@@ -287,7 +287,94 @@ class AgendaController {
 //        println datos
 
         [datos: datos]
-
     }
+
+    def calendario() {
+        def anio = new Date().format('yyyy').toInteger()
+
+        if (!params.anio) {
+            params.anio = anio
+        }
+        def meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+        def enero01 = new Date().parse("dd-MM-yyyy", "01-01-" + params.anio)
+        def enero31 = new Date().parse("dd-MM-yyyy", "31-3-" + params.anio)
+        def diciembre31 = new Date().parse("dd-MM-yyyy", "31-12-" + params.anio)
+
+//        def dias = DiaLaborable.withCriteria {
+//            ge("fecha", enero01)
+//            le("fecha", diciembre31)
+//            order("fecha", "asc")
+//        }
+
+        def dias = []
+        def fecha = enero01
+        def cont = 1
+        def fds = ["sat", "sun"]
+        def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
+        while (fecha <= enero31) {
+            println "Procesa para: $fecha"
+            def dia = fmt.format(fecha).toLowerCase()
+            def ordinal = 0
+            def diasSem = ["mon": 1, "tue": 2, "wed": 3, "thu": 4, "fri": 5, "sat": 6, "sun": 0]
+
+            dias.add(fecha: fecha, obsr: '', orden: cont, dia: diasSem[dia], anio: 2025)
+            fecha++
+            cont++
+        }
+
+//        if (dias.size() < 365) {
+//            println "No hay todos los dias para ${params.anio}: hay " + dias.size()
+//
+//            def fecha = enero01
+//            def cont = 1
+//            def fds = ["sat", "sun"]
+//            def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
+//
+//            def diasSem = [
+//                    "mon": 1,
+//                    "tue": 2,
+//                    "wed": 3,
+//                    "thu": 4,
+//                    "fri": 5,
+//                    "sat": 6,
+//                    "sun": 0,
+//            ]
+
+//            while (fecha <= diciembre31) {
+//                def dia = fmt.format(fecha).toLowerCase()
+//                def ordinal = 0
+//                if (!fds.contains(dia)) {
+//                    ordinal = cont
+//                    cont++
+//                }
+//                def diaExiste = DiaLaborable.withCriteria {
+//                    eq("fecha", fecha)
+//                }
+//                if (!diaExiste) {
+//                    def diaLaborable = new DiaLaborable([
+//                            fecha: fecha,
+//                            dia: diasSem[dia],
+//                            anio: fecha.format("yyyy").toInteger(),
+//                            ordinal: ordinal
+//                    ])
+//                    if (!diaLaborable.save(flush: true)) {
+//                        println "error al guardar el dia laborable ${fecha.format('dd-MM-yyyy')}: " + diaLaborable.errors
+//                    } else {
+//                    }
+//                }
+//                fecha++
+//            }
+//            dias = DiaLaborable.withCriteria {
+//                ge("fecha", enero01)
+//                le("fecha", diciembre31)
+//                order("fecha", "asc")
+//            }
+//            println "Guardados ${dias.size()} dias"
+//        }
+        println "dias: $dias"
+
+        return [anio: anio, dias: dias, meses: meses, params: params]
+    }
+
 
 }

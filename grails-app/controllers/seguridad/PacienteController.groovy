@@ -629,5 +629,4 @@ class PacienteController {
 
     }
 
-
 }
