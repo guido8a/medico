@@ -359,7 +359,7 @@ class HistorialController {
                 }
             }
             if (acceptedExt.contains(ext.toLowerCase())) {
-                fileName = fileName + "." + ext
+                fileName = fileName + "-" + examen?.id + "." + ext
                 def pathFile = path + fileName
                 def file = new File(pathFile)
                 println "subiendo archivo: $fileName"
@@ -393,7 +393,7 @@ class HistorialController {
 
     def tablaExamenes_ajax(){
         def historial = Historial.get(params.id)
-        def examenes = ExamenComplementario.findAllByHistorial(historial)
+        def examenes = ExamenComplementario.findAllByHistorial(historial, [sort: "id"])
         return [historial: historial, examenes: examenes]
     }
 
