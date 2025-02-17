@@ -52,22 +52,22 @@
                         <label class="control-label text-info" style="margin-top: 10px">Buscar por:</label>
                     </div>
 
-                    <div class="col-md-2" style="margin-left: -25px">
+                    <div class="col-md-2" style="margin-left: 0px; max-width: 220px">
                         <g:textField name="criterio" id="criterio" class="form-control"/>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-sm-2">
                         <button class="btn btn-info" id="btnBuscarEmpresa"><i class="fa fa-search"></i> Buscar pacientes
                         </button>
                     </div>
 
-                    <div class="col-md-1" style="margin-top: 0px; margin-left: -65px">
+                    <div class="col-sm-1" >
                         <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i
                                 class="fa fa-eraser"></i>
                         </button>
                     </div>
 
-                    <div class="col-md-3" style="margin-top: 0px; margin-left: -5px">
+                    <div class="col-sm-3">
                         <label class="control-label text-info" style="margin-top: 10px">Pacientes en el sistema: ${pacientes}</label>
                     </div>
                 </div>
