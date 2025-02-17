@@ -341,7 +341,8 @@ class HistorialController {
 
         def examen = ExamenComplementario.get(params.id)
         def historial = examen.historial
-        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/"
+        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" +
+                historial?.id  + "/"
         new File(path).mkdirs()
 
         def f = request.getFile('file')  //archivo = name del input type file
@@ -367,7 +368,8 @@ class HistorialController {
 
                 def old = examen.path
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/" + old
+                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" +
+                            historial?.id  + "/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
@@ -412,7 +414,8 @@ class HistorialController {
 
                 def old = examen.path
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/" + old
+                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" +
+                            historial?.id  + "/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
@@ -439,7 +442,8 @@ class HistorialController {
 
                 def old = examen.path
                 if (old && old.trim() != "") {
-                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/" + old
+                    def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" +
+                            historial?.id  + "/" + old
                     def oldFile = new File(oldPath)
                     if (oldFile.exists()) {
                         oldFile.delete()
@@ -462,7 +466,8 @@ class HistorialController {
     def downloadFile() {
         def examen = ExamenComplementario.get(params.id)
         def historial = examen.historial
-        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" + historial?.id  + "/" + examen.path
+        def path = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" +
+                historial?.id  + "/" + examen.path
 
         def file = new File(path)
         if (file.exists()) {
