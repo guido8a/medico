@@ -4,6 +4,20 @@
     <g:hiddenField name="id" value="${tratamiento?.id}" />
     <g:hiddenField name="historial" value="${historial?.id}" />
 
+    <div class="form-group ${hasErrors(bean: tratamiento, field: 'cantidad', 'error')} required">
+        <span class="grupo">
+            <label for="orden" class="col-md-2 control-label text-info">
+                Orden
+            </label>
+            <span class="col-md-2">
+                <g:textField name="orden"  class="form-control text-info"  value="${tratamiento?.orden ?: 1}"/>
+            </span>
+            <label class="col-md-6 control-label text-info" style="text-align: left; margin-left: -20px">
+                (número de línea a imprimirse en la receta)
+            </label>
+        </span>
+    </div>
+
     <div class="form-group ${hasErrors(bean: tratamiento, field: 'medicina', 'error')} ">
         <span class="grupo">
             <label for="medicinaNombre" class="col-md-2 control-label text-info">
@@ -62,14 +76,6 @@
             </label>
             <span class="col-md-4">
                 <g:textField name="cantidad"  class="form-control"  value="${tratamiento?.cantidad}"/>
-            </span>
-        </span>
-        <span class="grupo">
-            <label for="orden" class="col-md-2 control-label text-info">
-                Orden
-            </label>
-            <span class="col-md-2">
-                <g:textField name="orden"  class="form-control"  value="${tratamiento?.orden ?: 1}"/>
             </span>
         </span>
     </div>
