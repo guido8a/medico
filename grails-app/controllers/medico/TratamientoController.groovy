@@ -18,6 +18,8 @@ class TratamientoController {
     def form_ajax(){
         def tratamiento
         def historial = Historial.get(params.cita)
+        def tratamientos = Tratamiento.findAllByHistorial(historial)
+        def maximo = tratamientos?.orden?.max() ?: 0
 
         if(params.id){
             tratamiento = Tratamiento.get(params.id)
@@ -25,7 +27,7 @@ class TratamientoController {
             tratamiento = new Tratamiento()
         }
 
-        return[tratamiento: tratamiento, historial: historial]
+        return[tratamiento: tratamiento, historial: historial, maximo: maximo]
     }
 
     def buscarMedicina_ajax() {

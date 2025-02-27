@@ -10,7 +10,7 @@
                 Orden
             </label>
             <span class="col-md-2">
-                <g:textField name="orden"  class="form-control text-info"  value="${tratamiento?.orden ?: 1}"/>
+                <g:textField name="orden"  class="form-control text-info"  value="${tratamiento?.orden ?: (maximo + 1)}"/>
             </span>
             <label class="col-md-6 control-label text-info" style="text-align: left; margin-left: -20px">
                 (número de línea a imprimirse en la receta)
