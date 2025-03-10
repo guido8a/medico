@@ -290,34 +290,39 @@ class AgendaController {
     }
 
     def calendario() {
+        def cn = dbConnectionService.getConnection()
         def anio = new Date().format('yyyy').toInteger()
 
         if (!params.anio) {
             params.anio = anio
         }
         def meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-        def enero01 = new Date().parse("dd-MM-yyyy", "01-01-" + params.anio)
-        def enero31 = new Date().parse("dd-MM-yyyy", "31-3-" + params.anio)
+        def fcin = new Date().parse("dd-MM-yyyy", "01-01-" + params.anio)
+//        def fcfn = new Date().parse("dd-MM-yyyy", "31-3-" + params.anio)
+        def fcfn = new Date()
         def diciembre31 = new Date().parse("dd-MM-yyyy", "31-12-" + params.anio)
 
-//        def dias = DiaLaborable.withCriteria {
-//            ge("fecha", enero01)
-//            le("fecha", diciembre31)
-//            order("fecha", "asc")
-//        }
-
         def dias = []
-        def fecha = enero01
+        def fecha = fcin
         def cont = 1
         def fds = ["sat", "sun"]
         def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
-        while (fecha <= enero31) {
-            println "Procesa para: $fecha"
-            def dia = fmt.format(fecha).toLowerCase()
-            def ordinal = 0
-            def diasSem = ["mon": 1, "tue": 2, "wed": 3, "thu": 4, "fri": 5, "sat": 6, "sun": 0]
-
-            dias.add(fecha: fecha, obsr: '', orden: cont, dia: diasSem[dia], anio: 2025)
+        def sql = "select agndfcin::date, agndfcin fecha from agnd where pcnt__id = 136 order by 1"
+//        def citas = cn.rows(sql.toString())?.fecha
+        def citas = [:]
+        cn.eachRow(sql.toString()) { d ->
+            citas[d.fecha] = d.agndfcin
+        }
+        citas['2025-02-06'] = 'hora: 12:30'
+        println "citas: $citas"
+        def diasSem = ["mon": 1, "tue": 2, "wed": 3, "thu": 4, "fri": 5, "sat": 6, "sun": 0]
+        def dia = 0, obsr = ""
+        while (fecha <= fcfn) {
+//            println "Procesa para: $fecha"
+            dia = fmt.format(fecha).toLowerCase()
+            dias.add(fecha: fecha, dia: diasSem[dia],
+                    obsr: citas[fecha.format('yyyy-MM-dd')]?:'',
+                    titl: citas[fecha.format('yyyy-MM-dd')]?:'')
             fecha++
             cont++
         }
@@ -325,7 +330,7 @@ class AgendaController {
 //        if (dias.size() < 365) {
 //            println "No hay todos los dias para ${params.anio}: hay " + dias.size()
 //
-//            def fecha = enero01
+//            def fecha = fcin
 //            def cont = 1
 //            def fds = ["sat", "sun"]
 //            def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
@@ -365,14 +370,15 @@ class AgendaController {
 //                fecha++
 //            }
 //            dias = DiaLaborable.withCriteria {
-//                ge("fecha", enero01)
+//                ge("fecha", fcin)
 //                le("fecha", diciembre31)
 //                order("fecha", "asc")
 //            }
 //            println "Guardados ${dias.size()} dias"
 //        }
+        println "meses: $meses"
         println "dias: $dias"
-
+        cn.close()
         return [anio: anio, dias: dias, meses: meses, params: params]
     }
 

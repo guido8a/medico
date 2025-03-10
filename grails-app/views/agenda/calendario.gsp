@@ -74,7 +74,7 @@
 <g:set var="mesAct" value="${null}"/>
 <g:each in="${dias}" var="dia" status="i">
     <g:set var="mes" value="${meses[dia.fecha.format('MM').toInteger()]}"/>
-    <g:set var="dia" value="${meses[dia.fecha.format('MM').toInteger()]}"/>
+    %{--<g:set var="dia" value="${meses[dia.fecha.format('MM').toInteger()]}"/>--}%
     <g:if test="${mes != mesAct}">
         <g:if test="${mesAct}">
             </table>
@@ -86,10 +86,10 @@
         <table class="mes" border="1">
         <thead>
         <tr>
-        <th class="nombreMes" colspan="7" style="text-align: center; background-color: #d0d0d0">${mesAct}</th>
-                </tr>
+            <th class="nombreMes" colspan="7" style="text-align: center; background-color: #d0d0d0; user-select: none">${mesAct}</th>
+        </tr>
         <tr>
-            <th>Lun</th>
+            <th style="user-select: none">Lun</th>
             <th>Mar</th>
             <th>Mié</th>
             <th>Jue</th>
@@ -110,8 +110,8 @@
             </g:each>
         </g:if>
     </g:if>
-    <td class="dia ${dia.ordinal == 0 ? 'vacacion' : ''}" data-fecha="${dia.fecha.format('dd-MM-yyyy')}"
-        data-id="${dia.id}" title="${dia.fecha.format('dd-MM-yyyy')}">
+    <td class="dia ${dia.obsr != '' ? 'vacacion' : ''}" data-fecha="${dia.fecha.format('dd-MM-yyyy')}"
+        data-id="${dia.id}" title="${dia?.titl}">
         ${dia.fecha.format("dd")}
     </td>
 
@@ -132,7 +132,9 @@
         $(".dia").click(function () {
             $(this).toggleClass("vacacion");
         });
+
         $("#anio").val("${params.anio}");
+
         $("#btnCambiar").click(function () {
             var anio = $("#anio").val();
             if ("" + anio !== "${params.anio}") {
@@ -141,6 +143,7 @@
             }
             return false;
         });
+
         $("#btnGuardar").click(function () {
             var g = cargarLoader("Guardando...");
             var cont = 1;
