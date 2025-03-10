@@ -29,6 +29,15 @@
 %{--                    </a>--}%
 %{--                </span>--}%
 %{--            </span>--}%
+
+            <label for="numeroHistorial" class="col-md-3 control-label text-info">
+                Numero de historia clínica
+            </label>
+            <span class="col-md-1">
+                <g:textField name="numeroHistorial" maxlength="6" class="form-control" style="width: 70px; margin-left: -25px"
+                             value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
+            </span>
+
         </div>
     </div>
 
@@ -64,14 +73,16 @@
                     <g:select name="sexo" from="${['F' :  'FEMENINO', 'M' : 'MASCULINO']}" optionKey="key" optionValue="value" class="form-control" value="${paciente?.sexo}"/>
                 </span>
             </span>
-            <label for="estadoCivil" class="col-md-2 control-label text-info">
-                Estado Civil
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}" noSelection="[null : 'Ninguno']"/>
-                </span>
-            </span>
+%{--            <label for="estadoCivil" class="col-md-2 control-label text-info">--}%
+%{--                Estado Civil--}%
+%{--            </label>--}%
+%{--            <span class="grupo">--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <g:select name="estadoCivil" from="${medico.EstadoCivil.list()}" optionKey="id" optionValue="descripcion" class="form-control" value="${paciente?.estadoCivil?.id}" noSelection="[null : 'Ninguno']"/>--}%
+%{--                </span>--}%
+%{--            </span>--}%
+            <span class="col-md-2"></span>
+
             <label for="grupoSanguineo" class="col-md-1 control-label text-info">
                 Grupo Sanguíneo
             </label>
@@ -111,13 +122,13 @@
 %{--                <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">--}%
 %{--                </span>--}%
 %{--            </span>--}%
-            <label for="numeroHistorial" class="col-md-3 control-label text-info">
-                Numero de historia clínica
-            </label>
-            <span class="col-md-1">
-                <g:textField name="numeroHistorial" maxlength="6" class="form-control" style="width: 70px; margin-left: -25px"
-                             value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>
-            </span>
+%{--            <label for="numeroHistorial" class="col-md-3 control-label text-info">--}%
+%{--                Numero de historia clínica--}%
+%{--            </label>--}%
+%{--            <span class="col-md-1">--}%
+%{--                <g:textField name="numeroHistorial" maxlength="6" class="form-control" style="width: 70px; margin-left: -25px"--}%
+%{--                             value="${paciente?.numeroHistorial ?: numeroSiguiente}"/>--}%
+%{--            </span>--}%
         </div>
     </div>
 
