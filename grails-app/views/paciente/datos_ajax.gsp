@@ -109,19 +109,19 @@
 
     <div class="row izquierda" style="margin-bottom: 15px">
         <div class="col-md-12 input-group">
-%{--            <label for="fechaNacimiento" class="col-md-2 control-label text-info">--}%
-%{--                Fecha de nacimiento--}%
-%{--            </label>--}%
-%{--            <span class="grupo" >--}%
-%{--                <span class="col-md-2 arriba" >--}%
-%{--                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required=""--}%
-%{--                           class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />--}%
-%{--                </span>--}%
-%{--            </span>--}%
-%{--            <span class="col-md-3 text-info">--}%
-%{--                <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">--}%
-%{--                </span>--}%
-%{--            </span>--}%
+            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
+                Fecha de nacimiento
+            </label>
+            <span class="grupo" >
+                <span class="col-md-2 arriba" >
+                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required=""
+                           class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
+                </span>
+            </span>
+            <span class="col-md-3 text-info">
+                <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">
+                </span>
+            </span>
 %{--            <label for="numeroHistorial" class="col-md-3 control-label text-info">--}%
 %{--                Numero de historia clínica--}%
 %{--            </label>--}%
