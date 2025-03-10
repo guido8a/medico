@@ -3,13 +3,6 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            %{--            <label for="empresa" class="col-md-1 control-label text-info">--}%
-            %{--                Consultorio--}%
-            %{--            </label>--}%
-            %{--            <span class="col-md-4">--}%
-            %{--                <g:select name="empresa" from="${seguridad.Empresa.list([sort: 'nombre'])}" optionKey="id" optionValue="nombre" class="form-control " value="${paciente?.empresa?.id}" />--}%
-            %{--            </span>--}%
-
             <label for="cedula" class="col-md-2 control-label text-info">
                 Cédula
             </label>
@@ -17,25 +10,25 @@
                 <g:textField name="cedula" maxlength="10" minlength="10" class="form-control allCaps"  value="${paciente?.cedula}"/>
             </span>
 
-            <label for="activo" class="col-md-1 control-label text-info">
-                Estado
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <g:select name="activo" from="${[1: 'Activo' , 0 : 'Inactivo']}" optionKey="key" optionValue="value" class="form-control " value="${paciente?.activo}" />
-                </span>
-            </span>
+%{--            <label for="activo" class="col-md-1 control-label text-info">--}%
+%{--                Estado--}%
+%{--            </label>--}%
+%{--            <span class="grupo">--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <g:select name="activo" from="${[1: 'Activo' , 0 : 'Inactivo']}" optionKey="key" optionValue="value" class="form-control " value="${paciente?.activo}" />--}%
+%{--                </span>--}%
+%{--            </span>--}%
 
-            <label class="col-md-1 control-label text-info">
-                Foto
-            </label>
-            <span class="grupo">
-                <span class="col-md-2">
-                    <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">
-                        <i class="fa fa-image"></i> Fotografía
-                    </a>
-                </span>
-            </span>
+%{--            <label class="col-md-1 control-label text-info">--}%
+%{--                Foto--}%
+%{--            </label>--}%
+%{--            <span class="grupo">--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <a href="#" id="btnFoto" class="btn btn-sm btn-info" title="Foto del paciente">--}%
+%{--                        <i class="fa fa-image"></i> Fotografía--}%
+%{--                    </a>--}%
+%{--                </span>--}%
+%{--            </span>--}%
         </div>
     </div>
 
@@ -92,39 +85,32 @@
         </div>
     </div>
 
-    <div class="row izquierda">
-        <div class="col-md-12 input-group">
-            <label for="ocupacion" class="col-md-2 control-label text-info">
-                Ocupación
-            </label>
-            <span class="col-md-9">
-                <g:textField name="ocupacion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.ocupacion}"/>
-            </span>
-        </div>
-    </div>
+%{--    <div class="row izquierda">--}%
+%{--        <div class="col-md-12 input-group">--}%
+%{--            <label for="ocupacion" class="col-md-2 control-label text-info">--}%
+%{--                Ocupación--}%
+%{--            </label>--}%
+%{--            <span class="col-md-9">--}%
+%{--                <g:textField name="ocupacion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.ocupacion}"/>--}%
+%{--            </span>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
     <div class="row izquierda" style="margin-bottom: 15px">
         <div class="col-md-12 input-group">
-            <label for="fechaNacimiento" class="col-md-2 control-label text-info">
-                Fecha de nacimiento
-            </label>
-            <span class="grupo" >
-                <span class="col-md-2 arriba" >
-                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required=""
-                           class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />
-                </span>
-            </span>
-            <span class="col-md-3 text-info">
-                %{--Edad--}%
-                %{--<span id="edadCalculo" class="form-control" readonly="">--}%
-                %{--${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}--}%
-                %{--</span>--}%
-                <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">
-                </span>
-            </span>
-            %{--<span class="col-md-2">--}%
-            %{--<g:textField name="edadCalculo" class="form-control" readonly="" value="${paciente?.fechaNacimiento ? paciente?.edad + ' años' : 'N/A'}"/>--}%
-            %{--</span>--}%
+%{--            <label for="fechaNacimiento" class="col-md-2 control-label text-info">--}%
+%{--                Fecha de nacimiento--}%
+%{--            </label>--}%
+%{--            <span class="grupo" >--}%
+%{--                <span class="col-md-2 arriba" >--}%
+%{--                    <input aria-label="" name="fechaNacimiento" id='fechaNacimiento' type='text' required=""--}%
+%{--                           class="form-control required"  value="${paciente?.fechaNacimiento?.format("dd-MM-yyyy")}" />--}%
+%{--                </span>--}%
+%{--            </span>--}%
+%{--            <span class="col-md-3 text-info">--}%
+%{--                <span id="edadCalculo" class="form-control" readonly="" style="margin-left: -20px">--}%
+%{--                </span>--}%
+%{--            </span>--}%
             <label for="numeroHistorial" class="col-md-3 control-label text-info">
                 Numero de historia clínica
             </label>
@@ -145,67 +131,67 @@
             </label>
             <div class="col-md-2" >Provincia
             <g:textField style="width: 150px;" name="provincia" class="form-control"
-                         value="${paciente?.parroquia?.canton?.provincia?.nombre}" readonly="true" title="Cantón"/>
+                         value="${paciente?.parroquia?.canton?.provincia?.nombre ?: 'PICHINCHA'}" readonly="true" title="Cantón"/>
             </div>
 
             <div class="col-md-2" style="width: 220px; margin-left: 10px;">Cantón
             <g:textField style="width: 210px;" name="canton" class="form-control"
-                         value="${paciente?.parroquia?.canton?.nombre}" readonly="true" title="Cantón"/>
+                         value="${paciente?.parroquia?.canton?.nombre ?: 'QUITO'}" readonly="true" title="Cantón"/>
             </div>
 
             <span class="grupo" >
                 <span class="col-md-2" style="width: 200px; margin-left: 10px;">Parroquia
-                <g:hiddenField name="parroquia" value="${paciente?.parroquia?.id}"/>
+                <g:hiddenField name="parroquia" value="${paciente?.parroquia?.id ?: 1234}"/>
                 <g:textField style="width: 255px;" name="parroquiaNombre" required="" class="form-control required"
-                             value="${paciente?.parroquia?.nombre}" readonly="true"/>
+                             value="${paciente?.parroquia?.nombre ?: 'TURUBAMBA'}" readonly="true"/>
                 </span>
             </span>
 
         </div>
     </div>
-    <div class="row izquierda">
-        <div class="col-md-12 input-group">
-            <label for="residenciaHabitual" class="col-md-2 control-label text-info">
-                Residencia Habitual
-            </label>
-            <span class="col-md-9">
-                <g:textField name="residenciaHabitual" style="resize: none" maxlength="255" class="form-control" value="${paciente?.residenciaHabitual}"/>
-            </span>
-        </div>
-    </div>
+%{--    <div class="row izquierda">--}%
+%{--        <div class="col-md-12 input-group">--}%
+%{--            <label for="residenciaHabitual" class="col-md-2 control-label text-info">--}%
+%{--                Residencia Habitual--}%
+%{--            </label>--}%
+%{--            <span class="col-md-9">--}%
+%{--                <g:textField name="residenciaHabitual" style="resize: none" maxlength="255" class="form-control" value="${paciente?.residenciaHabitual}"/>--}%
+%{--            </span>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
-    <div class="row izquierda">
-        <div class="col-md-12 input-group">
-            <label for="residenciaOcasional" class="col-md-2 control-label text-info">
-                Residencia Ocasional
-            </label>
-            <span class="col-md-9">
-                <g:textField name="residenciaOcasional" style="resize: none" maxlength="255" class="form-control" value="${paciente?.residenciaOcasional}"/>
-            </span>
-        </div>
-    </div>
+%{--    <div class="row izquierda">--}%
+%{--        <div class="col-md-12 input-group">--}%
+%{--            <label for="residenciaOcasional" class="col-md-2 control-label text-info">--}%
+%{--                Residencia Ocasional--}%
+%{--            </label>--}%
+%{--            <span class="col-md-9">--}%
+%{--                <g:textField name="residenciaOcasional" style="resize: none" maxlength="255" class="form-control" value="${paciente?.residenciaOcasional}"/>--}%
+%{--            </span>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
-    <div class="row izquierda">
-        <div class="col-md-12 input-group">
-            <label for="direccion" class="col-md-2 control-label text-info">
-                Dirección domicilio
-            </label>
-            <span class="col-md-9">
-                <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.direccion}"/>
-            </span>
-        </div>
-    </div>
+%{--    <div class="row izquierda">--}%
+%{--        <div class="col-md-12 input-group">--}%
+%{--            <label for="direccion" class="col-md-2 control-label text-info">--}%
+%{--                Dirección domicilio--}%
+%{--            </label>--}%
+%{--            <span class="col-md-9">--}%
+%{--                <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${paciente?.direccion}"/>--}%
+%{--            </span>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
-    <div class="row izquierda">
-        <div class="col-md-12 input-group">
-            <label for="referencia" class="col-md-2 control-label text-info">
-                Referencia de dirección
-            </label>
-            <span class="col-md-9">
-                <g:textField name="referencia" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>
-            </span>
-        </div>
-    </div>
+%{--    <div class="row izquierda">--}%
+%{--        <div class="col-md-12 input-group">--}%
+%{--            <label for="referencia" class="col-md-2 control-label text-info">--}%
+%{--                Referencia de dirección--}%
+%{--            </label>--}%
+%{--            <span class="col-md-9">--}%
+%{--                <g:textField name="referencia" style="resize: none" maxlength="255" class="form-control" value="${paciente?.referencia}"/>--}%
+%{--            </span>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
@@ -217,34 +203,33 @@
                     <g:textField name="telefono" maxlength="31" class="form-control" value="${paciente?.telefono}"/>
                 </span>
             </span>
-            %{--<span class="col-md-1 mediano"></span>--}%
-            <label for="mail" class="col-md-1 control-label text-info">
-                Email
-            </label>
-            <span class="grupo">
-                <span class="col-md-4">
-                    <g:textField name="mail" maxlength="63" class="email mail form-control" value="${paciente?.mail}"/>
-                </span>
-            </span>
+%{--            <label for="mail" class="col-md-1 control-label text-info">--}%
+%{--                Email--}%
+%{--            </label>--}%
+%{--            <span class="grupo">--}%
+%{--                <span class="col-md-4">--}%
+%{--                    <g:textField name="mail" maxlength="63" class="email mail form-control" value="${paciente?.mail}"/>--}%
+%{--                </span>--}%
+%{--            </span>--}%
         </div>
     </div>
 
-    <div class="row izquierda">
-        <div class="col-md-12 input-group">
-            <label for="responsable" class="col-md-2 control-label text-info">
-                Responsable
-            </label>
-            <span class="col-md-4">
-                <g:textField name="responsable" maxlength="255" class="form-control" value="${paciente?.responsable}"/>
-            </span>
-            <label for="facturar" class="col-md-1 control-label text-info" style="margin-left: -10px; width: 85px">
-                Facturar a:
-            </label>
-            <span class="col-md-4">
-                <g:textField name="facturar" maxlength="127" class="form-control" value="${paciente?.facturar}"/>
-            </span>
-        </div>
-    </div>
+%{--    <div class="row izquierda">--}%
+%{--        <div class="col-md-12 input-group">--}%
+%{--            <label for="responsable" class="col-md-2 control-label text-info">--}%
+%{--                Responsable--}%
+%{--            </label>--}%
+%{--            <span class="col-md-4">--}%
+%{--                <g:textField name="responsable" maxlength="255" class="form-control" value="${paciente?.responsable}"/>--}%
+%{--            </span>--}%
+%{--            <label for="facturar" class="col-md-1 control-label text-info" style="margin-left: -10px; width: 85px">--}%
+%{--                Facturar a:--}%
+%{--            </label>--}%
+%{--            <span class="col-md-4">--}%
+%{--                <g:textField name="facturar" maxlength="127" class="form-control" value="${paciente?.facturar}"/>--}%
+%{--            </span>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">

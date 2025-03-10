@@ -115,7 +115,7 @@
     <div class="form-group ${hasErrors(bean: medicina, field: 'observaciones', 'error')} ">
         <span class="grupo">
             <label for="observaciones" class="col-md-2 control-label text-info">
-                Observaciones
+                Prescripción
             </label>
             <span class="col-md-10">
                 <g:textArea name="observaciones" maxlength="255" style="resize: none"  class="form-control" value="${medicina?.observaciones}"/>
