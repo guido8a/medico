@@ -242,7 +242,7 @@
     function crearPaciente() {
         $.ajax({
             type: "POST",
-            url: "${createLink(action:'datos_ajax')}",
+            url: "${createLink(action:'datosCompletos_ajax')}",
             data: {
                 id: null
             },

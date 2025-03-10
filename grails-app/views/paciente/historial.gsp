@@ -184,7 +184,6 @@
     function cargarComboCita(actual){
         var paciente = '${paciente?.id}';
         var d = cargarLoader("Cargando...");
-        console.log('cita actual', ${params.cita_actual})
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'paciente', action: 'comboCitas_ajax')}',
@@ -201,12 +200,13 @@
     }
 
     function cargarBotones(cita){
+        var paciente = '${paciente?.id}';
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'paciente', action: 'botones_ajax')}',
             data:{
                 id: cita,
-                paciente: '${paciente?.id}'
+                paciente: paciente
             },
             success: function (msg){
                 $("#divBotones").html(msg)
@@ -305,7 +305,7 @@
     function editaPaciente() {
         $.ajax({
             type    : "POST",
-            url: "${createLink(action:'datos_ajax')}",
+            url: "${createLink(action:'datosCompletos_ajax')}",
             data    : {
                 id: '${paciente?.id}'
             },

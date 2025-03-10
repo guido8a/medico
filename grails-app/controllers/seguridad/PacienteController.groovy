@@ -629,4 +629,22 @@ class PacienteController {
 
     }
 
+  def datosCompletos_ajax() {
+        def paciente
+
+        def usuario = Persona.get(session.usuario.id)
+        def empresa = usuario.empresa
+
+        def pacientes = Paciente.findAllByEmpresa(empresa)
+        def numeroActual = pacientes?.numeroHistorial?.max()
+
+        if (params.id) {
+            paciente = Paciente.get(params.id)
+        } else {
+            paciente = new Paciente()
+        }
+
+        return [paciente: paciente, numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
+    }
+
 }
