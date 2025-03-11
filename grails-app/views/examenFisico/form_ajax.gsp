@@ -159,15 +159,15 @@
         </div>
 
         %{--<div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>--}%
-        <div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center"></div>
+        <div class="col-md-12" style="margin-bottom: 10px; border-top: solid; border-width: 1px; border-color: #888; text-align: center"></div>
 
 
 
         <div class="form-group ${hasErrors(bean: examen, field: 'cabezaCraneo', 'error')} ">
             <span class="grupo">
-                <label class="col-md-12 control-label text-info" style="text-align: center">
-                    Cabeza
-                </label>
+                %{--<label class="col-md-12 control-label text-info" style="text-align: center">--}%
+                    %{--Cabeza--}%
+                %{--</label>--}%
                 <label class="col-md-1 control-label text-info">
                     Cráneo
                 </label>
@@ -303,17 +303,19 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'extremidadesSuperiores', 'error')} ">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
+                    Región Perineal
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="regionPerineal" maxlength="255" class="form-control" value="${examen?.regionPerineal ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label class="col-md-1 control-label text-info">
                     Extremidades superiores
                 </label>
                 <span class="col-md-5">
                     <g:textField name="extremidadesSuperiores" maxlength="255" class="form-control" value="${examen?.extremidadesSuperiores ?: 'Normal'}" />
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-                <label class="col-md-1 control-label text-info" style="text-align: left">
-                    Extremidades inferiores
-                </label>
-                <span class="col-md-5">
-                    <g:textField name="extremidadesInferiores" maxlength="255" class="form-control" value="${examen?.extremidadesInferiores ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -321,10 +323,18 @@
 
         <div class="form-group ${hasErrors(bean: examen, field: 'pielFaneras', 'error')} ">
             <span class="grupo" >
+                <label class="col-md-1 control-label text-info" style="text-align: left">
+                    Extremidades inferiores
+                </label>
+                <span class="col-md-5">
+                    <g:textField name="extremidadesInferiores" maxlength="255" class="form-control" value="${examen?.extremidadesInferiores ?: 'Normal'}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+
                 <label class="col-md-1 control-label text-info">
                     Piel y Faneras
                 </label>
-                <span class="col-md-11" style="margin-top: 10px !important;">
+                <span class="col-md-5" style="margin-top: 10px !important;">
                     <g:textField name="pielFaneras" maxlength="255" class="form-control" value="${examen?.pielFaneras}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
