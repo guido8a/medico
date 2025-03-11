@@ -20,7 +20,38 @@
     </a>
 </g:if>
 
+<a href="#" class="btn btn-info" id="btnHistoricoExamenes" title="Histórico de exámenes">
+    <i class="fas fa-list"></i> Histórico de exámenes
+</a>
+
 <script type="text/javascript">
+
+    $("#btnHistoricoExamenes").click(function () {
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'paciente', action:'historicoExamenes_ajax')}",
+            data    : {
+                paciente: paciente
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgVerHistoricoExamenes",
+                    title   : "Histórico Exámenes",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
     $("#btnDarBajaCita").click(function() {
         borrarCita();

@@ -68,10 +68,10 @@
         <tr style="font-size: 16px">
             <td style="width: 10%" class="alert alert-success">Tensión arterial1:</td>
             <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole1} ${examen?.sistole1 ? '/' : ''} ${examen?.diastole1}</td>
-
             <td style="width: 10%" class="alert alert-success">Tensión arterial2:</td>
             <td style="width: 10%; background-color: #b7d6a9">${examen?.sistole2} ${examen?.sistole2 ? '/' : ''} ${examen?.diastole2}</td>
-
+            <td style="width: 10%;" class="alert alert-success">Glucosa PP:</td>
+            <td style="width: 10%; background-color: #b7d6a9">${examen?.glucosaPp}</td>
             <g:if test="${edad < 5}">
                 <td style="width: 10%;" class="alert alert-success">P. Cefálico:</td>
                 <td style="width: 10%; background-color: #b7d6a9">${examen?.perimetroCefalico}</td>
@@ -134,8 +134,13 @@
             <td style="width: 40%; background-color: #b7d6a9">${examen?.extremidadesSuperiores}</td>
         </tr>
         <tr style="font-size: 16px">
+
+        </tr>
+        <tr style="font-size: 16px">
+            <td style="width: 10%" class="alert alert-success">Región Perineal:</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.regionPerineal}</td>
             <td style="width: 10%" class="alert alert-success">Piel y Faneras:</td>
-            <td style="width: 10%; background-color: #b7d6a9" colspan="7">${examen?.pielFaneras}</td>
+            <td style="width: 40%; background-color: #b7d6a9">${examen?.pielFaneras}</td>
         </tr>
         </tbody>
     </table>

@@ -647,4 +647,15 @@ class PacienteController {
         return [paciente: paciente, numeroSiguiente: (numeroActual ? (numeroActual?.toInteger() + 1) : 1)]
     }
 
+    def historicoExamenes_ajax(){
+        def paciente = Paciente.get(params.paciente)
+        def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', ])
+        return [citas: citas]
+    }
+
+    def archivosPorExamen_ajax(){
+        def cita = Historial.get(params.id)
+        def examenes = ExamenComplementario.findAllByHistorialAndPathIsNotNull(cita, [sort: "id"])
+        return [examenes: examenes]
+    }
 }
