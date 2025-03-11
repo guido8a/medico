@@ -83,7 +83,7 @@
     <table class="table-bordered table-condensed " style="width: 100%">
         <tbody>
         <tr style="font-size: 16px">
-            <td style="width: 100%; text-align: center; font-weight: bold" colspan="4" class="alert alert-success">Cabeza</td>
+            <td style="width: 100%; text-align: center; font-weight: bold" colspan="4" class="alert alert-success">Cabeza y Cuerpo</td>
         </tr>
         <tr style="font-size: 16px">
             <td style="width: 11%" class="alert alert-success">Cráneo:</td>

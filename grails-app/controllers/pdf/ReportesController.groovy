@@ -1494,10 +1494,10 @@ class ReportesController {
         tablaCabecera.setWidthPercentage(100);
         tablaCabecera.setWidths(arregloEnteros([20, 30, 20, 30]))
 
-        addCellTabla(tablaCabecera, new Paragraph("APELLIDOS: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(paciente?.apellido, fontThTiny), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph("NOMBRES: ", fontTitulo), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph(paciente?.nombre, fontThTiny), prmsHeaderHoja)
+        addCellTabla(tablaCabecera, new Paragraph("APELLIDOS: ", fontTitulo), prmsHeaderHoja)
+        addCellTabla(tablaCabecera, new Paragraph(paciente?.apellido, fontThTiny), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph("EDAD: ", fontTitulo), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph(edad?.toString(), fontThTiny), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph("SEXO: ", fontTitulo), prmsHeaderHoja)
@@ -1513,7 +1513,7 @@ class ReportesController {
         def printHeaderDetalle = {
             def tablaHeaderDetalles = new PdfPTable(3);
             tablaHeaderDetalles.setWidthPercentage(100);
-            tablaHeaderDetalles.setWidths(arregloEnteros([30, 30, 20]))
+            tablaHeaderDetalles.setWidths(arregloEnteros([15, 25, 30]))
 
             addCellTabla(tablaHeaderDetalles, new Paragraph("Grupo", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("Tipo", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
@@ -1525,7 +1525,7 @@ class ReportesController {
         def printCitas = {
             def tablaCitas = new PdfPTable(3);
             tablaCitas.setWidthPercentage(100);
-            tablaCitas.setWidths(arregloEnteros([30, 30, 20]))
+            tablaCitas.setWidths(arregloEnteros([15, 25, 30]))
 
             examenes.eachWithIndex {p, q->
 

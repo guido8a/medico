@@ -299,11 +299,12 @@ class AgendaController {
         def meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
         def fcin = new Date().parse("dd-MM-yyyy", "01-01-" + params.anio)
 //        def fcfn = new Date().parse("dd-MM-yyyy", "31-3-" + params.anio)
-        def fcfn = new Date()
-        def diciembre31 = new Date().parse("dd-MM-yyyy", "31-12-" + params.anio)
+//        def fcfn = new Date()
+        def fcfn = new Date().parse("dd-MM-yyyy", "31-12-" + params.anio)
 
         def dias = []
         def fecha = fcin
+        def hoy = new Date()
         def cont = 1
         def fds = ["sat", "sun"]
         def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
@@ -317,11 +318,13 @@ class AgendaController {
         println "citas: $citas"
         def diasSem = ["mon": 1, "tue": 2, "wed": 3, "thu": 4, "fri": 5, "sat": 6, "sun": 0]
         def dia = 0, obsr = ""
+//        while (fecha <= fcfn) {
         while (fecha <= fcfn) {
 //            println "Procesa para: $fecha"
             dia = fmt.format(fecha).toLowerCase()
             dias.add(fecha: fecha, dia: diasSem[dia],
-                    obsr: citas[fecha.format('yyyy-MM-dd')]?:'',
+                    obsr: '',
+                    cita: citas[fecha.format('yyyy-MM-dd')]?:'',
                     titl: citas[fecha.format('yyyy-MM-dd')]?:'')
             fecha++
             cont++
@@ -379,7 +382,7 @@ class AgendaController {
         println "meses: $meses"
         println "dias: $dias"
         cn.close()
-        return [anio: anio, dias: dias, meses: meses, params: params]
+        return [anio: anio, dias: dias, meses: meses, params: params, hoy: hoy]
     }
 
 

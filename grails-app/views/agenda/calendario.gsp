@@ -8,13 +8,21 @@
     div.mes {
         float: left;
         margin: 0 0 10px 10px;
-        height: 185px;
+        height: 175px;
     }
 
     table.mes {
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-radius: 8px;
+        border-style: solid;
+        border-width: 1px;
     }
-
+    table tr th {  /*los th dentro de tr dentro de table */
+        text-align: center;
+    }
+    td, th {
+        padding: 0.1rem;
+    }
     .dia {
         width: 38px;
         text-align: center;
@@ -22,11 +30,11 @@
     }
 
     .vacio {
-        background-color: #AAAAAA;
+        background-color: #dddddd;
     }
 
     .vacacion {
-        background-color: #5CAACE;
+        background-color: #a2c1cb;
     }
 
     h1 {
@@ -42,6 +50,9 @@
 
     .nombreMes {
         font-size: 18px;
+    }
+    .actual {
+        background-color: #a2c1cb !important;
     }
     </style>
 </head>
@@ -71,9 +82,11 @@
     los días con cita se muestran con fondo: <div class="demo vacacion">1</div> <br/>
 </div>
 
+
 <g:set var="mesAct" value="${null}"/>
 <g:each in="${dias}" var="dia" status="i">
     <g:set var="mes" value="${meses[dia.fecha.format('MM').toInteger()]}"/>
+    <g:set var="mesNum" value="${dia.fecha.format('MM').toInteger()}"/>
     %{--<g:set var="dia" value="${meses[dia.fecha.format('MM').toInteger()]}"/>--}%
     <g:if test="${mes != mesAct}">
         <g:if test="${mesAct}">
@@ -83,10 +96,10 @@
         <g:set var="mesAct" value="${mes}"/>
         <g:set var="num" value="${1}"/>
         <div class="mes">
-        <table class="mes" border="1">
+        <table class="mes">
         <thead>
         <tr>
-            <th class="nombreMes" colspan="7" style="text-align: center; background-color: #d0d0d0; user-select: none">${mesAct}</th>
+            <th class="nombreMes ${hoy.format('MM').toInteger() == mesNum ? 'actual' : ''}" colspan="7" style="text-align: center; background-color: #d0d0d0; user-select: none">${mesAct}</th>
         </tr>
         <tr>
             <th style="user-select: none">Lun</th>
@@ -110,7 +123,7 @@
             </g:each>
         </g:if>
     </g:if>
-    <td class="dia ${dia.obsr != '' ? 'vacacion' : ''}" data-fecha="${dia.fecha.format('dd-MM-yyyy')}"
+    <td class="dia ${dia.cita != '' ? 'vacacion' : ''}" data-fecha="${dia.fecha.format('dd-MM-yyyy')}"
         data-id="${dia.id}" title="${dia?.titl}">
         ${dia.fecha.format("dd")}
     </td>

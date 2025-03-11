@@ -2,13 +2,13 @@
     <table class="table table-bordered table-striped table-condensed table-hover">
         <thead>
         <tr>
-            <th style="width: 8%">Código</th>
+            <th style="width: 7%">Código</th>
             <th style="width: 15%">Nombre Genérico</th>
-            <th style="width: 12%">Nombre</th>
+            <th style="width: 15%">Nombre</th>
             <th style="width: 12%">Cuadro Básico</th>
             <th style="width: 10%">Forma</th>
             <th style="width: 8%">Concentración</th>
-            <th style="width: 10%">Medicina</th>
+            <th style="width: 8%">Medicina</th>
             <th style="width: 8%">Laboratorio</th>
             <th style="width: 5%">Cantidad</th>
             <th style="width: 5%">Estado</th>
@@ -24,14 +24,13 @@
         <g:if test="${datos}">
             <g:each in="${datos}" status="i" var="medicina">
                 <tr data-id="${medicina.mdcn__id}">
-                    <td style="width: 8%">${medicina.mdcncdgo}</td>
+                    <td style="width: 7%">${medicina.mdcncdgo}</td>
                     <td style="width: 15%">${medicina.mdcntpmd == 'G' ? medicina.mdcndscr : medicina.pdredscr}</td>
-                    <td style="width: 12%">${medicina.mdcndscr}</td>
-                    %{--<td style="width: 12%">${medicina.mdcnpdre ? (medico.Medicina.get(medicina.mdcnpdre)?.codigo?:'S/C' + " - " +medico.Medicina.get(medicina.mdcnpdre)?.descripcion) : ''}</td>--}%
+                    <td style="width: 15%">${medicina.mdcndscr}</td>
                     <td style="width: 12%">${medicina.mdcnpdre ? (medicina.pdrecdgo?:'S/C' + " - " + medicina.pdredscr) : ''}</td>
                     <td style="width: 10%">${medicina.mdcnfrma}</td>
                     <td style="width: 8%">${medicina.mdcncnct}</td>
-                    <td style="width: 10%">${medicina.mdcntpmd == 'G' ? 'GENÉRICO' : 'COMERCIAL'}</td>
+                    <td style="width: 8%">${medicina.mdcntpmd == 'G' ? 'GENÉRICO' : 'COMERCIAL'}</td>
                     <td style="width: 8%">${medico.Laboratorio.get(medicina?.labt__id)?.nombre}</td>
                     <td style="width: 5%">${medicina.mdcncntd}</td>
                     <td style="width: 5%; background-color:  ${medicina.mdcnetdo == 'A' ? '#b5e898' : '#E22B0C'}">${medicina.mdcnetdo == 'A' ? 'Activo' : 'Inactivo'}</td>
@@ -39,15 +38,16 @@
                         <a href="#" class="btn btn-xs btn-success btnEditarMedicina" data-id="${medicina.mdcn__id}" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                                            <a href="#" class="btn btn-xs btn-danger btnEliminarMedicina" data-id="${medicina.mdcn__id}" title="Eliminar">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                        <a href="#" class="btn btn-xs btn-danger btnEliminarMedicina" data-id="${medicina.mdcn__id}" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             </g:each>
         </g:if>
         <g:else>
-            <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> No existen registros</div>
+            <div class="alert alert-warning" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold">
+                <i class="fa fa-exclamation-triangle fa-2x text-info"></i> No existen registros</div>
         </g:else>
         </tbody>
     </table>
