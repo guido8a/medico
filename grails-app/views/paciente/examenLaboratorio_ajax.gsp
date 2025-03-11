@@ -1,7 +1,10 @@
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
-        <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaExamen" title="Editar los datos de Exámenes">
+        <a href="#" class="btn btn-info col-md-12" id="btnEditaExamen" title="Editar los datos de Exámenes">
             <i class="fas fa-edit"></i>
+        </a>
+        <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnImprimirPedido" title="Imprimir pedido de examen">
+            <i class="fas fa-print"></i>
         </a>
     </div>
     <div style="width:96%; float: left">
@@ -18,7 +21,7 @@
                                 <th style="width: 15%">Examen</th>
                                 <th style="width: 10%">Fecha </th>
                                 <th style="width: 25%">Observaciones</th>
-                                                                <th style="width: 10%">Documento</th>
+                                <th style="width: 10%">Documento</th>
                             </tr>
                             </thead>
                             <tbody >
@@ -63,6 +66,13 @@
 </div>
 
 <script type="text/javascript">
+
+    $("#btnImprimirPedido").click(function () {
+        var cita = $("#citaSeleccionada option:selected").val();
+        openLoader("Cargando...");
+        location.href = "${g.createLink(controller:'reportes', action: 'pedidoExamen')}?cita=" + cita
+    });
+
     $("#btnEditaExamen").click(function () {
         var cita = '${cita?.id}';
         if(cita){
