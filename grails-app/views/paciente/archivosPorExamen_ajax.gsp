@@ -6,8 +6,8 @@
                 <tr style="width: 100%">
                     <th style="width: 30%">Examen</th>
                     <th style="width: 15%">Fecha</th>
-                    <th style="width: 40%">Archivo</th>
-                    <th style="width: 15%">Descargar</th>
+                    <th style="width: 40%">Nombre del Archivo</th>
+                    <th style="width: 15%">Archivo</th>
                 </tr>
                 </thead>
             </table>
