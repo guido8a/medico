@@ -21,16 +21,19 @@
                         <tr style="width: 100%">
                             <td style="width: 30%">
                                 <ul>
-                                <g:each in="${medico.DetalleExamen.findAllByExamenComplementario(examen)}">
-                                    <li>
-                                        ${it?.examen?.descripcion}
-                                    </li>
-                                </g:each>
-                            </ul>
+                                    <g:each in="${medico.DetalleExamen.findAllByExamenComplementario(examen)}">
+                                        <li>
+                                            ${it?.examen?.descripcion}
+                                        </li>
+                                    </g:each>
+                                </ul>
                             </td>
                             <td style="width: 15%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
                             <td style="width: 40%">${examen?.path}</td>
                             <td style="width: 15%; text-align: center">
+                                <a class="btn btn-info btn-xs btnCargarDocumento" href="#" rel="tooltip" title="Subir documento" data-id="${examen.id}">
+                                    <i class="fa fa-upload"></i>
+                                </a>
                                 <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${examen.id}">
                                     <i class="fa fa-download"></i>
                                 </g:link>
@@ -48,4 +51,31 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnCargarDocumento").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'historial', action:'formDocExamenes_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                cd = bootbox.dialog({
+                    id      : "dlgDoc",
+                    title   : "Documento del examen",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
 </script>

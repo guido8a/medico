@@ -39,8 +39,14 @@
 
 <script type="text/javascript">
 
+    var va;
+
     $(".btnVerArchivos").click(function () {
         var cita = $(this).data("id");
+        cargarVerArchivos(cita)
+    });
+
+    function cargarVerArchivos(cita){
         $.ajax({
             type    : "POST",
             url: "${createLink(controller: 'paciente', action:'archivosPorExamen_ajax')}",
@@ -48,7 +54,7 @@
                 id: cita
             },
             success : function (msg) {
-                var b = bootbox.dialog({
+                va = bootbox.dialog({
                     id      : "dlgVerArchivosExamenes",
                     title   : "Histórico Archivos Exámenes",
                     class: "modal-lg",
@@ -64,7 +70,11 @@
                 }); //dialog
             } //success
         }); //ajax
-    });
+    }
+
+    function cerrarVerArchivos(){
+        va.modal("hide")
+    }
 
 
 </script>

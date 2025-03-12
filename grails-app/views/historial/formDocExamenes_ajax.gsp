@@ -103,6 +103,10 @@
                                 cargarTablaExamenes();
                                 cerrarCD();
                                 cargarUltimaCita('${examen?.historial?.id}');
+
+                                cerrarVerArchivos();
+                                cargarVerArchivos('${examen?.historial?.id}')
+
                             }else{
                                 bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                             }
@@ -131,14 +135,13 @@
                     cargarTablaExamenes();
                     cerrarCD();
                     cargarUltimaCita('${examen?.historial?.id}');
+
+                    cerrarVerArchivos();
+                    cargarVerArchivos('${examen?.historial?.id}')
+
                 }else{
-                    if(parts[0] === 'err'){
-                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                        return false;
-                    }else{
-                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                        return false;
-                    }
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
                 }
             }
         });
