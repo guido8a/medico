@@ -4,9 +4,11 @@
             <table class="table table-bordered table-striped table-condensed table-hover" style="width: 100%">
                 <thead>
                 <tr style="width: 100%">
-                    <th style="width: 75%">Cita</th>
-                    <th style="width: 15%">Fecha</th>
-                    <th style="width: 10%">Exámenes</th>
+                    <th style="width: 15%">Cita</th>
+                    <th style="width: 10%">Fecha</th>
+                    <th style="width: 15%">Archivo</th>
+                    <th style="width: 50%">Exámenes</th>
+                    <th style="width: 10%">Acciones</th>
                 </tr>
                 </thead>
             </table>
@@ -18,10 +20,13 @@
                 <g:if test="${citas.size() > 0}">
                     <g:each in="${citas}" status="i" var="cita">
                         <tr style="width: 100%">
-                            <td style="width: 75%">${cita?.motivo}</td>
-                            <td style="width: 15%">${cita?.fecha?.format("dd-MM-yyyy")}</td>
+                            <td style="width: 15%">${cita?.hsclmotv}</td>
+                            <td style="width: 10%">${cita?.hsclfcha?.format("dd-MM-yyyy")}</td>
+                            <td style="width: 15%">${cita?.excmpath}</td>
+                            <td style="width: 50%">${cita?.examenes}</td>
                             <td style="width: 10%; text-align: center">
-                                <a class="btn btn-success btn-xs btnVerArchivos" href="#" rel="tooltip" title="Ver archivos de exámenes" data-id="${cita.id}">
+                                <a class="btn btn-success btn-xs btnVerArchivos" href="#" rel="tooltip"
+                                   title="Ver archivos de exámenes" data-id="${cita.hscl__id}">
                                     <i class="fa fa-list"></i>
                                 </a>
                             </td>

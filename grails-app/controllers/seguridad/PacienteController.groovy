@@ -32,6 +32,7 @@ class PacienteController {
 
     def tablaPacientes_ajax() {
         println "tablaPacientes_ajax: $params"
+        def cn = dbConnectionService.getConnection()
         def usuario = Persona.get(session.usuario.id)
         def empresa = usuario.empresa
 
@@ -65,7 +66,6 @@ class PacienteController {
         }
         sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll limit 25".toString()
         println "sql: ${sqlTx}"
-        def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 //        println datos
 
@@ -648,9 +648,19 @@ class PacienteController {
     }
 
     def historicoExamenes_ajax(){
+//        Cita, Fecha, Exámenes, Archivo
+        println "historicoExamenes_ajax: $params"
+        def cn = dbConnectionService.getConnection()
         def paciente = Paciente.get(params.paciente)
         def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', ])
-        return [citas: citas]
+        def sql = "select distinct hscl.hscl__id, hsclmotv, hsclfcha, excmpath, " +
+                "(select array(select examdscr from dtex, exam where exam.exam__id = dtex.exam__id and " +
+                "dtex.excm__id in (select excm__id from excm ec where ec.hscl__id = hscl.hscl__id) ) as examenes) " +
+                "from hscl, excm where excm.hscl__id = hscl.hscl__id and pcnt__id = ${params.paciente} and " +
+                "excmpath is not null order by hsclfcha"
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+        return [citas: data]
     }
 
     def archivosPorExamen_ajax(){
