@@ -55,9 +55,14 @@
     <div class="col-md-6" id="divComboCita">
 
     </div>
-    <div class="col-md-3">
+    <div class="col-md-1">
         <a href="#" class="btn btn-success" id="btnCrearCita" title="Nueva cita">
             <i class="fas fa-plus"></i> Crear Cita
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="btn btn-info" id="btnHistoricoExamenes" title="Histórico de exámenes">
+            <i class="fas fa-list"></i> Histórico de exámenes
         </a>
     </div>
 </div>
@@ -94,6 +99,43 @@
 </div>
 
 <script type="text/javascript">
+
+    var he;
+
+    function cargarHistoricoExamens(){
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'paciente', action:'historicoExamenes_ajax')}",
+            data    : {
+                paciente: paciente
+            },
+            success : function (msg) {
+                he= bootbox.dialog({
+                    id      : "dlgVerHistoricoExamenes",
+                    title   : "Histórico Exámenes",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
+
+    $("#btnHistoricoExamenes").click(function () {
+        cargarHistoricoExamens();
+    });
+
+    function cerrarHistoricoExamenes() {
+        he.modal("hide");
+    }
 
     var dep;
 

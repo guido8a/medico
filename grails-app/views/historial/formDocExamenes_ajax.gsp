@@ -103,10 +103,6 @@
                                 cargarTablaExamenes();
                                 cerrarCD();
                                 cargarUltimaCita('${examen?.historial?.id}');
-
-                                cerrarVerArchivos();
-                                cargarVerArchivos('${examen?.historial?.id}')
-
                             }else{
                                 bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                             }
@@ -132,13 +128,17 @@
                 var parts = msg.split("_");
                 if(parts[0] === 'ok'){
                     log(parts[1], "success");
-                    cargarTablaExamenes();
+
                     cerrarCD();
+                    <g:if test="${tipo == '1'}">
+                    cerrarHistoricoExamenes();
+                    cargarHistoricoExamens();
+                    </g:if>
+                    <g:else>
+                    cargarTablaExamenes();
+                    </g:else>
+
                     cargarUltimaCita('${examen?.historial?.id}');
-
-                    cerrarVerArchivos();
-                    cargarVerArchivos('${examen?.historial?.id}')
-
                 }else{
                     bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                     return false;

@@ -20,38 +20,44 @@
     </a>
 </g:if>
 
-<a href="#" class="btn btn-info" id="btnHistoricoExamenes" title="Histórico de exámenes">
-    <i class="fas fa-list"></i> Histórico de exámenes
-</a>
+%{--<a href="#" class="btn btn-info" id="btnHistoricoExamenes" title="Histórico de exámenes">--}%
+%{--    <i class="fas fa-list"></i> Histórico de exámenes--}%
+%{--</a>--}%
 
 <script type="text/javascript">
 
-    $("#btnHistoricoExamenes").click(function () {
-        var paciente = '${paciente?.id}';
-        $.ajax({
-            type    : "POST",
-            url: "${createLink(controller: 'paciente', action:'historicoExamenes_ajax')}",
-            data    : {
-                paciente: paciente
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgVerHistoricoExamenes",
-                    title   : "Histórico Exámenes",
-                    class: "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    });
+    %{--var he;--}%
+
+    %{--function cargarHistoricoExamens(){--}%
+    %{--    var paciente = '${paciente?.id}';--}%
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url: "${createLink(controller: 'paciente', action:'historicoExamenes_ajax')}",--}%
+    %{--        data    : {--}%
+    %{--            paciente: paciente--}%
+    %{--        },--}%
+    %{--        success : function (msg) {--}%
+    %{--            he= bootbox.dialog({--}%
+    %{--                id      : "dlgVerHistoricoExamenes",--}%
+    %{--                title   : "Histórico Exámenes",--}%
+    %{--                class: "modal-lg",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--}--}%
+
+    // $("#btnHistoricoExamenes").click(function () {
+    //     cargarHistoricoExamens();
+    // });
 
     $("#btnDarBajaCita").click(function() {
         borrarCita();
@@ -81,5 +87,9 @@
         openLoader("Cargando...");
         location.href = "${g.createLink(controller:'reportes', action: 'receta')}?cita=" + cita
     });
+
+    // function cerrarHistoricoExamenes() {
+    //     he.modal("hide");
+    // }
 
 </script>
