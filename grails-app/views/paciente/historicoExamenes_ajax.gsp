@@ -23,7 +23,7 @@
                             <td style="width: 15%">${cita?.hsclmotv}</td>
                             <td style="width: 10%">${cita?.hsclfcha?.format("dd-MM-yyyy")}</td>
                             <td style="width: 15%">${cita?.excmpath}</td>
-                            <td style="width: 50%">${cita?.examenes?.toString().replaceAll(',', ', ')}</td>
+%{--                            <td style="width: 50%">${cita?.examenes?.toString().replaceAll(',', ', ')}</td>--}%
                             <td style="width: 10%; text-align: center">
                                 <a class="btn btn-success btn-xs btnVerArchivos" href="#" rel="tooltip"
                                    title="Ver archivos de exámenes" data-id="${cita.hscl__id}">

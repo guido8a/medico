@@ -653,11 +653,18 @@ class PacienteController {
         def cn = dbConnectionService.getConnection()
         def paciente = Paciente.get(params.paciente)
         def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', ])
-        def sql = "select distinct hscl.hscl__id, hsclmotv, hsclfcha, excmpath, " +
-                "(select array(select examdscr from dtex, exam where exam.exam__id = dtex.exam__id and " +
-                "dtex.excm__id in (select excm__id from excm ec where ec.hscl__id = hscl.hscl__id) ) as examenes) " +
-                "from hscl, excm where excm.hscl__id = hscl.hscl__id and pcnt__id = ${params.paciente} and " +
-                "excmpath is not null order by hsclfcha"
+//        def sql = "select distinct hscl.hscl__id, hsclmotv, hsclfcha, excmpath, " +
+//                "(select array(select examdscr from dtex, exam where exam.exam__id = dtex.exam__id and " +
+//                "dtex.excm__id in (select excm__id from excm ec where ec.hscl__id = hscl.hscl__id) ) as examenes) " +
+//                "from hscl, excm where excm.hscl__id = hscl.hscl__id and pcnt__id = ${params.paciente} and " +
+//                "excmpath is not null order by hsclfcha"
+
+        def sql = "select hscl.hscl__id, hsclmotv, hsclfcha, excmpath, excm.excm__id,\n" +
+                "string_agg(examdscr, ',' order by examdscr)\n" +
+                "from hscl, excm, exam, dtex where excm.hscl__id = hscl.hscl__id and pcnt__id = 155 and\n" +
+                "excmpath is not null and dtex.excm__id = excm.excm__id and exam.exam__id = dtex.exam__id \n" +
+                "group by hscl.hscl__id, hsclmotv, hsclfcha, excmpath, excm.excm__id;"
+
         println "sql: $sql"
         def data = cn.rows(sql.toString())
         return [citas: data]
