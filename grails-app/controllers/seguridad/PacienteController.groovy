@@ -651,8 +651,8 @@ class PacienteController {
 //        Cita, Fecha, Exámenes, Archivo
         println "historicoExamenes_ajax: $params"
         def cn = dbConnectionService.getConnection()
-        def paciente = Paciente.get(params.paciente)
-        def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', ])
+//        def paciente = Paciente.get(params.paciente)
+//        def citas = Historial.findAllByPaciente(paciente, [sort: 'fecha', ])
 //        def sql = "select distinct hscl.hscl__id, hsclmotv, hsclfcha, excmpath, " +
 //                "(select array(select examdscr from dtex, exam where exam.exam__id = dtex.exam__id and " +
 //                "dtex.excm__id in (select excm__id from excm ec where ec.hscl__id = hscl.hscl__id) ) as examenes) " +
@@ -661,7 +661,8 @@ class PacienteController {
 
         def sql = "select hscl.hscl__id, hsclmotv, hsclfcha, excmpath, excm.excm__id, " +
                 "string_agg(examdscr, ',' order by examdscr) examenes " +
-                "from hscl, excm, exam, dtex where excm.hscl__id = hscl.hscl__id and pcnt__id = 155 and " +
+                "from hscl, excm, exam, dtex where excm.hscl__id = hscl.hscl__id and " +
+                "pcnt__id = ${params.paciente} and " +
                 "excmpath is not null and dtex.excm__id = excm.excm__id and exam.exam__id = dtex.exam__id " +
                 "group by hscl.hscl__id, hsclmotv, hsclfcha, excmpath, excm.excm__id;"
 
