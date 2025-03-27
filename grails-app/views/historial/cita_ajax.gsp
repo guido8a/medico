@@ -40,8 +40,7 @@
             </label>
             <span class="grupo" >
                 <span class="col-md-2 " >
-                    %{--<g:textField name="hora" class="form-control required" required value="${historial?.hora ?: '00:00'}"/>--}%
-                    <g:textField name="hora" class="form-control required" required value="${historial?.hora ?: hora}"/>
+                    <g:textField name="hora" class="form-control required" required="" value="${historial?.hora ?: hora}"/>
                 </span>
                 <span class="col-md-3" style="font-weight: bold">
                     (Formato de la hora ejemplo: 07:00)
@@ -102,6 +101,51 @@
         icons: {
         }
     });
+
+    function validarNum(ev) {
+        /*
+         48-57      -> numeros
+         96-105     -> teclado numerico
+         188        -> , (coma)
+         190        -> . (punto) teclado
+         110        -> . (punto) teclado numerico
+         8          -> backspace
+         46         -> delete
+         9          -> tab
+         37         -> flecha izq
+         39         -> flecha der
+         */
+        return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
+            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39 || ev.keyCode === 190);
+    }
+
+    $("#hora").bind({
+        keydown : function (ev) {
+            if(ev.key === '.'){
+                setTimeout(function() {
+                    ev.target.value += ':';
+                }, 4);
+                ev.preventDefault();
+            } else {
+                return validarNum(ev);
+            }
+        }, //keydown
+        // keyup   : function () {
+        //     var val = $(this).val();
+        //     var parts = val.split(":");
+        //     if (parts.length > 1) {
+        //         if (parts[1].length > 6) {
+        //             parts[1] = parts[1].substring(0, 6);
+        //             val = parts[0] + "." + parts[1];
+        //             $(this).val(val);
+        //         }
+        //     }
+        //
+        // }
+    });
+
 
 
 </script>
