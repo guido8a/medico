@@ -56,6 +56,10 @@ class HistorialController {
             params.fecha = new Date().parse("dd-MM-yyyy", params.fecha)
         }
 
+        if(params.hora){
+            params.hora = params.hora.replaceAll("\\.", ":")
+        }
+
         if(params.proximaCita){
             params.proximaCita = new Date().parse("dd-MM-yyyy", params.proximaCita)
         }

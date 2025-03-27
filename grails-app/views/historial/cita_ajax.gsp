@@ -115,35 +115,27 @@
          37         -> flecha izq
          39         -> flecha der
          */
+        console.log('key:', ev.keyCode)
         return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
-            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
             ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
             ev.keyCode === 37 || ev.keyCode === 39 || ev.keyCode === 190);
     }
 
-    $("#hora").bind({
-        keydown : function (ev) {
-            if(ev.key === '.'){
-                setTimeout(function() {
-                    ev.target.value += ':';
-                }, 4);
-                ev.preventDefault();
-            } else {
-                return validarNum(ev);
-            }
-        }, //keydown
-        // keyup   : function () {
-        //     var val = $(this).val();
-        //     var parts = val.split(":");
-        //     if (parts.length > 1) {
-        //         if (parts[1].length > 6) {
-        //             parts[1] = parts[1].substring(0, 6);
-        //             val = parts[0] + "." + parts[1];
-        //             $(this).val(val);
-        //         }
-        //     }
-        //
-        // }
+//    $("#hora").bind({
+//        keydown : function (ev) {
+//            if(ev.key === '.'){
+//                setTimeout(function() {
+//                    ev.target.value += ':';
+//                }, 4);
+//                ev.preventDefault();
+//            } else {
+//                return validarNum(ev);
+//            }
+//        }, //keydown
+//    });
+
+    $("#hora").keydown(function (ev) {
+        return validarNum(ev);
     });
 
 
