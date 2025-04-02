@@ -177,51 +177,55 @@ class MedicinaController {
     def borrarMedicina_ajax(){
         println "borrar: $params"
         def medicina = Medicina.get(params.id)
-        def generica = Medicina.findAllByPadre(medicina)
 
-        if(generica){
-            render "no_Error al borrar la medicina, es medicina genérica"
-        }else{
+        def usado
+        try{
+            medicina.delete(flush:true)
+            render "ok_Borrado correctamente"
+        }catch(e){
+            usado = Medicina.countByPadre(medicina)
+            if(usado){
+                println("error al borrar la medicina " + medicina.errors)
+                render "no_Error al borrar la medicina, es medicina genérica (${params.id})"
+                return
+            }
+            usado = Tratamiento.findByMedicina(medicina)
+            if(usado){
+                println("error al borrar la medicina " + medicina.errors)
+                render "no_Error al borrar la medicina, está en tratamiento (${params.id})"
+            }
+        }
+    }
 
 
-            def hermanos = Medicina.findAllByPadre(medicina.padre)
+    def reemplazarYBorrarMedicina_ajax(){
 
+        println("parmas " + params)
 
+        def medicina = Medicina.get(params.id)
+        def medicinaReemplazo = Medicina.get(params.reemplazo)
+        def hijos = Medicina.findAllByPadre(medicina)
+        def existeTratamiento = Tratamiento.findAllByMedicina(medicina)
 
+        if(hijos){
+            render "no_Error al borrar la medicina, posee medicinas derivadas"
+        }else {
+            if (existeTratamiento) {
+                existeTratamiento.each {
+                    it.medicina = medicinaReemplazo
+                    it.save(flush: true)
+                }
+            }
 
-
-            if(hermanos){
-
-            }else{
-
+            try{
+                medicina.delete(flush: true)
+                render "ok_Borrado correctamente"
+            }catch(e){
+                println("error al borrar la medicina " + medicina.errors)
+                render "no_Error al borrar la medicina "
             }
 
         }
-
-
-
-
-//        def usado
-//        try{
-//            medicina.delete(flush:true)
-//            render "ok_Borrado correctamente"
-//        }catch(e){
-//            usado = Medicina.countByPadre(medicina)
-//            if(usado){
-//                println("error al borrar la medicina " + medicina.errors)
-//                render "no_Error al borrar la medicina, es medicina genérica (${params.id})"
-//                return
-//            }
-//            usado = Tratamiento.findByMedicina(medicina)
-//            if(usado){
-//                println("error al borrar la medicina " + medicina.errors)
-//                render "no_Error al borrar la medicina, está en tratamiento (${params.id})"
-//                return
-//            }
-//        }
-
-
-
     }
 
 }

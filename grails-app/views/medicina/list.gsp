@@ -217,7 +217,7 @@
                 }else{
                     $.ajax({
                         type    : "POST",
-                        url: "${createLink(action:'otrasMedicinas_ajax')}",
+                        url: "${createLink(controller: 'medicina',  action:'otrasMedicinas_ajax')}",
                         data    : {
                             id: itemId
                         },
@@ -225,7 +225,7 @@
                             var  dcm = bootbox.dialog({
                                 id      : "dlgCreateEdit",
                                 title   : "Cambiar Medicina y dar de baja",
-                                // class: "modal-lg",
+                                // async: false,
                                 message : msg,
                                 buttons : {
                                     cancelar : {
@@ -239,7 +239,26 @@
                                         label     : "<i class='fa fa-trash'></i> Aceptar",
                                         className : "btn-success",
                                         callback  : function () {
-
+                                            var v = cargarLoader("Eliminando...");
+                                            $.ajax({
+                                                type    : "POST",
+                                                url     : '${createLink(action:'reemplazarYBorrarMedicina_ajax')}',
+                                                data    : {
+                                                    id : itemId,
+                                                    reemplazo: $("#nueva option:selected").val()
+                                                },
+                                                success : function (msg) {
+                                                    v.modal("hide");
+                                                    var parts = msg.split("_");
+                                                    if(parts[0] === 'ok'){
+                                                        log(parts[1],"success");
+                                                        cargarTablaMedicinas();
+                                                    }else{
+                                                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                                                        return false;
+                                                    }
+                                                }
+                                            });
                                         } //callback
                                     } //guardar
                                 } //buttons
