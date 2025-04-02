@@ -18,7 +18,7 @@
     </div>
 
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
-        <div class="row" >
+        <div class="col-md-12">
             <div class="col-md-2" style="text-align: right">
                 <label class="control-label text-info">Buscar por:</label>
             </div>
@@ -168,41 +168,84 @@
     }
 
     function deleteRow(itemId) {
-        bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i>" +
-            "<p style='font-weight: bold; font-size: 14px'> " +
-            "Está seguro que desea dar de baja esta medicina? </p>",
-            buttons : {
-                cancelar : {
-                    label     : "Cancelar",
-                    className : "btn-primary",
-                    callback  : function () {
-                    }
-                },
-                eliminar : {
-                    label     : "<i class='fa fa-trash'></i> Eliminar",
-                    className : "btn-danger",
-                    callback  : function () {
-                        var v = cargarLoader("Eliminando...");
-                        $.ajax({
-                            type    : "POST",
-                            url     : '${createLink(action:'borrarMedicina_ajax')}',
-                            data    : {
-                                id : itemId
+        $.ajax({
+            type    : "POST",
+            url     : '${createLink(action:'verificarBorrado_ajax')}',
+            data    : {
+                id : itemId
+            },
+            success : function (msg) {
+                if(msg === 'ok'){
+                    bootbox.dialog({
+                        title   : "Alerta",
+                        message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i>" +
+                            "<p style='font-weight: bold; font-size: 14px'> " +
+                            "Está seguro que desea dar de baja esta medicina genérica? </p>",
+                        buttons : {
+                            cancelar : {
+                                label     : "Cancelar",
+                                className : "btn-primary",
+                                callback  : function () {
+                                }
                             },
-                            success : function (msg) {
-                                v.modal("hide");
-                                var parts = msg.split("_");
-                                if(parts[0] === 'ok'){
-                                    log(parts[1],"success");
-                                    cargarTablaMedicinas();
-                                }else{
-                                    log(parts[1],"error")
+                            eliminar : {
+                                label     : "<i class='fa fa-trash'></i> Eliminar",
+                                className : "btn-danger",
+                                callback  : function () {
+                                    var v = cargarLoader("Eliminando...");
+                                    $.ajax({
+                                        type    : "POST",
+                                        url     : '${createLink(action:'borrarMedicina_ajax')}',
+                                        data    : {
+                                            id : itemId
+                                        },
+                                        success : function (msg) {
+                                            v.modal("hide");
+                                            var parts = msg.split("_");
+                                            if(parts[0] === 'ok'){
+                                                log(parts[1],"success");
+                                                cargarTablaMedicinas();
+                                            }else{
+                                                log(parts[1],"error")
+                                            }
+                                        }
+                                    });
                                 }
                             }
-                        });
-                    }
+                        }
+                    });
+                }else{
+                    $.ajax({
+                        type    : "POST",
+                        url: "${createLink(action:'otrasMedicinas_ajax')}",
+                        data    : {
+                            id: itemId
+                        },
+                        success : function (msg) {
+                            var  dcm = bootbox.dialog({
+                                id      : "dlgCreateEdit",
+                                title   : "Cambiar Medicina y dar de baja",
+                                // class: "modal-lg",
+                                message : msg,
+                                buttons : {
+                                    cancelar : {
+                                        label     : "Cancelar",
+                                        className : "btn-primary",
+                                        callback  : function () {
+                                        }
+                                    },
+                                    guardar  : {
+                                        id        : "btnSave",
+                                        label     : "<i class='fa fa-trash'></i> Aceptar",
+                                        className : "btn-success",
+                                        callback  : function () {
+
+                                        } //callback
+                                    } //guardar
+                                } //buttons
+                            }); //dialog
+                        } //success
+                    }); //ajax
                 }
             }
         });
