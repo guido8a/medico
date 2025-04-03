@@ -44,7 +44,7 @@ class MedicinaController {
                 " (m.mdcndscr ilike '%${params.criterio}%' or m.mdcnnmbr ilike '%${params.criterio}%') "
 
         sqlTx = "${select} ${txwh} order by m.mdcndscr limit 100".toString()
-        println "sql: $sqlTx"
+//        println "sql: $sqlTx"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
         cn.close()
@@ -54,17 +54,17 @@ class MedicinaController {
     }
 
     def saveMedicina_ajax() {
+        println("params " + params)
+
         def medicina
-        def existe = Medicina.findByDescripcionIlikeAndForma(params.descripcion, params.forma)
+//        def existe = Medicina.findAllByDescripcionIlikeAndFormaAndConcentracion(params.descripcion, params.forma, params.concentracion)
+        def existe = Medicina.findAllByDescripcionIlikeAndConcentracionIlike(params.descripcion, params.concentracion)
 
         if(params.tipoMedicamento == 'C'){
             params.laboratorio = params.laboratorio
         }else{
             params.laboratorio = null
         }
-
-        println "existe_id: ${existe?.id} == ${medicina?.id}"
-
 
         if(params.tipoMedicamento == 'C'){
             if(!params.nombrePadre){
@@ -75,13 +75,26 @@ class MedicinaController {
 
         if(params.id){
             medicina = Medicina.get(params.id)
+            println "existe_id: ${existe} == ${medicina?.id}"
+
+
+            if(existe.size() >=1){
+                if(existe.contains(medicina)){
+
+                }else{
+                    render "err_Ya existe una medicina con ese nombre y concentración"
+                    return
+                }
+            }
+
+
 //            if(existe?.id != medicina?.id){
 //                render "err_Ya existe una medicina con ese nombre"
 //                return
 //            }
         }else{
-            if(existe){
-                render "err_Ya existe una medicina con ese nombre"
+            if(existe.size() >= 1){
+                render "err_Ya existe una medicina con ese nombre y concentración"
                 return
             }
 
