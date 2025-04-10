@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Base de Conocimiento</title>
+    <title>Guías y protocolos</title>
 
     <style type="text/css">
 
@@ -31,7 +31,7 @@
 </head>
 
 <body>
-<h3 style="text-align: center; margin-top: 0px">Base de Conocimiento</h3>
+<h3 style="text-align: center; margin-top: 0px">Guías y protocolos</h3>
 <div style="margin-top: 0px; min-height: 60px" class="vertical-container">
     <p class="css-vertical-text">Buscar</p>
 

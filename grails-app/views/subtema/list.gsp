@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Lista de Subtemas</title>
+    <title>Lista de Tipologías</title>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <div class="btn-group">
         <a href="#" class="btn btn-success btnNuevoSubTema">
             <i class="fa fa-file"></i>
-            Nuevo Subtema
+            Nueva tipología
         </a>
     </div>
 </div>
@@ -106,7 +106,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Subtema",
+                    title   : title + " tipología",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -158,7 +158,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este subtema? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar esta tipología? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",

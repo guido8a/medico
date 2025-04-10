@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Lista de Temas</title>
+    <title>Especialidad médica</title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
         </g:link>
         <a href="#" class="btn btn-success btnNuevoTema">
             <i class="fa fa-file"></i>
-            Nuevo Tema
+            Nueva especialidad
         </a>
     </div>
 </div>
@@ -96,7 +96,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Tema",
+                    title   : title + " especialidad",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -148,7 +148,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar este tema? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i><p style='font-weight: bold'> Está seguro que desea eliminar esta especialidad? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",

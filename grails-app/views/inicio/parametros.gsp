@@ -88,9 +88,9 @@
                                 </g:link>
 
                                 <div class="descripcion hidden">
-                                    <h4>Temas</h4>
+                                    <h4>Especialidad médica</h4>
 
-                                    <p> Administración de temas de la base de conocimiento
+                                    <p> Administración de especialidades médicas de las guías y protocolos
                                     </p>
                                 </div>
                             </li>
@@ -101,9 +101,9 @@
                                 </g:link>
 
                                 <div class="descripcion hidden">
-                                    <h4>Subtemas</h4>
+                                    <h4>Tipología</h4>
 
-                                    <p> Administración de Subtemas de la base de conocimiento
+                                    <p> Administración de tipología de las guías y protocolos
                                     </p>
                                 </div>
                             </li>
