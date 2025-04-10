@@ -17,7 +17,7 @@
 <g:set var="clase" value="${'principal'}"/>
 
 <div class=""  style="width: 99.7%;height: ${msg == '' ? 400 : 585}px; overflow-y: auto; margin-top: -20px">
-    <table id="" class="table-bordered table-condensed table-hover" style="width: 100%">
+    <table id="" class="table-bordered table-condensed table-hover table-striped" style="width: 100%">
         <g:if test="${bases}">
             <g:each in="${bases}" var="dato" status="z">
                 <tr id="${dato.id}" data-id="${dato.id}" class="${clase}">
@@ -43,6 +43,9 @@
                         <a href="#" class="btn btn-xs btn-success btnEditar" data-id="${dato.id}" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
+                        <a href="#" class="btn btn-xs btn-warning btnArchivos" data-id="${dato.id}" title="Documentos">
+                            <i class="fas fa-book"></i>
+                        </a>
                     </td>
                 </tr>
             </g:each>
@@ -58,6 +61,32 @@
 
 <script type="text/javascript">
 
+
+    $(".btnArchivos").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'guia', action:'documentos_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+               var cd = bootbox.dialog({
+                    id      : "dlgDoc",
+                    title   : "Cargar Documento",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
     $(".btnVer").click(function () {
         var id = $(this).data("id");
@@ -81,16 +110,4 @@
         location.href = '${createLink(controller: 'base', action: 'base')}/' + id
     })
 
-
-    // $(function () {
-    //     $("tr").contextMenu({
-    //         items  : createContextMenu,
-    //         onShow : function ($element) {
-    //             $element.addClass("trHighlight");
-    //         },
-    //         onHide : function ($element) {
-    //             $(".trHighlight").removeClass("trHighlight");
-    //         }
-    //     });
-    // });
 </script>
