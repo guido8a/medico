@@ -95,7 +95,7 @@
 
 <body>
 
-<div class="panel panel-primary col-md-12">
+<div class="panel panel-primary col-md-10">
 
     <div class="panel-heading" style="padding: 3px; margin-top: 2px">
 
@@ -200,7 +200,7 @@
                                 <span class="col-md-2 label label-primary text-info mediano">Solución</span>
                                 <div class="col-md-10">
                                     <span class="grupo">
-                                        <g:textArea name="solucion" id="slcn" class="form-control required" maxlength="1023" style="height: 80px; resize: none" value="${base?.solucion}"/>
+                                        <g:textArea name="solucion" id="slcn" class="form-control required" maxlength="1023" style="height: 60px; resize: none" value="${base?.solucion}"/>
                                     </span>
                                 </div>
                             </div>
@@ -258,9 +258,6 @@
 
                         <div class="linea" id="linea-arch" style="display: none"></div>
                     </div>
-
-
-%{--                    <div id="divCarrusel"></div>--}%
                 </div>
 
                 <div id="archivos" class="tab-pane fade">
@@ -368,14 +365,13 @@
     };
 
     CKEDITOR.replace( 'algoritmo', {
-        height: "160px",
+        height: "100px",
         customConfig: 'config.js',
         filebrowserBrowseUrl    : '${createLink(controller: "baseImagenes", action: "browser")}',
         filebrowserUploadUrl    : '${createLink(controller: "baseImagenes", action: "uploader")}',
         toolbar                 : [
             ['FontSize', 'Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
-            ['Bold', 'Italic', 'Underline','Subscript', 'Superscript'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']
+            ['Bold', 'Italic', 'Underline','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-'],
         ]
     });
 
