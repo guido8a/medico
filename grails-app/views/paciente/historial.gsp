@@ -185,7 +185,7 @@
         var cita = $("#citaSeleccionada option:selected").val();
         bootbox.dialog({
             title: "Alerta",
-            message: "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>" +
+            message: "<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i><p>" +
                 "¿Está seguro que desea finalizar la cita seleccionada? Esta acción no se puede deshacer.</p>",
             closeButton: false,
             buttons: {
