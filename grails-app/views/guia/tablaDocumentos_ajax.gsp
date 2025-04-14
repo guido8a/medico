@@ -51,11 +51,11 @@
             buttons: {
                 confirm: {
                     label: '<i class="fa fa-trash"></i> Borrar',
-                    className: 'btn-success'
+                    className: 'btn-danger'
                 },
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar',
-                    className: 'btn-danger'
+                    className: 'btn-primary'
                 }
             },
             callback: function (result) {

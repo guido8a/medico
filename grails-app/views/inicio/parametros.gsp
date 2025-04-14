@@ -84,7 +84,7 @@
 
                             <li>
                                 <g:link data-info="categoria" class="over tamano" controller="tema" action="list" >
-                                    <i class="fa-li fas fa-certificate text-info"></i> Temas
+                                    <i class="fa-li fas fa-certificate text-info"></i> Especialidad médica
                                 </g:link>
 
                                 <div class="descripcion hidden">
@@ -97,7 +97,7 @@
 
                             <li>
                                 <g:link data-info="categoria" class="over tamano" controller="subtema" action="list" >
-                                    <i class="fa-li fas fa-certificate text-info"></i> Subtemas
+                                    <i class="fa-li fas fa-certificate text-info"></i> Tipología
                                 </g:link>
 
                                 <div class="descripcion hidden">
