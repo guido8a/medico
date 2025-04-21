@@ -1,7 +1,7 @@
 
 
 <div class="tituloTree">
-    Exámenes del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
+    Exámenes ${tipo == '1' ? ' de Imagen ' : ''} del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
 </div>
 
 <g:if test="${flash.message}">
@@ -48,7 +48,8 @@
             type: 'POST',
             url: '${createLink(controller: 'historial', action: 'tablaExamenes_ajax')}',
             data:{
-                id: '${historial?.id}'
+                id: '${historial?.id}',
+                tipo: '${tipo}'
             },
             success: function (msg){
                 d.modal("hide");

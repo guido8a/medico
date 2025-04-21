@@ -318,18 +318,20 @@
         })
     }
 
-    function cargarExamenes() {
+    function cargarExamenes(tipo) {
         var cita = "${cita?.id}";
+        var texto = tipo === 1 ? "Exámenes de Imagen de la cita" : 'Exámenes de la cita';
         $.ajax({
             type    : "POST",
             url: "${createLink(controller: 'historial', action:'examenes_ajax')}",
             data    : {
-                cita: cita
+                cita: cita,
+                tipo: tipo
             },
             success : function (msg) {
                 bcpc = bootbox.dialog({
                     id      : "dlgExamenes",
-                    title   : "Exámenes de la cita",
+                    title   : texto,
                     class: "modal-lg",
                     message : msg,
                     buttons : {
@@ -344,6 +346,8 @@
             } //success
         }); //ajax
     }
+
+
 
     $("#btnTratamiento").click(function () {
         var cita = "${cita?.id}";

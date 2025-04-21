@@ -3,6 +3,9 @@
         <a href="#" class="btn btn-info col-md-12" id="btnEditaExamen" title="Editar los datos de Exámenes">
             <i class="fas fa-edit"></i>
         </a>
+        <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnEditaExamenImagen" title="Editar los datos de Exámenes de Imagen">
+            <i class="fas fa-image"></i>
+        </a>
         <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnImprimirPedido" title="Imprimir pedido de examen">
             <i class="fas fa-print"></i>
         </a>
@@ -82,4 +85,15 @@
                 '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');
         }
     });
+
+    $("#btnEditaExamenImagen").click(function () {
+        var cita = '${cita?.id}';
+        if(cita){
+            cargarExamenes(1);
+        }else{
+            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
+                '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');
+        }
+    });
+
 </script>

@@ -251,8 +251,17 @@ class HistorialController {
 
     def examenes_ajax(){
         def historial = Historial.get(params.cita)
-        def examenes = ExamenComplementario.findAllByHistorial(historial)
-        return [historial: historial, examenes: examenes]
+//        def grupoExamen = GrupoExamen.get(6)
+//        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
+//        def examenes
+//
+//        if(params.tipo == '1'){
+//            examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(historial, tipoExamen)
+//        }else{
+//            examenes = ExamenComplementario.findAllByHistorialAndTipoExamenNotInList(historial, tipoExamen)
+//        }
+
+        return [historial: historial, tipo: params.tipo]
     }
 
     def formExamenes_ajax(){
@@ -397,7 +406,18 @@ class HistorialController {
 
     def tablaExamenes_ajax(){
         def historial = Historial.get(params.id)
-        def examenes = ExamenComplementario.findAllByHistorial(historial, [sort: "id"])
+//        def examenes = ExamenComplementario.findAllByHistorial(historial, [sort: "id"])
+
+        def grupoExamen = GrupoExamen.get(6)
+        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
+        def examenes
+
+        if(params.tipo == '1'){
+            examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(historial, tipoExamen, [sort: "id"])
+        }else{
+            examenes = ExamenComplementario.findAllByHistorialAndTipoExamenNotInList(historial, tipoExamen, [sort: "id"])
+        }
+
         return [historial: historial, examenes: examenes]
     }
 
