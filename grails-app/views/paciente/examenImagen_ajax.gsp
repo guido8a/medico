@@ -1,6 +1,6 @@
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width: 3%; float: left; margin-right: 5px">
-        <a href="#" class="btn btn-info col-md-12" id="btnEditaExamen" title="Editar los datos de Exámenes">
+        <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnEditaExamenImagen" title="Editar los datos de Exámenes de Imagen">
             <i class="fas fa-edit"></i>
         </a>
         <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnImprimirPedido" title="Imprimir pedido de examen">
@@ -56,7 +56,7 @@
                         </table>
                     </g:if>
                     <g:else>
-                        <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin exámenes de laboratorio</div>
+                        <div class="alert alert-success" style="margin-top: 0px; text-align: center; font-size: 14px; font-weight: bold"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> Sin exámenes</div>
                     </g:else>
                 </td>
             </tr>
@@ -73,10 +73,10 @@
         location.href = "${g.createLink(controller:'reportes', action: 'pedidoExamen')}?cita=" + cita
     });
 
-    $("#btnEditaExamen").click(function () {
+    $("#btnEditaExamenImagen").click(function () {
         var cita = '${cita?.id}';
         if(cita){
-            cargarExamenes();
+            cargarExamenes(1);
         }else{
             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' +
                 '<strong style="font-size: 14px">' + "No ha seleccionado una cita" + '</strong>');

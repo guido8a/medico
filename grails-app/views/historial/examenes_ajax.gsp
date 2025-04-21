@@ -62,7 +62,8 @@
         var title = id ? "Editar " : "Crear ";
         var data = {
             cita : "${historial.id}",
-            id: id
+            id: id,
+            tipo: '${tipo}'
         };
         $.ajax({
             type    : "POST",

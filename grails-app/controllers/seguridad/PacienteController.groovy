@@ -8,8 +8,10 @@ import medico.DiagnosticoxHistorial
 import medico.Examen
 import medico.ExamenComplementario
 import medico.ExamenFisico
+import medico.GrupoExamen
 import medico.Historial
 import medico.Medicina
+import medico.TipoExamen
 import medico.Tratamiento
 
 import javax.imageio.ImageIO
@@ -388,7 +390,10 @@ class PacienteController {
 
     def examenLaboratorio_ajax() {
         def cita = Historial.get(params.id)
-        def examenes = ExamenComplementario.findAllByHistorial(cita)
+        def grupoExamen = GrupoExamen.get(6)
+        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
+        def examenes = ExamenComplementario.findAllByHistorialAndTipoExamenNotInList(cita, tipoExamen, [sort: "id"])
+
         return [examenes: examenes, cita: cita]
     }
 
@@ -629,7 +634,7 @@ class PacienteController {
 
     }
 
-  def datosCompletos_ajax() {
+    def datosCompletos_ajax() {
         def paciente
 
         def usuario = Persona.get(session.usuario.id)
@@ -675,5 +680,15 @@ class PacienteController {
         def cita = Historial.get(params.id)
         def examenes = ExamenComplementario.findAllByHistorialAndPathIsNotNull(cita, [sort: "id"])
         return [examenes: examenes]
+    }
+
+    def examenImagen_ajax() {
+        def cita = Historial.get(params.id)
+
+        def grupoExamen = GrupoExamen.get(6)
+        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
+        def examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(cita, tipoExamen, [sort: "id"])
+
+        return [examenes: examenes, cita: cita]
     }
 }

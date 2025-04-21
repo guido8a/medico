@@ -174,6 +174,12 @@
 
             </div>
 
+            <h4>Exámenes Imágenes</h4>
+
+            <div id="divExamenImagenes">
+
+            </div>
+
             <div id="comentario">
 
             </div>
@@ -318,6 +324,23 @@
         })
     }
 
+    function cargarExamenImagen(cita) {
+        var d = cargarLoader("Cargando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'paciente', action: 'examenImagen_ajax')}',
+            data:{
+                id: cita
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divExamenImagenes").html(msg)
+            }
+        })
+    }
+
+    cargarExamenImagen('${cita?.id}');
+
     function cargarExamenes(tipo) {
         var cita = "${cita?.id}";
         var texto = tipo === 1 ? "Exámenes de Imagen de la cita" : 'Exámenes de la cita';
@@ -346,8 +369,6 @@
             } //success
         }); //ajax
     }
-
-
 
     $("#btnTratamiento").click(function () {
         var cita = "${cita?.id}";
