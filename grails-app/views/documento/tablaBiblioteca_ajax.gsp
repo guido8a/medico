@@ -46,6 +46,10 @@
                                     <i class="fa fa-download"></i>
                                 </g:link>
                             </g:else>
+
+                            <embed src="${createLink(controller: 'documento', action: 'downloadFile', id: documento?.dcmt__id)}" type='application/pdf'>
+
+
                         </g:if>
                         <a href="#" class="btn btn-xs btn-danger btnEliminarDocumento" data-id="${documento.dcmt__id}" title="Eliminar documento">
                             <i class="fas fa-trash"></i>
