@@ -36,10 +36,15 @@
                         </a>
                         <g:if test="${documento.dcmtruta}">
                             <g:if test="${documento?.dcmtruta?.toString()?.split("\\.")[1] == 'pdf'}">
-                                <g:link class="btn btn-warning btn-xs"
-                                        action="downloadMyFile" params="[id: documento?.dcmt__id]" resource="${instance}"
-                                        target="_blank" title="Ver PDF"><i class="fa fa-search"></i>
+%{--                                <g:link class="btn btn-warning btn-xs"--}%
+%{--                                        action="downloadMyFile" params="[id: documento?.dcmt__id]" resource="${instance}"--}%
+%{--                                        target="_blank" title="Ver PDF"><i class="fa fa-search"></i>--}%
+%{--                                </g:link>--}%
+                                <g:link action="verPdf" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Ver PDF" id="${documento.dcmt__id}">
+                                    <i class="fa fa-file-pdf"></i>
                                 </g:link>
+
+
                             </g:if>
                             <g:else>
                                 <g:link action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${documento.dcmt__id}">
@@ -47,7 +52,7 @@
                                 </g:link>
                             </g:else>
 
-                            <embed src="${createLink(controller: 'documento', action: 'downloadFile', id: documento?.dcmt__id)}" type='application/pdf'>
+%{--                            <embed src="${createLink(controller: 'documento', action: 'downloadFile', id: documento?.dcmt__id)}" type='application/pdf'>--}%
 
 
                         </g:if>

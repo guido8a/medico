@@ -238,5 +238,9 @@ class DocumentoController {
         response.outputStream << file.newInputStream()
     }
 
+    def verPdf(){
+        def documento = Documento.get(params.id)
+        return [documento: documento]
+    }
 
 }
