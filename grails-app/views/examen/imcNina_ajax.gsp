@@ -48,13 +48,13 @@
 
         function drawMark(ctx, x, y, text) {
             // Configurar estilo de la marca
-            ctx.fillStyle = '#80d080';
+            ctx.fillStyle = '#40d020';
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 1;
 
             // Dibujar círculo
             ctx.beginPath();
-            ctx.arc(x, y, 7, 0, Math.PI * 2);
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
 
