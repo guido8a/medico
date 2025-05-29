@@ -2,7 +2,7 @@
 <g:if test="${cita?.id}">
     <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
         <div style="width: 3%; float: left; margin-right: 5px">
-            <a href="#" class="btn btn-info col-md-12" role="alert" id="btnEditaCita" title="Editar los datos de la cita médica">
+            <a href="#" class="btn btn-info col-md-12" id="btnEditaCita" title="Editar los datos de la cita médica">
                 <i class="fas fa-edit"></i>
             </a>
         </div>
@@ -68,7 +68,7 @@
         <h4>Diagnóstico</h4>
         <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
             <div style="width: 3%; float: left; margin-right: 5px">
-                <a href="#" class="btn btn-info col-md-12" role="alert" id="btnBuscarDiagnostico" title="Editar los datos del diagnóstico">
+                <a href="#" class="btn btn-info col-md-12" id="btnBuscarDiagnostico" title="Editar los datos del diagnóstico">
                     <i class="fas fa-edit"></i>
                 </a>
             </div>

@@ -52,8 +52,13 @@
     <div class="col-md-2" style="font-size: 12px; font-weight: bolder; width: 270px">
         <span class="badge badge-pill badge-primary fa-2x">Seleccione la cita a visualizar</span>
     </div>
-    <div class="col-md-6" id="divComboCita">
+    <div class="col-md-5" id="divComboCita">
 
+    </div>
+    <div class="col-md-1">
+        <a href="#" class="btn btn-warning" id="btnIrACalendario" title="Calendario de citas">
+            <i class="fas fa-calendar"></i> Calendario
+        </a>
     </div>
     <div class="col-md-1">
         <a href="#" class="btn btn-success" id="btnCrearCita" title="Nueva cita">
@@ -101,6 +106,10 @@
 <script type="text/javascript">
 
     var he;
+
+    $("#btnIrACalendario").click(function () {
+        location.href="${createLink(controller: 'agenda', action: 'calendario')}?paciente=" + '${paciente?.id}'
+    });
 
     function cargarHistoricoExamens(){
         var paciente = '${paciente?.id}';

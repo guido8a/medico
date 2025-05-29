@@ -71,9 +71,9 @@
                                     from="${anio - 5..anio + 5}" value="${params.anio}"/>
     </div>
 
-    <div class="col-md-2">
-        <a href="#" class="btn btn-primary" id="btnCambiar"><i class="fa fa-exclamation"></i> Cambiar</a>
-    </div>
+%{--    <div class="col-md-2">--}%
+%{--        <a href="#" class="btn btn-primary" id="btnCambiar"><i class="fa fa-exclamation"></i> Cambiar</a>--}%
+%{--    </div>--}%
     <a href="#" class="btn btn-success" id="btnGuardar"><i class="fa fa-save"></i> Guardar</a>
 </div>
 
@@ -82,7 +82,7 @@
     los días con cita se muestran con fondo: <div class="demo vacacion">1</div> <br/>
 </div>
 
-
+<g:set var="cont" value="${0}"/>
 <g:set var="mesAct" value="${null}"/>
 <g:each in="${dias}" var="dia" status="i">
     <g:set var="mes" value="${meses[dia.fecha.format('MM').toInteger()]}"/>
@@ -123,10 +123,17 @@
             </g:each>
         </g:if>
     </g:if>
+
+
     <td class="dia ${dia.cita != '' ? 'vacacion' : ''}" data-fecha="${dia.fecha.format('dd-MM-yyyy')}"
-        data-id="${dia.id}" title="${dia?.titl}">
+%{--        data-id="${dia.id}" title="${dia?.titl}">--}%
+        data-id="${dia.cita != '' ? ids[cont] : ''}" title="${dia?.titl}">
         ${dia.fecha.format("dd")}
     </td>
+
+    <g:if test="${dia.cita != ''}">
+        <g:set var="cont" value="${cont + 1}"/>
+    </g:if>
 
     <g:set var="num" value="${num + 1}"/>
 
@@ -143,16 +150,29 @@
 <script type="application/javascript">
     $(function () {
         $(".dia").click(function () {
-            $(this).toggleClass("vacacion");
+            // $(this).toggleClass("vacacion");
+            var id = $(this).data("id");
+            location.href="${createLink(controller: 'paciente', action: 'historial')}?citaActual=" + id
         });
 
-        $("#anio").val("${params.anio}");
+        %{--$("#anio").val("${params.anio}");--}%
 
-        $("#btnCambiar").click(function () {
+        %{--$("#btnCambiar").click(function () {--}%
+        %{--    var anio = $("#anio").val();--}%
+        %{--    if ("" + anio !== "${params.anio}") {--}%
+        %{--        var v = cargarLoader("Guardando...");--}%
+        %{--        location.href = "${createLink(action: 'calendario')}?anio=" + anio;--}%
+        %{--    }--}%
+        %{--    return false;--}%
+        %{--});--}%
+
+
+        $("#anio").change(function () {
             var anio = $("#anio").val();
             if ("" + anio !== "${params.anio}") {
                 var v = cargarLoader("Guardando...");
-                location.href = "${createLink(action: 'calendario')}?anio=" + anio;
+                location.href = "${createLink(action: 'calendario')}?paciente=" + '${paciente?.id}' + "&anio=" + anio;
+                v.modal("hide");
             }
             return false;
         });

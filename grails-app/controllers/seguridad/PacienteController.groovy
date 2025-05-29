@@ -357,6 +357,7 @@ class PacienteController {
         def citas = Historial.findAllByPacienteAndEstadoNotEqual(paciente, 'N', [sort: 'fecha', order: 'desc'])
         def citaPendiente = cita ? cita.first() : []
         println "cita_anterior: ${params.cita}"
+        def citaActual = params.citaActual
         return [paciente: paciente, cita: citaPendiente, diagnosticos: diagnosticos, tratamientos: tratamientos,
                 citas: citas, cita_actual: params.cita]
     }
