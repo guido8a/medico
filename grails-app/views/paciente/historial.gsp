@@ -105,11 +105,43 @@
 
 <script type="text/javascript">
 
-    var he;
+    var he, cgcd;
 
     $("#btnIrACalendario").click(function () {
-        location.href="${createLink(controller: 'agenda', action: 'calendario')}?paciente=" + '${paciente?.id}'
+        %{--location.href="${createLink(controller: 'agenda', action: 'calendario')}?paciente=" + '${paciente?.id}'--}%
+        cargaCalendarioCitas();
     });
+
+    function cargaCalendarioCitas(){
+        var paciente = '${paciente?.id}';
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'agenda', action:'calendario')}",
+            data    : {
+                paciente: paciente
+            },
+            success : function (msg) {
+                cgcd= bootbox.dialog({
+                    id      : "dlgCalendario",
+                    title   : "Calendario de citas",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
+
+    function cerrarCalendario() {
+        cgcd.modal("hide");
+    }
 
     function cargarHistoricoExamens(){
         var paciente = '${paciente?.id}';
