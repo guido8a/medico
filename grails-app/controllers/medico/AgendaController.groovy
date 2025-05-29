@@ -365,7 +365,9 @@ class AgendaController {
         def cont = 1
         def fds = ["sat", "sun"]
         def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
-        def sql = "select agndfcin::date, agndfcin fecha, hscl.hscl__id id from agnd, hscl where agnd.agnd__id = hscl.agnd__id and agnd.pcnt__id = '${paciente?.id}' order by 1"
+        def sql = "select hsclfcha fecha, hscl.hscl__id id from agnd, hscl " +
+                "where agnd.agnd__id = hscl.agnd__id and agnd.pcnt__id = '${paciente?.id}' " +
+                "order by 1"
 
         println("sql " + sql)
 
