@@ -124,7 +124,7 @@
                 cgcd= bootbox.dialog({
                     id      : "dlgCalendario",
                     title   : "Calendario de citas",
-                    class: "modal-lg",
+                    // class: "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {
