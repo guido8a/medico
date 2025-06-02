@@ -3,7 +3,7 @@
         <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnEditaExamenImagen" title="Editar los datos de Exámenes de Imagen">
             <i class="fas fa-edit"></i>
         </a>
-        <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnImprimirPedido" title="Imprimir pedido de examen">
+        <a href="#" class="btn btn-info col-md-12" style="margin-top: 5px" id="btnImprimirPedidoImagen" title="Imprimir pedido de examen">
             <i class="fas fa-print"></i>
         </a>
     </div>
@@ -67,7 +67,7 @@
 
 <script type="text/javascript">
 
-    $("#btnImprimirPedido").click(function () {
+    $("#btnImprimirPedidoImagen").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
         openLoader("Cargando...");
         location.href = "${g.createLink(controller:'reportes', action: 'pedidoExamen')}?cita=" + cita
