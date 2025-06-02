@@ -51,7 +51,6 @@ h1 {
 }
 </style>
 
-<g:set var="cont" value="${0}"/>
 <g:set var="mesAct" value="${null}"/>
 <g:each in="${dias}" var="dia" status="i">
     <g:set var="mes" value="${meses[dia.fecha.format('MM').toInteger()]}"/>
@@ -94,15 +93,10 @@ h1 {
         </g:if>
     </g:if>
 
-
     <td class="dia ${dia.cita != '' ? 'vacacion' : ''}" data-fecha="${dia.fecha.format('dd-MM-yyyy')}"
-        data-id="${dia.cita != '' ? ids[cont] : ''}" title="${dia?.titl}">
+        data-id="${dia.cita != '' ? dia.idH : ''}" title="${dia?.titl}">
         ${dia.fecha.format("dd")}
     </td>
-
-    <g:if test="${dia.cita != ''}">
-        <g:set var="cont" value="${cont + 1}"/>
-    </g:if>
 
     <g:set var="num" value="${num + 1}"/>
 

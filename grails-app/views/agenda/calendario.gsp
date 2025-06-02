@@ -3,8 +3,7 @@
         <div class="col-md-12" style="font-weight: bold; margin-top: -5px; margin-bottom: 30px">
             <div class="col-md-4"></div>
             <div class="col-md-1" style="font-size: 14px;">Año</div>
-            <div class="col-md-3">
-                %{--            <g:select style="font-size:large;" name="anio" class="form-control"   from="${anio - 5..anio + 5}" value="${params.anio}"/>--}%
+            <div class="col-md-2">
                 <g:select style="font-size:large;" name="anio" class="form-control"   from="${anios}" value="${params.anio}"/>
             </div>
         </div>
@@ -16,7 +15,7 @@
     <g:else>
         <div class="col-md-12">
             <div style="text-align: center">
-                <i class="fa fa-calendar text-info fa-2x"></i> <strong style="font-size: 16px">El usuario ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '')} no tiene citas médicas agendadas</strong>
+                <i class="fa fa-calendar text-info fa-2x"></i> <strong style="font-size: 16px">El usuario ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '')} no tiene citas médicas </strong>
             </div>
         </div>
     </g:else>

@@ -295,11 +295,12 @@ class AgendaController {
 
         def anio =  new Date().format('yyyy').toInteger()
         def paciente = Paciente.get(params.paciente)
-        def agendas = Agenda.findAllByPaciente(paciente)
+//        def agendas = Agenda.findAllByPaciente(paciente)
+        def citas = Historial.findAllByPaciente(paciente)
         def anios = []
 
-        if(agendas){
-            def citas = Historial.findAllByAgendaInList(agendas)
+        if(citas){
+//            def citas = Historial.findAllByAgendaInList(agendas)
             citas.each {
                 anios +=  it.fecha.format("yyyy")
             }
@@ -336,32 +337,36 @@ class AgendaController {
         def cont = 1
         def fds = ["sat", "sun"]
         def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
-        def sql = "select hsclfcha fecha, hscl.hscl__id id from agnd, hscl " +
-                "where agnd.agnd__id = hscl.agnd__id and agnd.pcnt__id = '${paciente?.id}' " +
-                "order by 1"
-
-        println("sql " + sql)
+//        def sql = "select hsclfcha fecha, hscl.hscl__id id from agnd, hscl " +
+//                "where agnd.agnd__id = hscl.agnd__id and agnd.pcnt__id = '${paciente?.id}' " +
+//                "order by 1"
+        def sql = "select hsclfcha fecha, hscl__id id, hsclmotv motivo from hscl where pcnt__id = '${paciente?.id}' order by 1"
 
         def citas = [:]
-        def ids = []
+        def dd = [:]
+        def motivos = [:]
         cn.eachRow(sql.toString()) { d ->
-            ids.add(d?.id)
-            citas[d.fecha?.format("yyyy-MM-dd")] = "Hora: "  + d.fecha?.format("HH:mm")
+            citas[d.fecha?.format("yyyy-MM-dd")] = "HORA: "  + d.fecha?.format("HH:mm") + '\n'  + "MOTIVO: " +d.motivo
+            dd[d.fecha?.format("yyyy-MM-dd")] = d.id
         }
 
         def diasSem = ["mon": 1, "tue": 2, "wed": 3, "thu": 4, "fri": 5, "sat": 6, "sun": 0]
         def dia = 0, obsr = ""
         while (fecha <= fcfn) {
             dia = fmt.format(fecha).toLowerCase()
-            dias.add(id: citas[], fecha: fecha, dia: diasSem[dia],
+            dias.add(id: citas[],
+                    fecha: fecha,
+                    dia: diasSem[dia],
+                    idH: dd[fecha.format('yyyy-MM-dd')]?:'',
                     obsr: '',
                     cita: citas[fecha.format('yyyy-MM-dd')]?:'',
                     titl: citas[fecha.format('yyyy-MM-dd')]?:'')
             fecha++
             cont++
         }
+
         cn.close()
-        return [anio: anio, dias: dias, meses: meses, params: params, hoy: hoy, paciente: paciente, ids: ids]
+        return [anio: anio, dias: dias, meses: meses, params: params, hoy: hoy, paciente: paciente]
     }
 
 
