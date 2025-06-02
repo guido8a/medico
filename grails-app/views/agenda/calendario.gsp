@@ -1,10 +1,10 @@
 <div class="row">
 
-    <div class="col-md-12 breadcrumb" style="text-align: center; font-size: 14px; font-weight: bold">
-        Se muestran las citas agendadas en sus respectivos días con fondo <div class="demo vacacion" style="vertical-align: central;"></div> <br/>
-    </div>
+    %{--<div class="col-md-12 breadcrumb" style="text-align: center; font-size: 14px; font-weight: bold">--}%
+        %{--Se muestran las citas agendadas en sus respectivos días con fondo <div class="demo vacacion" style="vertical-align: central;"></div> <br/>--}%
+    %{--</div>--}%
 
-    <div class="col-md-12" style="font-weight: bold; margin-bottom: 50px">
+    <div class="col-md-12" style="font-weight: bold; margin-top: -30px; margin-bottom: 30px">
         <div class="col-md-4"></div>
         <div class="col-md-1" style="font-size: 14px">Año</div>
         <div class="col-md-3"><g:select style="font-size:large;" name="anio" class="form-control"   from="${anio - 5..anio + 5}" value="${params.anio}"/>

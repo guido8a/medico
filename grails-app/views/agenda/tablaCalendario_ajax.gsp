@@ -19,7 +19,7 @@ td, th {
     padding: 0.1rem;
 }
 .dia {
-    width: 38px;
+    width: 29px;
     text-align: center;
     cursor: pointer;
 }
@@ -44,7 +44,7 @@ h1 {
 }
 
 .nombreMes {
-    font-size: 18px;
+    font-size: 16px;
 }
 .actual {
     background-color: #a2c1cb !important;
@@ -67,7 +67,9 @@ h1 {
         <table class="mes">
         <thead>
         <tr>
-            <th class="nombreMes ${hoy.format('MM').toInteger() == mesNum ? 'actual' : ''}" colspan="7" style="text-align: center; background-color: #d0d0d0; user-select: none">${mesAct}</th>
+            <th class="nombreMes ${hoy.format('MM').toInteger() == mesNum ? 'actual' : ''}"
+            colspan="7" style="text-align: center; background-color: #d0d0d0; user-select: none">
+            ${mesAct}</th>
         </tr>
         <tr>
             <th style="user-select: none">Lun</th>
