@@ -124,9 +124,6 @@
                 </span>
             </g:if>
 
-
-
-
             <span class="grupo" >
                 <label class="col-md-2 control-label text-info" style="margin-left: -20px">
                     Tensión arterial 1
@@ -158,16 +155,22 @@
             </span>
         </div>
 
-        %{--<div class="col-md-12" style="border-top: solid; border-width: 1px; border-color: #888; text-align: center">Valores de Texto</div>--}%
         <div class="col-md-12" style="margin-bottom: 10px; border-top: solid; border-width: 1px; border-color: #888; text-align: center"></div>
 
-
+        <div class="form-group ${hasErrors(bean: examen, field: 'datosGenerales', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-1 control-label text-info">
+                    Datos generales
+                </label>
+                <span class="col-md-11">
+                    <g:textArea name="datosGenerales" maxlength="255" style="height: 100px; resize: none"  class="form-control" value="${examen?.datosGenerales ?: ''}" />
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'cabezaCraneo', 'error')} ">
             <span class="grupo">
-                %{--<label class="col-md-12 control-label text-info" style="text-align: center">--}%
-                    %{--Cabeza--}%
-                %{--</label>--}%
                 <label class="col-md-1 control-label text-info">
                     Cráneo
                 </label>

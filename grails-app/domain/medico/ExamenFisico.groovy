@@ -40,6 +40,7 @@ class ExamenFisico implements Auditable{
     String pielFaneras
     double perimetroCefalico = 0
     String regionPerineal
+    String datosGenerales
 
     static mapping = {
         table 'exfs'
@@ -83,6 +84,7 @@ class ExamenFisico implements Auditable{
             pielFaneras column: 'exfsplfn'
             perimetroCefalico column: 'exfsprcf'
             regionPerineal column: 'exfsrgpe'
+            datosGenerales column: 'exfsdtgn'
         }
     }
 
@@ -122,5 +124,6 @@ class ExamenFisico implements Auditable{
         pielFaneras(size: 0..255, blank: true, nullable: true)
         perimetroCefalico(blank: true, nullable: true)
         regionPerineal(size: 0..255, blank: true, nullable: true)
+        datosGenerales(size: 0..255, blank: true, nullable: true)
     }
 }

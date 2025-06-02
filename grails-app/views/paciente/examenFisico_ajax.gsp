@@ -86,6 +86,10 @@
             <td style="width: 100%; text-align: center; font-weight: bold" colspan="4" class="alert alert-success">Cabeza y Cuerpo</td>
         </tr>
         <tr style="font-size: 16px">
+            <td style="width: 11%" class="alert alert-success">Datos generales:</td>
+            <td colspan="3" style="background-color: #b7d6a9">${examen?.datosGenerales}</td>
+        </tr>
+        <tr style="font-size: 16px">
             <td style="width: 11%" class="alert alert-success">Cráneo:</td>
             <td style="width: 40%; background-color: #b7d6a9">${examen?.cabezaCraneo}</td>
             <td style="width: 10%" class="alert alert-success">Cara:</td>
