@@ -14,7 +14,7 @@
     }
 
     .modal-open{
-        overflow:auto;
+        overflow:hidden;
     }
 
     </style>
