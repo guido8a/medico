@@ -163,7 +163,7 @@
                     Datos generales
                 </label>
                 <span class="col-md-11">
-                    <g:textArea name="datosGenerales" maxlength="255" style="height: 100px; resize: none"  class="form-control" value="${examen?.datosGenerales ?: ''}" />
+                    <g:textArea name="datosGenerales" maxlength="255" style="height: 50px; resize: none"  class="form-control" value="${examen?.datosGenerales ?: ''}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
