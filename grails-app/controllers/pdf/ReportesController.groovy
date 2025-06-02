@@ -23,7 +23,9 @@ import jxl.write.WritableWorkbook
 import medico.DetalleExamen
 import medico.DiagnosticoxHistorial
 import medico.ExamenComplementario
+import medico.GrupoExamen
 import medico.Historial
+import medico.TipoExamen
 import medico.Tratamiento
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor
 import org.apache.poi.hssf.usermodel.HSSFPatriarch
@@ -1439,8 +1441,16 @@ class ReportesController {
 
         def cita = Historial.get(params.cita)
         def paciente = cita.paciente
-//        def examenes = ExamenComplementario.findAllByHistorialAndPathIsNotNull(cita, [sort: "id"])
-        def examenes = ExamenComplementario.findAllByHistorial(cita, [sort: "id"])
+        def examenes
+
+        def grupoExamen = GrupoExamen.get(6)
+        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
+
+        if(params.tipo == 'I'){
+            examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(cita, tipoExamen, [sort: "id"])
+        }else{
+            examenes = ExamenComplementario.findAllByHistorialAndTipoExamenNotInList(cita,tipoExamen ,[sort: "id"])
+        }
 
         def edad = calculaEdad( new Date().format('yyyy-MM-dd'), paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
         def usuario = Persona.get(session.usuario.id)

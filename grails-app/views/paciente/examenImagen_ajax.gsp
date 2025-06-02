@@ -70,7 +70,7 @@
     $("#btnImprimirPedidoImagen").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
         openLoader("Cargando...");
-        location.href = "${g.createLink(controller:'reportes', action: 'pedidoExamen')}?cita=" + cita
+        location.href = "${g.createLink(controller:'reportes', action: 'pedidoExamen')}?cita=" + cita + "&tipo=" + "I"
     });
 
     $("#btnEditaExamenImagen").click(function () {
