@@ -95,7 +95,7 @@
                 </span>
 
                 <label class="col-md-2 control-label text-info" style="text-align: left">
-                    Glucosa pospandrial
+                    Glucosa posprandrial
                 </label>
                 <span class="col-md-1">
                     <g:textField name="glucosaPp" maxlength="10" class="form-control" value="${examen?.glucosaPp ?: 0}"
