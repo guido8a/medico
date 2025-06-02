@@ -1,19 +1,25 @@
 <div class="row">
-
-    %{--<div class="col-md-12 breadcrumb" style="text-align: center; font-size: 14px; font-weight: bold">--}%
-        %{--Se muestran las citas agendadas en sus respectivos días con fondo <div class="demo vacacion" style="vertical-align: central;"></div> <br/>--}%
-    %{--</div>--}%
-
-    <div class="col-md-12" style="font-weight: bold; margin-top: -30px; margin-bottom: 30px">
-        <div class="col-md-4"></div>
-        <div class="col-md-1" style="font-size: 14px">Año</div>
-        <div class="col-md-3"><g:select style="font-size:large;" name="anio" class="form-control"   from="${anio - 5..anio + 5}" value="${params.anio}"/>
+    <g:if test="${anios}">
+        <div class="col-md-12" style="font-weight: bold; margin-top: -5px; margin-bottom: 30px">
+            <div class="col-md-4"></div>
+            <div class="col-md-1" style="font-size: 14px;">Año</div>
+            <div class="col-md-3">
+                %{--            <g:select style="font-size:large;" name="anio" class="form-control"   from="${anio - 5..anio + 5}" value="${params.anio}"/>--}%
+                <g:select style="font-size:large;" name="anio" class="form-control"   from="${anios}" value="${params.anio}"/>
+            </div>
         </div>
-    </div>
 
-    <div class="" style="width: 99.7%;height: 400px; overflow-y: auto;float: right; margin-top: -20px" id="divCalendario">
+        <div class="" style="width: 99.7%;height: 400px; overflow-y: auto;float: right; margin-top: -20px" id="divCalendario">
 
-    </div>
+        </div>
+    </g:if>
+    <g:else>
+        <div class="col-md-12">
+            <div style="text-align: center">
+                <i class="fa fa-calendar text-info fa-2x"></i> <strong style="font-size: 16px">El usuario ${(paciente?.apellido ?: '') + " " + (paciente?.nombre ?: '')} no tiene citas médicas agendadas</strong>
+            </div>
+        </div>
+    </g:else>
 </div>
 
 <script type="application/javascript">
@@ -37,14 +43,6 @@
                 $("#divCalendario").html(msg)
             }
         });
-
-
-        %{--if ("" + anio !== "${params.anio}") {--}%
-        %{--    var v = cargarLoader("Guardando...");--}%
-        %{--    location.href = "${createLink(action: 'calendario')}?paciente=" + '${paciente?.id}' + "&anio=" + anio;--}%
-        %{--    v.modal("hide");--}%
-        %{--}--}%
-        %{--return false;--}%
     }
 
 </script>

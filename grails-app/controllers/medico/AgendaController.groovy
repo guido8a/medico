@@ -293,52 +293,23 @@ class AgendaController {
 
         println("params calen " + params)
 
-//        def cn = dbConnectionService.getConnection()
         def anio =  new Date().format('yyyy').toInteger()
         def paciente = Paciente.get(params.paciente)
+        def agendas = Agenda.findAllByPaciente(paciente)
+        def anios = []
+
+        if(agendas){
+            def citas = Historial.findAllByAgendaInList(agendas)
+            citas.each {
+                anios +=  it.fecha.format("yyyy")
+            }
+        }
 
         if (!params.anio) {
             params.anio = anio
         }
 
-//        def meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-//        def fcin = new Date().parse("dd-MM-yyyy", "01-01-${params.anio}")
-//        def fcfn = new Date().parse("dd-MM-yyyy", "31-12-${params.anio}")
-//
-//        def dias = []
-//        def fecha = fcin
-//        def hoy = new Date()
-//        def cont = 1
-//        def fds = ["sat", "sun"]
-//        def fmt = new java.text.SimpleDateFormat("EEE", new Locale("en"))
-//        def sql = "select agndfcin::date, agndfcin fecha, agnd__id id from agnd where pcnt__id = '${paciente?.id}' order by 1"
-//        println("sql " + sql)
-//
-//        def citas = [:]
-//        def ids = []
-//        cn.eachRow(sql.toString()) { d ->
-//            ids.add(d?.id)
-//            citas[d.fecha?.format("yyyy-MM-dd")] = "Hora: "  + d.fecha?.format("HH:mm")
-//        }
-////        citas['2025-02-06'] = 'hora: 12:30'
-//        println "citas: $citas"
-//        println "id: " + ids
-//        def diasSem = ["mon": 1, "tue": 2, "wed": 3, "thu": 4, "fri": 5, "sat": 6, "sun": 0]
-//        def dia = 0, obsr = ""
-//        while (fecha <= fcfn) {
-//            dia = fmt.format(fecha).toLowerCase()
-//            dias.add(id: citas[], fecha: fecha, dia: diasSem[dia],
-//                    obsr: '',
-//                    cita: citas[fecha.format('yyyy-MM-dd')]?:'',
-//                    titl: citas[fecha.format('yyyy-MM-dd')]?:'')
-//            fecha++
-//            cont++
-//        }
-//
-//
-//        cn.close()
-//        return [anio: anio, dias: dias, meses: meses, params: params, hoy: hoy, paciente: paciente, ids: ids]
-        return [anio: anio, params: params, paciente: paciente]
+        return [anio: anio, params: params, paciente: paciente, anios: anios?.unique()]
     }
 
 

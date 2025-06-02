@@ -108,7 +108,6 @@
     var he, cgcd;
 
     $("#btnIrACalendario").click(function () {
-        %{--location.href="${createLink(controller: 'agenda', action: 'calendario')}?paciente=" + '${paciente?.id}'--}%
         cargaCalendarioCitas();
     });
 

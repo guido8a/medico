@@ -178,7 +178,7 @@
                     <g:textField name="cabezaCraneo" maxlength="255" class="form-control" value="${examen?.cabezaCraneo ?: 'Normal'}" />
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <label class="col-md-1 control-label text-info">
+                <label class="col-md-1 control-label text-info" style="text-align: left">
                     Cara
                 </label>
                 <span class="col-md-5">
