@@ -9,13 +9,13 @@
 
     <style>
 
-    .modal{
-        overflow-y: auto;
-    }
+    /*.modal{*/
+    /*    overflow-y: auto;*/
+    /*}*/
 
-    .modal-open{
-        overflow:hidden;
-    }
+    /*.modal-open{*/
+    /*    overflow:hidden;*/
+    /*}*/
 
     </style>
 
