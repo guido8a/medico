@@ -347,7 +347,7 @@ class AgendaController {
         def dd = [:]
         def motivos = [:]
         cn.eachRow(sql.toString()) { d ->
-            citas[d.fecha?.format("yyyy-MM-dd")] = "HORA: "  + d.fecha?.format("HH:mm") + '\n'  + "MOTIVO: " +d.motivo
+            citas[d.fecha?.format("yyyy-MM-dd")] = "HORA: "  + d.hora + '\n'  + "MOTIVO: " +d.motivo
             dd[d.fecha?.format("yyyy-MM-dd")] = d.id
         }
 
