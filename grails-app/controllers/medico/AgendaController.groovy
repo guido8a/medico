@@ -340,7 +340,8 @@ class AgendaController {
 //        def sql = "select hsclfcha fecha, hscl.hscl__id id from agnd, hscl " +
 //                "where agnd.agnd__id = hscl.agnd__id and agnd.pcnt__id = '${paciente?.id}' " +
 //                "order by 1"
-        def sql = "select hsclfcha fecha, hscl__id id, hsclmotv motivo from hscl where pcnt__id = '${paciente?.id}' order by 1"
+        def sql = "select hsclfcha fecha, hscl__id id, hsclmotv motivo, hsclhora hora " +
+                "from hscl where pcnt__id = '${paciente?.id}' order by 1"
 
         def citas = [:]
         def dd = [:]
