@@ -332,6 +332,7 @@
 
     function cargaTabla(semana, doctor) {
         var fecha = $('#fecha').val();
+        var dialog = cargarLoader("Cargando...");
         $.ajax({
             type: "POST",
             url: "${createLink(controller: 'agenda', action:'tabla_ajax')}",
@@ -343,6 +344,7 @@
             },
             success: function (msg) {
                 $("#divTabla").html(msg);
+                dialog.modal("hide");
             } //success
         });
         //location.reload()//ajax
