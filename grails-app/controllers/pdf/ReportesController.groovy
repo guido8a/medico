@@ -1596,4 +1596,45 @@ class ReportesController {
         response.getOutputStream().write(b)
     }
 
+    def buscarPaciente_ajax(){
+
+    }
+
+    def tablaPacientes_ajax(){
+        def cn = dbConnectionService.getConnection()
+        def usuario = Persona.get(session.usuario.id)
+        def empresa = usuario.empresa
+
+        def listaItems = ['pcntcdla', 'pcntapll', 'pcntnmbr']
+        def bsca
+        def sqlTx = ""
+        def bscaEmp = empresa ? " and empr__id = ${empresa?.id}" : " "
+
+        if (params.buscarPor) {
+            bsca = listaItems[params.buscarPor?.toInteger() - 1]
+        } else {
+            bsca = listaItems[0]
+        }
+
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntpath, pcntnmbr, " +
+                "replace( replace( replace(replace(age(now()::date, pcntfcna)::text, 'year', 'año'), 'mons','meses'), " +
+                "'day', 'dia'), 'mon', 'mes') edad, " +
+                "grsndscr, pcntmail, pcntantc from pcnt, grsn "
+
+        def criterio = params.criterio
+        def txwh = ""
+        try {
+            criterio = params.criterio.toInteger()
+            txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
+                    "pcntcdla ilike '%${params.criterio}%'"
+        } catch (e) {
+            txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
+                    "(pcntnmbr ilike '%${criterio}%' or pcntapll ilike '%${criterio}%')"
+        }
+        sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll limit 25".toString()
+        def datos = cn.rows(sqlTx)
+
+        [datos: datos]
+    }
+
 }

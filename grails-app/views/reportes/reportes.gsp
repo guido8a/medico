@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 21/09/20
-  Time: 10:22
---%>
 
 <%@ page contentType="text/html" %>
 
@@ -11,8 +5,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Reportes</title>
-
-    %{--    <script type="text/javascript" src="${resource(dir: 'js/jquery/plugins', file: 'jquery.cookie.js')}"></script>--}%
 
     <style type="text/css">
 
@@ -231,7 +223,7 @@
                             label: "<i class='fa fa-print'></i> Imprimir",
                             className: "btn-success",
                             callback: function () {
-                                location.href = "${g.createLink(controller:'reportes', action: 'reporteCitasXPaciente')}?paciente=" + $("#paciente option:selected").val();
+                                location.href = "${g.createLink(controller:'reportes', action: 'reporteCitasXPaciente')}?paciente=" + $("#paciente").val();
                             }
                         }
                     }
