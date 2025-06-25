@@ -1775,25 +1775,33 @@ class ReportesController {
         addCellTabla(tablaDatos2, new Paragraph("C.I.:", fontTitulo), prmsLeft)
         addCellTabla(tablaDatos2, new Paragraph(paciente?.cedula, fontThTiny), prmsLeft)
 
-        PdfPTable tablaExamen = new PdfPTable(2);
+        PdfPTable tablaCabeceraExamen = new PdfPTable(2);
+        tablaCabeceraExamen.setWidthPercentage(100);
+        tablaCabeceraExamen.setWidths(arregloEnteros([15, 85]))
+
+        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
+        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
+        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontThTiny), prmsLeft)
+//
+//        addCellTabla(tablaCabeceraExamen, new Paragraph("EXAMEN:", fontTitulo), prmsLeft)
+//        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
+
+        PdfPTable tablaExamen = new PdfPTable(3);
         tablaExamen.setWidthPercentage(100);
-        tablaExamen.setWidths(arregloEnteros([15, 85]))
-
-        addCellTabla(tablaExamen, new Paragraph("", fontTitulo), prmsLeft)
-        addCellTabla(tablaExamen, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaExamen, new Paragraph("", fontTitulo), prmsLeft)
-        addCellTabla(tablaExamen, new Paragraph("", fontThTiny), prmsLeft)
-
-        addCellTabla(tablaExamen, new Paragraph("EXAMEN:", fontTitulo), prmsLeft)
-//        addCellTabla(tablaExamen, new Paragraph("", fontThTiny), prmsLeft)
-
+        tablaExamen.setWidths(arregloEnteros([15, 20, 65 ]))
 
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
+                if(q == 0){
+                    addCellTabla(tablaExamen, new Paragraph("EXAMEN:", fontTitulo), prmsLeft)
+                }else{
+                    addCellTabla(tablaExamen, new Paragraph("", fontThTiny2), prmsLeft)
+                }
                 addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString(), fontThTiny2), prmsLeft)
+                addCellTabla(tablaExamen, new Paragraph(p?.observaciones?.toString(), fontThTiny2), prmsLeft)
             }
         }
-
 
         PdfPTable tablaFirmas = new PdfPTable(3);
         tablaFirmas.setWidthPercentage(100);
@@ -1826,6 +1834,7 @@ class ReportesController {
         document.add(tablaDetalles)
         document.add(tablaDatos);
         document.add(tablaDatos2);
+        document.add(tablaCabeceraExamen);
         document.add(tablaExamen);
         document.add(tablaFirmas);
         document.close();
