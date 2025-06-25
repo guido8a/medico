@@ -1783,9 +1783,6 @@ class ReportesController {
         addCellTabla(tablaCabeceraExamen, new Paragraph("", fontThTiny), prmsLeft)
         addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
         addCellTabla(tablaCabeceraExamen, new Paragraph("", fontThTiny), prmsLeft)
-//
-//        addCellTabla(tablaCabeceraExamen, new Paragraph("EXAMEN:", fontTitulo), prmsLeft)
-//        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
 
         PdfPTable tablaExamen = new PdfPTable(3);
         tablaExamen.setWidthPercentage(100);
@@ -1802,6 +1799,18 @@ class ReportesController {
                 addCellTabla(tablaExamen, new Paragraph(p?.observaciones?.toString(), fontThTiny2), prmsLeft)
             }
         }
+
+        PdfPTable tablaDatosClinicos = new PdfPTable(2);
+        tablaDatosClinicos.setWidthPercentage(100);
+        tablaDatosClinicos.setWidths(arregloEnteros([15, 85]))
+
+        addCellTabla(tablaDatosClinicos, new Paragraph("", fontTitulo), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
+
+        tablaDatosClinicos.setSpacingAfter(30f);
+
 
         PdfPTable tablaFirmas = new PdfPTable(3);
         tablaFirmas.setWidthPercentage(100);
@@ -1836,6 +1845,7 @@ class ReportesController {
         document.add(tablaDatos2);
         document.add(tablaCabeceraExamen);
         document.add(tablaExamen);
+        document.add(tablaDatosClinicos);
         document.add(tablaFirmas);
         document.close();
         pdfw.close()
