@@ -1662,6 +1662,7 @@ class ReportesController {
         def name = "pedidoExamenesImagenes_${paciente?.apellido}_" + new Date().format("ddMMyyyy_hhmm") + ".pdf";
         def titulo = new java.awt.Color(40, 140, 180)
         com.lowagie.text.Font fontTitulo = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 12, com.lowagie.text.Font.BOLD, titulo);
+        com.lowagie.text.Font fontTitulo2 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 9, com.lowagie.text.Font.BOLD, titulo);
         com.lowagie.text.Font fontThTiny = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.BOLD);
         com.lowagie.text.Font fontThTiny3 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 9, com.lowagie.text.Font.BOLD);
         com.lowagie.text.Font fontThTiny2 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.NORMAL);
@@ -1802,29 +1803,30 @@ class ReportesController {
 
         PdfPTable tablaDatosClinicos = new PdfPTable(2);
         tablaDatosClinicos.setWidthPercentage(100);
-        tablaDatosClinicos.setWidths(arregloEnteros([15, 85]))
+        tablaDatosClinicos.setWidths(arregloEnteros([17, 83]))
 
         addCellTabla(tablaDatosClinicos, new Paragraph("", fontTitulo), prmsLeft)
         addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo2), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
         addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
 
-        tablaDatosClinicos.setSpacingAfter(30f);
-
+                tablaDatosClinicos.setSpacingBefore(25f);
+        tablaDatosClinicos.setSpacingAfter(60f);
 
         PdfPTable tablaFirmas = new PdfPTable(3);
         tablaFirmas.setWidthPercentage(100);
-        addCellTabla(tablaFirmas, new Paragraph(" ", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph(" ", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph(" ", fontThTiny2), prmsHeaderHoja)
 
-        addCellTabla(tablaFirmas, new Paragraph(" ", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph(" ", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph(" ", fontThTiny2), prmsHeaderHoja)
-
-        addCellTabla(tablaFirmas, new Paragraph("...................................................", fontTitulo), prmsCenter)
+        addCellTabla(tablaFirmas, new Paragraph("...................................................", fontThTiny), prmsCenter)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph("...................................................", fontTitulo), prmsCenter)
+        addCellTabla(tablaFirmas, new Paragraph("...................................................", fontThTiny), prmsCenter)
 
         addCellTabla(tablaFirmas, new Paragraph("Médico Solicitante", fontTitulo), prmsCenter)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
