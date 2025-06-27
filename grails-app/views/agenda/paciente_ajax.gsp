@@ -14,11 +14,13 @@
                 <g:hiddenField name="paciente" value="${agenda?.paciente?.id}"/>
                 <g:textField name="pacienteNombre" class="form-control " readonly="" value="${agenda?.paciente ? (agenda?.paciente?.apellido + " " + agenda?.paciente?.nombre) : ''}"/>
             </span>
-            <span class="col-md-2">
-                <a href="#" id="btnBuscarPaciente" class="btn btn-sm btn-info" style="" title="Buscar paciente">
-                    <i class="fa fa-search"></i> Buscar
-                </a>
-            </span>
+            <g:if test="${!agenda?.id}">
+                <span class="col-md-2">
+                    <a href="#" id="btnBuscarPaciente" class="btn btn-sm btn-info" style="" title="Buscar paciente">
+                        <i class="fa fa-search"></i> Buscar
+                    </a>
+                </span>
+            </g:if>
         </span>
     </div>
 
