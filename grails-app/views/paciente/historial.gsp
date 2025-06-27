@@ -113,6 +113,7 @@
 
     function cargaCalendarioCitas(){
         var paciente = '${paciente?.id}';
+        var d = cargarLoader("Cargando...");
         $.ajax({
             type    : "POST",
             url: "${createLink(controller: 'agenda', action:'calendario')}",
@@ -120,6 +121,7 @@
                 paciente: paciente
             },
             success : function (msg) {
+                d.modal("hide");
                 cgcd= bootbox.dialog({
                     id      : "dlgCalendario",
                     title   : "Calendario de citas",

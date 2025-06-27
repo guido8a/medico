@@ -30,6 +30,7 @@
     });
 
     function cargarTablaCalendario_ajax(){
+        var d = cargarLoader("Cargando...");
         var anio = $("#anio").val();
         $.ajax({
             type: 'POST',
@@ -39,6 +40,7 @@
                 anio: anio
             },
             success: function (msg) {
+                d.modal("hide");
                 $("#divCalendario").html(msg)
             }
         });
