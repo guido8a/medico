@@ -264,10 +264,11 @@ class AgendaController {
             bsca = listaItems[0]
         }
 
-        def select = "select pcnt__id, pcntcdla, pcntapll, pcntpath, pcntnmbr, " +
-                "replace( replace( replace(replace(age(now()::date, pcntfcna)::text, 'year', 'año'), 'mons','meses'), " +
-                "'day', 'dia'), 'mon', 'mes') edad, " +
-                "grsndscr, pcntmail, pcntantc from pcnt, grsn "
+//        def select = "select pcnt__id, pcntcdla, pcntapll, pcntpath, pcntnmbr, " +
+//                "replace( replace( replace(replace(age(now()::date, pcntfcna)::text, 'year', 'año'), 'mons','meses'), " +
+//                "'day', 'dia'), 'mon', 'mes') edad, " +
+//                "grsndscr, pcntmail, pcntantc from pcnt, grsn "
+        def select = "select pcnt__id, pcntcdla, pcntapll, pcntnmbr from pcnt, grsn "
 
         def criterio = params.criterio
 
@@ -280,7 +281,7 @@ class AgendaController {
             txwh = " where grsn.grsn__id = pcnt.grsn__id and " +
                     "(pcntnmbr ilike '%${criterio}%' or pcntapll ilike '%${criterio}%')"
         }
-        sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll ".toString()
+        sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll limit 50 ".toString()
         println "sql: ${sqlTx}"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)

@@ -1,25 +1,12 @@
 <div style="overflow: hidden">
     <fieldset class="borde" style="border-radius: 4px; margin-bottom: 5px">
         <div class="row-fluid" style="margin-left: 10px">
-            <span class="grupo">
-%{--                <span class="col-md-4">--}%
-%{--                    <label class="control-label text-info">Buscar Por</label>--}%
-%{--                    <g:select name="buscarPorPaciente" class="buscarPorPaciente col-md-12 form-control" from="${[ 1: 'Nombre', 2: 'Apellido', 3: 'Cédula']}" optionKey="key"--}%
-%{--                              optionValue="value"/>--}%
-%{--                </span>--}%
-%{--                <span class="col-md-4">--}%
-%{--                    <label class="control-label text-info">Criterio</label>--}%
-%{--                    <g:textField name="criterioPaciente" id="criterioPaciente" class="form-control"/>--}%
-%{--                </span>--}%
-                <span class="col-md-6">
-                    <label class="control-label text-info">Buscar Por</label>
-                    <g:textField name="criterioPaciente" id="criterioPaciente" class="form-control"/>
-                </span>
-            </span>
+                <div class="col-md-9 row">
+                    <div class="control-label text-info col-md-4">Buscar Por</div>
+                    <div class="col-md-8"><g:textField name="criterioPaciente" id="criterioPaciente" class="form-control"/></div>
+                </div>
             <div class="col-md-3" style="margin-top: 20px">
                 <button class="btn btn-info" id="btnBuscarListaPacientes"><i class="fa fa-search"></i></button>
-%{--            </div>--}%
-%{--            <div class="col-md-1" style="margin-top: 20px">--}%
                 <button class="btn btn-warning" id="btnLimpiarListaPacientes" title="Limpiar Búsqueda"><i class="fa fa-eraser"></i></button>
             </div>
         </div>
@@ -32,7 +19,7 @@
 
     <fieldset style="border-radius: 4px; margin-top: 5px">
         <div class="alert alert-warning">
-            * Máxima cantidad de registros en pantalla 100
+            * Máxima cantidad de registros en pantalla 50
         </div>
     </fieldset>
 </div>
