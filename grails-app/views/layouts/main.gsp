@@ -11,11 +11,11 @@
 
 %{--    prueba--}%
 
-    <g:if test="${seguridad.Empresa.findByNombreIlike('Salud')}">
-        <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrapNuevo.css"/>
+    <g:if test="${seguridad.Empresa.findByNombreIlike("Cemov")}" >
+        <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>
     </g:if>
     <g:else>
-        <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>
+        <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrapNuevo.css"/>
     </g:else>
 
 %{--    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.min.css"/>--}%
