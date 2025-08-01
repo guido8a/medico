@@ -157,12 +157,12 @@
     <g:set var="inst" value="${utilitarios.Parametros.get(1)}"/>
 
     <div style="text-align: center;margin-bottom: 50px"><h2 class="titl">
-    <g:if test="${seguridad.Empresa.findByNombreIlike("Cemov")}" >
-        <p class="text-warning">SALIS HEALTH SYSTEM</p>
-    </g:if>
-    <g:else>
-        <p class="text-info">SISTEMA SALUD</p>
-    </g:else>
+%{--    <g:if test="${seguridad.Empresa.findByNombreIlike("Cemov")}" >--}%
+%{--        <p class="text-warning">SALIS HEALTH SYSTEM</p>--}%
+%{--    </g:if>--}%
+%{--    <g:else>--}%
+        <p class="text-info">${empresa?.nombre}</p>
+%{--    </g:else>--}%
 
     </h2>
     </div>

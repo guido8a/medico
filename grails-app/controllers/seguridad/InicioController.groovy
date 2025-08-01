@@ -6,6 +6,11 @@ class InicioController {
     def diasLaborablesService
 
     def index() {
+
+      def usuario = Persona.get(session.usuario.id)
+      def empresa = usuario.empresa
+
+
 /*
         if (session.usuario.getPuedeDirector()) {
             redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidadoDir", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1", dir: "1"])
@@ -23,6 +28,8 @@ class InicioController {
 //        def fb = new Date(fcha.time + 25*60*60*1000)
 //        println "fechas: fa: $fa, fb: $fb"
 //        def nada = diasLaborablesService.tmpoLaborableEntre(fa,fb)
+
+        return [empresa: empresa]
 
     }
 
