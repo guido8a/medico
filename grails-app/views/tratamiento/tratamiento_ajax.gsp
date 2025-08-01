@@ -25,7 +25,7 @@
             Medidas generales
         </label>
         <span class="col-md-11">
-            <g:textArea name="tratamiento" maxlength="255" class="form-control" style="resize: none; height: 100px;"  value="${historial?.tratamiento}"/>
+            <g:textArea name="tratamiento" maxlength="511" class="form-control" style="resize: none; height: 100px;"  value="${historial?.tratamiento}"/>
         </span>
     </div>
 </div>
