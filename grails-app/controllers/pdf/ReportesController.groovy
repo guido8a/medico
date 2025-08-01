@@ -38,6 +38,7 @@ import seguridad.Persona
 import medico.NumberToLetterConverter
 
 import javax.swing.text.StyleConstants
+import java.text.SimpleDateFormat
 
 
 class ReportesController {
@@ -987,6 +988,8 @@ class ReportesController {
             }
         }
 
+        SimpleDateFormat fmtEsp = new SimpleDateFormat('EEEE, dd-MMMM-yyyy', new Locale("es", "ES"));
+
         def printTratamientoFin = {
 
             def tablaTratamientoDetallesFin = new PdfPTable(5);
@@ -1003,7 +1006,8 @@ class ReportesController {
             addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaTratamientoDetallesFin, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("PRÓXIMA CITA: ${citaProxima ? citaProxima.format('EEEE, dd-MMMM-yyyy') : ''}" + " a las " + "${(citaHora? citaHora + ' horas': '')}", times8normal),
+//            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("PRÓXIMA CITA: ${citaProxima ? citaProxima.format('EEEE, dd-MMMM-yyyy') : ''}" + " a las " + "${(citaHora? citaHora + ' horas': '')}", times8normal),
+            addCellTabla(tablaTratamientoDetallesFin, new Paragraph("PRÓXIMA CITA: ${citaProxima ? fmtEsp.format(citaProxima) : ''}" + " a las " + "${(citaHora? citaHora + ' horas': '')}", times8normal),
                     [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
 

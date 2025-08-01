@@ -77,7 +77,7 @@ public abstract class NumberToLetterConverter {
         if (doubleNumber < 0)
             throw new NumberFormatException("El numero debe ser positivo");
 
-        System.out.println("valor aconvertir:" + doubleNumber);
+//        System.out.println("valor aconvertir:" + doubleNumber);
         String splitNumber[] = String.valueOf(doubleNumber).replace('.', '#').split("#");
 //        System.out.println(splitNumber[0] + "con" + splitNumber[1]);
         if(splitNumber[1].length() == 1) {
