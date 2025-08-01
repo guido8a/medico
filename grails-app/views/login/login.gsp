@@ -20,7 +20,7 @@
 <div style="text-align: center; margin-top: 22px; height: ${(flash.message) ? '640' : '570'}px;" class="well">
 
     <g:if test="${seguridad.Empresa.findByNombreIlike("Cemov")}" >
-        <h1 class="titl" style="font-size: 24px; color: #06a">SALIS HEALTH SYSTEM</h1>
+        <h1 class="titl" style="font-size: 24px; color: #06a">${seguridad.Empresa.findByNombre("Cemov")?.nombre}</h1>
     </g:if>
     <g:else>
         <h1 class="titl" style="font-size: 24px; color: #06a">SISTEMA SALUD</h1>
