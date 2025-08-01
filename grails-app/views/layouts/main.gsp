@@ -10,7 +10,14 @@
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
 %{--    prueba--}%
-    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>
+
+    <g:if test="${seguridad.Empresa.findByNombreIlike('Salud')}">
+        <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrapNuevo.css"/>
+    </g:if>
+    <g:else>
+        <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>
+    </g:else>
+
 %{--    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.min.css"/>--}%
     <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap-theme.css"/>
 %{--  fin  prueba--}%
