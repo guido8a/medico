@@ -1758,7 +1758,7 @@ class ReportesController {
                 }else{
                     addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny2), prmsLeft)
                 }
-                addCellTabla(tablaDatosClinicos, new Paragraph(e?.examen?.descripcion + " : " + p?.observaciones, fontThTiny2), prmsLeft)
+                addCellTabla(tablaDatosClinicos, new Paragraph(  p?.observaciones ?  (e?.examen?.descripcion + " : " + p?.observaciones) : '', fontThTiny2), prmsLeft)
             }
         }
 
