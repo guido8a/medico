@@ -108,7 +108,7 @@ class Paciente implements Auditable {
         mail(size: 0..63, blank: true, nullable: true)
         activo(size: 0..1, blank: false, nullable: false)
         fechaNacimiento(blank: true, nullable: true)
-        telefono(size: 0..31, blank: true, nullable: true)
+        telefono(size: 0..63, blank: true, nullable: true)
         sexo(size: 0..1, blank: true, nullable: true)
         direccion(size: 0..255,  blank: true, nullable: true)
         referencia(size: 0..255,  blank: true, nullable: true)

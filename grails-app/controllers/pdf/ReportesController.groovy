@@ -1441,8 +1441,6 @@ class ReportesController {
 
     def pedidoExamen(){
 
-        println("parmas pe " + params)
-
         def cita = Historial.get(params.cita)
         def paciente = cita.paciente
         def examenes
@@ -1529,7 +1527,7 @@ class ReportesController {
         def printHeaderDetalle = {
             def tablaHeaderDetalles = new PdfPTable(3);
             tablaHeaderDetalles.setWidthPercentage(100);
-            tablaHeaderDetalles.setWidths(arregloEnteros([15, 25, 30]))
+            tablaHeaderDetalles.setWidths(arregloEnteros([20, 20, 60]))
 
             addCellTabla(tablaHeaderDetalles, new Paragraph("Grupo", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
             addCellTabla(tablaHeaderDetalles, new Paragraph("Tipo", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
@@ -1541,7 +1539,7 @@ class ReportesController {
         def printCitas = {
             def tablaCitas = new PdfPTable(3);
             tablaCitas.setWidthPercentage(100);
-            tablaCitas.setWidths(arregloEnteros([15, 25, 30]))
+            tablaCitas.setWidths(arregloEnteros([20, 20, 60]))
 
             examenes.eachWithIndex {p, q->
 
@@ -1553,7 +1551,7 @@ class ReportesController {
                 addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.descripcion, fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
 
                 DetalleExamen.findAllByExamenComplementario(p).each { e->
-                    addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString(), fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
+                    addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString() + (p?.observaciones ? (" : " + p?.observaciones) : ''), fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
                 }
                 addCellTabla(tablaCitas, tablaExamen, [border: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP, colspan: 1, pl: 0])
                 tablaCitas.setSpacingAfter(10f);
@@ -1643,8 +1641,6 @@ class ReportesController {
 
     def pedidoExamenImagen(){
 
-        println("parmas pei " + params)
-
         def cita = Historial.get(params.cita)
         def paciente = cita.paciente
         def grupoExamen = GrupoExamen.get(6)
@@ -1704,64 +1700,7 @@ class ReportesController {
         addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         tablaImagen.setSpacingAfter(20f);
 
-//        PdfPTable tablaCabecera = new PdfPTable(4);
-//        tablaCabecera.setWidthPercentage(100);
-//        tablaCabecera.setWidths(arregloEnteros([20, 30, 20, 30]))
-//
-//        addCellTabla(tablaCabecera, new Paragraph("NOMBRES: ", fontTitulo), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph(paciente?.nombre, fontThTiny), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph("APELLIDOS: ", fontTitulo), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph(paciente?.apellido, fontThTiny), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph("EDAD: ", fontTitulo), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph(edad?.toString(), fontThTiny), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph("SEXO: ", fontTitulo), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph(paciente?.sexo == 'F' ? 'Femenino' : 'Masculino', fontThTiny), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph("FECHA: ", fontTitulo), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph(new Date().format("dd-MM-yyy"), fontThTiny), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
-//        addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
-//
-//        tablaCabecera.setSpacingAfter(10f);
-
         PdfPTable tablaDetalles = null
-//        def printHeaderDetalle = {
-//            def tablaHeaderDetalles = new PdfPTable(3);
-//            tablaHeaderDetalles.setWidthPercentage(100);
-//            tablaHeaderDetalles.setWidths(arregloEnteros([15, 25, 30]))
-//
-//            addCellTabla(tablaHeaderDetalles, new Paragraph("Grupo", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-//            addCellTabla(tablaHeaderDetalles, new Paragraph("Tipo", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-//            addCellTabla(tablaHeaderDetalles, new Paragraph("Examen", fontThTiny), [border: java.awt.Color.BLACK, bg: java.awt.Color.LIGHT_GRAY, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
-//
-//            addCellTabla(tablaDetalles, tablaHeaderDetalles, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 3, pl: 0])
-//        }
-
-//        def printCitas = {
-//            def tablaCitas = new PdfPTable(3);
-//            tablaCitas.setWidthPercentage(100);
-//            tablaCitas.setWidths(arregloEnteros([15, 25, 30]))
-//
-//            examenes.eachWithIndex {p, q->
-//
-//                def tablaExamen = new PdfPTable(1);
-//                tablaExamen.setWidthPercentage(100);
-//                tablaExamen.setWidths(arregloEnteros([100]))
-//
-//                addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.grupoExamen?.descripcion, fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
-//                addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.descripcion, fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
-//
-//                DetalleExamen.findAllByExamenComplementario(p).each { e->
-//                    addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString(), fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
-//                }
-//                addCellTabla(tablaCitas, tablaExamen, [border: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP, colspan: 1, pl: 0])
-//                tablaCitas.setSpacingAfter(10f);
-//            }
-//
-//            addCellTabla(tablaDetalles, tablaCitas, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 3, pl: 0])
-//
-//            tablaCitas.setSpacingAfter(10f);
-//        }
-
         PdfPTable tablaDatos = new PdfPTable(2);
         tablaDatos.setWidthPercentage(100);
         tablaDatos.setWidths(arregloEnteros([15, 85]))
@@ -1801,7 +1740,7 @@ class ReportesController {
                     addCellTabla(tablaExamen, new Paragraph("", fontThTiny2), prmsLeft)
                 }
                 addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString(), fontThTiny2), prmsLeft)
-                addCellTabla(tablaExamen, new Paragraph(p?.observaciones?.toString(), fontThTiny2), prmsLeft)
+                addCellTabla(tablaExamen, new Paragraph("", fontThTiny2), prmsLeft)
             }
         }
 
@@ -1811,18 +1750,19 @@ class ReportesController {
 
         addCellTabla(tablaDatosClinicos, new Paragraph("", fontTitulo), prmsLeft)
         addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo2), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaDatosClinicos, new Paragraph(".....................................................................................................................................................", fontThTiny), prmsLeft)
 
-                tablaDatosClinicos.setSpacingBefore(25f);
+        examenes.eachWithIndex {p, q->
+            DetalleExamen.findAllByExamenComplementario(p).each { e->
+                if(q == 0){
+                    addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo), prmsLeft)
+                }else{
+                    addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny2), prmsLeft)
+                }
+                addCellTabla(tablaDatosClinicos, new Paragraph(e?.examen?.descripcion + " : " + p?.observaciones, fontThTiny2), prmsLeft)
+            }
+        }
+
+        tablaDatosClinicos.setSpacingBefore(25f);
         tablaDatosClinicos.setSpacingAfter(60f);
 
         PdfPTable tablaFirmas = new PdfPTable(3);

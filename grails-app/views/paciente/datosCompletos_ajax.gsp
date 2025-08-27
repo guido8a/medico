@@ -201,7 +201,7 @@
             </label>
             <span class="grupo">
                 <span class="col-md-4">
-                    <g:textField name="telefono" maxlength="31" class="form-control" value="${paciente?.telefono}"/>
+                    <g:textField name="telefono" maxlength="63" class="form-control" value="${paciente?.telefono}"/>
                 </span>
             </span>
             <label for="mail" class="col-md-1 control-label text-info">
