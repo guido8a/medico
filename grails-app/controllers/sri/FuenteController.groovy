@@ -1,6 +1,5 @@
 package sri
 
-
 class FuenteController {
 
     def list(){
@@ -51,10 +50,5 @@ class FuenteController {
             println("error al borrar la fuente " + fuente.errors)
             render "no"
         }
-
-
-
     }
-
-
 }

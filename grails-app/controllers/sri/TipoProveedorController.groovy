@@ -25,8 +25,6 @@ class TipoProveedorController {
     def save_ajax(){
 
         def tipo
-
-
         def existente = TipoProveedor.findByCodigo(params.codigo.toUpperCase())
 
         if(existente){

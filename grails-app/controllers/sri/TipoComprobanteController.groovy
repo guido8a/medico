@@ -3,7 +3,6 @@ package sri
 
 class TipoComprobanteController {
 
-
     def list(){
         def tipos = TipoComprobante.list().sort{it.codigo}
         return[tipoComprobanteInstanceList: tipos]
@@ -24,7 +23,6 @@ class TipoComprobanteController {
     def save_ajax(){
 
         def tipo
-
         def existente = TipoComprobante.findByCodigo(params.codigo.toUpperCase())
 
         if(existente){
@@ -46,7 +44,6 @@ class TipoComprobanteController {
         }else{
             tipo = new TipoComprobante()
         }
-
 
         params.codigo = params.codigo.toUpperCase()
         tipo.properties = params
@@ -71,9 +68,4 @@ class TipoComprobanteController {
             render "no"
         }
     }
-
-
-
-
-
 }

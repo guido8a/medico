@@ -23,8 +23,6 @@ class TipoProcesoController {
 
     def save_ajax(){
         def tipo
-
-
         def existente = TipoProceso.findByCodigo(params.codigo)
 
         if(existente){
@@ -39,7 +37,6 @@ class TipoProcesoController {
                 return true
             }
         }
-
 
         if(params.id){
             tipo = TipoProceso.get(params.id)
@@ -69,5 +66,4 @@ class TipoProcesoController {
             render "no"
         }
     }
-
 }

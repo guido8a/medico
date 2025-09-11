@@ -1,6 +1,5 @@
 package sri
 
-
 class TipoDocumentoPagoController {
 
     def list(){
@@ -51,6 +50,4 @@ class TipoDocumentoPagoController {
             render "no"
         }
     }
-
-
 }

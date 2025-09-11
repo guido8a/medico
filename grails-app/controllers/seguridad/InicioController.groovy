@@ -717,17 +717,12 @@ class InicioController {
                             cn.execute(sql.toString())
                         }
                     }
-
                 } catch (Exception ex) {
                     repetidos++
                     println "Error prtl $ex"
                     println "sql: $sql"
                 }
             }
-
-//            println "sql: $sql"
-
-
         }
 
         cnta++
@@ -738,4 +733,7 @@ class InicioController {
 
     }
 
+    def parametrosContabilidad(){
+
+    }
 }

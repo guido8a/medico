@@ -1,6 +1,5 @@
 package sri
 
-
 class TipoPagoController {
 
     def list(){
@@ -23,8 +22,6 @@ class TipoPagoController {
     def save_ajax(){
 
         def tipo
-
-
         def existente = TipoPago.findByCodigo(params.codigo)
 
         if(existente){
@@ -39,7 +36,6 @@ class TipoPagoController {
                 return true
             }
         }
-
 
         if(params.id){
             tipo = TipoPago.get(params.id)
