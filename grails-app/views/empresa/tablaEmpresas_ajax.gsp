@@ -4,9 +4,10 @@
         <tr>
             <th style="width: 10%">RUC</th>
             <th style="width: 30%">Nombre</th>
-            <th style="width: 30%">Tipo de Consultorio</th>
+            <th style="width: 20%">Tipo de Consultorio</th>
             <th style="width: 15%">Provincia</th>
             <th style="width: 15%">Acciones</th>
+            <th style="width: 10%">Contabilidad</th>
         </tr>
         </thead>
     </table>
@@ -19,7 +20,7 @@
             <tr data-id="${empresa.empr__id}">
                 <td style="width: 10%">${empresa.empr_ruc}</td>
                 <td style="width: 30%">${empresa.emprnmbr}</td>
-                <td style="width: 30%">${seguridad.TipoEmpresa.get(empresa.tpem__id)}</td>
+                <td style="width: 20%">${seguridad.TipoEmpresa.get(empresa.tpem__id)}</td>
                 <td style="width: 15%">${geografia.Canton.get(empresa.cntn__id)?.provincia?.nombre}</td>
                 <td style="width: 15%; text-align: center">
                     <a href="#" class="btn btn-xs btn-success btnEditar" data-id="${empresa.empr__id}" title="Editar">
@@ -35,6 +36,17 @@
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>
+                <td style="width: 10%; text-align: center">
+                    <a href="#" class="btn btn-xs btn-info btnContabilidad" data-id="${empresa.empr__id}" title="Datos de la contabilidad">
+                        <i class="fas fa-book"></i>
+                    </a>
+                    <a href="#" class="btn btn-xs btn-warning btnSecuenciales" data-id="${empresa.empr__id}" title="Secuenciales de facturas">
+                        <i class="fa fa-bookmark"></i>
+                    </a>
+                    <a href="#" class="btn btn-xs btn-info btnSucursales" data-id="${empresa.empr__id}" title="Sucursales">
+                        <i class="fa fa-building"></i>
+                    </a>
+                </td>
             </tr>
         </g:each>
         </tbody>
@@ -42,6 +54,21 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnContabilidad").click(function () {
+        var id = $(this).data("id");
+        createEditRowContabilidad(id);
+    });
+
+    $(".btnSecuenciales").click(function () {
+        var id = $(this).data("id");
+        location.href="${createLink(controller: 'documentoEmpresa', action: 'list')}/" + id;
+    });
+
+    $(".btnSucursales").click(function () {
+        var id = $(this).data("id");
+        formSucursales(id)
+    });
 
     $(".btnLogo").click(function () {
         var id = $(this).data("id");
@@ -87,4 +114,97 @@
             } //success
         }); //ajax
     } //createEdit
+
+    function createEditRowContabilidad(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'empresa',  action:'formContabilidad_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditCont",
+                    title   : "Datos de contabilidad de la empresa",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormCont();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormCont() {
+        var $form = $("#frmEmpresaCont");
+        if ($form.valid()) {
+            var r = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : '${createLink(controller: 'empresa', action:'saveFormContabilidad_ajax')}',
+                data    : $form.serialize(),
+                success : function (msg) {
+                    r.modal("hide");
+                    var parts =  msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log("Datos guardados correctamente","success");
+                        setTimeout(function () {
+                            location.reload()
+                        }, 1000);
+                    }else{
+                        log("Error al guardar los datos", "error")
+                    }
+                }
+            });
+        } else {
+            return false;
+        } //else
+    }
+
+    function formSucursales(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'empresa', action:'sucursales_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditSuc",
+                    title   : "Sucursales de la empresa",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    } //createEdit
+
 </script>

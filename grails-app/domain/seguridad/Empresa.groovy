@@ -29,6 +29,13 @@ class Empresa implements Auditable{
     String clave
     String logo
 
+    int numeroComprobanteDiario = 0
+    int numeroComprobanteEgreso = 0
+    int numeroComprobanteIngreso = 0
+    String prefijoDiario
+    String prefijoEgreso
+    String prefijoIngreso
+
     static mapping = {
         table 'empr'
         cache usage: 'read-write', include: 'non-lazy'
@@ -59,6 +66,12 @@ class Empresa implements Auditable{
             firma column: 'emprfrma'
             clave column: 'emprclve'
             logo column: 'emprlogo'
+            numeroComprobanteDiario column: 'emprncmd'
+            numeroComprobanteEgreso column: 'emprncme'
+            numeroComprobanteIngreso column: 'emprncmi'
+            prefijoDiario column: 'emprprdr'
+            prefijoEgreso column: 'emprpreg'
+            prefijoIngreso column: 'emprprin'
         }
     }
     static constraints = {
@@ -85,6 +98,12 @@ class Empresa implements Auditable{
         ambiente(blank: true, nullable: true)
         firma(blank: true, nullable: true)
         clave(blank: true, nullable: true)
+        numeroComprobanteDiario(blank: true, nullable: true, size: 1..20)
+        numeroComprobanteIngreso(blank: true, nullable: true, size: 1..20)
+        numeroComprobanteEgreso(blank: true, nullable: true, size: 1..20)
+        prefijoDiario(blank: true, nullable: true, size: 1..20)
+        prefijoEgreso(blank: true, nullable: true, size: 1..20)
+        prefijoIngreso(blank: true, nullable: true, size: 1..20)
     }
 
     String toString() {
