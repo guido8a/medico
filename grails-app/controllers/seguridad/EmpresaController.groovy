@@ -3,6 +3,7 @@ package seguridad
 import geografia.Canton
 import geografia.Provincia
 import groovy.io.FileType
+import sri.Establecimiento
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -17,7 +18,7 @@ class EmpresaController {
     def dbConnectionService
 
     def list(){
-
+        return [tipo: params.tipo]
     }
 
     def form_ajax(){
@@ -441,5 +442,104 @@ h   : img?.getHeight(),
         }
     }
 
+    def formContabilidad_ajax(){
+        def empresa = Empresa.get(params.id)
+        return[empresaInstance: empresa]
+    }
+
+    def saveFormContabilidad_ajax(){
+
+        def empresa = Empresa.get(params.id)
+
+        params.fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio)
+
+        if(params.fechaFin){
+            params.fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin)
+        }
+
+        if(params."contribuyenteEspecial_name"){
+            params.contribuyenteEspecial = 'S'
+        }else{
+            params.contribuyenteEspecial = 'N'
+        }
+
+        if(params."obligadaContabilidad_name"){
+            params.obligadaContabilidad =  '1'
+        }else{
+            params.obligadaContabilidad =  '0'
+        }
+
+        if(params."tipoEmision_name"){
+            params.tipoEmision = 'E'
+        }else{
+            params.tipoEmision = 'F'
+        }
+
+        if(params."ambiente_name"){
+            params.ambiente = '2'
+        }else{
+            params.ambiente = '1'
+        }
+
+        empresa.properties = params
+
+
+        if(!empresa.save(flush:true)){
+            println("error al guardar los datos de la contabilidad de la empresa " + empresa.errors)
+            render "no"
+        }else{
+            render "ok"
+        }
+    }
+
+   def sucursales_ajax(){
+       def empresa = Empresa.get(params.id)
+       return [empresa: empresa, tipo: params.tipo]
+   }
+
+    def tablaSucursales_ajax(){
+        def empresa = Empresa.get(params.id)
+        def sucursales = Establecimiento.findAllByEmpresa(empresa).sort{it.numero}
+        return[sucursales: sucursales]
+    }
+
+    def guardarSucursal_ajax(){
+        println("params " + params)
+
+
+        def empresa = Empresa.get(params.id)
+        def sucursal
+
+        if(params.sucursal != ''){
+            sucursal = Establecimiento.get(params.sucursal)
+        }else{
+            sucursal = new Establecimiento()
+            sucursal.empresa = empresa
+        }
+
+        sucursal.direccion = params.direccion
+        sucursal.numero = params.numero
+        sucursal.nombre = params.nombre
+
+        if(!sucursal.save(flush:true)){
+            println("error al guardar la sucursal " + sucursal.errors)
+            render"no"
+        }else{
+            render"ok"
+        }
+
+    }
+
+    def borrarSucursal_ajax(){
+        def sucursal = Establecimiento.get(params.id)
+
+        try{
+            sucursal.delete(flush: true)
+            render "ok"
+        }catch(e){
+            println("error al borrar la sucursal " + sucursal.errors)
+            render "no"
+        }
+    }
 
 }

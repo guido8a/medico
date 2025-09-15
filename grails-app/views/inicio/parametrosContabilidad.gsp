@@ -232,7 +232,7 @@
                 <li>
                     <i class="fa fa-building"></i>
                     <span id="paramsEmp">
-                        <g:link controller="empresa" action="list">Parámetros de la Empresa</g:link> para definir la forma de
+                        <g:link controller="empresa" action="list" params="[tipo: 1]">Parámetros de la Empresa</g:link> para definir la forma de
                         funcionamiento de la contabilidad, centros de costos y control de inventarios.
                     </span>
 

@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-
+    <title>
+        Logo
+    </title>
     <style>
 
     .imag_pq {
@@ -55,9 +57,9 @@
 </fieldset>
 
 <g:if test="${empresa?.logo}">
-        <p class="css-vertical-text">
-            Logo
-        </p>
+    <p class="css-vertical-text">
+        Logo
+    </p>
     <div class="linea" style="height: 40%;"></div>
     <img src="${createLink(controller: 'empresa', action: 'getImage', params: [id:empresa?.id] )}" class="imag_pq" style="margin-top: 10px"/>
 </g:if>

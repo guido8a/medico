@@ -83,7 +83,7 @@ class DocumentoEmpresaController {
         documentoEmpresa.fechaFin = fechaFin
         documentoEmpresa.empresa = empresa
         documentoEmpresa.establecimiento = establecimiento
-        documentoEmpresa.numeroEstablecimiento = establecimiento.numero
+        documentoEmpresa.numeroEstablecimiento = establecimiento ? establecimiento.numero : null
 
 
         if(!documentoEmpresa.save(flush:true)){
@@ -105,4 +105,18 @@ class DocumentoEmpresaController {
             render "NO_Error al borrar el libretín"
         }
     } //delete
+
+    def sucursal_ajax(){
+        def documento
+
+        if(params.id){
+            documento = DocumentoEmpresa.get(params.id)
+        }else{
+            documento = new DocumentoEmpresa()
+        }
+
+        def empresa = Empresa.get(params.empresa)
+        def establecimientos = Establecimiento.findAllByEmpresa(empresa)
+        return [establecimientos: establecimientos, documentoEmpresaInstance: documento, empresa: empresa]
+    }
 }

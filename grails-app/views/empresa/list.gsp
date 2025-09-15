@@ -10,7 +10,10 @@
 <body>
 
 <div class="row" style="margin-bottom: 10px">
-    <div class="span9 btn-group" role="navigation">
+    <div class="col-md-6 btn-group" role="navigation">
+        <g:if test="${tipo}">
+            <g:link class="btn btn-default col-md-2" controller="inicio" action="parametrosContabilidad"><i class="fa fa-arrow-left"></i> Regresar</g:link>
+        </g:if>
         <a href="#" class="btn btn-success btnNuevaEmpresa">
             <i class="fa fa-building"></i>
             Nuevo Consultorio

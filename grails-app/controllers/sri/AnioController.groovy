@@ -4,10 +4,8 @@ package sri
 class AnioController {
 
     def list(){
-
         def anios = Anio.list().sort{it.anio}
         return [anioInstanceList: anios]
-
     }
 
     def form_ajax(){
@@ -21,14 +19,10 @@ class AnioController {
         }
 
         return[anioInstance: anio]
-
     }
 
     def save_ajax(){
-        println("params " + params)
-
         def anio
-
         def existente = Anio.findByAnio(params.anio)
 
         if(existente){
@@ -43,7 +37,6 @@ class AnioController {
                 return true
             }
         }
-
 
         if(params.id){
             anio = Anio.get(params.id)
@@ -72,6 +65,4 @@ class AnioController {
             render "no"
         }
     }
-
-
 }

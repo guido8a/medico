@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>IVA</title>
+    <title>Tipos de Empresa</title>
 </head>
 <body>
 
@@ -11,36 +11,29 @@
     <div class="btn-group">
         <g:link class="btn btn-default col-md-2" style="width: 100px;" controller="inicio" action="parametrosContabilidad"><i class="fa fa-arrow-left"></i> Regresar</g:link>
         <g:link action="form" class="btn btn-info btnCrear">
-            <i class="fa fa-file"></i> Nuevo IVA
+            <i class="fa fa-file"></i> Nuevo Tipo
         </g:link>
     </div>
 </div>
 
-<div style="width: 70%">
-
+<div style="width: 50%">
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <th style="width: 25%">IVA</th>
-            <th style="width: 30%">Desde</th>
-            <th style="width: 30%">Hasta</th>
-            <th style="width: 15%">Acciones</th>
+            <th style="width: 80%">Descripción</th>
+            <th style="width: 20%">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <g:if test="${parametrosAuxiliaresInstanceList.size() > 0}">
-            <g:each in="${parametrosAuxiliaresInstanceList}" status="i" var="parametrosAuxiliaresInstance">
-                <tr data-id="${parametrosAuxiliaresInstance.id}">
-
-                    <td>${fieldValue(bean: parametrosAuxiliaresInstance, field: "iva")} %</td>
-                    <td><g:formatDate date="${parametrosAuxiliaresInstance?.fechaInicio}" format="dd-MM-yyyy"/></td>
-                    <td><g:formatDate date="${parametrosAuxiliaresInstance?.fechaFin}" format="dd-MM-yyyy"/></td>
-
+        <g:if test="${tipoEmpresaInstanceList.size() > 0}">
+            <g:each in="${tipoEmpresaInstanceList}" status="i" var="tipoEmpresaInstance">
+                <tr data-id="${tipoEmpresaInstance.id}">
+                    <td>${fieldValue(bean: tipoEmpresaInstance, field: "descripcion")}</td>
                     <td>
-                        <a href="#" data-id="${parametrosAuxiliaresInstance.id}" class="btn btn-success btn-sm btn-edit btn-ajax" title="Editar">
+                        <a href="#" data-id="${tipoEmpresaInstance.id}" class="btn btn-success btn-xs btn-edit btn-ajax" title="Editar">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="#" data-id="${parametrosAuxiliaresInstance.id}" class="btn btn-danger btn-sm btn-delete btn-ajax" title="Eliminar">
+                        <a href="#" data-id="${tipoEmpresaInstance.id}" class="btn btn-danger btn-xs btn-delete btn-ajax" title="Eliminar">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -49,7 +42,7 @@
         </g:if>
         <g:else>
             <tr style="text-align: center">
-                <td class="alert alert-warning" colspan="4"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
+                <td class="alert alert-warning" colspan="3"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
             </tr>
         </g:else>
         </tbody>
@@ -59,9 +52,10 @@
 <script type="text/javascript">
     var id = null;
     function submitForm() {
-        var $form = $("#frmParametrosAuxiliares");
+        var $form = $("#frmTipoEmpresa");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
+            $btn.replaceWith(spinner);
             openLoader("Guardando...");
             $.ajax({
                 type    : "POST",
@@ -70,12 +64,12 @@
                 success : function (msg) {
                     closeLoader();
                     if (msg === "ok") {
-                        log("IVA guardado correctamente","success");
+                        log("Tipo guardado correctamente","success");
                         setTimeout(function () {
                             location.reload();
                         }, 1000);
                     } else {
-                        log("Error al guardar el IVA","error");
+                        log("Error al guardar el tipo","error");
                         return false;
                     }
                 }
@@ -87,7 +81,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Alerta",
-            message : "<p>¿Está seguro que desea eliminar el IVA seleccionado? Esta acción no se puede deshacer.</p>",
+            message : "<p>¿Está seguro que desea eliminar el Tipo de Empresa seleccionado? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -99,7 +93,7 @@
                     label     : "<i class='fa fa-trash'></i> Eliminar",
                     className : "btn-danger",
                     callback  : function () {
-                        openLoader("Eliminando...");
+                        openLoader("Eliminando");
                         $.ajax({
                             type    : "POST",
                             url     : '${createLink(action:'delete_ajax')}',
@@ -109,12 +103,12 @@
                             success : function (msg) {
                                 closeLoader();
                                 if (msg === "ok") {
-                                    log("IVA borrado correctamente","success");
+                                    log("Tipo borrado correctamente","success");
                                     setTimeout(function () {
                                         location.reload();
                                     }, 1000);
                                 } else {
-                                    log("Error al borrar el IVA","error");
+                                    log("Error al borrar el tipo","error");
                                     return false;
                                 }
                             }
@@ -125,7 +119,7 @@
         });
     }
     function createEditRow(id) {
-        var title = id ? "Editar" : "Nuevo";
+        var title = id ? "Editar" : "Crear";
         var data = id ? { id: id } : {};
         $.ajax({
             type    : "POST",
@@ -134,7 +128,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Parámetros Auxiliares",
+                    title   : title + " Tipo de Empresa",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -160,7 +154,6 @@
         }); //ajax
     } //createEdit
 
-
     $(".btnCrear").click(function() {
         createEditRow();
         return false;
@@ -175,6 +168,5 @@
     });
 
 </script>
-
 </body>
 </html>
