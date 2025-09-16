@@ -20,7 +20,8 @@
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <th style="width: 75%">Descripción</th>
+            <th style="width: 10%">Código</th>
+            <th style="width: 65%">Descripción</th>
             <th style="width: 25%">Acciones</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
         <g:if test="${fuenteInstanceList.size() > 0}">
             <g:each in="${fuenteInstanceList}" status="i" var="fuenteInstance">
                 <tr data-id="${fuenteInstance.id}">
+                    <td>${fuenteInstance?.id}</td>
                     <td>${fieldValue(bean: fuenteInstance, field: "descripcion")}</td>
                     <td style="text-align: center">
                         <a href="#" data-id="${fuenteInstance.id}" class="btn btn-success btn-sm btn-edit btn-ajax" title="Editar">

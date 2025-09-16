@@ -20,7 +20,7 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar row" style="margin-top: 10px">
     <div class="btn-group col-md-6">
-        <g:link class="btn btn-default" controller="empresa" action="list"><i class="fa fa-arrow-left"></i> Regresar</g:link>
+        <g:link class="btn btn-default" controller="empresa" action="list" params="[tipo: tipo]"><i class="fa fa-arrow-left"></i> Regresar</g:link>
         <g:link action="form" class="btn btn-info btnCrear">
             <i class="fa fa-file"></i> Nuevo libretín
         </g:link>

@@ -21,9 +21,10 @@
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
+            <th style="width: 10%">Código</th>
             <th style="width: 25%">IVA</th>
-            <th style="width: 30%">Desde</th>
-            <th style="width: 30%">Hasta</th>
+            <th style="width: 25%">Desde</th>
+            <th style="width: 25%">Hasta</th>
             <th style="width: 15%">Acciones</th>
         </tr>
         </thead>
@@ -31,7 +32,7 @@
         <g:if test="${parametrosAuxiliaresInstanceList.size() > 0}">
             <g:each in="${parametrosAuxiliaresInstanceList}" status="i" var="parametrosAuxiliaresInstance">
                 <tr data-id="${parametrosAuxiliaresInstance.id}">
-
+                    <td>${parametrosAuxiliaresInstance?.id}</td>
                     <td>${fieldValue(bean: parametrosAuxiliaresInstance, field: "iva")} %</td>
                     <td><g:formatDate date="${parametrosAuxiliaresInstance?.fechaInicio}" format="dd-MM-yyyy"/></td>
                     <td><g:formatDate date="${parametrosAuxiliaresInstance?.fechaFin}" format="dd-MM-yyyy"/></td>
@@ -49,7 +50,7 @@
         </g:if>
         <g:else>
             <tr style="text-align: center">
-                <td class="alert alert-warning" colspan="4"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
+                <td class="alert alert-warning" colspan="5"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
             </tr>
         </g:else>
         </tbody>

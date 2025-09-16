@@ -22,7 +22,8 @@
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <th style="width: 75%">Descripción</th>
+            <th style="width: 10%">Código</th>
+            <th style="width: 65%">Descripción</th>
             <th style="width: 25%">Acciones</th>
         </tr>
         </thead>
@@ -30,8 +31,8 @@
         <g:if test="${niveles.size() > 0}">
             <g:each in="${niveles}" status="i" var="nivelInstance">
                 <tr data-id="${nivelInstance.id}">
+                    <td>${nivelInstance?.id}</td>
                     <td>${fieldValue(bean: nivelInstance, field: "descripcion")}</td>
-
                     <td style="text-align: center">
                         <a href="#" data-id="${nivelInstance.id}" class="btn btn-success btn-sm btn-edit btn-ajax" title="Editar">
                             <i class="fa fa-edit"></i>
@@ -45,7 +46,7 @@
         </g:if>
         <g:else>
             <tr style="text-align: center">
-                <td class="alert alert-warning" colspan="2"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
+                <td class="alert alert-warning" colspan="3"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
             </tr>
         </g:else>
         </tbody>
