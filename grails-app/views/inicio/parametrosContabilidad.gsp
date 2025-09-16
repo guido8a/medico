@@ -56,6 +56,15 @@
         font-size: 14px;
     }
 
+    .tamano{
+        font-size: 16px;
+        color: #0c6cc2;
+    }
+
+    .titulo{
+        font-size: 14px;
+        color: #f8f9ff;
+    }
     </style>
 
 </head>
@@ -67,24 +76,25 @@
 <g:set var="iconAct" value="fa fa-laptop"/>
 <g:set var="iconNom" value="fa fa-users"/>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#generales" data-toggle="tab">Contable</a></li>
-    <li><a href="#empresa" data-toggle="tab">Empresa</a></li>
-    <li><a href="#sri" data-toggle="tab">SRI / ATS</a></li>
+
+<ul class="nav nav-pills" style="margin-top: 20px">
+    <li class="active titulo"><a data-toggle="pill" href="#generales">Contable</a></li>
+        <li class="titulo"><a data-toggle="pill" href="#empresa">Empresa</a></li>
+        <li class="titulo"><a data-toggle="pill" href="#sri">Datos SRI / ATS</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content ui-corner-bottom tam">
-    <div class="tab-pane active" id="generales">
+    <div class="tab-pane fade in active" id="generales">
         <div class="left pull-left">
             <ul class="fa-ul">
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="nivel">
-                        <g:link controller="nivel" action="list" class="descripcion">Nivel</g:link> de detalle de las cuentas contables y de
-                        presupuesto (partidas)
+                        <g:link controller="nivel" action="list" class="tamano"> Nivel
+                        </g:link>
+                        de detalle de las cuentas contables y de  presupuesto (partidas)
                     </span>
-
                     <div class="descripcion hide">
                         <h4>Nivel</h4>
                         <p>Nivel de detalle de las cuentas contables y de las partidas presupuestarias.</p>
@@ -95,7 +105,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoPago">
-                        <g:link controller="tipoPago" action="list" class="descripcion">Tipo de pago</g:link> o forma de pago
+                        <g:link controller="tipoPago" action="list" class="tamano">Tipo de pago</g:link> o forma de pago
                         que se acuerda con los proveedores, puede ser contado, crédito, o mediante un tiempo de espera antes
                         de realizar la efectivización del pago, ejemplo tarjetas de crédito con fechas de corte prefijadas
                     </span>
@@ -115,7 +125,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="fuente">
-                        <g:link controller="fuente" action="list" class="descripcion">Fuente de transacciones</g:link> nombre de los módulos
+                        <g:link controller="fuente" action="list" class="tamano">Fuente de transacciones</g:link> nombre de los módulos
                         del sistema que pueden generar transacciones contables
                     </span>
 
@@ -131,7 +141,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoDocPago">
-                        <g:link controller="tipoDocumentoPago" action="list" class="descripcion">Forma de Pago</g:link> para
+                        <g:link controller="tipoDocumentoPago" action="list" class="tamano">Forma de Pago</g:link> para
                         el registro de la forma de pago a proveedores y clientes.
                     </span>
                     <div class="descripcion hide">
@@ -145,7 +155,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoComprobante">
-                        <g:link controller="tipoComprobante" action="list" class="descripcion">Tipos de comprobante contable</g:link> usualmente
+                        <g:link controller="tipoComprobante" action="list" class="tamano">Tipos de comprobante contable</g:link> usualmente
                         se trata de ingresos, egresos y diarios
                     </span>
 
@@ -160,7 +170,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoCuenta">
-                        <g:link controller="tipoCuenta" action="list" class="descripcion">Tipo de cuenta bancaria</g:link> que puede estar
+                        <g:link controller="tipoCuenta" action="list" class="tamano">Tipo de cuenta bancaria</g:link> que puede estar
                         asociada a una cuenta contable, por ejemplo caja bancos está asociada a una cuenta corriente
                     </span>
 
@@ -175,7 +185,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoProv">
-                        <g:link controller="tipoProveedor" action="list" class="descripcion">Tipo de Proveedor</g:link> como contribuyentes
+                        <g:link controller="tipoProveedor" action="list" class="tamano">Tipo de Proveedor</g:link> como contribuyentes
                         normales, especiales y el estado.
                     </span>
                     <div class="descripcion hide">
@@ -187,7 +197,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoProc">
-                        <g:link controller="tipoProceso" action="list" class="descripcion">Tipo de Proceso</g:link> diferentes tipos de procesos contables
+                        <g:link controller="tipoProceso" action="list" class="tamano">Tipo de Proceso</g:link> diferentes tipos de procesos contables
                     </span>
 
                     <div class="descripcion hide">
@@ -199,7 +209,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="paramsAux">
-                        <g:link controller="parametrosAuxiliares" action="list" class="descripcion">IVA</g:link> para definir
+                        <g:link controller="parametrosAuxiliares" action="list" class="tamano">IVA</g:link> para definir
                         valores del IVA.
                     </span>
 
@@ -211,7 +221,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="anio">
-                        <g:link controller="anio" action="list" class="descripcion">Año</g:link> administración de los años y sus respectivos sueldos básicos
+                        <g:link controller="anio" action="list" class="tamano">Año</g:link> administración de los años y sus respectivos sueldos básicos
                     </span>
 
                     <div class="descripcion hide">
@@ -232,7 +242,7 @@
                 <li>
                     <i class="fa fa-building"></i>
                     <span id="paramsEmp">
-                        <g:link controller="empresa" action="list" params="[tipo: 1]">Parámetros de la Empresa</g:link> para definir la forma de
+                        <g:link controller="empresa" action="list" params="[tipo: 1]" class="tamano">Parámetros de la Empresa</g:link> para definir la forma de
                         funcionamiento de la contabilidad, centros de costos y control de inventarios.
                     </span>
 
@@ -244,7 +254,7 @@
                 <li>
                     <i class="fa fa-building"></i>
                     <span id="tipoEmpresa">
-                        <g:link controller="tipoEmpresa" action="list">Tipo de Empresa</g:link>, clasificación para registro
+                        <g:link controller="tipoEmpresa" action="list" class="tamano">Tipo de Empresa</g:link>, clasificación para registro
                         y control de empresas que reciben el servicio
                     </span>
 
@@ -266,7 +276,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoId">
-                        <g:link controller="tipoIdentificacion" action="list">Tipo de Identificación</g:link> de la persona
+                        <g:link controller="tipoIdentificacion" action="list" class="tamano">Tipo de Identificación</g:link> de la persona
                         natural o jurídica, puede ser RUC, Cédula, pasaporte, etc.
                     </span>
 
@@ -279,7 +289,7 @@
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="tipoTra">
-                        <g:link controller="tipoTransaccion" action="list">Tipo de Transacción</g:link> Compra, venta, etc.
+                        <g:link controller="tipoTransaccion" action="list" class="tamano">Tipo de Transacción</g:link> Compra, venta, etc.
                     </span>
 
                     <div class="descripcion hide">

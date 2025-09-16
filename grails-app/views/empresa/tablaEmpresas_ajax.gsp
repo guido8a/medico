@@ -62,7 +62,7 @@
 
     $(".btnSecuenciales").click(function () {
         var id = $(this).data("id");
-        location.href="${createLink(controller: 'documentoEmpresa', action: 'list')}/" + id;
+        location.href="${createLink(controller: 'documentoEmpresa', action: 'list')}?id=" + id + "&tipo=" + '${tipo}';
     });
 
     $(".btnSucursales").click(function () {

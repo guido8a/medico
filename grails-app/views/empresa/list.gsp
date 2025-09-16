@@ -88,7 +88,8 @@
             url: '${createLink(controller: 'empresa', action: 'tablaEmpresas_ajax')}',
             data:{
                 buscarPor: buscarPor,
-                criterio: criterio
+                criterio: criterio,
+                tipo: '${tipo}'
             },
             success: function (msg){
                 d.modal("hide");

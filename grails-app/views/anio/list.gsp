@@ -20,6 +20,7 @@
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
+            <th style="width: 15%">Código</th>
             <th style="width: 25%">Año</th>
             <th style="width: 30%">Sueldo</th>
             <th style="width: 15%">Acciones</th>
@@ -29,6 +30,7 @@
         <g:if test="${anioInstanceList.size() > 0}">
             <g:each in="${anioInstanceList}" status="i" var="anioInstance">
                 <tr data-id="${anioInstance.id}" style="text-align: center">
+                    <td>${anioInstance?.id}</td>
                     <td>${fieldValue(bean: anioInstance, field: "anio")}</td>
                     <td><g:formatNumber number="${anioInstance?.sueldoBasico}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></td>
                     <td>
@@ -44,7 +46,7 @@
         </g:if>
         <g:else>
             <tr style="text-align: center">
-                <td class="alert alert-warning" colspan="3"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
+                <td class="alert alert-warning" colspan="4"><i class="fa fa-exclamation-triangle fa-2x text-info"></i> <strong style="font-size: 16px"> No existen registros </strong></td>
             </tr>
         </g:else>
         </tbody>

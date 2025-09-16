@@ -10,7 +10,7 @@ class DocumentoEmpresaController {
     def list(){
         def empresa = Empresa.get(params.id)
         def documentos = DocumentoEmpresa.findAllByEmpresa(empresa)
-        return[documentoEmpresaInstanceList:documentos, empresa: empresa]
+        return[documentoEmpresaInstanceList:documentos, empresa: empresa, tipo: params.tipo]
     }
 
     def form_ajax(){

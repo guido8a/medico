@@ -51,7 +51,7 @@ class EmpresaController {
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
-        [datos: datos]
+        [datos: datos, tipo: params.tipo]
     }
 
     def canton_ajax () {
