@@ -8,10 +8,9 @@ import retenciones.ConceptoRetencionImpuestoRenta
 import retenciones.Retencion
 import seguridad.Empresa
 import seguridad.Persona
-import medico.Categoria
+
 import medico.Grupo
 import medico.Producto
-import medico.Subcategoria
 
 class Reportes2Controller {
 
