@@ -18,6 +18,7 @@ class Grupo {
             orden column: 'grpoordn'
         }
     }
+
     static constraints = {
         codigo(size: 0..4, blank: false, nullable: false)
         descripcion(size: 0..63, blank: false, nullable: false, attributes: [title: 'descripcion'])
