@@ -21,6 +21,7 @@ class PacienteController {
     def dbConnectionService
 
     def list() {
+        println "list: $params"
         def usuario = Persona.get(session.usuario.id)
         def consultorio = usuario.empresa
         def empresa
@@ -29,7 +30,7 @@ class PacienteController {
         }
         def pacientes = Paciente.countByEmpresa(consultorio)
 
-        return [empresa: empresa, pacientes: pacientes]
+        return [empresa: empresa, pacientes: pacientes, criterio: Paciente.get(params.id)?.apellido]
     }
 
     def tablaPacientes_ajax() {
@@ -71,7 +72,7 @@ class PacienteController {
         def datos = cn.rows(sqlTx)
 //        println datos
 
-        [datos: datos]
+        [datos: datos, buscarPor: params.buscarPor]
 
     }
 

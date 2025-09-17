@@ -24,7 +24,7 @@
 
 <div class="row" style="margin-bottom: 10px">
     <div class="btn-group col-md-4" >
-        <a href="${createLink(controller: 'paciente', action: 'list')}" class="btn btn-info" title="Retornar a búsqueda de pacientes">
+        <a href="${createLink(controller: 'paciente', action: 'list', id: paciente?.id)}" class="btn btn-info" title="Retornar a búsqueda de pacientes">
             <i class="fas fa-arrow-left"></i> Lista de pacientes
         </a>
     </div>

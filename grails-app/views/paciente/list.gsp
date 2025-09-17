@@ -53,19 +53,22 @@
                     </div>
 
                     <div class="col-md-2" style="margin-left: 0px; max-width: 220px">
-                        <g:textField name="criterio" id="criterio" class="form-control"/>
+                        <g:textField name="criterio" id="criterio" class="form-control" value="${criterio}"/>
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <button class="btn btn-info" id="btnBuscarEmpresa"><i class="fa fa-search"></i> Buscar pacientes
                         </button>
-                    </div>
-
-                    <div class="col-sm-1" >
-                        <button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i
+                        <button class="btn btn-info" id="btnLimpiar" title="Limpiar Búsqueda"><i
                                 class="fa fa-eraser"></i>
                         </button>
                     </div>
+
+                    %{--<div class="col-sm-1" >--}%
+                        %{--<button class="btn btn-warning" id="btnLimpiar" title="Limpiar Búsqueda"><i--}%
+                                %{--class="fa fa-eraser"></i>--}%
+                        %{--</button>--}%
+                    %{--</div>--}%
 
                     <div class="col-sm-3">
                         <label class="control-label text-info" style="margin-top: 10px">Pacientes en el sistema: ${pacientes}</label>
