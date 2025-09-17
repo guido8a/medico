@@ -693,4 +693,10 @@ class PacienteController {
 
         return [examenes: examenes, cita: cita]
     }
+
+
+    def facturas(){
+        def paciente = Paciente.get(params.id)
+        return [paciente: paciente]
+    }
 }

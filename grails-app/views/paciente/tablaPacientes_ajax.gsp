@@ -1,18 +1,31 @@
 <%@ page import="medico.GrupoSanguineo" %>
 
+<style type="text/css">
+table {
+    table-layout: fixed;
+    overflow-x: scroll;
+}
+th, td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+</style>
+
 <div role="main" style="margin-top: 10px;">
     <table class="table table-bordered table-striped table-condensed table-hover">
         <thead>
         <tr>
             <th style="width: 7%">Cédula</th>
-            <th style="width: 14%">Nombres</th>
-            <th style="width: 14%">Apellidos</th>
-            <th style="width: 15%">Edad</th>
+            <th style="width: 13%">Nombres</th>
+            <th style="width: 13%">Apellidos</th>
+            <th style="width: 13%">Edad</th>
             <th style="width: 5%">Grupo S.</th>
-            <th style="width: 13%">Mail</th>
+            <th style="width: 8%">Mail</th>
             <th style="width: 8%">HC Anterior</th>
             <th style="width: 10%">Historial</th>
             <th style="width: 8%">Anteriores</th>
+            <th style="width: 7%">Factura</th>
             <th style="width: 7%">Acciones</th>
         </tr>
         </thead>
@@ -26,11 +39,11 @@
             <g:each in="${datos}" status="i" var="paciente">
                 <tr data-id="${paciente.pcnt__id}">
                     <td style="width: 7%">${paciente.pcntcdla}</td>
-                    <td style="width: 14%">${paciente.pcntnmbr}</td>
-                    <td style="width: 14%">${paciente.pcntapll}</td>
-                    <td style="width: 15%">${paciente.edad}</td>
+                    <td style="width: 13%">${paciente.pcntnmbr}</td>
+                    <td style="width: 13%">${paciente.pcntapll}</td>
+                    <td style="width: 13%">${paciente.edad}</td>
                     <td style="width: 5%">${paciente.grsndscr}</td>
-                    <td style="width: 13%">${paciente.pcntmail}</td>
+                    <td style="width: 8%">${paciente.pcntmail}</td>
                     <td style="width: 8%; text-align: center">
                         <g:if test="${paciente?.pcntpath}">
                             <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">
@@ -54,6 +67,12 @@
                         </a>
                     </td>
                     <td style="width: 7%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-success btnFacturas" data-id="${paciente?.pcnt__id}"
+                           title="Facturas del paciente">
+                            <i class="fa fa-money-bill"></i>
+                        </a>
+                    </td>
+                    <td style="width: 7%; text-align: center">
                         <a href="#" class="btn btn-xs btn-danger btnBorrarPaciente" data-id="${paciente?.pcnt__id}" title="Borrar paciente">
                             <i class="fa fa-trash"></i>
                         </a>
@@ -71,6 +90,11 @@
 <script type="text/javascript">
 
     var cd;
+
+    $(".btnFacturas").click(function () {
+        var id = $(this).data("id");
+        location.href="${createLink(controller: 'paciente', action: 'facturas')}/id=" + id
+    });
 
     $(".btnBorrarPaciente").click(function () {
         var id = $(this).data("id");
