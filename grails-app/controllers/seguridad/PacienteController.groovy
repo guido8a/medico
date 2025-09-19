@@ -13,6 +13,8 @@ import medico.Historial
 import medico.Medicina
 import medico.TipoExamen
 import medico.Tratamiento
+import sri.DocumentoEmpresa
+import sri.Establecimiento
 
 import javax.imageio.ImageIO
 
@@ -686,17 +688,55 @@ class PacienteController {
 
     def examenImagen_ajax() {
         def cita = Historial.get(params.id)
-
         def grupoExamen = GrupoExamen.get(6)
         def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
         def examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(cita, tipoExamen, [sort: "id"])
-
         return [examenes: examenes, cita: cita]
     }
 
-
     def facturas(){
+        println("params " + params)
         def paciente = Paciente.get(params.id)
-        return [paciente: paciente]
+        def empresa = paciente.empresa
+        return [paciente: paciente, empresa: empresa]
+    }
+
+    def datosEmpresaFactura_ajax(){
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa]
+    }
+
+    def datosFactura_ajax(){
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa]
+    }
+
+    def datosLibretin_ajax(){
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa]
+    }
+
+    def libretines_ajax(){
+        def establecimiento = Establecimiento.get(params.establecimiento)
+        return [establecimiento: establecimiento]
+    }
+
+    def fechasValidez_ajax(){
+        def libretin = DocumentoEmpresa.get(params.id)
+        return [libretin: libretin]
+    }
+
+    def numeracionFactura_ajax(){
+        def libretin = DocumentoEmpresa.get(params.id)
+        return [libretin: libretin]
+    }
+
+    def datosPersona_ajax(){
+        def paciente = Paciente.get(params.id)
+        return [persona: paciente]
+    }
+
+    def formaDePago_ajax(){
+
     }
 }

@@ -2,7 +2,6 @@ package medico
 
 class Grupo {
 
-    String codigo
     String descripcion
     Integer orden
 
@@ -13,14 +12,13 @@ class Grupo {
         id generator: 'identity'
         version false
         columns {
-            codigo column: 'grpocdgo'
+            id column: 'grpo__id'
             descripcion column: 'grpodscr'
             orden column: 'grpoordn'
         }
     }
 
     static constraints = {
-        codigo(size: 0..4, blank: false, nullable: false)
         descripcion(size: 0..63, blank: false, nullable: false, attributes: [title: 'descripcion'])
         orden(blank: true, nullable: true)
     }

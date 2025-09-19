@@ -93,7 +93,7 @@ th, td {
 
     $(".btnFacturas").click(function () {
         var id = $(this).data("id");
-        location.href="${createLink(controller: 'paciente', action: 'facturas')}/id=" + id
+        location.href="${createLink(controller: 'paciente', action: 'facturas')}/" + id
     });
 
     $(".btnBorrarPaciente").click(function () {
