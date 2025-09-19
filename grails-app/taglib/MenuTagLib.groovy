@@ -136,7 +136,7 @@ class MenuTagLib {
                     "ctrl.ctrl__id = accn.ctrl__id and ctrlnmbr != 'No Asignado' and " +
                     "mdlo.mdlo__id = accn.mdlo__id and tpac__id = 1 " +
                     "order by mdloordn, accndscr"
-            println "sqlMenu: $sql"
+//            println "sqlMenu: $sql"
 
             cn.eachRow(sql.toString()) { d ->
                 if (!items[d.mdlonmbr]) {

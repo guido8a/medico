@@ -4,9 +4,12 @@
     <meta name="layout" content="main">
     <title>Artículos de Inventario</title>
 
-    <script type="text/javascript" src="${resource(dir: 'js/plugins/jstree', file: 'jstree.js')}"></script>
-    <link rel="stylesheet" href="${resource(dir: 'js/plugins/jstree/themes/default', file: 'style.css')}"/>
-    <link rel="stylesheet" href="${resource(dir: 'css/custom', file: 'tree_context.css')}"/>
+%{--    <script type="text/javascript" src="${resource(dir: 'js/plugins/jstree', file: 'jstree.js')}"></script>--}%
+%{--    <link rel="stylesheet" href="${resource(dir: 'js/plugins/jstree/themes/default', file: 'style.css')}"/>--}%
+%{--    <link rel="stylesheet" href="${resource(dir: 'css/custom', file: 'tree_context.css')}"/>--}%
+
+    <asset:javascript src="/jstree-3.0.8/dist/jstree.min.js"/>
+    <asset:stylesheet src="/jstree-3.0.8/dist/themes/default/style.min.css"/>
 
     <style type="text/css">
     #tree {
@@ -32,77 +35,48 @@
 </head>
 
 <body>
-<div id="list-cuenta">
+<div id="list-cuenta" style="margin-top: 20px">
 
-    <g:if test="${hh > 0}">
-        <!-- botones -->
-        <div class="span12 btn-group" data-toggle="buttons-radio">
-            <a href='#' class='btn btn-warning' id="btnCerrar" onclick="$('#tree').jstree('close_all');"><i class='fa fa-times'></i> Cerrar todo</a>
+%{--        <div class="span12 btn-group" data-toggle="buttons-radio">--}%
+%{--            <a href='#' class='btn btn-warning' id="btnCerrar" onclick="$('#tree').jstree('close_all');"><i class='fa fa-times'></i> Cerrar todo</a>--}%
 
-            <form class="form-search" style="float: left; margin-left: 50px;">
-                <div class="input-append">
-                    <input  title="Buscar"  type="text" class="input-medium search-query" id="search"/>
-                    <a href='#' class='btn btn-info' id="btnSearch"><i class='fa fa-search'></i> Buscar</a>
-                </div>
-            </form>
-        </div>
-
-        <div id="loading" class="text-center">
-            <p>
-                Cargando el árbol del plan de cuentas
-            </p>
-            <p>
-                <img src="${resource(dir: 'images/spinners', file: 'loading_new.GIF')}" alt='Cargando...'/>
-            </p>
-            <p>
-                Por favor espere
-            </p>
-        </div>
+%{--            <form class="form-search" style="float: left; margin-left: 50px;">--}%
+%{--                <div class="input-append">--}%
+%{--                    <input  title="Buscar"  type="text" class="input-medium search-query" id="search"/>--}%
+%{--                    <a href='#' class='btn btn-info' id="btnSearch"><i class='fa fa-search'></i> Buscar</a>--}%
+%{--                </div>--}%
+%{--            </form>--}%
+%{--        </div>--}%
 
         <div id="treeArea" class="hide">
             <div id="tree" class="ui-corner-all"></div>
-            <div id="info" class="ui-corner-all"></div>
+%{--            <div id="info" class="ui-corner-all"></div>--}%
         </div>
 
-    </g:if>
-    <g:else>
-        <div class="alert alert-danger">
-            <i class="fa icon-ghost fa-4x pull-left"></i>
-            <h3>Alerta</h3>
-            <p>Se debe crear los grupos</p>
-        </div>
-    </g:else>
 </div>
 
 <script type="text/javascript">
 
-    //    var $btnCloseModal = $('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>');
-    //    var $btnSave = $('<button type="button" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>');
-
-    var btn = $("<a href='#' class='btn' id='btnSearch'><i class='icon-zoom-in'></i> Buscar</a>");
-    var urlSp = "${resource(dir: 'images', file: 'spinner.gif')}";
-    var sp = $('<span class="add-on" id="btnSearch"><img src="' + urlSp + '"/></span>');
-
     function submitForm() {
-        var $form = $("#frmItem");
+        var $form = $("#frmGrupo");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             $btn.replaceWith(spinner);
-            openLoader("Grabando");
+             var c = cargarLoader("Guardando...");
             $.ajax({
                 type: "POST",
                 url: $form.attr("action"),
                 data: $form.serialize(),
                 success: function (msg) {
-                    closeLoader();
+                   c.modal("hide");
                     var parts = msg.split("_");
-                    if (parts[0] == "OK") {
-                        log("Guardado correctamente", "success");
+                    if (parts[0] === "ok") {
+                        log(parts[1], "success");
                         setTimeout(function () {
                             location.reload()
                         }, 800);
                     } else {
-                        log("Error al guardar", "error")
+                        log(parts[1], "error")
                     }
                 }
             });
@@ -112,7 +86,6 @@
     }
 
     function createEditRow(id, nodo, padre, url, tipo) {
-//        console.log("id:", id, "nodo:", nodo, "padre:", padre, "tipo", tipo);
         var data = tipo == "Crear" ? {'padre': id, 'nodo': nodo} : {'id': id, 'nodo': nodo, 'padre': padre};
         if(nodo == "Artículo" && tipo == "Crear") {
             data = {'padre': padre, 'nodo': nodo};
@@ -170,32 +143,30 @@
         var urlHijo = "";
         var nodoHijo = "";
 
-//        console.log('nodeStrId:', nodeStrId, 'tipo:', tipo, 'nodeHasChildren:', nodeHasChildren, 'nodeOcupado', nodeOcupado);
-//        console.log('padre:', padreId, 'id:', nodeId);
-
         switch (tipo) {
             case "root":
-                url = "${createLink(action:'formSg_ajax')}";
-                urlHijo = "${createLink(action:'formDp_ajax')}";
+                url = "${createLink(action:'formGrupo_ajax')}";
+                urlHijo = "${createLink(action:'formSubgrupo_ajax')}";
+                nodo = "Grupo";
+                nodoHijo = "Subgrupo";
+                break;
+            case "gp":
+                url = "${createLink(action:'formGrupo_ajax')}";
+                urlHijo = "${createLink(action:'formSubgrupo_ajax')}";
                 nodo = "Grupo";
                 nodoHijo = "Subgrupo";
                 break;
             case "sg":
-                url = "${createLink(action:'formSg_ajax')}";
+                url = "${createLink(action:'formSubgrupo_ajax')}";
                 urlHijo = "${createLink(action:'formDp_ajax')}";
-                nodo = "Grupo";
-                nodoHijo = "Subgrupo";
+                nodo = "Subgrupo";
+                nodoHijo = "Producto";
                 break;
             case "dp":
                 url = "${createLink(action:'formDp_ajax')}";
-                urlHijo = "${createLink(action:'formIt_ajax')}";
-                nodo = "Subgrupo";
-                nodoHijo = "Artículo";
-                break;
-            case "it":
-                nodo = "Artículo";
-                nodoHijo = "";
-                url = "${createLink(action:'formIt_ajax')}";
+                %{--urlHijo = "${createLink(action:'formIt_ajax')}";--}%
+                nodo = "Producto";
+                // nodoHijo = "Producto";
                 break;
         }
 
@@ -209,7 +180,7 @@
 
         var editar = {
             label: "Editar " + nodo,
-            icon: "fa fa-pencil text-info",
+            icon: "fa fa-edit text-info",
             action: function (obj) {
                 createEditRow(nodeId, nodo, padreId, url, "Editar");
             }
@@ -274,10 +245,10 @@
             items.crear = crear
         }
 
-        if(tipo != 'it' && (tipo != 'root')){
+        if(tipo !== 'dp' && (tipo !== 'root')){
             items.crearHijo = crearHijo;
             items.editar = editar;
-        } else if(tipo != 'root') {
+        } else if(tipo !== 'root') {
             items.editar = editar;
             items.duplicar = duplicar
         }
@@ -293,7 +264,7 @@
             items.eliminar = {
                 label: "Eliminar " + nodo,
                 separator_before: true,
-                icon: "fa fa-trash-o text-danger",
+                icon: "fa fa-trash text-danger",
                 action: function (obj) {
                     bootbox.dialog({
                         title: "Alerta",
@@ -322,7 +293,6 @@
                                                 setTimeout(function () {
                                                     location.reload()
                                                 }, 800);
-//                                                $('#tree').jstree('delete_node', $('#' + nodeStrId));
                                             } else {
                                                 log("Error al borrar el item", "error");
                                             }
@@ -367,14 +337,14 @@
             var tp;
             switch (grpo) {
                 case "sg":
-                    tp = "subgrupo_material";
+                    tp = "subgrupo";
                     break;
                 case "dp":
-                    tp = "departamento_material";
+                    tp = "producto";
                     break;
-                case "it":
-                    tp = "item_material";
-                    break;
+                // case "it":
+                //     tp = "item_material";
+                //     break;
             }
             return tp;
         }
@@ -392,7 +362,7 @@
             $("#treeArea").removeClass("hide").show();
         }).on("select_node.jstree", function (node, selected, event) {
             $('#tree').jstree('toggle_node', selected.selected[0]);
-            showInfo(selected.node.id);
+            // showInfo(selected.node.id);
         }).jstree({
             plugins: ["types", "state", "contextmenu", "wholerow", "search"],
             core: {
@@ -405,7 +375,7 @@
                     url: '${createLink(action:"loadTreePart")}',
                     data: function (node) {
                         var tp;
-                        if ((node.id != "#") && (node.id != 'root')) {
+                        if ((node.id !== "#") && (node.id !== 'root')) {
                             tp = poneTipo(node.id);
                         } else {
                             tp = iniciaNodo()
@@ -423,18 +393,17 @@
             },
             types: {
                 root: {
-                    icon: "glyphicon glyphicon-folder-open text-danger"
+                    // icon: "glyphicon glyphicon-folder-open text-danger"
+                    icon: "fa fa-sitemap text-info"
                 },
                 "grupo": {
                     icon: "glyphicon glyphicon-briefcase text-warning"
                 },
                 "subgrupo_material": {
                     icon: "glyphicon glyphicon-briefcase text-info"
-                    %{--icon: "${resource(dir: 'images', file: 'grupo_material.png')}"--}%
                 },
                 default: {
                     icon: "glyphicon glyphicon-tags text-success"
-                    %{--icon: "${resource(dir: 'images', file: 'item_material.png')}"--}%
                 }
             },
             search : {
