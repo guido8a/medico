@@ -63,7 +63,7 @@ class Proceso implements Serializable {
     String pago
     Pais pais
     String normaLegal
-    String convenio
+//    String convenio
     String claveAcceso
 
     String modificaSerie01
@@ -136,7 +136,7 @@ class Proceso implements Serializable {
             facturaAutorizacion column: 'prcsfcat'
             pago column: 'prcspago'
             pais column: 'pais__id'
-            convenio column: 'prcscnvn'
+//            convenio column: 'prcscnvn'
             normaLegal column: 'prcsnmlg'
 
             modificaSerie01 column: 'prcsmds1'
@@ -200,7 +200,7 @@ class Proceso implements Serializable {
         facturaAutorizacion(nullable: true,blank: true,size: 1..20)
         pago(nullable: true,blank: true)
         pais(nullable: true,blank: true)
-        convenio(nullable: true,blank: true)
+//        convenio(nullable: true,blank: true)
         normaLegal(nullable: true,blank: true)
 
         modificaSerie01(nullable: true,blank: true)

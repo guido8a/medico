@@ -1,5 +1,7 @@
 package seguridad
 
+import sri.Contabilidad
+
 class LoginController {
 
     def mail
@@ -151,8 +153,26 @@ class LoginController {
             flash.tipo = "error"
         } else {
             user = user[0]
+            def ahora = new Date().clearTime()
+            def cont = Contabilidad.withCriteria {
+                eq("institucion", user.empresa)
+                le("fechaInicio", ahora)
+                ge("fechaCierre", ahora)
+                order("fechaCierre", "desc")
+            }
+            if (cont.size() == 0) {
+                def conts = Contabilidad.findAllByInstitucion(user.empresa, [sort: "fechaCierre", order: "desc"])
+                if (conts.size() > 0) {
+                    cont = conts[0]
+                }
+            } else if (cont.size() == 1) {
+                cont = cont[0]
+            } else {
+                cont = cont[0]
+            }
+            session.contabilidad = cont
 
-            println "está activo " + user.estaActivo
+            println "está activo ${user.estaActivo} --> Cont: $cont"
 
             if (!user.estaActivo) {
                 flash.message = "El usuario ingresado no esta activo."
@@ -161,6 +181,7 @@ class LoginController {
                 return
             } else {
                 session.usuario = user
+                session.empresa = user.empresa
 //                session.usuarioKerberos = user.login
                 session.time = new Date()
 //                session.unidad = user.unidadEjecutora

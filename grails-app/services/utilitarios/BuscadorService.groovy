@@ -395,5 +395,14 @@ class BuscadorService {
         return criterio
     }
 
+    def parmProcesos () {
+        [[campo: 'prcsdscr', nombre: 'Descripción',   operador: "contiene:contiene,inicia:inicia con"],
+         [campo: 'prve',     nombre: 'Persona',       operador: "contiene:contiene,inicia:inicia con"],
+         [campo: 'prcsvlor', nombre: 'Valor',         operador: "gt:Mayor que,lt:Menor que,eq:Igual a"],
+         [campo: 'cmprnmro', nombre: 'Documento',     operador: "contiene:contiene"],
+         [campo: 'prcs__id', nombre: 'Proceso',       operador: "eq:Igual a,gt:Mayor que,lt:Menor que"]
+        ]
+    }
+
 
 }

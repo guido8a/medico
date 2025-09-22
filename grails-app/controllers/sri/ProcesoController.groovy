@@ -2,16 +2,12 @@ package sri
 
 import inventario.Bodega
 import inventario.CentroCosto
-import retenciones.ConceptoRetencionImpuestoRenta
-import retenciones.Pais
-import retenciones.PorcentajeIva
-import retenciones.Retencion
 import seguridad.Empresa
 import seguridad.Persona
-//import tienda.Cliente
-import seguridad.Paciente
+import sri.Pais
+import sri.PorcentajeIva
 
-class ProcesoController {
+class ProcesoController  {
 
     def buscadorService
 //    def kerberosoldService
@@ -22,23 +18,14 @@ class ProcesoController {
 
     def index = { redirect(action: "buscarPrcs") }
 
-    def nuevoProceso = {
-        println "nuevo proceso $params"
-
-        def estb = Empresa.get(session.empresa.id).establecimientos.tokenize(',')
-
-        def mp = [:]
-        estb.each {
-            mp[it] = it
-        }
+    def procesoForm = {
+        println "ProcesofORM "+params
 
         def sucursal = Establecimiento.findAllByEmpresa(Empresa.get(session.empresa.id))
 
         if (params.id) {
             def proceso = Proceso.get(params.id).refresh()
             def fps = ProcesoFormaDePago.findAllByProceso(proceso)
-
-            println "porceso: ${proceso.tipoProceso}"
 
             render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal])
         } else
@@ -48,7 +35,6 @@ class ProcesoController {
     /** actualiza los valores de proceso a los totales de detalle **/
     def actlProceso = {
         println "actlProceso $params"
-        def bodega = Bodega.get(params.bodega)
         def proceso = Proceso.get(params.id)
         def detalle = DetalleFactura.findByProceso(proceso)
         def cn = dbConnectionService.getConnection()
@@ -57,8 +43,7 @@ class ProcesoController {
 
         if(detalle) {
             if(proceso.estado != 'R') {
-//                def sql = "select * from total_detalle(${proceso.id}, 0, 0)"
-                def sql = "select * from total_detalle(${proceso.id}, ${bodega?.id})"
+                def sql = "select * from total_detalle(${proceso.id}, 0, 0)"
                 //  base__nz | basecero | basenoiv | iva  | ice  | dsct | flte | totl
                 // ----------+----------+----------+------+------+------+------+------
                 //      4.50 |     0.00 |     0.00 | 0.54 | 0.00 | 0.00 | 0.00 | 5.04
@@ -77,17 +62,11 @@ class ProcesoController {
                     }
 */
                 }
-//                println "...graba datos de detalle --> ${proceso.gestor}"
-               if(!proceso.save(flush: true)){
-                   render "no"
-               }else{
-                   render "ok"
-               }
+                println "...graba datos de detalle --> ${proceso.gestor}"
+                proceso.save(flush: true)
             }
-        }else{
-            render "er"
         }
-//        redirect(action: 'nuevoProceso', id: proceso.id)
+        redirect(action: 'nuevoProceso', id: proceso.id)
     }
 
     def save = {
@@ -156,7 +135,7 @@ class ProcesoController {
                 proceso.pago = params.pago
 
                 if(params?.dcmtAutorizacion) {
-                    if(params?.dcmtAutorizacion.size() == 10) {
+                    if(params?.dcmtAutorizacion?.size() == 10) {
                         proveedor.autorizacionSri = params.dcmtAutorizacion
                     }
                 }
@@ -194,7 +173,7 @@ class ProcesoController {
                 proceso.proveedor = proveedor
                 proceso.pago = params.pago
                 proceso.documentoEmpresa = DocumentoEmpresa.get(params.libretin)
-//                proceso.retencionVenta = params.retencionVenta
+                proceso.retencionVenta = params.retencionVenta
 
                 break
 
@@ -258,6 +237,53 @@ class ProcesoController {
                 proveedor.save(flush: true)
             }
             proceso.refresh()
+
+//            if (proceso.errors.getErrorCount() == 0) {
+//
+//
+//                def formasPago = ProcesoFormaDePago.findAllByProceso(proceso)
+//
+//                formasPago.each {
+//                    it.delete(flush: true)
+//                }
+//
+//
+//
+//                if (params.data != "") {
+//                    def data = params.data.split(";")
+//                    def fp
+//                    def tppgLista = []
+//                    // println "data "+data
+//                    data.each {
+//                        if (it != "") {
+//                            println "porcesando... $it"
+//                            def tppg = TipoPago.get(it)
+//                            fp = ProcesoFormaDePago.findByProcesoAndTipoPago(proceso, tppg)
+//                            if(!fp) {
+//                                def psfp = new ProcesoFormaDePago()
+//                                psfp.proceso = proceso
+//                                psfp.tipoPago = tppg
+//                                psfp.save(flush: true)
+//                            }
+//                            tppgLista.add(tppg)
+//                        }
+//                    }
+////                    println "existentes: $tppgLista"
+//                    if(tppgLista) {
+//                        fp = ProcesoFormaDePago.findAllByProcesoAndTipoPagoNotInList(proceso, tppgLista)
+//                    } else {
+////                        println "borrar todo........."
+//                    }
+//
+////                    println "a borrar: $fp"
+//                    fp.each {
+//                        println "borrando: ${it}"
+//                        it.delete(flush: true)
+//                    }
+//                }
+//            } else {
+//                println "errores: ${proceso.errors}"
+//            }
 
             redirect(action: 'nuevoProceso', id: proceso.id)
 
@@ -324,7 +350,7 @@ class ProcesoController {
     }
 
     def cargaTcsr() {
-        println "cargatcsr $params"
+//        println "cargatcsr $params"
         def cn = dbConnectionService.getConnection()
         def tipo = 0
         def reembolso
@@ -344,9 +370,9 @@ class ProcesoController {
         def sql = "select cast(tittcdgo as integer) cdgo from titt, prve, tptr " +
                 "where prve.tpid__id = titt.tpid__id and prve__id = ${params.prve} and " +
                 "tptr.tptr__id = titt.tptr__id and tptrcdgo = '${tipo}'"
-        println "sql1: $sql"
+//        println "sql1: $sql"
         def titt = cn.rows(sql.toString())[0]?.cdgo
-        println "identif: $titt"
+//        println "identif: $titt"
         if(tipo == 2) {
             sql = "select tcst__id id, tcsrcdgo codigo, tcsrdscr descripcion from tcst, tcsr " +
                     "where tcsr.tcsr__id = tcst.tcsr__id and titt @> '{${titt}}' " +
@@ -356,7 +382,7 @@ class ProcesoController {
                     "where tcsr.tcsr__id = tcst.tcsr__id and titt @> '{${titt}}' and " +
                     "sstr @> '{${params.sstr}}' order by tcsrcdgo"
         }
-        println "sql2: $sql"
+//        println "sql2: $sql"
         def data = cn.rows(sql.toString())
         cn.close()
         [data: data, tpcpSri: params.tpcp, estado: params.etdo?:'', esta: params.esta, reembolso: reembolso]
@@ -394,6 +420,76 @@ class ProcesoController {
         [data: data, sstr: params.sstr, tpcpSri: params.tpcp, estado: params.etdo?:'']
     }
 
+
+/*
+    def registrarComprobante = {
+        if (request.method == 'POST') {
+            println "registrar comprobante " + params
+            def comprobante = Comprobante.get(params.id)
+            def msn = kerberosoldService.ejecutarProcedure("mayorizar", [comprobante.id, 1])
+            println "LOG: mayorizando por comprobante ${comprobante.id}" + msn["mayorizar"]
+            try {
+                def log = new LogMayorizacion()
+                log.usuario = cratos.seguridad.Persona.get(session.usuario.id)
+                log.comprobante = comprobante
+                log.tipo = "M"
+                log.resultado = msn["mayorizar"].toString()
+                log.save(flush: true)
+            } catch (e) {
+                println "LOG: error del login de mayorizar " + msn["mayorizar"].toString()
+            }
+            if (msn["mayorizar"] =~ "Error") {
+                render " " + msn["mayorizar"]
+            } else {
+                def proceso = comprobante.proceso
+                params.controllerName = controllerName
+                params.actionName = actionName
+                comprobante.registrado = "S"
+                comprobante.save(flush: true)
+                proceso.estado = "R"
+                proceso.save(flush: true)
+                render "ok"
+            }
+        } else {
+            redirect(controller: "shield", action: "ataques")
+        }
+    }
+*/
+
+/*
+    def desmayorizar() {
+        if (request.method == 'POST') {
+            def comprobante = Comprobante.get(params.id)
+            def msn = kerberosoldService.ejecutarProcedure("mayorizar", [comprobante.id, -1])
+            println "LOG: desmayorizando  comprobante ${comprobante.id} " + msn["mayorizar"]
+            try {
+                def log = new LogMayorizacion()
+                log.usuario = cratos.seguridad.Persona.get(session.usuario.id)
+                log.comprobante = comprobante
+                log.tipo = "D"
+                log.resultado = msn["mayorizar"].toString()
+                log.save(flush: true)
+            } catch (e) {
+                println "LOG: error del login de mayorizar " + msn["mayorizar"].toString()
+            }
+            if (msn["mayorizar"] =~ "Error") {
+
+                render " " + msn["mayorizar"]
+            } else {
+                def proceso = comprobante.proceso
+                params.controllerName = controllerName
+                params.actionName = actionName
+                comprobante.registrado = "N"
+                comprobante.save(flush: true)
+                proceso.estado = "N"
+                proceso.save(flush: true)
+                render "ok"
+            }
+        } else {
+            redirect(controller: "shield", action: "ataques")
+        }
+    }
+*/
 
     def listar = {
         //println "buscar proceso"
@@ -621,14 +717,14 @@ class ProcesoController {
 
         if(params?.par?.trim() == ""){
             sql = "select prve__id id, prve_ruc ruc, prvenmbr nombre, tppvdscr tipoProveedor, prveatrz from prve, tppv " +
-                    "where tppv.tppv__id = prve.tppv__id and empr__id = ${session?.empresa?.id} order by prve_ruc;"
+                    "where tppv.tppv__id = prve.tppv__id and tprl__id in (${tipo}) and empr__id = ${session?.empresa?.id} order by prve_ruc;"
         }else{
             if(params.tipo == "1"){
                 sql = "select prve__id id, prve_ruc ruc, prvenmbr nombre, tppvdscr tipoProveedor, prveatrz from prve, tppv " +
                         "where tppv.tppv__id = prve.tppv__id and tprl__id in (${tipo}) and empr__id = ${session?.empresa?.id} and prve_ruc like '%${params.par}%' order by prve_ruc;"
             }else{
                 sql = "select prve__id id, prve_ruc ruc, prvenmbr nombre, tppvdscr tipoProveedor, prveatrz from prve, tppv " +
-                        "where tppv.tppv__id = prve.tppv__id and empr__id = ${session?.empresa?.id} and prvenmbr ilike '%${params.par}%' order by prve_ruc;"
+                        "where tppv.tppv__id = prve.tppv__id and tprl__id in (${tipo}) and empr__id = ${session?.empresa?.id} and prvenmbr ilike '%${params.par}%' order by prve_ruc;"
             }
         }
 
@@ -641,6 +737,93 @@ class ProcesoController {
         def aux = Auxiliar.get(params.id)
         def pagos = PagoAux.findAllByAuxiliar(aux)
         [pagos: pagos, aux: aux]
+    }
+
+    def savePagoNota = {
+        println "save pago nota " + params
+        params.lang="en"
+        def key = "org.springframework.web.servlet.DispatcherServlet.LOCALE_RESOLVER"
+        def localeResolver = request.getAttribute(key)
+        localeResolver.setLocale(request, response, new Locale("en"))
+        def fecha = params.remove("fecha")
+        def fechaEmi = new Date().parse("dd-MM-yyyy", params.fechaEmision)
+        params.remove("fechaEmision")
+        pago.fecha = new Date().parse("dd-MM-yyyy", fecha)
+        pago.fechaEmision = fechaEmi
+        if (params.tipo == "-1")
+            pago.tipo = "D"
+        else
+            pago.tipo = "C"
+        if (pago.save(flush: true)) {
+            def proceso = new Proceso()
+            proceso.gestor = Gestor.get(params.gestor)
+            proceso.contabilidad = session.contabilidad
+            proceso.descripcion = "Nota de ${(pago.tipo == 'C') ? 'Crédito' : 'Débito'} " + new Date().format("dd-MM-yyyy hh:mm") + " Monto: " + (pago.monto + pago.impuesto) + " Proveedor: " + pago.auxiliar?.asiento?.comprobante?.proceso?.proveedor
+            proceso.estado = "R"
+            proceso.fecha = new Date()
+            proceso.proveedor = pago.auxiliar.asiento.comprobante.proceso.proveedor
+            proceso.tipoPago = pago.auxiliar.asiento.comprobante.proceso.tipoPago
+            proceso.usuario = session.usuario
+            /*TODO preguntar que es esto?*/
+            //proceso.tipoComprobanteId = TipoComprobanteId.get(3)
+            proceso.valor = pago.monto
+            proceso.impuesto = 0
+            proceso.documento = pago.referencia
+            proceso.tipoProceso = "P"
+            proceso.empresa = session.empresa
+            println "valor " + proceso.valor + " inp " + proceso.impuesto
+            if (proceso.save(flush: true)) {
+                procesoService.registrar_old(proceso, session.perfil, session.usuario, session.contabilidad)
+                render "ok"
+            } else {
+                println "error en el proceso " + proceso.errors
+                render "error"
+            }
+
+        } else {
+            render "error"
+            println "error save pago nota " + pago.errors
+        }
+    }
+
+    def savePago = {
+        println "save pago " + params
+        params.lang="en"
+        def key = "org.springframework.web.servlet.DispatcherServlet.LOCALE_RESOLVER"
+        def localeResolver = request.getAttribute(key)
+        localeResolver.setLocale(request, response, new Locale("en"))
+        def fecha = params.remove("fecha")
+        pago.fecha = new Date().parse("dd-MM-yyyy", fecha)
+        if (pago.save(flush: true)) {
+            def proceso = new Proceso()
+            proceso.gestor = Gestor.get(params.gestor)
+            proceso.contabilidad = session.contabilidad
+            proceso.descripcion = "Pago  " + new Date().format("dd-MM-yyyy hh:mm") + " Monto: " + pago.monto + " Proveedor: " + pago.auxiliar?.asiento?.comprobante?.proceso?.proveedor
+            proceso.estado = "R"
+            proceso.fecha = new Date()
+            proceso.proveedor = pago.auxiliar.asiento.comprobante.proceso.proveedor
+            proceso.tipoPago = pago.auxiliar.asiento.comprobante.proceso.tipoPago
+            proceso.usuario = session.usuario
+            /*TODO preguntar que es esto?*/
+            //proceso.tipoComprobanteId = TipoComprobanteId.get(3)
+            proceso.valor = pago.monto
+            proceso.impuesto = 0
+            proceso.documento = pago.referencia
+            proceso.tipoProceso = "P"
+            proceso.empresa = session.empresa
+            println "valor " + proceso.valor + " inp " + proceso.impuesto
+            if (proceso.save(flush: true)) {
+                procesoService.registrar_old(proceso, session.perfil, session.usuario, session.contabilidad)
+                render "ok"
+            } else {
+                println "error en el proceso " + proceso.errors
+                render "error"
+            }
+
+        } else {
+            render "error"
+            println "error save pago " + pago.errors
+        }
     }
 
     def prueba() {
@@ -661,7 +844,7 @@ class ProcesoController {
                 println "LOG: anulando el comprobante ${comprobante.id} "
                 try {
                     def log = new LogMayorizacion()
-                    log.usuario = seguridad.Persona.get(session.usuario.id)
+                    log.usuario = cratos.seguridad.Persona.get(session.usuario.id)
                     log.comprobante = comprobante
                     log.tipo = "B"
                     log.save(flush: true)
@@ -1279,16 +1462,18 @@ class ProcesoController {
             prve = Proveedor.get(params.id.toInteger())
         }
 
-        switch (params.tipo) {
-            case ["1", "4"]:  //Pagos proveedores
-                proveedores = Proveedor.findAll()
-                break
-            case ["2", "6", "7"]:  //ventas, NC y ND - clientes
+        proveedores = Proveedor.list([sort: 'nombre'])
+
+//        switch (params.tipo) {
+//            case ["1", "4"]:  //Pagos
+//                tr = TipoRelacion.findAllByCodigoInList(['C', 'P'])
 //                proveedores = Proveedor.findAllByTipoRelacionInList(tr)
-//                proveedores = Cliente.findAll()
-                proveedores = Paciente.findAll()
-                break
-        }
+//                break
+//            case ["2", "6", "7"]:  //ventas, NC y ND
+//                tr = TipoRelacion.findAllByCodigoInList(['C', 'E'])
+//                proveedores = Proveedor.findAllByTipoRelacionInList(tr)
+//                break
+//        }
 //        println "proveedores: $proveedores"
         return [proveedores : proveedores, proceso: proceso, tipo: params.tipo, proveedor: prve]
     }
@@ -1336,6 +1521,7 @@ class ProcesoController {
 
         return[comprobante: comprobante, auxiliares: auxiliares, band: band]
     }
+
     def mayorizar_ajax () {
         def cn = dbConnectionService.getConnection()
         def sql = "select sum(asntdebe) - sum(asnthber) suma from asnt " +
@@ -1492,10 +1678,9 @@ class ProcesoController {
 
     /** antes buscarPrcs**/
     def buscarPrcs() {
-//        println "session: ${session.empresa.nombre}"
+//        println "busqueda "
         def empresa = Empresa.get(session.empresa.id)
         def contabilidades = Contabilidad.findAllByInstitucion(empresa)
-//        println "empresa --> ${empresa.nombre}, cont: $contabilidades"
         return[contabilidades: contabilidades]
     }
 
@@ -1514,8 +1699,8 @@ class ProcesoController {
             wh = "tpps = '${tipo}'"
         }
 
-        if(params.desde) fcds = "'" + new Date().parse("MM/dd/yyyy",params.desde).format('yyyy-MM-dd') + "'"
-        if(params.hasta) fchs = "'" + new Date().parse("MM/dd/yyyy",params.hasta).format('yyyy-MM-dd') + "'"
+        if(params.desde) fcds = "'" + new Date().parse("dd-MM-yyyy",params.desde).format('yyyy-MM-dd') + "'"
+        if(params.hasta) fchs = "'" + new Date().parse("dd-MM-yyyy",params.hasta).format('yyyy-MM-dd') + "'"
 
         def sqlSelect = "select * from procesos(${session.empresa.id}, ${cont}, ${fcds}, ${fchs}) "
 
@@ -1537,7 +1722,7 @@ class ProcesoController {
 
 
     def tablaBuscarPrcs() {
-        println "buscar .... $params"
+//        println "buscar .... $params"
         def cn = dbConnectionService.getConnection()
         params.old = params.criterio
         params.criterio = buscadorService.limpiaCriterio(params.criterio)
@@ -1548,10 +1733,10 @@ class ProcesoController {
         def data = cn.rows(sql.toString())
 
         def msg = ""
-        if(data?.size() > 30){
+        if(data?.size() > 100){
             data.pop()   //descarta el último puesto que son 21
             msg = "<div class='alert-danger' style='margin-top:-20px; diplay:block; height:25px;margin-bottom: 20px;'>" +
-                    " <i class='fas fa-exclamation-triangle fa-2x pull-left'></i> Su búsqueda ha generado más de 30 resultados. " +
+                    " <i class='fa fa-warning fa-2x pull-left'></i> Su búsqueda ha generado más de 100 resultados. " +
                     "Use más letras para especificar mejor la búsqueda.</div>"
         }
         cn.close()
@@ -1662,85 +1847,85 @@ class ProcesoController {
         return [valor: valor]
     }
 
-    def saveRetencion_ajax () {
-        println("params save " + params)
-        def proceso = Proceso.get(params.proceso)
-        def retencion
-        def mnsj
-
-        def proveedor = Proveedor.get(proceso.proveedor.id)
-        def libretin  = DocumentoEmpresa.get(params.documentoEmpresa)
-
-        if(params.retencion){  /** update **/
-            retencion = Retencion.get(params.retencion)
-        }else{
-            retencion = new Retencion()
-            retencion.proceso = proceso
-            retencion.proveedor = proveedor
-        }
-        retencion.empresa = proceso.empresa
-        retencion.persona = proveedor.nombre
-        retencion.telefono = proveedor.telefono
-        retencion.ruc = proveedor.ruc
-        retencion.direccion = proveedor.direccion
-        retencion.fecha = new Date()
-        retencion.fechaEmision = new Date().parse("dd-MM-yyyy",params.fechaEmision)
-
-        println "${retencion.fechaEmision} >=  ${proceso.fechaIngresoSistema}"
-        if(retencion.fechaEmision < proceso.fechaIngresoSistema) {
-            mnsj = "La fecha de la retención es anterior a la emisión del comprobante: ${proceso.fechaRegistro.format('dd-MM-yyyy')}"
-            render mnsj
-            return
-        }
-
-
-        if(params.conceptoRIRBienes != '-1') {
-            retencion.conceptoRIRBienes = ConceptoRetencionImpuestoRenta.get(params.conceptoRIRBienes)
-            retencion.baseRenta = params.baseRenta.toDouble()
-            retencion.renta = params.renta.toDouble()
-
-        } else {
-            retencion.conceptoRIRBienes = null
-            retencion.baseRenta = 0
-            retencion.renta = 0
-        }
-
-        if(params.conceptoRIRBienes != '23') {
-            retencion.numero = params.numero.toInteger()
-            retencion.numeroComprobante = (libretin.numeroEstablecimiento + "-" + libretin.numeroEmision + "-" + params.numero)
-
-            retencion.conceptoRIRServicios = ConceptoRetencionImpuestoRenta.get(params.conceptoRIRServicios)
-            retencion.baseRentaServicios = params.baseRentaServicios.toDouble()
-            retencion.rentaServicios = params.rentaServicios.toDouble()
-            retencion.pcntIvaBienes = PorcentajeIva.get(params.pcntIvaBienes)
-            retencion.baseIvaBienes = params.baseIvaBienes.toDouble()
-            retencion.ivaBienes = params.ivaBienes.toDouble()
-            retencion.pcntIvaServicios = PorcentajeIva.get(params.pcntIvaServicios)
-            retencion.baseIvaServicios = params.baseIvaServicios.toDouble()
-            retencion.ivaServicios = params.ivaServicios.toDouble()
-
-            retencion.documentoEmpresa = DocumentoEmpresa.get(params.documentoEmpresa)
-        } else {
-            retencion.numero = 0
-            retencion.numeroComprobante = null
-            retencion.renta = 0
-            retencion.baseRentaServicios = 0
-            retencion.rentaServicios = 0
-            retencion.baseIvaBienes = 0
-            retencion.ivaBienes = 0
-            retencion.baseIvaServicios = 0
-            retencion.ivaServicios = 0
-        }
-
-        try {
-            retencion.save(flush: true)
-//            println("retencion id " + retencion.errors)
-            render "ok"
-        }catch (e){
-            println("errores " + e)
-            render "no"
-        }
-    }
+//    def saveRetencion_ajax () {
+//        println("params save " + params)
+//        def proceso = Proceso.get(params.proceso)
+//        def retencion
+//        def mnsj
+//
+//        def proveedor = Proveedor.get(proceso.proveedor.id)
+//        def libretin  = DocumentoEmpresa.get(params.documentoEmpresa)
+//
+//        if(params.retencion){  /** update **/
+//            retencion = Retencion.get(params.retencion)
+//        }else{
+//            retencion = new Retencion()
+//            retencion.proceso = proceso
+//            retencion.proveedor = proveedor
+//        }
+//        retencion.empresa = proceso.empresa
+//        retencion.persona = proveedor.nombre
+//        retencion.telefono = proveedor.telefono
+//        retencion.ruc = proveedor.ruc
+//        retencion.direccion = proveedor.direccion
+//        retencion.fecha = new Date()
+//        retencion.fechaEmision = new Date().parse("dd-MM-yyyy",params.fechaEmision)
+//
+//        println "${retencion.fechaEmision} >=  ${proceso.fechaIngresoSistema}"
+//        if(retencion.fechaEmision < proceso.fechaIngresoSistema) {
+//            mnsj = "La fecha de la retención es anterior a la emisión del comprobante: ${proceso.fechaRegistro.format('dd-MM-yyyy')}"
+//            render mnsj
+//            return
+//        }
+//
+//
+//        if(params.conceptoRIRBienes != '-1') {
+//            retencion.conceptoRIRBienes = ConceptoRetencionImpuestoRenta.get(params.conceptoRIRBienes)
+//            retencion.baseRenta = params.baseRenta.toDouble()
+//            retencion.renta = params.renta.toDouble()
+//
+//        } else {
+//            retencion.conceptoRIRBienes = null
+//            retencion.baseRenta = 0
+//            retencion.renta = 0
+//        }
+//
+//        if(params.conceptoRIRBienes != '23') {
+//            retencion.numero = params.numero.toInteger()
+//            retencion.numeroComprobante = (libretin.numeroEstablecimiento + "-" + libretin.numeroEmision + "-" + params.numero)
+//
+//            retencion.conceptoRIRServicios = ConceptoRetencionImpuestoRenta.get(params.conceptoRIRServicios)
+//            retencion.baseRentaServicios = params.baseRentaServicios.toDouble()
+//            retencion.rentaServicios = params.rentaServicios.toDouble()
+//            retencion.pcntIvaBienes = PorcentajeIva.get(params.pcntIvaBienes)
+//            retencion.baseIvaBienes = params.baseIvaBienes.toDouble()
+//            retencion.ivaBienes = params.ivaBienes.toDouble()
+//            retencion.pcntIvaServicios = PorcentajeIva.get(params.pcntIvaServicios)
+//            retencion.baseIvaServicios = params.baseIvaServicios.toDouble()
+//            retencion.ivaServicios = params.ivaServicios.toDouble()
+//
+//            retencion.documentoEmpresa = DocumentoEmpresa.get(params.documentoEmpresa)
+//        } else {
+//            retencion.numero = 0
+//            retencion.numeroComprobante = null
+//            retencion.renta = 0
+//            retencion.baseRentaServicios = 0
+//            retencion.rentaServicios = 0
+//            retencion.baseIvaBienes = 0
+//            retencion.ivaBienes = 0
+//            retencion.baseIvaServicios = 0
+//            retencion.ivaServicios = 0
+//        }
+//
+//        try {
+//            retencion.save(flush: true)
+////            println("retencion id " + retencion.errors)
+//            render "ok"
+//        }catch (e){
+//            println("errores " + e)
+//            render "no"
+//        }
+//    }
 
     def comprobarSerieFactura_ajax () {
         def documentoEmpresa = DocumentoEmpresa.get(params.libretin)
@@ -1981,8 +2166,6 @@ class ProcesoController {
         if(params.desde && params.hasta){
             def desde = new Date().parse("dd-MM-yyyy", params.desde)
             def hasta = new Date().parse("dd-MM-yyyy", params.hasta)
-//            def desde = new Date().parse("MM/dd/yyyy", params.desde)
-//            def hasta = new Date().parse("MM/dd/yyyy", params.hasta)
 
             if(desde > hasta){
                 render "no"
@@ -2044,7 +2227,7 @@ class ProcesoController {
     def guardarDocRetencion_ajax () {
 //        println("params " + params)
         def proceso = Proceso.get(params.proceso)
-//        proceso.retencionVenta = params.documento
+        proceso.retencionVenta = params.documento
         proceso.retenidoIva = params.retenido.toDouble()
         proceso.retenidoRenta = params.renta.toDouble()
 
@@ -2065,7 +2248,10 @@ class ProcesoController {
 
     def formaPago_ajax () {
         def proceso = Proceso.get(params.id)
-        return [proceso: proceso]
+        def formasPago = ProcesoFormaDePago.findAllByProceso(proceso)
+        def total = formasPago?.valor?.sum() ?: 0
+        def restante = proceso?.valor ? proceso.valor.minus(total) : 0
+        return [proceso: proceso, pagos: formasPago, total: total, restante: restante]
     }
 
     def tablaFormaPago_ajax () {
@@ -2080,9 +2266,13 @@ class ProcesoController {
         def proceso = Proceso.get(params.id)
         def tipoPago = TipoPago.get(params.tipo)
         def formaPago = new ProcesoFormaDePago()
+        def valor = params?.valor?.toDouble() ?: 0
+        def total = ProcesoFormaDePago.findAllByProceso(proceso)?.valor?.sum() ?: 0
 
+        println "forma de pago, tipo: ${tipoPago.id}, proceso: ${proceso.id}, valor: ${proceso.valor}"
         formaPago.proceso = proceso
         formaPago.tipoPago = tipoPago
+        formaPago.valor = valor
 
         if(params.plazo){
             formaPago.plazo = params.plazo.toInteger()
@@ -2090,12 +2280,20 @@ class ProcesoController {
             formaPago.plazo = 0
         }
 
-        try{
-            formaPago.save(flush: true)
-            render "ok"
-        }catch (e){
-            println "error al agregar una forma de pago: $e"
-            render "no"
+        if(valor > proceso?.valor){
+            render "error1"
+        }else{
+            if(valor > (proceso?.valor - total)){
+                render "error2_${proceso?.valor - total}"
+            }else{
+                if(formaPago.save(flush: true)) {
+                    println "graba formaPago"
+                    render "ok"
+                } else {
+                    println("error al crear formaPago ${formaPago.errors}")
+                    render "no_error al guardar la forma de pago"
+                }
+            }
         }
     }
 
@@ -2110,11 +2308,10 @@ class ProcesoController {
             render "no_Revise el valor ingresado"
         }
 
-        println "... no es cero --> tipo proc: ${proceso.tipoProceso.codigo.trim()}"
+        println "... no es cero"
         if(proceso.tipoProceso.codigo.trim() == 'C') {
             println "compra con: ${formasPago.size()} registro de pago, valor: ${proceso.valor} "
             if((formasPago.size() < 1) && (proceso.valor >= 1000)) {
-                println "no_Ingrese una forma de pago!"
                 render "no_Ingrese una forma de pago!"
             }
             else {
@@ -2126,10 +2323,28 @@ class ProcesoController {
             if(formasPago.size() > 0){
                 render "ok"
             }else{
-                println "Ventas: no_Ingrese una forma de pago!"
                 render "no_Ingrese una forma de pago!"
             }
         }
+    }
+
+    def revisarDetalle_ajax(){
+        def proceso = Proceso.get(params.proceso)
+        def detalle = DetalleFactura.findAllByProceso(proceso)
+
+        if(detalle.size() < 1){
+            render "no"
+        }else{
+            render "ok"
+        }
+    }
+
+    def alerta_saldo_ajax(){
+        def proceso = Proceso.get(params.id)
+        def formasPago = ProcesoFormaDePago.findAllByProceso(proceso)
+        def total = formasPago?.valor?.sum() ?: 0
+        def restante = proceso?.valor ? proceso.valor.minus(total) : 0
+        return [restante: restante, proceso: proceso]
     }
 }
 
