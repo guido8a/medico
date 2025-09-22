@@ -50,9 +50,7 @@
 
         <div id="treeArea" class="hide">
             <div id="tree" class="ui-corner-all"></div>
-%{--            <div id="info" class="ui-corner-all"></div>--}%
         </div>
-
 </div>
 
 <script type="text/javascript">
@@ -86,10 +84,8 @@
     }
 
     function createEditRow(id, nodo, padre, url, tipo) {
-        var data = tipo == "Crear" ? {'padre': id, 'nodo': nodo} : {'id': id, 'nodo': nodo, 'padre': padre};
-        if(nodo == "Artículo" && tipo == "Crear") {
-            data = {'padre': padre, 'nodo': nodo};
-        }
+        var data = tipo === "Crear" ? { 'padre': id, 'nodo': nodo, 'empresa' : '${empresa?.id}'} : {'id': id, 'nodo': nodo, 'padre': padre, 'empresa' : '${empresa?.id}'};
+
         $.ajax({
             type: "POST",
             url: url,
@@ -97,7 +93,7 @@
             success: function (msg) {
                 var b = bootbox.dialog({
                     id: "dlgCreateEdit",
-                    title: tipo + " " + nodo,
+                    title: tipo + " " +  nodo,
                     message: msg,
                     buttons: {
                         cancelar: {
@@ -137,7 +133,7 @@
         var padreId = padre.split("_")[1];
 
         var nodeHasChildren = $node.hasClass("hasChildren");
-        var nodeOcupado = $node.hasClass("ocupado");
+
         var url = "";
         var nodo = "";
         var urlHijo = "";
@@ -145,10 +141,9 @@
 
         switch (tipo) {
             case "root":
-                url = "${createLink(action:'formGrupo_ajax')}";
-                urlHijo = "${createLink(action:'formSubgrupo_ajax')}";
-                nodo = "Grupo";
-                nodoHijo = "Subgrupo";
+                urlHijo = "${createLink(action:'formGrupo_ajax')}";
+                nodo = "root";
+                nodoHijo = "Grupo";
                 break;
             case "gp":
                 url = "${createLink(action:'formGrupo_ajax')}";
@@ -158,15 +153,13 @@
                 break;
             case "sg":
                 url = "${createLink(action:'formSubgrupo_ajax')}";
-                urlHijo = "${createLink(action:'formDp_ajax')}";
+                urlHijo = "${createLink(action:'formProducto_ajax')}";
                 nodo = "Subgrupo";
                 nodoHijo = "Producto";
                 break;
             case "dp":
-                url = "${createLink(action:'formDp_ajax')}";
-                %{--urlHijo = "${createLink(action:'formIt_ajax')}";--}%
+                url = "${createLink(action:'formProducto_ajax')}";
                 nodo = "Producto";
-                // nodoHijo = "Producto";
                 break;
         }
 
@@ -174,7 +167,8 @@
             label: "Nuevo " + nodoHijo,
             icon: "fa fa-plus-circle text-success",
             action: function (obj) {
-                createEditRow(nodeId, nodo, padreId, urlHijo, "Crear");
+                // createEditRow(nodeId, nodo, padreId, urlHijo, "Hijo");
+                createEditRow(nodeId, nodoHijo, padreId, urlHijo, "Crear");
             }
         };
 
@@ -224,7 +218,7 @@
                                     success: function (msg) {
                                         closeLoader();
                                         var parts = msg.split("_");
-                                        if(parts[0] == 'ok'){
+                                        if(parts[0] === 'ok'){
                                             log("Item duplicado correctamente", "success");
                                             setTimeout(function () {
                                                 location.reload()
@@ -241,25 +235,27 @@
             }
         };
 
-        if(nodo) {
-            items.crear = crear
+        if(nodo === 'root') {
+            // items.crear = crear
+            items.crearHijo = crearHijo;
         }
 
-        if(tipo !== 'dp' && (tipo !== 'root')){
+        if(nodo === 'Grupo' || nodo === 'Subgrupo'){
             items.crearHijo = crearHijo;
             items.editar = editar;
-        } else if(tipo !== 'root') {
-            items.editar = editar;
-            items.duplicar = duplicar
         }
 
-        if (!nodeHasChildren && !nodeOcupado) {
+        if(nodo === 'Producto'){
+            items.editar = editar;
+        }
 
-            var urlItem = '${createLink(controller: 'mantenimientoItems', action: 'deleteIt_ajax')}';
-            var urlDepartamento = '${createLink(controller: 'mantenimientoItems', action: 'deleteDp_ajax')}';
-            var urlSubgrupo = '${createLink(controller: 'mantenimientoItems', action: 'deleteSg_ajax')}';
+        if (!nodeHasChildren) {
 
-            var urlBorrado = nodo == 'Grupo' ? urlSubgrupo : (nodo == 'Subgrupo' ? urlDepartamento : urlItem );
+            var urlProducto = '${createLink(controller: 'producto', action: 'borrarProducto_ajax')}';
+            var urlSubgrupo = '${createLink(controller: 'producto', action: 'borrarSubgrupo_ajax')}';
+            var urlGrupo = '${createLink(controller: 'producto', action: 'borrarGrupo_ajax')}';
+
+            var urlBorrado = nodo === 'Grupo' ? urlGrupo : (nodo === 'Subgrupo' ? urlSubgrupo : urlProducto );
 
             items.eliminar = {
                 label: "Eliminar " + nodo,
@@ -267,8 +263,8 @@
                 icon: "fa fa-trash text-danger",
                 action: function (obj) {
                     bootbox.dialog({
-                        title: "Alerta",
-                        message: "<i class='fa fa-trash-o fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea borrar este " + nodo + "? Esta acción no se puede deshacer.</p>",
+                        title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Borrar",
+                        message: "<p>¿Está seguro que desea borrar este " + nodo + "? Esta acción no se puede deshacer.</p>",
                         buttons: {
                             cancelar: {
                                 label: "Cancelar",
@@ -277,9 +273,10 @@
                                 }
                             },
                             eliminar: {
-                                label: "<i class='fa fa-trash-o'></i> Eliminar",
+                                label: "<i class='fa fa-trash'></i> Borrar",
                                 className: "btn-danger",
                                 callback: function () {
+                                    var a = cargarLoader("Borrando...");
                                     $.ajax({
                                         type: "POST",
                                         url: urlBorrado,
@@ -287,14 +284,14 @@
                                             id: nodeId
                                         },
                                         success: function (msg) {
-                                            closeLoader();
-                                            if (msg == "ok") {
+                                            a.modal("hide");
+                                            if (msg === "ok") {
                                                 log("Borrado correctamente", "success");
                                                 setTimeout(function () {
                                                     location.reload()
                                                 }, 800);
                                             } else {
-                                                log("Error al borrar el item", "error");
+                                                log("Error al borrar", "error");
                                             }
                                         }
                                     });
@@ -305,6 +302,7 @@
                 }
             };
         }
+
         return items;
     }
 
@@ -312,7 +310,7 @@
 
         function doSearch() {
             var val = $.trim($("#search").val());
-            if (val != "") {
+            if (val !== "") {
                 $('#tree').jstree('search', val);
             }
         }
@@ -342,16 +340,13 @@
                 case "dp":
                     tp = "producto";
                     break;
-                // case "it":
-                //     tp = "item_material";
-                //     break;
             }
             return tp;
         }
 
         $(".toggle").click(function () {
             var tipo = $(this).attr("id").split('_')[1];
-            if (tipo != current) {
+            if (tipo !== current) {
                 current = tipo;
                 $('#tree').jstree(true).refresh();
             }
@@ -417,7 +412,7 @@
             var tipo = parts[0];
             var id = parts[1];
 
-            if(tipo != 'root'){
+            if(tipo !== 'root'){
                 switch (tipo) {
                     case "sg":
                         url = "${createLink(action:'showSg_ajax')}";

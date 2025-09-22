@@ -42,7 +42,7 @@ class Producto {
     }
 
     static constraints = {
-        persona(blank: false, nullable: false)
+        persona(blank: true, nullable: true)
         subgrupo(blank: false, nullable: false)
         tipoIva(blank: true, nullable: true)
         marca(blank: true, nullable: true)

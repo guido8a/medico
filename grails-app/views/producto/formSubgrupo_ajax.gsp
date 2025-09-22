@@ -5,6 +5,19 @@
     <div class="row izquierda">
         <div class="col-md-12 input-group">
             <label for="descripcion" class="col-md-2 control-label text-info">
+                Grupo
+            </label>
+            <span class="grupo">
+                <span class="col-md-8">
+                    <g:textField name="grupoName" class="form-control" readonly="" value="${grupo?.descripcion}"/>
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="row izquierda">
+        <div class="col-md-12 input-group">
+            <label for="descripcion" class="col-md-2 control-label text-info">
                 Descripción
             </label>
             <span class="grupo">

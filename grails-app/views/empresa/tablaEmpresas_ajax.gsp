@@ -46,6 +46,9 @@
                     <a href="#" class="btn btn-xs btn-info btnSucursales" data-id="${empresa.empr__id}" title="Sucursales">
                         <i class="fa fa-building"></i>
                     </a>
+                    <a href="#" class="btn btn-xs btn-success btnProductos" data-id="${empresa.empr__id}" title="Productos">
+                        <i class="fa fa-copy"></i>
+                    </a>
                 </td>
             </tr>
         </g:each>
@@ -63,6 +66,11 @@
     $(".btnSecuenciales").click(function () {
         var id = $(this).data("id");
         location.href="${createLink(controller: 'documentoEmpresa', action: 'list')}?id=" + id + "&tipo=" + '${tipo}';
+    });
+
+    $(".btnProductos").click(function () {
+        var id = $(this).data("id");
+        location.href="${createLink(controller: 'producto', action: 'arbol')}?id=" + id;
     });
 
     $(".btnSucursales").click(function () {
