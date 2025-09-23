@@ -1,1 +1,1 @@
-<g:select name="medicoExterno" from="${seguridad.Persona.findAllByTipoPersona(seguridad.TipoPersona.findByCodigo('E'), [sort: 'apellido'])}" required="" optionKey="id" optionValue="${{it.apellido + " " + it.nombre}}" class="form-control required" value="${cita?.medicoExterno?.id}" />
+<g:select name="medicoExterno" from="${seguridad.Persona.findAllByTipoPersona(seguridad.TipoMedico.findByCodigo('E'), [sort: 'apellido'])}" required="" optionKey="id" optionValue="${{it.apellido + " " + it.nombre}}" class="form-control required" value="${cita?.medicoExterno?.id}" />

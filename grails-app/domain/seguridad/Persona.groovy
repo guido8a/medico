@@ -24,7 +24,7 @@ class Persona implements Auditable{
     String discapacidad
     String direccion
     String referencia
-    TipoPersona tipoPersona
+    TipoMedico tipoPersona
 
     static auditable = true
     static hasMany = [perfiles: Sesn]

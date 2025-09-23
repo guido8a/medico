@@ -3,7 +3,7 @@ package seguridad
 class TipoPersonaController {
 
     def list(){
-        def tipos = TipoPersona.list().sort{it.descripcion}
+        def tipos = TipoMedico.list().sort{it.descripcion}
         return [tipos: tipos]
     }
 
@@ -11,9 +11,9 @@ class TipoPersonaController {
         def tipo
 
         if(params.id){
-            tipo = TipoPersona.get(params.id)
+            tipo = TipoMedico.get(params.id)
         }else{
-            tipo = new TipoPersona()
+            tipo = new TipoMedico()
         }
 
         return [tipo: tipo]
@@ -24,9 +24,9 @@ class TipoPersonaController {
         def tipo
 
         if(params.id){
-            tipo = TipoPersona.get(params.id)
+            tipo = TipoMedico.get(params.id)
         }else{
-            tipo = new TipoPersona()
+            tipo = new TipoMedico()
         }
 
         params.codigo = params.codigo.toUpperCase();
@@ -44,7 +44,7 @@ class TipoPersonaController {
 
     def borrarTipo_ajax(){
 
-        def tipo = TipoPersona.get(params.id)
+        def tipo = TipoMedico.get(params.id)
 
         try{
             tipo.delete(flush:true)

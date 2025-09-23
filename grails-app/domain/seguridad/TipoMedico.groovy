@@ -2,7 +2,7 @@ package seguridad
 
 import audita.Auditable
 
-class TipoPersona implements Auditable{
+class TipoMedico implements Auditable{
 
     String codigo
     String descripcion
@@ -10,15 +10,15 @@ class TipoPersona implements Auditable{
     static auditable = true
 
     static mapping = {
-        table 'tppr'
+        table 'tpmd'
         cache usage: 'read-write', include: 'non-lazy'
         version false
         id generator: 'identity'
 
         columns {
-            id column: 'tppr__id'
-            codigo column: 'tpprcdgo'
-            descripcion column: 'tpprdscr'
+            id column: 'tpmd__id'
+            codigo column: 'tpmdcdgo'
+            descripcion column: 'tpmddscr'
         }
     }
 

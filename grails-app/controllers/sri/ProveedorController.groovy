@@ -31,15 +31,36 @@ class ProveedorController {
 
     def form_ajax(){
 
-        def proveedor
-
-        if(params.id){
-            proveedor = Proveedor.get(params.id)
-        }else{
-            proveedor = new Proveedor()
+        def proveedorInstance = new Proveedor(params)
+        if (params.id) {
+            proveedorInstance = Proveedor.get(params.id)
+            if (!proveedorInstance) {
+                notFound_ajax()
+                return
+            }
         }
 
-        return[proveedorInstance: proveedor]
+
+        def countries = [] as SortedSet
+
+        Locale.availableLocales*.displayCountry.each {
+            if (it) {
+                countries << it
+            }
+        }
+
+        def soloLectura = false
+
+        if(params.edi){
+            soloLectura = params.edi
+        }
+
+        def tipoIdentificacion = TipoIdentificacion.withCriteria {
+            ne("codigo","T")
+
+        }
+
+        return [proveedorInstance: proveedorInstance, paises: countries, lectura: soloLectura, tipoIdentificacion: tipoIdentificacion]
     }
 
     def ruc_ajax(){

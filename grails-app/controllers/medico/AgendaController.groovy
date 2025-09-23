@@ -3,7 +3,7 @@ package medico
 import seguridad.Empresa
 import seguridad.Paciente
 import seguridad.Persona
-import seguridad.TipoPersona
+import seguridad.TipoMedico
 
 class AgendaController {
 
@@ -11,7 +11,7 @@ class AgendaController {
 
     def agenda() {
         def usuario = Persona.get(session.usuario.id)
-        def tipoPersona = TipoPersona.findAllByCodigoInList(['E', 'M'])
+        def tipoPersona = TipoMedico.findAllByCodigoInList(['E', 'M'])
         def consultorio = usuario.empresa
         [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona, cita_actual: params.cita]
     }

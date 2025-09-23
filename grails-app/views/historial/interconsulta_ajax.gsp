@@ -1,4 +1,4 @@
-<%@ page import="seguridad.TipoPersona" %>
+<%@ page import="seguridad.TipoMedico" %>
 <g:form class="form-horizontal" name="frmInterconsulta" controller="historial" action="saveInterconsulta_ajax">
     <g:hiddenField name="id" value="${cita?.id}"/>
 
