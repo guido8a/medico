@@ -3,6 +3,7 @@ package sri
 import inventario.Bodega
 import retenciones.Pais
 import seguridad.Empresa
+import seguridad.Paciente
 import seguridad.Persona
 //import tienda.Carrito
 
@@ -11,6 +12,7 @@ class Proceso implements Serializable {
     Contabilidad contabilidad
     Empresa empresa
     Proveedor proveedor
+    Paciente  paciente
     Comprobante comprobante  /* relacionado para NC */
     Persona usuario
     TipoProceso tipoProceso
@@ -149,6 +151,7 @@ class Proceso implements Serializable {
             bodegaRecibe column: 'bdgarcbe'
             retEstado column: 'prcsedrv'
             claveAcceso column: 'prcsclve'
+            paciente column: 'pcnt__id'
         }
     }
     static constraints = {
@@ -213,5 +216,6 @@ class Proceso implements Serializable {
         bodegaRecibe(nullable: true,blank: true)
         retEstado(nullable: false, blank: false)
         claveAcceso(nullable: true, blank: true)
+        paciente(nullable: true, blank: true)
     }
 }

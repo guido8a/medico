@@ -14,7 +14,7 @@
                     Tipo Identificación
                 </label>
 
-                <span class="col-md-3">
+                <span class="col-md-7">
                     <g:select id="tipoIdentificacion" name="tipoIdentificacion.id" from="${tipoIdentificacion}"
                               optionKey="id" value="${proveedorInstance?.tipoIdentificacion?.id}"
                               class="many-to-one form-control" optionValue="descripcion" disabled="${proveedorInstance?.id ? true : false}"/>
@@ -27,7 +27,7 @@
                 <label class="col-md-3 control-label text-info">
                     Ruc
                 </label>
-                <span class="col-md-3" id="divRuc"> </span>
+                <span class="col-md-5" id="divRuc"> </span>
             </span>
         </div>
         <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'nombre', 'error')} ">
@@ -74,7 +74,7 @@
                 <label for="email" class="col-md-3 control-label text-info">
                     Email
                 </label>
-                <span class="col-md-4">
+                <span class="col-md-8">
                     <span class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                         <g:textField name="email" email="true" class=" form-control required" value="${proveedorInstance?.email}"/>
@@ -85,11 +85,11 @@
         <div class="col2">
             <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'tipoProveedor', 'error')} ">
                 <span class="grupo">
-                    <label for="tipoProveedor" class="col-md-6 control-label text-info">
+                    <label for="tipoProveedor" class="col-md-5 control-label text-info">
                         Tipo Proveedor
                     </label>
 
-                    <span class="col-md-5">
+                    <span class="col-md-7">
                         <g:select id="tipoProveedor" name="tipoProveedor.id" from="${sri.TipoProveedor.list()}" optionKey="id"
                                   value="${proveedorInstance?.tipoProveedor?.id}" optionValue="descripcion" class="many-to-one form-control"
                         />
@@ -102,7 +102,7 @@
                         Tipo Persona
                     </label>
 
-                    <span class="col-md-5" id="divTipoPersona">
+                    <span class="col-md-8" id="divTipoPersona">
                     </span>
                 </span>
             </div>
@@ -123,11 +123,11 @@
 
             <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'estado', 'error')} ">
                 <span class="grupo">
-                    <label for="estado" class="col-md-4 control-label text-info">
+                    <label for="estado" class="col-md-6 control-label text-info">
                         Estado
                     </label>
 
-                    <span class="col-md-3">
+                    <span class="col-md-6">
                         <g:select name="estado" from="['1':'Activo', '0': 'No Activo']" optionValue="value" optionKey="key" class="form-control" value="${proveedorInstance?.estado}"/>
                     </span>
                 </span>
@@ -152,7 +152,7 @@
                         Descuento
                     </label>
 
-                    <span class="col-md-3">
+                    <span class="col-md-5">
                         <span class="input-group">
                             <g:textField name="descuento" class="number form-control" maxlength="3" value="${fieldValue(bean: proveedorInstance, field: 'descuento')}"/>
                             <span class="input-group-addon"><i class="fa fa-percent"></i>%</span>
@@ -181,7 +181,7 @@
                         Relacionado
                     </label>
 
-                    <span class="col-md-3">
+                    <span class="col-md-5">
                         <g:select id="relacionado" name="relacionado.id" from="${['NO','SI']}"
                                   value="${proveedorInstance?.relacionado}" class="many-to-one form-control"/>
                     </span>
@@ -208,7 +208,7 @@
                         País
                     </label>
 
-                    <span class="col-md-6">
+                    <span class="col-md-8">
                         <g:select id="pais" name="pais.id" from="${paises}"
                                   value="${proveedorInstance?.pais}" class="many-to-one form-control"
                                   noSelection="['null': 'Seleccione...']"/>
@@ -235,7 +235,7 @@
                         Cantón
                     </label>
 
-                    <span class="col-md-6">
+                    <span class="col-md-8">
                         <g:select id="canton" name="canton.id" from="${Canton.list().sort{it.nombre}}" optionKey="id"
                                   value="${proveedorInstance?.canton?.id}" optionValue="nombre" class="many-to-one form-control"
                                   noSelection="['null': 'Seleccione...']"/>
@@ -243,14 +243,14 @@
                 </span>
             </div>
         </div>
-        <div class="col2">
+        <div style="margin-top: 15px">
             <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'nombreCheque', 'error')} ">
                 <span class="grupo">
-                    <label for="nombreCheque" class="col-md-6 control-label text-info">
+                    <label for="nombreCheque" class="col-md-3 control-label text-info">
                         Cheque a nombre de
                     </label>
 
-                    <span class="col-md-6">
+                    <span class="col-md-8">
                         <g:textField name="nombreCheque" class=" form-control" value="${proveedorInstance?.nombreCheque}"/>
                     </span>
                 </span>
