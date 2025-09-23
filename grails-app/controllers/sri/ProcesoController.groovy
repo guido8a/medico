@@ -3,6 +3,7 @@ package sri
 import inventario.Bodega
 import inventario.CentroCosto
 import seguridad.Empresa
+import seguridad.Paciente
 import seguridad.Persona
 import sri.Pais
 import sri.PorcentajeIva
@@ -1681,7 +1682,8 @@ class ProcesoController  {
 //        println "busqueda "
         def empresa = Empresa.get(session.empresa.id)
         def contabilidades = Contabilidad.findAllByInstitucion(empresa)
-        return[contabilidades: contabilidades]
+        def paciente = Paciente.get(params.id)
+        return[contabilidades: contabilidades, paciente: paciente]
     }
 
     def armaSqlProcesos(params){
