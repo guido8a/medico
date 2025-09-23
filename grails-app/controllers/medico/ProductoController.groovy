@@ -6,7 +6,8 @@ class ProductoController {
 
     def arbol(){
         def hh = Grupo.count()
-        def empresa = Empresa.get(params.id)
+//        def empresa = Empresa.get(params.id)
+        def empresa = Empresa.get(session.empresa.id)
         return [hh: hh, empresa: empresa]
     }
 
@@ -155,6 +156,8 @@ class ProductoController {
 
     def formProducto_ajax(){
 
+        println("producto " + params)
+
         def subgrupo = Subgrupo.get(params.padre)
         def empresa = Empresa.get(params.empresa)
         def producto
@@ -229,5 +232,14 @@ class ProductoController {
         }
     }
 
+    def verProducto_ajax(){
+        def producto = Producto.get(params.id)
+        return [producto: producto]
+    }
+
+    def marca_ajax(){
+        def producto = Producto.get(params.id)
+        return [producto: producto]
+    }
 }
 

@@ -1,0 +1,1 @@
+<g:select name="marca" from="${medico.Marca.list().sort{it.descripcion}}" optionValue="descripcion" optionKey="id" class="form-control" value="${producto?.marca?.id}" noSelection="[null: 'Sin marca']" />

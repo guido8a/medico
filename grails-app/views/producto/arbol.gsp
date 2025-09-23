@@ -4,9 +4,9 @@
     <meta name="layout" content="main">
     <title>Artículos de Inventario</title>
 
-%{--    <script type="text/javascript" src="${resource(dir: 'js/plugins/jstree', file: 'jstree.js')}"></script>--}%
-%{--    <link rel="stylesheet" href="${resource(dir: 'js/plugins/jstree/themes/default', file: 'style.css')}"/>--}%
-%{--    <link rel="stylesheet" href="${resource(dir: 'css/custom', file: 'tree_context.css')}"/>--}%
+    %{--    <script type="text/javascript" src="${resource(dir: 'js/plugins/jstree', file: 'jstree.js')}"></script>--}%
+    %{--    <link rel="stylesheet" href="${resource(dir: 'js/plugins/jstree/themes/default', file: 'style.css')}"/>--}%
+    %{--    <link rel="stylesheet" href="${resource(dir: 'css/custom', file: 'tree_context.css')}"/>--}%
 
     <asset:javascript src="/jstree-3.0.8/dist/jstree.min.js"/>
     <asset:stylesheet src="/jstree-3.0.8/dist/themes/default/style.min.css"/>
@@ -37,20 +37,21 @@
 <body>
 <div id="list-cuenta" style="margin-top: 20px">
 
-%{--        <div class="span12 btn-group" data-toggle="buttons-radio">--}%
-%{--            <a href='#' class='btn btn-warning' id="btnCerrar" onclick="$('#tree').jstree('close_all');"><i class='fa fa-times'></i> Cerrar todo</a>--}%
+    %{--        <div class="span12 btn-group" data-toggle="buttons-radio">--}%
+    %{--            <a href='#' class='btn btn-warning' id="btnCerrar" onclick="$('#tree').jstree('close_all');"><i class='fa fa-times'></i> Cerrar todo</a>--}%
 
-%{--            <form class="form-search" style="float: left; margin-left: 50px;">--}%
-%{--                <div class="input-append">--}%
-%{--                    <input  title="Buscar"  type="text" class="input-medium search-query" id="search"/>--}%
-%{--                    <a href='#' class='btn btn-info' id="btnSearch"><i class='fa fa-search'></i> Buscar</a>--}%
-%{--                </div>--}%
-%{--            </form>--}%
-%{--        </div>--}%
+    %{--            <form class="form-search" style="float: left; margin-left: 50px;">--}%
+    %{--                <div class="input-append">--}%
+    %{--                    <input  title="Buscar"  type="text" class="input-medium search-query" id="search"/>--}%
+    %{--                    <a href='#' class='btn btn-info' id="btnSearch"><i class='fa fa-search'></i> Buscar</a>--}%
+    %{--                </div>--}%
+    %{--            </form>--}%
+    %{--        </div>--}%
 
-        <div id="treeArea" class="hide">
-            <div id="tree" class="ui-corner-all"></div>
-        </div>
+    <div id="treeArea" class="hide">
+        <div id="tree" class="ui-corner-all"></div>
+        <div id="info" class="ui-corner-all" style="height: 300px; font-weight: bold; font-size: 14px"></div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -60,13 +61,13 @@
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             $btn.replaceWith(spinner);
-             var c = cargarLoader("Guardando...");
+            var c = cargarLoader("Guardando...");
             $.ajax({
                 type: "POST",
                 url: $form.attr("action"),
                 data: $form.serialize(),
                 success: function (msg) {
-                   c.modal("hide");
+                    c.modal("hide");
                     var parts = msg.split("_");
                     if (parts[0] === "ok") {
                         log(parts[1], "success");
@@ -306,137 +307,124 @@
         return items;
     }
 
-    $(function () {
-
-        function doSearch() {
-            var val = $.trim($("#search").val());
-            if (val !== "") {
-                $('#tree').jstree('search', val);
-            }
+    function doSearch() {
+        var val = $.trim($("#search").val());
+        if (val !== "") {
+            $('#tree').jstree('search', val);
         }
+    }
 
-        $("#btnSearch").click(function () {
-            doSearch();
-        });
+    $("#btnSearch").click(function () {
+        doSearch();
+    });
 
-        var current = "1";
+    var current = "1";
 
-        $(".btnCopiar").click(function () {
-            openLoader("Copiando");
-        });
+    $(".btnCopiar").click(function () {
+        openLoader("Copiando");
+    });
 
-        function iniciaNodo() {
-            var rel = "grupo_" + current;
-            return rel;
+    function iniciaNodo() {
+        var rel = "grupo_" + current;
+        return rel;
+    }
+
+    function poneTipo(tipo) {
+        var grpo = tipo.split('_')[0];
+        var tp;
+        switch (grpo) {
+            case "sg":
+                tp = "subgrupo";
+                break;
+            case "dp":
+                tp = "producto";
+                break;
         }
+        return tp;
+    }
 
-        function poneTipo(tipo) {
-            var grpo = tipo.split('_')[0];
-            var tp;
-            switch (grpo) {
-                case "sg":
-                    tp = "subgrupo";
-                    break;
-                case "dp":
-                    tp = "producto";
-                    break;
-            }
-            return tp;
-        }
-
-        $(".toggle").click(function () {
-            var tipo = $(this).attr("id").split('_')[1];
-            if (tipo !== current) {
-                current = tipo;
-                $('#tree').jstree(true).refresh();
-            }
-        });
-
-        $('#tree').on("loaded.jstree", function () {
-            $("#loading").hide();
-            $("#treeArea").removeClass("hide").show();
-        }).on("select_node.jstree", function (node, selected, event) {
-            $('#tree').jstree('toggle_node', selected.selected[0]);
-            // showInfo(selected.node.id);
-        }).jstree({
-            plugins: ["types", "state", "contextmenu", "wholerow", "search"],
-            core: {
-                multiple: false,
-                check_callback: true,
-                themes: {
-                    variant: "small"
-                },
-                data: {
-                    url: '${createLink(action:"loadTreePart")}',
-                    data: function (node) {
-                        var tp;
-                        if ((node.id !== "#") && (node.id !== 'root')) {
-                            tp = poneTipo(node.id);
-                        } else {
-                            tp = iniciaNodo()
-                        }
-                        return {'id': node.id, tipo: tp};
-                    }
-                }
-            },
-            contextmenu: {
-                show_at_node: false,
-                items: createContextMenu
-            },
-            state: {
-                key: "cuentas"
-            },
-            types: {
-                root: {
-                    // icon: "glyphicon glyphicon-folder-open text-danger"
-                    icon: "fa fa-sitemap text-info"
-                },
-                "grupo": {
-                    icon: "glyphicon glyphicon-briefcase text-warning"
-                },
-                "subgrupo_material": {
-                    icon: "glyphicon glyphicon-briefcase text-info"
-                },
-                default: {
-                    icon: "glyphicon glyphicon-tags text-success"
-                }
-            },
-            search : {
-                case_insensitive : true,
-                show_only_matches : false
-            }
-        });
-
-        function showInfo(nodoId) {
-            var parts = nodoId.split("_");
-            var tipo = parts[0];
-            var id = parts[1];
-
-            if(tipo !== 'root'){
-                switch (tipo) {
-                    case "sg":
-                        url = "${createLink(action:'showSg_ajax')}";
-                        break;
-                    case "dp":
-                        url = "${createLink(action:'showDp_ajax')}";
-                        break;
-                    case "it":
-                        url = "${createLink(action:'showIt_ajax')}";
-                        break;
-                }
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        id: id
-                    },
-                    success: function (msg) {
-                        $("#info").html(msg);
-                    }
-                });
-            }
+    $(".toggle").click(function () {
+        var tipo = $(this).attr("id").split('_')[1];
+        if (tipo !== current) {
+            current = tipo;
+            $('#tree').jstree(true).refresh();
         }
     });
+
+    $('#tree').on("loaded.jstree", function () {
+        $("#loading").hide();
+        $("#treeArea").removeClass("hide").show();
+    }).on("select_node.jstree", function (node, selected, event) {
+        $('#tree').jstree('toggle_node', selected.selected[0]);
+        showInfo(selected.node.id);
+    }).jstree({
+        plugins: ["types", "state", "contextmenu", "wholerow", "search"],
+        core: {
+            multiple: false,
+            check_callback: true,
+            themes: {
+                variant: "small"
+            },
+            data: {
+                url: '${createLink(action:"loadTreePart")}',
+                data: function (node) {
+                    var tp;
+                    if ((node.id !== "#") && (node.id !== 'root')) {
+                        tp = poneTipo(node.id);
+                    } else {
+                        tp = iniciaNodo()
+                    }
+                    return {'id': node.id, tipo: tp};
+                }
+            }
+        },
+        contextmenu: {
+            show_at_node: false,
+            items: createContextMenu
+        },
+        state: {
+            key: "cuentas"
+        },
+        types: {
+            root: {
+                icon: "fa fa-sitemap text-info"
+            },
+            "grupo": {
+                icon: "glyphicon glyphicon-briefcase text-warning"
+            },
+            "subgrupo_material": {
+                icon: "glyphicon glyphicon-briefcase text-info"
+            },
+            default: {
+                icon: "glyphicon glyphicon-tags text-success"
+            }
+        },
+        search : {
+            case_insensitive : true,
+            show_only_matches : false
+        }
+    });
+
+    function showInfo(nodoId) {
+        var parts = nodoId.split("_");
+        var tipo = parts[0];
+        var id = parts[1];
+        if(tipo === 'dp'){
+            $.ajax({
+                type: "POST",
+                url: "${createLink(controller: 'producto', action:'verProducto_ajax')}",
+                data: {
+                    id: id
+                },
+                success: function (msg) {
+                    $("#info").html(msg);
+                }
+            });
+        }else{
+            $("#info").html('');
+        }
+    }
+
 </script>
 
 </body>

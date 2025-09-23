@@ -35,7 +35,7 @@
             </label>
             <span class="grupo">
                 <span class="col-md-8">
-                    <g:textArea name="texto" minlength="3" maxlength="255" required="" class="form-control required" value="${producto?.texto}"/>
+                    <g:textArea name="texto" minlength="3" maxlength="255" required="" style="height: 100px; resize: none" class="form-control required" value="${producto?.texto}"/>
                 </span>
             </span>
         </div>
@@ -56,13 +56,19 @@
 
     <div class="row izquierda">
         <div class="col-md-12 input-group">
-            <label for="marca" class="col-md-2 control-label text-info">
+            <label class="col-md-2 control-label text-info">
                 Marca
             </label>
             <span class="grupo">
-                <span class="col-md-8">
-                   <g:select name="marca" from="${medico.Marca.list().sort{it.descripcion}}" optionValue="descripcion" optionKey="id" class="form-control" value="${producto?.marca?.id}" />
+                <span class="col-md-6" id="divMarca">
+
                 </span>
+            </span>
+            <span>
+                <a href="#" class="btn btn-success btnNuevaMarca">
+                    <i class="fa fa-file"></i>
+                    Nuevo
+                </a>
             </span>
         </div>
     </div>
@@ -95,6 +101,86 @@
 </g:form>
 
 <script type="text/javascript">
+
+    var dcm;
+
+    cargarMarca();
+
+    function cargarMarca(){
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'producto', action:'marca_ajax')}",
+            data    : {
+                id: '${producto?.id}'
+            },
+            success : function (msg) {
+            $("#divMarca").html(msg)
+            } //success
+        }); //ajax
+    }
+
+    $(".btnNuevaMarca").click(function () {
+        createEditRowMarca()
+    });
+
+    function createEditRowMarca(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'marca', action:'form_ajax')}",
+            data    : {
+                id: id,
+                empresa: '${empresa?.id}'
+            },
+            success : function (msg) {
+               dcm = bootbox.dialog({
+                    id      : "dlgCreateEditMarca",
+                    title   : "Nueva Marca",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormMarca();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormMarca() {
+        var $form = $("#frmMarca");
+        if ($form.valid()) {
+            var cl = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : $form.serialize(),
+                success : function (msg) {
+                    cl.modal("hide");
+                    var parts = msg.split("_");
+                    if (parts[0] === "ok") {
+                        log(parts[1],"success");
+                        cargarMarca();
+                    } else {
+                        log(parts[1],"error");
+                        return false;
+                    }
+                }
+            });
+        } else {
+            return false;
+        } //else
+    }
 
     function validarNum(ev) {
         /*
