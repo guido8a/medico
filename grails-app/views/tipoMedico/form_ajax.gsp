@@ -1,5 +1,5 @@
 
-<g:form class="form-horizontal" name="frmTipo" role="form" controller="tipoPersona" action="saveTipo_ajax" method="POST">
+<g:form class="form-horizontal" name="frmTipo" role="form" controller="tipoMedico" action="saveTipo_ajax" method="POST">
     <g:hiddenField name="id" value="${tipo?.id}" />
 
     <div class="form-group ${hasErrors(bean: tipo, field: 'codigo', 'error')} required">

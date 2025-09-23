@@ -109,7 +109,7 @@
                             </li>
 
                             <li>
-                                <g:link data-info="categoria" class="over tamano" controller="tipoPersona" action="list" >
+                                <g:link data-info="categoria" class="over tamano" controller="tipoMedico" action="list" >
                                     <i class="fa-li fas fa-certificate text-info"></i> Tipo de usuarios
                                 </g:link>
 

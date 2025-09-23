@@ -31,7 +31,7 @@
         </g:link>
     </div>
     <div class="btn-group">
-        <g:link controller="tipoPersona" action="list" class="btn btn-success btnTipos">
+        <g:link controller="tipoMedico" action="list" class="btn btn-success btnTipos">
             <i class="fa fa-users"></i> Tipos de usuarios
         </g:link>
     </div>

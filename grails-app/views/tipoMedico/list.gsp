@@ -84,7 +84,7 @@
 
         $.ajax({
             type    : "POST",
-            url: "${createLink(controller: 'tipoPersona',  action:'form_ajax')}",
+            url: "${createLink(controller: 'tipoMedico',  action:'form_ajax')}",
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({
@@ -156,7 +156,7 @@
                         var v = cargarLoader("Eliminando...");
                         $.ajax({
                             type    : "POST",
-                            url     : '${createLink(controller: 'tipoPersona', action:'borrarTipo_ajax')}',
+                            url     : '${createLink(controller: 'tipoMedico', action:'borrarTipo_ajax')}',
                             data    : {
                                 id : itemId
                             },

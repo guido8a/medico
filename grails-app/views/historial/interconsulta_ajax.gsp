@@ -8,7 +8,6 @@
                 Médico externo
             </label>
             <span class="col-md-6" id="divComboExterno">
-                %{--                <g:select name="medicoExterno" from="${seguridad.Persona.findAllByTipoPersona(seguridad.TipoPersona.findByCodigo('E'), [sort: 'apellido'])}" required="" optionKey="id" optionValue="${{it.apellido + " " + it.nombre}}" class="form-control required" value="${cita?.medicoExterno?.id}" />--}%
             </span>
             <span class="col-md-2">
                 <a href="#" class="btn btn-success" id="btnCrearMedico" title="Nueva médico externo">

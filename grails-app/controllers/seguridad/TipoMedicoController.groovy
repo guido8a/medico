@@ -1,6 +1,6 @@
 package seguridad
 
-class TipoPersonaController {
+class TipoMedicoController {
 
     def list(){
         def tipos = TipoMedico.list().sort{it.descripcion}
