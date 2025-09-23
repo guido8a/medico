@@ -59,7 +59,7 @@ class Persona implements Auditable{
             discapacidad column: 'prsndscp'
             direccion column: 'prsndire'
             referencia column: 'prsnrefe'
-            tipoPersona column: 'tppr__id'
+            tipoPersona column: 'tpmd__id'
         }
     }
     static constraints = {
