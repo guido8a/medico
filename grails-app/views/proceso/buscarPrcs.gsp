@@ -32,7 +32,7 @@
     height: 40px; border-color: #0c6cc2; margin-left: 10px;">
             <div class="col-xs-5" style="margin-left: 5px; margin-top: 2px;">
                 <g:link class="btn btn-success" action="procesoForm" style="margin-left: -15px">
-                    <i class="fa fa-file-o"></i> Nueva Transacción
+                    <i class="fa fa-edit"></i> Nueva Transacción
                 </g:link>
                 <g:link class="btn btn-primary" action="procesosAnulados">
                     <i class="fa fa-times-circle"></i> Ir a Anulados
@@ -199,7 +199,8 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
                     operador: $("#oprd").val(),
                     desde: desde,
                     hasta: hasta,
-                    tpps: $("#tipo_proceso").val()
+                    tpps: $("#tipo_proceso").val(),
+                    pcnt: "${paciente?.id}"
                 },
                 success: function (msg) {
                     $("#bandeja").html(msg);

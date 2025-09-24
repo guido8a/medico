@@ -4,6 +4,7 @@ import audita.Auditable
 import geografia.Parroquia
 import medico.EstadoCivil
 import medico.GrupoSanguineo
+import sri.TipoPersona
 
 class Paciente implements Auditable {
 
@@ -11,6 +12,7 @@ class Paciente implements Auditable {
     Parroquia parroquia
     GrupoSanguineo grupoSanguineo
     EstadoCivil estadoCivil
+    TipoPersona tipoPersona
     String cedula
     String nombre
     String apellido
@@ -55,6 +57,7 @@ class Paciente implements Auditable {
         columns {
             empresa column: 'empr__id'
             parroquia column: 'parr__id'
+            tipoPersona column: 'tppr__id'
             grupoSanguineo column: 'grsn__id'
             estadoCivil column: 'edcv__id'
             cedula column: 'pcntcdla'
@@ -97,6 +100,7 @@ class Paciente implements Auditable {
     static constraints = {
         empresa(blank: true, nullable: true)
         parroquia(blank: true, nullable: true)
+        tipoPersona(blank: true, nullable: true)
         grupoSanguineo(blank: true, nullable: true)
         estadoCivil(blank: true, nullable: true)
         cedula(size:0..10,blank: true, nullable: true)

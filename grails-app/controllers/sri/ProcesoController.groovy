@@ -1704,7 +1704,7 @@ class ProcesoController  {
         if(params.desde) fcds = "'" + new Date().parse("dd-MM-yyyy",params.desde).format('yyyy-MM-dd') + "'"
         if(params.hasta) fchs = "'" + new Date().parse("dd-MM-yyyy",params.hasta).format('yyyy-MM-dd') + "'"
 
-        def sqlSelect = "select * from procesos(${session.empresa.id}, ${cont}, ${fcds}, ${fchs}) "
+        def sqlSelect = "select * from prcs_pcnt(${session.empresa.id}, ${params.pcnt}) "
 
         def sqlWhere = "where (${wh})"
 
