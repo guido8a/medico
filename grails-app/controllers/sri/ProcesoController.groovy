@@ -352,7 +352,7 @@ class ProcesoController  {
     }
 
     def cargaTcsr() {
-//        println "cargatcsr $params"
+        println "cargatcsr $params"
         def cn = dbConnectionService.getConnection()
         def tipo = 0
         def reembolso
@@ -369,10 +369,13 @@ class ProcesoController  {
             default:
                 tipo = 0
         }
+//        def sql = "select cast(tittcdgo as integer) cdgo from titt, prve, tptr " +
+//                "where prve.tpid__id = titt.tpid__id and prve__id = ${params.prve} and " +
+//                "tptr.tptr__id = titt.tptr__id and tptrcdgo = '${tipo}'"
         def sql = "select cast(tittcdgo as integer) cdgo from titt, prve, tptr " +
-                "where prve.tpid__id = titt.tpid__id and prve__id = ${params.prve} and " +
+                "where prve.tpid__id = titt.tpid__id and pcnt__id = ${params.prve} and " +
                 "tptr.tptr__id = titt.tptr__id and tptrcdgo = '${tipo}'"
-//        println "sql1: $sql"
+        println "sql1: $sql"
         def titt = cn.rows(sql.toString())[0]?.cdgo
 //        println "identif: $titt"
         if(tipo == 2) {
@@ -386,6 +389,9 @@ class ProcesoController  {
         }
 //        println "sql2: $sql"
         def data = cn.rows(sql.toString())
+
+        println("data " + data)
+
         cn.close()
         [data: data, tpcpSri: params.tpcp, estado: params.etdo?:'', esta: params.esta, reembolso: reembolso]
     }

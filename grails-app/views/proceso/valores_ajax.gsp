@@ -4,7 +4,7 @@
 }
 </style>
 
-<script type="text/javascript" src="${resource(dir: 'js', file: 'ui.js')}"></script>
+%{--<script type="text/javascript" src="${resource(dir: 'js', file: 'ui.js')}"></script>--}%
 
 
 %{--<g:if test="${tipo == '4' || tipo == '5' || tipo == '8'}">--}%
