@@ -1,3 +1,4 @@
+<%@ page import="sri.Proceso" %>
 <util:renderHTML html="${msg}"/>
 
 <style type="text/css">
@@ -31,7 +32,7 @@ th, td {
         <g:each in="${data}" var="dato" status="z">
 
             <tr id="${dato.prcs__id}" data-id="${dato.prcs__id}" data-ed="${dato.prcsetdo}" data-tipo="${dato?.tpps}"
-                data-cm='${cratos.Proceso.get(dato.prcs__id).tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim()}'
+                data-cm='${sri.Proceso.get(dato.prcs__id).tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim()}'
                 data-dtll='${dato.dtll}' data-rtcn='${dato.rtcn}' data-rtvn='${dato.rtvn}'
                 class="${clase}">
                 <td width="100px">
@@ -57,9 +58,9 @@ th, td {
                 <td width="80px" class="text-info" style="text-align: right">
                     ${dato.prcsvlor}
                 </td>
-                <td width="70px" class="text-info" style="text-align: right">
-                    ${dato.rtcn}
-                </td>
+                %{--<td width="70px" class="text-info" style="text-align: right">--}%
+                    %{--${dato.rtcn}--}%
+                %{--</td>--}%
                 <td width="80px" class="text-info">
                     ${dato.tpps}
                 </td>
