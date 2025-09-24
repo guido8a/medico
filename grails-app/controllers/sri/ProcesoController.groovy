@@ -175,7 +175,7 @@ class ProcesoController  {
                 proceso.proveedor = proveedor
                 proceso.pago = params.pago
                 proceso.documentoEmpresa = DocumentoEmpresa.get(params.libretin)
-                proceso.retencionVenta = params.retencionVenta
+//                proceso.retencionVenta = params.retencionVenta
 
                 break
 
@@ -2237,7 +2237,7 @@ class ProcesoController  {
     def guardarDocRetencion_ajax () {
 //        println("params " + params)
         def proceso = Proceso.get(params.proceso)
-        proceso.retencionVenta = params.documento
+//        proceso.retencionVenta = params.documento
         proceso.retenidoIva = params.retenido.toDouble()
         proceso.retenidoRenta = params.renta.toDouble()
 
