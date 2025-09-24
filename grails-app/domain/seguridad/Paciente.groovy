@@ -13,6 +13,7 @@ class Paciente implements Auditable {
     GrupoSanguineo grupoSanguineo
     EstadoCivil estadoCivil
     TipoPersona tipoPersona
+    TipoIdentificacion tipoIdentificacion
     String cedula
     String nombre
     String apellido
@@ -58,6 +59,7 @@ class Paciente implements Auditable {
             empresa column: 'empr__id'
             parroquia column: 'parr__id'
             tipoPersona column: 'tppr__id'
+            tipoIdentificacion column: 'tpid__id'
             grupoSanguineo column: 'grsn__id'
             estadoCivil column: 'edcv__id'
             cedula column: 'pcntcdla'
@@ -101,6 +103,7 @@ class Paciente implements Auditable {
         empresa(blank: true, nullable: true)
         parroquia(blank: true, nullable: true)
         tipoPersona(blank: true, nullable: true)
+        tipoIdentificacion(blank: true, nullable: true)
         grupoSanguineo(blank: true, nullable: true)
         estadoCivil(blank: true, nullable: true)
         cedula(size:0..10,blank: true, nullable: true)

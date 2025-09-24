@@ -372,8 +372,8 @@ class ProcesoController  {
 //        def sql = "select cast(tittcdgo as integer) cdgo from titt, prve, tptr " +
 //                "where prve.tpid__id = titt.tpid__id and prve__id = ${params.prve} and " +
 //                "tptr.tptr__id = titt.tptr__id and tptrcdgo = '${tipo}'"
-        def sql = "select cast(tittcdgo as integer) cdgo from titt, prve, tptr " +
-                "where prve.tpid__id = titt.tpid__id and pcnt__id = ${params.prve} and " +
+        def sql = "select cast(tittcdgo as integer) cdgo from titt, pcnt, tptr " +
+                "where pcnt.tpid__id = titt.tpid__id and pcnt__id = ${params.prve} and " +
                 "tptr.tptr__id = titt.tptr__id and tptrcdgo = '${tipo}'"
         println "sql1: $sql"
         def titt = cn.rows(sql.toString())[0]?.cdgo

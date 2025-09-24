@@ -769,6 +769,7 @@
         $("#libretinFacturas").hide();
 
         cargaGestor(tipo);
+
         if("${!proceso?.id}") {
             cargarProveedor(tipo)
         }
@@ -789,12 +790,11 @@
             }, 1000);
         }
 
-        if (prve && (tipo == '2')) {
+        if (prve && (tipo === '2')) {
             $("#libretinFacturas").show();
             $("#pagoProceso").hide();
             cargarProveedor(tipo);
-            cargarTcsr(prve);
-//            cargarTipo(tipo);
+            // cargarTcsr(prve);
         }
 
         if (tipo == '2' || tipo == '6' || tipo == '7') {
@@ -941,11 +941,11 @@
                 etdo: "${proceso?.estado}"
             },
             success: function (msg) {
-                $("#divComprobanteSustento").html(msg)
+                $("#divComprobanteSustento").html(msg);
                 $("#divComprobanteSustento").show()
             }
         });
-    };
+    }
 
     function cargarProveedor(tipo) {
 //        console.log('cargar prve:', tipo)

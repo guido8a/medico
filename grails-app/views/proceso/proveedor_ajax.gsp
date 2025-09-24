@@ -120,6 +120,8 @@
     $("#prve__id").val('${paciente?.id}');
     </g:if>
 
+    cargarTcsr('${paciente?.id}');
+
     $("#btn_crear").click(function () {
         crearEditar(null, false)
     });
