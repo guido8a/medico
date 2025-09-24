@@ -31,9 +31,12 @@
     <div class="row" style="border-style: solid; border-radius:6px; border-width: 1px;
     height: 40px; border-color: #0c6cc2; margin-left: 10px;">
             <div class="col-xs-5" style="margin-left: 5px; margin-top: 2px;">
-                <g:link class="btn btn-success" action="procesoForm" style="margin-left: -15px">
+                <a href="#" class="btn btn-success" id="btnNuevaTransaccion" style="margin-left: -15px;">
                     <i class="fa fa-edit"></i> Nueva Transacción
-                </g:link>
+                </a>
+%{--                <g:link class="btn btn-success" action="procesoForm" style="margin-left: -15px">--}%
+%{--                    <i class="fa fa-edit"></i> Nueva Transacción--}%
+%{--                </g:link>--}%
                 <g:link class="btn btn-primary" action="procesosAnulados">
                     <i class="fa fa-times-circle"></i> Ir a Anulados
                 </g:link>
@@ -54,9 +57,7 @@
         </div>
     </div>
 
-
     <div class="row" style="margin-bottom: 10px;">
-
         <div class="row-fluid">
             <div style="margin-left: 20px;">
                 <div class="col-xs-5">
@@ -168,6 +169,9 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
 
 <script type="text/javascript">
 
+    $("#btnNuevaTransaccion").click(function () {
+        location.href="${createLink(controller: 'proceso', action: 'procesoForm')}?paciente=" + '${paciente?.id}'
+    });
 
     $(function () {
         $("#limpiaBuscar").click(function () {

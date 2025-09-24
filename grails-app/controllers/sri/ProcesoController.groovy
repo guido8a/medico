@@ -22,15 +22,16 @@ class ProcesoController  {
     def procesoForm = {
         println "ProcesofORM "+params
 
+        def paciente = Paciente.get(params.paciente)
         def sucursal = Establecimiento.findAllByEmpresa(Empresa.get(session.empresa.id))
 
         if (params.id) {
             def proceso = Proceso.get(params.id).refresh()
             def fps = ProcesoFormaDePago.findAllByProceso(proceso)
 
-            render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal])
+            render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal, paciente: paciente])
         } else
-            render(view: "procesoForm", model: [proceso: null, estb: sucursal])
+            render(view: "procesoForm", model: [proceso: null, estb: sucursal, paciente: paciente])
     }
 
     /** actualiza los valores de proceso a los totales de detalle **/
@@ -1455,6 +1456,7 @@ class ProcesoController  {
 
     def proveedor_ajax () {
 //        println "proveedor_ajax: $params"
+        def paciente = Paciente.get(params.paciente)
         def proceso = Proceso.get(params.proceso)
         def proveedores
         def tr
@@ -1476,7 +1478,7 @@ class ProcesoController  {
 //                break
 //        }
 //        println "proveedores: $proveedores"
-        return [proveedores : proveedores, proceso: proceso, tipo: params.tipo, proveedor: prve]
+        return [proveedores : proveedores, proceso: proceso, tipo: params.tipo, proveedor: prve, paciente: paciente]
     }
 
     def cambiarContabilidad_ajax () {

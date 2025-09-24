@@ -62,10 +62,10 @@
 </g:if>
 <div class="btn-toolbar toolbar">
     <div class="btn-group">
-        <g:link class="btn btn-info" action="buscarPrcs">
-            <i class="fa fa-chevron-left"></i>
+        <a href="#" class="btn btn-info" id="btnRegresar">
+            <i class="fa fa-arrow-left"></i>
             Procesos
-        </g:link>
+        </a>
     </div>
 
     <div class="btn-group" style="margin-right: 10px">
@@ -74,14 +74,12 @@
                 <i class="fa fa-calendar-o"></i>
                 Comprobante
             </a>
-
         </g:if>
         <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C'}">
             <g:link class="btn btn-success" action="detalleSri" id="${proceso?.id}" style="margin-bottom: 10px;">
                 <i class="fa fa-money"></i> Retenciones
             </g:link>
         </g:if>
-
         <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C' && proceso?.tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim() == '41'}">
             <a href="#" class="btn btn-success" id="reembolsoN">
                 <i class="fa fa-thumbs-up"></i>
@@ -213,7 +211,7 @@
                     ${proceso?.fechaEmision?.format("dd-MM-yyyy")}
                 </g:if>
                 <g:else>
-                    %{--poner fecha de inicio 30 días antes fechaInicio - 30--}%
+                %{--poner fecha de inicio 30 días antes fechaInicio - 30--}%
                     <elm:datepicker name="fecha" title="Fecha de emisión del comprobante"
                                     class="datepicker form-control required col-xs-3 fechaE"
                                     value="${proceso?.fechaEmision?: new Date()}"
@@ -263,11 +261,16 @@
             </div>
 
             <div class="col-xs-2 negrilla">
-                <g:select class="form-control required  cmbRequired tipoProcesoSel ${proceso ? '' : 'hidden'} "
-                          name="tipoProceso" id="tipoProceso"
-                          from="${sri.TipoProceso.list(sort: 'codigo')}" label="Proceso tipo: "
-                          value="${proceso?.tipoProceso?.id}" optionKey="id"
-                          optionValue="descripcion" title="Tipo de la transacción" disabled="${proceso?.id ? true : false}"/>
+                <g:if test="${paciente}">
+                    <g:select class="form-control required  cmbRequired tipoProcesoSel ${proceso ? '' : 'hidden'} "
+                              name="tipoProceso" id="tipoProceso" from="${sri.TipoProceso.findByCodigo('V')}" label="Proceso tipo: "
+                              value="${proceso?.tipoProceso?.id}" optionKey="id" optionValue="descripcion" title="Tipo de la transacción" disabled="${proceso?.id ? true : false}"/>
+                </g:if>
+                <g:else>
+                    <g:select class="form-control required  cmbRequired tipoProcesoSel ${proceso ? '' : 'hidden'} "
+                              name="tipoProceso" id="tipoProceso" from="${sri.TipoProceso.list(sort: 'codigo')}" label="Proceso tipo: "
+                              value="${proceso?.tipoProceso?.id}" optionKey="id" optionValue="descripcion" title="Tipo de la transacción" disabled="${proceso?.id ? true : false}"/>
+                </g:else>
             </div>
         </div>
 
@@ -421,6 +424,10 @@
 
 
 <script type="text/javascript">
+
+    $("#btnRegresar").click(function () {
+        location.href="${createLink(controller: 'proceso', action: 'buscarPrcs')}/" + '${paciente?.id}'
+    });
 
     $("#btnFormaPago").click(function () {
         $.ajax({
@@ -738,9 +745,9 @@
          39         -> flecha der
          */
         return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
-        (ev.keyCode >= 96 && ev.keyCode <= 105) ||
-        ev.keyCode == 8 || ev.keyCode == 46 || ev.keyCode == 9 ||
-        ev.keyCode == 37 || ev.keyCode == 39 );
+            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
+            ev.keyCode == 8 || ev.keyCode == 46 || ev.keyCode == 9 ||
+            ev.keyCode == 37 || ev.keyCode == 39 );
     }
 
     $(".validacionNumeroSinPuntos").keydown(function (ev) {
@@ -942,22 +949,23 @@
 
     function cargarProveedor(tipo) {
 //        console.log('cargar prve:', tipo)
-        if (tipo != '-1') {
+        if (tipo !== '-1') {
             $.ajax({
                 type: 'POST',
                 url: "${createLink(controller: 'proceso', action: 'proveedor_ajax')}",
                 data: {
                     proceso: '${proceso?.id}',
                     tipo: tipo,
-                    id: $("#prve__id").val()
+                    id: $("#prve__id").val(),
+                    paciente: '${paciente?.id}'
                 },
                 success: function (msg) {
-                    $("#divCargaProveedor").html(msg)
+                    $("#divCargaProveedor").html(msg);
                     $("#divCargaProveedor").show()
                 }
             });
         } else {
-            $("#divCargaProveedor").html('')
+            $("#divCargaProveedor").html('');
             $("#divCargaProveedor").hidel()
         }
     }
@@ -1003,7 +1011,7 @@
                 fcha: $("#fecha_input").val()
             },
             success: function (msg) {
-                $("#divValores").html(msg).show("slide")
+                $("#divValores").html(msg).show("slide");
                 if(tipo == '1' || tipo == '2' || tipo == '6' || tipo == '7') {
                     $("#lblValores").html("Valores")
                 } else {

@@ -69,21 +69,20 @@
 
         <div class="col-xs-4">
             <g:if test="${proceso?.estado != 'R'}">
-                <a href="#" id="btn_buscar" class="btn btn-info" title="Buscar cliente">
-                    <i class="fa fa-search"></i>
-                    Buscar
-                </a>
-                <g:if test="${proceso?.estado != 'R'}">
-                    <a href="#" id="btn_editar" class="btn btn-info" title="Editar cliente">
-                        <i class="fa fa-pencil"></i>
+
+                <g:if test="${!paciente}">
+                    <a href="#" id="btn_buscar" class="btn btn-info" title="Buscar cliente">
+                        <i class="fa fa-search"></i>
+                        Buscar
                     </a>
                 </g:if>
-                <g:if test="${proceso?.estado != 'R'}">
+                <a href="#" id="btn_editar" class="btn btn-info" title="Editar cliente">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <g:if test="${!paciente}">
                     <a href="#" id="btn_crear" class="btn btn-info" title="Crear cliente">
                         <i class="fa fa-plus"></i>
                     </a>
-                </g:if>
-                <g:if test="${proceso?.estado != 'R'}">
                     <a href="#" id="btn_cargarCl" class="btn btn-info" title="Aceptar cliente">
                         <i class="fa fa-check"></i>
                     </a>
@@ -113,6 +112,13 @@
 </g:if>
 
 <script type="text/javascript">
+
+    <g:if test="${paciente}">
+    $("#prve").val('${paciente?.cedula}');
+    $("#prve_nombre").val('${paciente?.nombre}');
+    $("#prve_id").val('${paciente?.id}');
+    $("#prve__id").val('${paciente?.id}');
+    </g:if>
 
     $("#btn_crear").click(function () {
         crearEditar(null, false)
