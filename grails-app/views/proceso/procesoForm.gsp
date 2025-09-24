@@ -67,7 +67,6 @@
             Procesos
         </a>
     </div>
-
     <div class="btn-group" style="margin-right: 10px">
         <g:if test="${proceso?.estado == 'R'}">
             <a href="#" class="btn btn-success" id="comprobanteN">
@@ -194,6 +193,7 @@
 <g:form name="procesoForm" action="save" method="post" class="frmProceso">
     <input type="hidden" name="proveedor.id" id="prve__id" value="${proceso?.proveedor?.id}">
     <input type="hidden" id="libretin_id" value="${proceso?.proveedor?.id}">
+    <input type="hidden" name="paciente" value="${paciente?.id}">
 
     <div class="vertical-container" style="margin-top: 25px;color: black;padding-bottom: 10px">
         <p class="css-vertical-text">Descripción</p>
@@ -971,9 +971,7 @@
     }
 
     function cargarCompPago() {
-//        var idComprobante = $("#comprobanteSel").val();
         var idProveedor = $("#prve_id").val();
-//        console.log('buca prve...');
         $.ajax({
             type: 'POST',
             async: 'true',
@@ -983,15 +981,14 @@
                 proveedor: idProveedor
             },
             success: function (msg) {
-                $("#divFilaComprobante").html(msg)
+                $("#divFilaComprobante").html(msg);
                 $("#divFilaComprobante").show()
             }
         });
     }
 
-
     function cargarBotonBuscar(tipo) {
-        if (tipo != '-1') {
+        if (tipo !== '-1') {
             $("#btn_buscar").removeClass('hidden')
         } else {
             $("#btn_buscar").addClass('hidden')
@@ -1012,7 +1009,7 @@
             },
             success: function (msg) {
                 $("#divValores").html(msg).show("slide");
-                if(tipo == '1' || tipo == '2' || tipo == '6' || tipo == '7') {
+                if(tipo === '1' || tipo === '2' || tipo === '6' || tipo === '7') {
                     $("#lblValores").html("Valores")
                 } else {
                     $("#lblValores").html("Val")
@@ -1031,7 +1028,6 @@
             })
         });
 
-
         $("#btn_buscar").click(function () {
             $('#modal-proveedor').modal('show')
         });
@@ -1041,21 +1037,21 @@
         });
 
         $("#agregarFP").click(function(){
-            var band = true
-            var message
-            if ($(".filaFP").size() == 5) {
-                message = "<b>Ya ha asignado el máximo de 5 formas de  pago</b>"
+            var band = true;
+            var message;
+            if ($(".filaFP").size() === 5) {
+                message = "<b>Ya ha asignado el máximo de 5 formas de  pago</b>";
                 band = false
             }
             if ($(".fp-"+$("#comboFP").val()).size() >0) {
-                message = "<b>Ya ha asignado la forma de pago "+$("#comboFP option:selected").text()+ " previamente.</b>"
+                message = "<b>Ya ha asignado la forma de pago "+$("#comboFP option:selected").text()+ " previamente.</b>";
                 band = false
             }
             if (band) {
-                var div = $("<div class='filaFP ui-corner-all'>")
-                var span = $("<span class='span-eliminar ui-corner-all' title='Click para eliminar'>Eliminar</span>")
-                div.html($("#comboFP option:selected").text())
-                div.append(span)
+                var div = $("<div class='filaFP ui-corner-all'>");
+                var span = $("<span class='span-eliminar ui-corner-all' title='Click para eliminar'>Eliminar</span>");
+                div.html($("#comboFP option:selected").text());
+                div.append(span);
                 div.addClass("fp-"+$("#comboFP").val());
                 div.attr("fp",$("#comboFP").val());
                 span.bind("click", function () {
@@ -1067,10 +1063,9 @@
             }
         });
 
-
         $(".span-eliminar").bind("click", function () {
             $(this).parent().remove()
-        })
+        });
 
         $("#guardarProceso").click(function () {
             var bandData = true;
@@ -1078,33 +1073,32 @@
             var info = "";
             var tipoP = $(".tipoProcesoSel option:selected").val();
 
-
             $("#listaErrores").html('');
             $("#divErrores").hide();
 
-            if (tipoP == '1') {   /* compras */
+            if (tipoP === '1') {   /* compras */
                 if ($("#fecha_input").val().length < 10) {
                     error += "<li>Seleccione la fecha de emisión</li>"
                 }
                 if ($("#fechaingreso_input").val().length < 10) {
                     error += "<li>Seleccione la fecha de registro</li>"
                 }
-                if ($("#prve").val() == "" || $("#prve").val() == null) {
+                if ($("#prve").val() === "" || $("#prve").val() == null) {
                     error += "<li>Seleccione el proveedor</li>"
                 }
                 if ($("#descripcion").val().length < 1) {
                     error += "<li>Llene el campo Descripción</li>"
                 }
 
-                if ($("#tipoCmprSustento").val() == '-1' || $("#tipoCmprSustento").val() == null) {
+                if ($("#tipoCmprSustento").val() === '-1' || $("#tipoCmprSustento").val() == null) {
                     error += "<li>Seleccione el sustento tributario</li>"
                 }
 
-                if ($("#tipoComprobante").val() == '-1' || $("#tipoComprobante").val() == null) {
+                if ($("#tipoComprobante").val() === '-1' || $("#tipoComprobante").val() == null) {
                     error += "<li>Seleccione el comprobante</li>"
                 }
 
-                if ($("#iva12").val() == 0 && $("#iva0").val() == 0 && $("#noIva").val() == 0) {
+                if ($("#iva12").val() === 0 && $("#iva0").val() === 0 && $("#noIva").val() === 0) {
                     error += "<li>Ingrese valores en la base imponible</li>"
                 }
 
@@ -1121,7 +1115,7 @@
                     error += "<li>Ingrese el número de autorización del Documento</li>"
                 }
 
-                if ($("#dcmtAutorizacion").val().length == 10 || $("#dcmtAutorizacion").val().length == 37 || $("#dcmtAutorizacion").val().length == 49) {
+                if ($("#dcmtAutorizacion").val().length === 10 || $("#dcmtAutorizacion").val().length === 37 || $("#dcmtAutorizacion").val().length === 49) {
 
                 }else{
                     error += "<li>El número de autorización debe ser de 10, 37 o 49 dígitos</li>"
@@ -1142,11 +1136,10 @@
                                 proceso : '${proceso?.id}'
                             },
                             success: function (msg){
-                                if(msg == 'no'){
+                                if(msg === 'no'){
                                     info+="El valor del proceso requiere que se registre la forma de pago.";
                                     bandData=false
                                 }else{
-
                                 }
                             }
                         })
@@ -1159,26 +1152,15 @@
                                 proceso : '${proceso?.id}'
                             },
                             success: function (msg){
-                                if(msg == 'no'){
+                                if(msg === 'no'){
                                     info+="No ha asignado formas de pago para la transacción contable.";
                                     bandData=false
                                 }else{
-
                                 }
                             }
                         })
                     }
                 }
-
-//                if($(".filaFP").size() <1){
-//                    info+="No ha asignado formas de pago para la transacción contable";
-//                    bandData=false
-//                }
-
-//                if(($(".filaFP").size() <1) && (parseFloat($("#total").val()) >= 1000)){
-//                    error += "<li> El valor del proceso requiere que se registre la forma de pago <li>"
-//                }
-
                 if (bandData) {
                     var data = "";
                     $(".filaFP").each(function () {
@@ -1188,21 +1170,21 @@
                 }
             }
 
-            if (tipoP == '2') {   /* ventas */
+            if (tipoP === '2') {   /* ventas */
                 if ($("#fecha_input").val().length < 10) {
                     error += "<li>Seleccione la fecha de emisión</li>"
                 }
                 if ($("#fechaingreso_input").val().length < 10) {
                     error += "<li>Seleccione la fecha de registro</li>"
                 }
-                if ($("#prve").val() == "" || $("#prve").val() == null) {
+                if ($("#prve").val() === "" || $("#prve").val() == null) {
                     error += "<li>Seleccione el proveedor</li>"
                 }
                 if ($("#descripcion").val().length < 1) {
                     error += "<li>Llene el campo Descripción</li>"
                 }
 
-                if ($("#tipoComprobante").val() == '-1' || $("#tipoComprobante").val() == null) {
+                if ($("#tipoComprobante").val() === '-1' || $("#tipoComprobante").val() == null) {
                     error += "<li>Seleccione el comprobante</li>"
                 }
 
@@ -1210,22 +1192,12 @@
                     error += "<li>Seleccione el Gestor contable</li>"
                 }
 
-                /*
-                 if ($("#iva12").val() == 0 && $("#iva0").val() == 0 && $("#noIva").val() == 0) {
-                 error += "<li>Ingrese valores en la base imponible</li>"
-                 }
-                 */
-
                 if (!$("#numEstablecimiento").val()) {
                     error += "<li>Seleccione un libretín de facturas/li>"
                 }
                 if (!$("#serie").val() || !$("#libretin").val()) {
                     error += "<li>Ingrese el libretin y el secuencial de la factura a emitir</li>"
                 }
-
-//                if(($(".filaFP").size() <1)){
-//                    error += "<li>El proceso requiere que se registre la forma de pago</li>"
-//                }
 
                 if('${proceso}'){
                     $.ajax({
@@ -1236,7 +1208,7 @@
                             proceso : '${proceso?.id}'
                         },
                         success: function (msg){
-                            if(msg == 'no'){
+                            if(msg === 'no'){
                                 info+="No ha asignado formas de pago para la transacción contable ";
                                 bandData=false
                             }else{
@@ -1246,28 +1218,25 @@
                     })
                 }
 
-                var ivaG = ($("#ivaGenerado").val()*100)/100
-                var retenido = ($("#retenidoIva").val()*100)/100
+                var ivaG = ($("#ivaGenerado").val()*100)/100;
+                var retenido = ($("#retenidoIva").val()*100)/100;
                 if(retenido > ivaG){
                     error += "<li> El valor retenido del Iva es mayor al del Iva generado </li>"
                 }
 
-                var retenidoR = ($("#retenidoRenta").val()*100)/100
-                var totalBases = ($("#iva12").val()*100)/100 + ($("#iva0").val()*100)/100 + ($("#noIva").val()*100)/100 + ($("#excentoIva").val()*100)/100
+                var retenidoR = ($("#retenidoRenta").val()*100)/100;
+                var totalBases = ($("#iva12").val()*100)/100 + ($("#iva0").val()*100)/100 + ($("#noIva").val()*100)/100 + ($("#excentoIva").val()*100)/100;
                 if(retenidoR > totalBases){
                     error += " <li> El valor retenido del Impuesto a la Renta es mayor que la suma de las Bases </li>"
                 }
 
-
                 if (bandData) {
-                    var data = ""
+                    var data = "";
                     $(".filaFP").each(function () {
                         data += $(this).attr("fp") + ";"
-                    })
+                    });
                     $("#data").val(data)
                 }
-
-
             }
 
             if (tipoP == '3') {   /* Ajustes */
@@ -1411,12 +1380,12 @@
                 }
             }
 
-            if (error != "") {
-                $("#listaErrores").append(error)
-                $("#listaErrores").show()
+            if (error !== "") {
+                $("#listaErrores").append(error);
+                $("#listaErrores").show();
                 $("#divErrores").show()
             } else {
-                if (info != "") {
+                if (info !== "") {
                     info += " Esta seguro de continuar?";
                     bootbox.confirm(info, function (result) {
                         if (result) {
@@ -1443,7 +1412,7 @@
         $(".number").blur(function () {
             if (isNaN($(this).val()))
                 $(this).val("0.00");
-            if ($(this).val() == "")
+            if ($(this).val() === "")
                 $(this).val("0.00");
         });
 
@@ -1553,7 +1522,6 @@
         }
     }
 
-
     $("#libretin").change(function () {
         var idLibretin = $("#libretin option:selected").val();
         var nmes = $("#establecimiento option:selected").val();
@@ -1582,7 +1550,6 @@
         if("${proceso?.fechaEmision}") {
             fcha = "${proceso?.fechaEmision?.format('dd-MM-yyyy')}"
         }
-//        console.log('fcha:', fcha, 'nmes', nmes);
         if(fcha){
             if(fcha.length < 10) {
                 $(".tipoProcesoSel").val(0);
@@ -1600,7 +1567,7 @@
                         nmes: nmes
                     },
                     success: function (msg) {
-                        $("#libretinFacturas").html(msg)
+                        $("#libretinFacturas").html(msg);
                         $("#libretinFacturas").show()
                     }
                 });
@@ -1628,7 +1595,6 @@
     });
 
     $("#establecimiento").change(function () {
-//        console.log('change... nmes')
         $("#libretinFacturas").html('');
         cargarLibretin()
     });

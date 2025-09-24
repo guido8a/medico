@@ -71,7 +71,8 @@ class ProcesoController  {
         redirect(action: 'nuevoProceso', id: proceso.id)
     }
 
-    def save = {
+//    def save = {
+    def save() {
         println "save proceso: $params"
         def proceso
         def comprobante
@@ -80,6 +81,7 @@ class ProcesoController  {
         def comprobanteSri = TipoCmprSustento.get(params."tipoComprobanteSri.id")
 
         def proveedor
+        def paciente
         def gestor = Gestor.get(params.gestor)
         def fechaRegistro = new Date().parse("dd-MM-yyyy", params.fecha_input)   //fecha del cmpr
         def fechaIngresoSistema = new Date().parse("dd-MM-yyyy", params.fechaingreso_input)   //registro
@@ -171,8 +173,15 @@ class ProcesoController  {
                 proceso.facturaPuntoEmision = params.numeroEmision
                 proceso.facturaSecuencial = secuencial.toInteger()
                 proceso.tipoCmprSustento = comprobanteSri
-                proveedor = Proveedor.get(params."proveedor.id")
-                proceso.proveedor = proveedor
+
+                if(params.paciente){
+                    paciente = Paciente.get(params.paciente)
+                    proceso.paciente = paciente
+                }else{
+                    proveedor = Proveedor.get(params."proveedor.id")
+                    proceso.proveedor = proveedor
+                }
+
                 proceso.pago = params.pago
                 proceso.documentoEmpresa = DocumentoEmpresa.get(params.libretin)
 //                proceso.retencionVenta = params.retencionVenta
@@ -236,7 +245,12 @@ class ProcesoController  {
             proceso.save(flush: true)
             if(params.tipoProceso != '8' && params.tipoProceso != '3' ){
                 println("ejecutó proceso.save")
-                proveedor.save(flush: true)
+//                if(params.paciente){
+//                    paciente.save(flush:true)
+//                }else{
+//                    proveedor.save(flush: true)
+//                }
+
             }
             proceso.refresh()
 
@@ -287,7 +301,9 @@ class ProcesoController  {
 //                println "errores: ${proceso.errors}"
 //            }
 
-            redirect(action: 'nuevoProceso', id: proceso.id)
+//            redirect(action: 'nuevoProceso', id: proceso.id)
+            redirect(action: 'procesoForm', params: [id: proceso.id, paciente: params.paciente] )
+
 
         } catch (e) {
 //            println "...8"
