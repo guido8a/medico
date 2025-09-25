@@ -28,44 +28,40 @@ th, td {
 <g:set var="clase" value="${'principal'}"/>
 
 <div class="" style="width: 99.7%;height: ${msg == '' ? 600 : 575}px; overflow-y: auto;float: right; margin-top: -20px">
-    <table class="table-bordered table-condensed table-hover" width="1060px">
+    <table class="table-bordered table-condensed table-hover table-striped" style="width: 100%">
         <g:each in="${data}" var="dato" status="z">
-
-            <tr id="${dato.prcs__id}" data-id="${dato.prcs__id}" data-ed="${dato.prcsetdo}" data-tipo="${dato?.tpps}"
+            <tr style="width: 100%" id="${dato.prcs__id}" data-id="${dato.prcs__id}" data-ed="${dato.prcsetdo}" data-tipo="${dato?.tpps}"
                 data-cm='${sri.Proceso.get(dato.prcs__id).tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim()}'
                 data-dtll='${dato.dtll}' data-rtcn='${dato.rtcn}' data-rtvn='${dato.rtvn}'
                 class="${clase}">
-                <td width="100px">
-                    ${dato?.prcsfcha.format("dd-MM-yyyy")}
+                <td style="width: 15%">
+                    ${dato?.prcsfcha?.format("dd-MM-yyyy")}
                 </td>
 
-                <td width="280px" style="color:#186063">
+                <td style="width: 25%">
                     ${dato?.prcsdscr}
                 </td>
 
-                <td width="40px" class="${dato.prcsetdo == 'R-S' ? 'registrado' : dato.prcsetdo == 'R' ? 'reg' : 'noReg'}">
+                <td style="width: 10%" class="${dato.prcsetdo == 'R-S' ? 'registrado' : dato.prcsetdo == 'R' ? 'reg' : 'noReg'}">
                     ${dato.prcsetdo}
                 </td>
 
-                <td width="160px" class="text-info">
+                <td style="width: 10%" class="text-info">
                     ${dato.cmprnmro}
                 </td>
 
-                <td width="60px" class="text-info">
+                <td style="width: 10%" class="text-info">
                     ${dato.prcs__id}
                 </td>
 
-                <td width="80px" class="text-info" style="text-align: right">
+                <td style="width: 10%" class="text-info" style="text-align: right">
                     ${dato.prcsvlor}
                 </td>
-                %{--<td width="70px" class="text-info" style="text-align: right">--}%
-                    %{--${dato.rtcn}--}%
-                %{--</td>--}%
-                <td width="80px" class="text-info">
+                <td style="width: 10%" class="text-info">
                     ${dato.tpps}
                 </td>
 
-                <td width="190px" class="text-info">
+                <td style="width: 10%" class="text-info">
                     ${dato.prve}
                 </td>
             </tr>

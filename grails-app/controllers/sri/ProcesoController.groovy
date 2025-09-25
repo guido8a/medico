@@ -1477,17 +1477,25 @@ class ProcesoController  {
     }
 
     def proveedor_ajax () {
-//        println "proveedor_ajax: $params"
-        def paciente = Paciente.get(params.paciente)
-        def proceso = Proceso.get(params.proceso)
+        println "proveedor_ajax: $params"
+
+        def paciente
         def proveedores
         def tr
-        def prve
-        if(params.id) {
-            prve = Proveedor.get(params.id.toInteger())
+        def prve = null
+        def proceso = null
+
+//        if(params.id) {
+//            prve = Proveedor.get(params.id.toInteger())
+
+        if(params.proceso) {
+            proceso = Proceso.get(params.proceso)
+            paciente = proceso.paciente
+        }else{
+            paciente = Paciente.get(params.paciente)
         }
 
-        proveedores = Proveedor.list([sort: 'nombre'])
+//        proveedores = Proveedor.list([sort: 'nombre'])
 
 //        switch (params.tipo) {
 //            case ["1", "4"]:  //Pagos
@@ -1500,7 +1508,8 @@ class ProcesoController  {
 //                break
 //        }
 //        println "proveedores: $proveedores"
-        return [proveedores : proveedores, proceso: proceso, tipo: params.tipo, proveedor: prve, paciente: paciente]
+//        return [proveedores : proveedores, proceso: proceso, tipo: params.tipo, proveedor: paciente, paciente: paciente]
+        return [proceso: proceso, tipo: params.tipo, paciente: paciente]
     }
 
     def cambiarContabilidad_ajax () {

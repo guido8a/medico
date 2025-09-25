@@ -15,45 +15,53 @@
     .alinear {
         text-align: center !important;
     }
+
+
+    table {
+        table-layout: fixed;
+        overflow-x: scroll;
+    }
+    th, td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+    }
+
     </style>
 
 </head>
 
 <body>
 
-
-
 <div style="margin-top: -15px;" class="vertical-container">
-    <p class="css-icono" style="margin-bottom: -15px"><i class="fa fa-folder-open-o"></i></p>
+    <g:if test="${paciente}">
+        <div class="row breadcrumb" style="font-size: 18px; font-weight: bold">
+            <i class="fa fa-user text-success"></i>   Paciente: ${paciente?.apellido + " " + paciente?.nombre + " - "}  Cédula: ${paciente?.cedula ?: 'Sin cédula registrada'}
+        </div>
+    </g:if>
 
-    <div class="linea45"></div>
-
-    <div class="row" style="border-style: solid; border-radius:6px; border-width: 1px;
-    height: 40px; border-color: #0c6cc2; margin-left: 10px;">
-            <div class="col-xs-5" style="margin-left: 5px; margin-top: 2px;">
-                <a href="#" class="btn btn-success" id="btnNuevaTransaccion" style="margin-left: -15px;">
-                    <i class="fa fa-edit"></i> Nueva Transacción
-                </a>
-%{--                <g:link class="btn btn-success" action="procesoForm" style="margin-left: -15px">--}%
-%{--                    <i class="fa fa-edit"></i> Nueva Transacción--}%
-%{--                </g:link>--}%
-                <g:link class="btn btn-primary" action="procesosAnulados">
-                    <i class="fa fa-times-circle"></i> Ir a Anulados
-                </g:link>
-            </div>
+    <div class="row" style="border-style: solid; border-radius:6px; border-width: 1px; height: 40px; border-color: #0c6cc2; margin-left: 10px;">
+        <div class="col-xs-5" style="margin-left: 5px; margin-top: 2px;">
+            <a href="#" class="btn btn-success" id="btnNuevaTransaccion" style="margin-left: -15px;">
+                <i class="fa fa-edit"></i> Nueva Transacción
+            </a>
+            <g:link class="btn btn-primary" action="procesosAnulados">
+                <i class="fa fa-times-circle"></i> Ir a Anulados
+            </g:link>
+        </div>
         <div style="margin-top: 2px; margin-right: 5px; text-align: right">
             <span class="text-info" style="font-size: 15px"><strong>${session?.contabilidad?.descripcion ?: 'No existe contabilidad asignada'}</strong></span>
-                <g:if test="${contabilidades.size() > 0}">
-                    <a href="#" class="btn btn-azul" id="btnCambiarConta" style="margin-left: 5px;"
-                       title="Cambiar a otra Contabilidad">
-                        <i class="fa fa-refresh"></i> Cambiar
-                    </a>
-                </g:if>
-                <g:else>
-                    <g:link class="btn btn-success" controller="contabilidad" action="list">
-                        <i class="fa fa-file-o"></i> Crear
-                    </g:link>
-               </g:else>
+            <g:if test="${contabilidades.size() > 0}">
+                <a href="#" class="btn btn-primary" id="btnCambiarConta" style="margin-left: 5px;"
+                   title="Cambiar a otra Contabilidad">
+                    <i class="fa fa-retweet"></i> Cambiar
+                </a>
+            </g:if>
+            <g:else>
+                <g:link class="btn btn-success" controller="contabilidad" action="list">
+                    <i class="fa fa-file"></i> Crear
+                </g:link>
+            </g:else>
         </div>
     </div>
 
@@ -94,8 +102,8 @@
                 <div class="col-xs-2" style="margin-left: -20px; width: 160px;">
                     Tipo:
                     <g:select name="buscador" from = "${sri.TipoProceso.list([sort:'codigo'])}" value="params.tpps?:0"
-                                noSelection="${[0:'Todos']}" optionKey="id" optionValue="descripcion" id="tipo_proceso"
-                                class="form-control"/>
+                              noSelection="${[0:'Todos']}" optionKey="id" optionValue="descripcion" id="tipo_proceso"
+                              class="form-control"/>
                 </div>
 
                 <div class="btn-group col-xs-1" style="margin-left: -10px; margin-top: 20px; width: 110px;">
@@ -116,21 +124,20 @@
 </div>
 
 <div style="margin-top: 30px; min-height: 650px" class="vertical-container">
-    <p class="css-vertical-text">Procesos encontrados</p>
+    %{--    <p class="css-vertical-text">Procesos encontrados</p>--}%
 
-    <div class="linea"></div>
-    <table class="table table-bordered table-hover table-condensed" style="width: 1070px">
+    %{--    <div class="linea"></div>--}%
+    <table class="table table-bordered table-hover table-condensed" style="width: 100%">
         <thead>
-        <tr>
-            <th class="alinear" style="width: 100px">Fecha</th>
-            <th class="alinear" style="width: 280px">Descripción</th>
-            <th class="alinear" style="width: 40px">R.</th>
-            <th class="alinear" style="width: 160px">Documento</th>
-            <th class="alinear" style="width: 60px">Trans.</th>
-            <th class="alinear" style="width: 80px">Valor</th>
-            <th class="alinear" style="width: 70px">Ret.</th>
-            <th class="alinear" style="width: 80px">Tipo</th>
-            <th class="alinear" style="width: 200px">Proveedor</th>
+        <tr style="width: 100%">
+            <th class="alinear" style="width: 15%">Fecha</th>
+            <th class="alinear" style="width: 25%">Descripción</th>
+            <th class="alinear" style="width: 10%">R.</th>
+            <th class="alinear" style="width: 10%">Documento</th>
+            <th class="alinear" style="width: 10%">Trans. ID</th>
+            <th class="alinear" style="width: 10%">Valor</th>
+            <th class="alinear" style="width: 10%">Tipo</th>
+            <th class="alinear" style="width: 10%">Proveedor</th>
         </tr>
         </thead>
     </table>
@@ -166,7 +173,6 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
     </div><!-- /.modal-dialog -->
 </div>
 
-
 <script type="text/javascript">
 
     $("#btnNuevaTransaccion").click(function () {
@@ -186,10 +192,8 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
     $("#mensaje").removeClass('hidden').append("No existen procesos contables");
     </g:else>
 
-
     function cargarBusqueda () {
-        var id = parseInt(${session?.contabilidad?.id})
-        console.log("cont", id);
+        var id = parseInt(${session?.contabilidad?.id});
         if(id > 0) {
             $("#bandeja").html("").append($("<div style='width:100%; text-align: center;'/>").append(spinnerSquare64));
             var desde = $(".fechaD").val();
@@ -216,11 +220,9 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
         } else {
             location.href = '${createLink(controller: "contabilidad", action: "list")}?id=-1';
         }
-
     }
 
     $("#btnBusqueda").click(function () {
-
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'proceso', action: 'revisarFecha_ajax')}',
@@ -229,7 +231,7 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
                 hasta: $(".fechaH").val()
             },
             success: function (msg){
-                if(msg != 'ok'){
+                if(msg !== 'ok'){
                     bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-warning text-shadow'></i> " +
                         "La fecha ingresada en 'Hasta' es menor a la fecha ingresada en 'Desde' ");
                     return false;
@@ -238,11 +240,10 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
                 }
             }
         });
-
     });
 
     $("input").keyup(function (ev) {
-        if (ev.keyCode == 13) {
+        if (ev.keyCode === 13) {
             $("#btnBusqueda").click();
         }
     });
@@ -267,15 +268,15 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
 
         var editar = {
             label: " Ir al proceso",
-            icon: "fa fa-file-text-o",
+            icon: "fa fa-arrow-up",
             action: function () {
-                location.href = '${createLink(controller: "proceso", action: "procesoForm")}?id=' + id;
+                location.href = '${createLink(controller: "proceso", action: "procesoForm")}?id=' + id + "&paciente=" + ${paciente?.id};
             }
         };
 
         var retencion = {
             label: " Retenciones",
-            icon: "fa fa-money",
+            icon: "fa fa-dollar",
             action: function () {
                 location.href = '${createLink(controller: "proceso", action: "detalleSri")}?id=' + id;
             }
@@ -283,7 +284,7 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
 
         var rtcnVentas = {
             label: " Retenciones en Ventas",
-            icon: "fa fa-money",
+            icon: "fa fa-book",
             action: function () {
                 location.href = '${createLink(controller: "proceso", action: "procesoForm")}?id=' + id;
             }

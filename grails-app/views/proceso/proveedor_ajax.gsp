@@ -1,54 +1,55 @@
-<g:if test="${(tipo == '1' || tipo == '4')}">
-    <div class="col-xs-2 negrilla">
-        Proveedor:
-    </div>
+%{--<g:if test="${(tipo == '1' || tipo == '4')}">--}%
+%{--    <div class="col-xs-2 negrilla">--}%
+%{--        Proveedor:--}%
+%{--    </div>--}%
 
-    <div class="col-xs-10 negrilla">
-        <div class="col-xs-2" style="margin-left: -15px;">
-            <input type="text" name="proveedor?.ruc" class="form-control proveedor" id="prve" readonly
-                   value="${proceso?.proveedor?.ruc ?: proveedor?.ruc}" title="RUC del proveedor o cliente"
-                   style="width: 130px"
-                   placeholder="RUC"/>
-        </div>
+%{--    <div class="col-xs-10 negrilla">--}%
+%{--        <div class="col-xs-2" style="margin-left: -15px;">--}%
+%{--            <input type="text" name="proveedor?.ruc" class="form-control proveedor" id="prve" readonly--}%
+%{--                   value="${proceso?.proveedor?.ruc ?: proveedor?.ruc}" title="RUC del proveedor o cliente"--}%
+%{--                   style="width: 130px"--}%
+%{--                   placeholder="RUC"/>--}%
+%{--        </div>--}%
 
-        <div class="col-xs-5" style="margin-left: -15px">
-            <input type="text" name="proveedor?.nombre" class="form-control label-shared proveedor" id="prve_nombre"
-                   readonly value="${proceso?.proveedor?.nombre ?: proveedor?.nombre}" title="Nombre del proveedor o cliente"
-                   style="width: 100%" placeholder="Nombre"/>
-        </div>
+%{--        <div class="col-xs-5" style="margin-left: -15px">--}%
+%{--            <input type="text" name="proveedor?.nombre" class="form-control label-shared proveedor" id="prve_nombre"--}%
+%{--                   readonly value="${proceso?.proveedor?.nombre ?: proveedor?.nombre}" title="Nombre del proveedor o cliente"--}%
+%{--                   style="width: 100%" placeholder="Nombre"/>--}%
+%{--        </div>--}%
 
-        <div class="col-xs-1" style="margin-left: -25px; margin-right: 10px">
-            <input type="text" name="proveedor.relacionado" class="form-control label-shared proveedor" id="prve_rlcn"
-                   readonly value="Rel: ${proceso?.proveedor?.relacionado}" title="Relacionado" style="width: 76px"
-                   placeholder="Rel."/>
-        </div>
+%{--        <div class="col-xs-1" style="margin-left: -25px; margin-right: 10px">--}%
+%{--            <input type="text" name="proveedor.relacionado" class="form-control label-shared proveedor" id="prve_rlcn"--}%
+%{--                   readonly value="Rel: ${proceso?.proveedor?.relacionado}" title="Relacionado" style="width: 76px"--}%
+%{--                   placeholder="Rel."/>--}%
+%{--        </div>--}%
 
-        <div class="col-xs-4">
-            <g:if test="${proceso?.estado != 'R'}">
-                <a href="#" id="btn_buscar" class="btn btn-info" title="Buscar proveedor">
-                    <i class="fa fa-search"></i>
-                </a>
-            </g:if>
-            <g:if test="${proceso?.estado != 'R'}">
-                <a href="#" id="btn_editar" class="btn btn-info" title="Editar proveedor">
-                    <i class="fa fa-pencil"></i>
-                </a>
-            </g:if>
-            <g:if test="${proceso?.estado != 'R'}">
-                <a href="#" id="btn_crear" class="btn btn-info" title="Crear proveedor">
-                    <i class="fa fa-plus"></i>
-                </a>
-            </g:if>
-            <g:if test="${proceso?.estado != 'R'}">
-                <a href="#" id="btn_cargar" class="btn btn-info" title="Aceptar proveedor">
-                    <i class="fa fa-check"></i>
-                </a>
-            </g:if>
-        </div>
-        <input type="hidden" name="proveedor.id" id="prve_id" value="${proceso?.proveedor?.id}">
-    </div>
-</g:if>
-<g:elseif test="${tipo == '2' || tipo == '5' || tipo == '6' || tipo == '7'}">
+%{--        <div class="col-xs-4">--}%
+%{--            <g:if test="${proceso?.estado != 'R'}">--}%
+%{--                <a href="#" id="btn_buscar" class="btn btn-info" title="Buscar proveedor">--}%
+%{--                    <i class="fa fa-search"></i>--}%
+%{--                </a>--}%
+%{--            </g:if>--}%
+%{--            <g:if test="${proceso?.estado != 'R'}">--}%
+%{--                <a href="#" id="btn_editar" class="btn btn-info" title="Editar proveedor">--}%
+%{--                    <i class="fa fa-pencil"></i>--}%
+%{--                </a>--}%
+%{--            </g:if>--}%
+%{--            <g:if test="${proceso?.estado != 'R'}">--}%
+%{--                <a href="#" id="btn_crear" class="btn btn-info" title="Crear proveedor">--}%
+%{--                    <i class="fa fa-plus"></i>--}%
+%{--                </a>--}%
+%{--            </g:if>--}%
+%{--            <g:if test="${proceso?.estado != 'R'}">--}%
+%{--                <a href="#" id="btn_cargar" class="btn btn-info" title="Aceptar proveedor">--}%
+%{--                    <i class="fa fa-check"></i>--}%
+%{--                </a>--}%
+%{--            </g:if>--}%
+%{--        </div>--}%
+%{--        <input type="hidden" name="proveedor.id" id="prve_id" value="${proceso?.proveedor?.id}">--}%
+%{--    </div>--}%
+%{--</g:if>--}%
+%{--<g:elseif test="${tipo == '2' || tipo == '5' || tipo == '6' || tipo == '7'}">--}%
+<g:if test="${tipo == '2' || tipo == '5' || tipo == '6' || tipo == '7'}">
     <div class="col-xs-2 negrilla">
         Cliente:
     </div>
@@ -56,14 +57,14 @@
     <div class="col-xs-10 negrilla">
         <div class="col-xs-2" style="margin-left: -15px">
             <input type="text" name="proveedor?.ruc" class="form-control proveedor" id="prve" readonly
-                   value="${proceso?.proveedor?.ruc ?: proveedor?.ruc}" title="RUC del proveedor o cliente"
+                   value="${proceso?.paciente?.cedula}" title="RUC del proveedor o cliente"
                    style="width: 130px"
-                   placeholder="RUC" idP="${proveedor?.id}"/>
+                   placeholder="RUC" idP="${proceso?.paciente?.id}"/>
         </div>
 
         <div class="col-xs-5" style="margin-left: -15px">
             <input type="text" name="proveedor?.nombre" class="form-control label-shared proveedor" id="prve_nombre"
-                   readonly value="${proceso?.proveedor?.nombre ?: proveedor?.nombre}" title="Nombre del proveedor o cliente"
+                   readonly value="${proceso?.paciente?.nombre}" title="Nombre del proveedor o cliente"
                    style="width: 300px" placeholder="Nombre"/>
         </div>
 
@@ -89,9 +90,10 @@
                 </g:if>
             </g:if>
         </div>
-        <input type="hidden" name="proveedor.id" id="prve_id" value="${proceso?.proveedor?.id}">
+%{--        <input type="hidden" name="proveedor.id" id="prve_id" value="${proceso?.paciente?.id}">--}%
+        <input type="hidden" name="paciente" id="prve_id" value="${proceso?.paciente?.id}">
     </div>
-</g:elseif>
+</g:if>
 
 <g:if test="${proceso}">
     <div class="row">
