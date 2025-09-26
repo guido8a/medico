@@ -20,18 +20,21 @@ class ProcesoController  {
     def index = { redirect(action: "buscarPrcs") }
 
     def procesoForm = {
-        println "ProcesofORM "+params
+//        println "ProcesofORM "+params
 
-        def paciente = Paciente.get(params.paciente)
+        def paciente
         def sucursal = Establecimiento.findAllByEmpresa(Empresa.get(session.empresa.id))
-
         if (params.id) {
             def proceso = Proceso.get(params.id).refresh()
             def fps = ProcesoFormaDePago.findAllByProceso(proceso)
+            paciente = proceso.paciente
 
             render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal, paciente: paciente])
-        } else
+        } else{
+            paciente = Paciente.get(params.paciente)
             render(view: "procesoForm", model: [proceso: null, estb: sucursal, paciente: paciente])
+        }
+
     }
 
     /** actualiza los valores de proceso a los totales de detalle **/
@@ -83,8 +86,8 @@ class ProcesoController  {
         def proveedor
         def paciente
         def gestor = Gestor.get(params.gestor)
-        def fechaRegistro = new Date().parse("dd-MM-yyyy", params.fecha_input)   //fecha del cmpr
-        def fechaIngresoSistema = new Date().parse("dd-MM-yyyy", params.fechaingreso_input)   //registro
+        def fechaRegistro = new Date().parse("dd-MM-yyyy", params.fecha)   //fecha del cmpr
+        def fechaIngresoSistema = new Date().parse("dd-MM-yyyy", params.fechaingreso)   //registro
 
         if(params.id){
             proceso = Proceso.get(params.id)
@@ -94,7 +97,6 @@ class ProcesoController  {
             proceso.contabilidad = Contabilidad.get(session.contabilidad.id)
             proceso.empresa = Empresa.get(session.empresa.id)
         }
-
 
         proceso.gestor = gestor
         proceso.establecimiento = Establecimiento.get(params.establecimiento)
@@ -121,7 +123,6 @@ class ProcesoController  {
 
         proceso.tipoProceso = TipoProceso.get(params.tipoProceso)
         proceso.usuario = session.usuario
-
 
         switch (params.tipoProceso) {
             case '1': //Compras
@@ -302,7 +303,7 @@ class ProcesoController  {
 //            }
 
 //            redirect(action: 'nuevoProceso', id: proceso.id)
-            redirect(action: 'procesoForm', params: [id: proceso.id, paciente: params.paciente] )
+            redirect(action: 'procesoForm', params: [id: proceso.id] )
 
 
         } catch (e) {
@@ -1477,7 +1478,7 @@ class ProcesoController  {
     }
 
     def proveedor_ajax () {
-        println "proveedor_ajax: $params"
+//        println "proveedor_ajax: $params"
 
         def paciente
         def proveedores

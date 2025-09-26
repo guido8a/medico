@@ -65,7 +65,7 @@
         <div class="col-xs-5" style="margin-left: -15px">
             <input type="text" name="proveedor?.nombre" class="form-control label-shared proveedor" id="prve_nombre"
                    readonly value="${proceso?.paciente?.nombre}" title="Nombre del proveedor o cliente"
-                   style="width: 300px" placeholder="Nombre"/>
+                   style="width: 300px; font-weight: bold" placeholder="Nombre"/>
         </div>
 
         <div class="col-xs-4">
@@ -77,9 +77,12 @@
                         Buscar
                     </a>
                 </g:if>
-                <a href="#" id="btn_editar" class="btn btn-info" title="Editar cliente">
-                    <i class="fa fa-edit"></i>
-                </a>
+                <g:if test="${!proceso}">
+                    <a href="#" id="btnEditarCliente" class="btn btn-info" title="Editar cliente">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </g:if>
+
                 <g:if test="${!paciente}">
                     <a href="#" id="btn_crear" class="btn btn-info" title="Crear cliente">
                         <i class="fa fa-plus"></i>
@@ -114,6 +117,10 @@
 </g:if>
 
 <script type="text/javascript">
+
+    $("#btnEditarCliente").click(function () {
+        editaPaciente();
+    });
 
     <g:if test="${paciente}">
     $("#prve").val('${paciente?.cedula}');

@@ -164,7 +164,7 @@
         %{--</g:link>--}%
         %{--</g:if>--}%
             <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['C','V','T','NC']}">
-                <a href="#" class="btn btn-success" id="btnDetalle" style="color: #0b0b0b">
+                <a href="#" class="btn btn-success" id="btnDetalle">
                     <i class="fa fa-list"></i>
                     Detalle
                 </a>
@@ -177,15 +177,15 @@
             </g:if>
         </g:if>
         <g:if test="${proceso && proceso?.tipoProceso?.codigo?.trim() in ['C','V']}">
-            <a href="#" class="btn btn-primary" style="cursor: default; margin-right: 20px" id="btnFormaPago">
-                <i class="fa fa-usd"></i>
+            <a href="#" class="btn btn-info" style="cursor: default; margin-right: 20px" id="btnFormaPago">
+                <i class="fa fa-money-bill"></i>
                 Forma de Pago
             </a>
         </g:if>
     </div>
 </div>
 
-<div style="padding: 0.7em; margin-top:5px; display: none;" class="alert alert-danger ui-corner-all" id="divErrores">
+<div style="padding: 0.7em; margin-top:5px; display: none; font-weight: bold; font-size: 14px" class="alert alert-danger ui-corner-all" id="divErrores">
     <i class="fa fa-exclamation-triangle"></i>
     <span style="" id="spanError">Se encontraron los siguientes errores:</span>
     <ul id="listaErrores"></ul>
@@ -212,12 +212,15 @@
                 </g:if>
                 <g:else>
                 %{--poner fecha de inicio 30 días antes fechaInicio - 30--}%
-                    <elm:datepicker name="fecha" title="Fecha de emisión del comprobante"
-                                    class="datepicker form-control required col-xs-3 fechaE"
-                                    value="${proceso?.fechaEmision?: new Date()}"
-                                    minDate="${(Contabilidad.get(session.contabilidad?.id)?.fechaInicio)?.format("dd-MM-yyyy")}"
-                                    maxDate="${Contabilidad.get(session.contabilidad?.id)?.fechaCierre?.format("dd-MM-yyyy")}"
-                                    style="width: 80px; margin-left: 5px"/>
+%{--                    <elm:datepicker name="fecha" title="Fecha de emisión del comprobante"--}%
+%{--                                    class="datepicker form-control required col-xs-3 fechaE"--}%
+%{--                                    value="${proceso?.fechaEmision?: new Date()}"--}%
+%{--                                    minDate="${(Contabilidad.get(session.contabilidad?.id)?.fechaInicio)?.format("dd-MM-yyyy")}"--}%
+%{--                                    maxDate="${Contabilidad.get(session.contabilidad?.id)?.fechaCierre?.format("dd-MM-yyyy")}"--}%
+%{--                                    style="width: 80px; margin-left: 5px"/>--}%
+
+                    <input aria-label="" name="fecha" id='fecha' type='text' class="form-control required col-xs-3 fechaE" value="${proceso?.fechaEmision?.format("dd-MM-yyyy") ?: new Date()?.format("dd-MM-yyyy")}" />
+
                 </g:else>
             </div>
 
@@ -230,12 +233,14 @@
                     ${proceso?.fechaIngresoSistema?.format("dd-MM-yyyy")}
                 </g:if>
                 <g:else>
-                    <elm:datepicker name="fechaingreso" title="Fecha de registro en el sistema"
-                                    class="datepicker form-control required col-xs-3"
-                                    value="${proceso?.fechaIngresoSistema?: new Date()}"
-                                    minDate="${Contabilidad.get(session.contabilidad.id).fechaInicio.format("dd-MM-yyyy")}"
-                                    maxDate="${Contabilidad.get(session.contabilidad.id).fechaCierre.format("dd-MM-yyyy")}"
-                                    style="width: 80px; margin-left: 5px"/>
+%{--                    <elm:datepicker name="fechaingreso" title="Fecha de registro en el sistema"--}%
+%{--                                    class="datepicker form-control required col-xs-3"--}%
+%{--                                    value="${proceso?.fechaIngresoSistema?: new Date()}"--}%
+%{--                                    minDate="${Contabilidad.get(session.contabilidad.id).fechaInicio.format("dd-MM-yyyy")}"--}%
+%{--                                    maxDate="${Contabilidad.get(session.contabilidad.id).fechaCierre.format("dd-MM-yyyy")}"--}%
+%{--                                    style="width: 80px; margin-left: 5px"/>--}%
+
+                    <input aria-label="" name="fechaingreso" id='fechaingreso' type='text' class="form-control required col-xs-3" value="${proceso?.fechaIngresoSistema?.format("dd-MM-yyyy") ?: new Date()?.format("dd-MM-yyyy")}" />
                 </g:else>
             </div>
 
@@ -424,6 +429,18 @@
 
 
 <script type="text/javascript">
+
+    var dep;
+
+    $('#fecha, #fechaingreso').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY',
+        sideBySide: true,
+        minDate: new Date(${Contabilidad.get(session.contabilidad?.id)?.fechaInicio?.format("yyyy")}, ${Contabilidad.get(session.contabilidad?.id)?.fechaInicio?.format("MM")?.toInteger() - 1}, ${Contabilidad.get(session.contabilidad?.id)?.fechaInicio?.format("dd")}),
+        maxDate: new Date(${Contabilidad.get(session.contabilidad?.id)?.fechaCierre?.format("yyyy")}, ${Contabilidad.get(session.contabilidad?.id)?.fechaCierre?.format("MM")?.toInteger() - 1}, ${Contabilidad.get(session.contabilidad?.id)?.fechaCierre?.format("dd")}),
+        icons: {
+        }
+    });
 
     $("#btnRegresar").click(function () {
         location.href="${createLink(controller: 'proceso', action: 'buscarPrcs')}/" + '${paciente?.id}'
@@ -1001,7 +1018,8 @@
                 tpcp: tpcp,
                 prve: prve,
                 tpps: tpps,
-                fcha: $("#fecha_input").val()
+                // fcha: $("#fecha_input").val()
+                fcha: $("#fecha").val()
             },
             success: function (msg) {
                 $("#divValores").html(msg).show("slide");
@@ -1161,10 +1179,12 @@
             }
 
             if (tipoP === '2') {   /* ventas */
-                if ($("#fecha_input").val().length < 10) {
+                // if ($("#fecha_input").val().length < 10) {
+                if ($("#fecha").val() == null || $("#fecha").val() == '') {
                     error += "<li>Seleccione la fecha de emisión</li>"
                 }
-                if ($("#fechaingreso_input").val().length < 10) {
+                // if ($("#fechaingreso_input").val().length < 10) {
+                if ($("#fechaingreso").val() == null || $("#fechaingreso").val() == '') {
                     error += "<li>Seleccione la fecha de registro</li>"
                 }
                 if ($("#prve").val() === "" || $("#prve").val() == null) {
@@ -1471,9 +1491,9 @@
         cargarExterior($(this).val())
     });
 
-    $("#fecha_input").change(function () {
-        $("#fechaingreso_input").val($("#fecha_input").val())
-    });
+    // $("#fecha_input").change(function () {
+    //     $("#fechaingreso_input").val($("#fecha_input").val())
+    // });
 
     function cargarExterior(pago) {
         if (pago == '02') {
@@ -1493,7 +1513,8 @@
             data: {
                 libretin: idLibretin,
                 tpps: $(".tipoProcesoSel option:selected").val(),
-                fcha: $("#fecha_input").val(),
+                // fcha: $("#fecha_input").val(),
+                fcha: $("#fecha").val(),
                 nmes: nmes
             },
             success: function (msg) {
@@ -1506,7 +1527,8 @@
     });
 
     function cargarLibretin() {
-        var fcha =  $("#fecha_input").val();
+        // var fcha =  $("#fecha_input").val();
+        var fcha =  $("#fecha").val();
         var nmes = $("#establecimiento option:selected").val();
         if("${proceso?.fechaEmision}") {
             fcha = "${proceso?.fechaEmision?.format('dd-MM-yyyy')}"
@@ -1514,7 +1536,8 @@
         if(fcha){
             if(fcha.length < 10) {
                 $(".tipoProcesoSel").val(0);
-                $("#fecha_input").focus();
+                // $("#fecha_input").focus();
+                $("#fecha").focus();
             } else {
                 var tpps = $(".tipoProcesoSel option:selected").val();
                 $.ajax({
@@ -1581,6 +1604,74 @@
     $("#reembolsoN").click(function () {
         location.href="${createLink(controller: 'proceso', action: 'reembolso')}/?proceso=" + '${proceso?.id}'
     });
+
+    function editaPaciente() {
+        $.ajax({
+            type    : "POST",
+            url: "${createLink(controller: 'paciente', action:'datosCompletos_ajax')}",
+            data    : {
+                id: '${paciente?.id}'
+            },
+            success : function (msg) {
+                dep = bootbox.dialog({
+                    id      : "dlgCreateEditAntecedentes",
+                    title   : "Datos del paciente",
+                    class: "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormPaciente();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
+
+    function submitFormPaciente() {
+        var $form = $("#frmPaciente");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cerrarDialogoEditaPaciente();
+                        setTimeout(function () {
+                            location.reload()
+                        }, 500)
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+                    }
+                }
+            });
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    function cerrarDialogoEditaPaciente(){
+        dep.modal("hide");
+    }
 
 </script>
 </body>

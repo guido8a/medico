@@ -270,7 +270,8 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
             label: " Ir al proceso",
             icon: "fa fa-arrow-up",
             action: function () {
-                location.href = '${createLink(controller: "proceso", action: "procesoForm")}?id=' + id + "&paciente=" + ${paciente?.id};
+                %{--location.href = '${createLink(controller: "proceso", action: "procesoForm")}?id=' + id + "&paciente=" + ${paciente?.id};--}%
+                location.href = '${createLink(controller: "proceso", action: "procesoForm")}/' + id;
             }
         };
 
