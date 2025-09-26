@@ -230,6 +230,18 @@
                         <p>Administración de los años y sus respectivos sueldos básicos</p>
                     </div>
                 </li>
+                <li>
+                    <i class="fa-li ${iconGen}"></i>
+                    <span id="bodega">
+                        <g:link controller="bodega" action="list" class="tamano">Bodega</g:link> administración de bodegas
+                    </span>
+
+                    <div class="descripcion hide">
+                        <h4>Bodega</h4>
+
+                        <p>Administración de Bodegas</p>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="generales right pull-right">

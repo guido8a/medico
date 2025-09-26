@@ -44,23 +44,22 @@
     <b style="font-size: 18px;">Detalle de ${proceso?.tipoProceso?.codigo?.trim() == 'C' ? ' Compras' : (proceso?.tipoProceso?.codigo?.trim() == 'V' ? ' Ventas' : (proceso?.tipoProceso?.codigo?.trim() == 'T' ? 'Transferencias' : 'Nota de Crédito'))} del proceso: "${proceso?.descripcion}"</b>
 </div>
 
+%{--<div class="vertical-container ${truncar ? 'hidden' : ''}" style="position: relative;float: left;width: 100%;padding-left: 45px;">--}%
 <div class="vertical-container ${truncar ? 'hidden' : ''}" style="position: relative;float: left;width: 100%;padding-left: 45px;">
-%{--    <p class="css-vertical-text">Item</p>--}%
-
-%{--    <div class="linea" style="height: 98%;"></div>--}%
 
     <div class="col-xs-12" style="margin-bottom: 10px">
-        <div class="col-xs-5" style="text-align: center">
+        <div class="col-md-1">
             <b>Bodega</b>
-            <g:select from="${bodegas}" name="bodegasName" id="bodegas" class="form-control" optionValue="descripcion"
-                      optionKey="id"/>
+        </div>
+        <div class="col-xs-5" style="text-align: center">
+            <g:select from="${bodegas}" name="bodegasName" id="bodegas" class="form-control" optionValue="descripcion" optionKey="id"/>
         </div>
 
-        <div class="col-xs-5" style="text-align: center">
-            <b>Centro de Costos</b>
-            <g:select from="${centros}" name="centroName" id="centros" class="form-control" optionValue="nombre"
-                      optionKey="id"/>
-        </div>
+        %{--        <div class="col-xs-5" style="text-align: center">--}%
+        %{--            <b>Centro de Costos</b>--}%
+        %{--            <g:select from="${centros}" name="centroName" id="centros" class="form-control" optionValue="nombre"--}%
+        %{--                      optionKey="id"/>--}%
+        %{--        </div>--}%
     </div>
 
     <g:hiddenField name="idItem_name" id="idItem" value=""/>
@@ -74,36 +73,31 @@
 
     <div class="col-xs-4 camposTexto" style="margin-left: -25px; width: 520px;">
         <b>Nombre</b>
-        <g:textArea name="nombre_name" id="nombreItem" class="form-control" value="" readonly="true" style="height: 80px"/>
+        <g:textField name="nombre_name" id="nombreItem" class="form-control" value="" readonly="true"/>
     </div>
 
     <div class="col-xs-1" style="margin-left: -25px; width: 130px;">
         <b>Precio</b>
-        <g:textField name="precio_name" id="precioItem" class="form-control number pre" value=""
-                     style="text-align: right;" readonly="${proceso?.tipoProceso?.codigo?.trim() == 'NC' }"/>
+        <g:textField name="precio_name" id="precioItem" class="form-control number pre" value="" style="text-align: right;" readonly="${proceso?.tipoProceso?.codigo?.trim() == 'NC' }"/>
     </div>
 
     <div class="col-xs-1 camposTexto">
         <b>Cant.</b>
-        <g:textField name="cantidad_name" id="cantidadItem" class="form-control validacionNumeroSinPuntos canti" value=""
-                     style="text-align: right"/>
+        <g:textField name="cantidad_name" id="cantidadItem" class="form-control validacionNumeroSinPuntos canti" value="" style="text-align: right"/>
     </div>
     <g:if test="${proceso?.tipoProceso?.codigo?.trim() != 'T'}">
         <div class="col-xs-1" style="margin-left: -25px">
             <b>Desc.</b>
-            <g:textField name="descuento_name" id="descuentoItem" class="form-control number desc" value=""
-                         style="text-align: right"/>
+            <g:textField name="descuento_name" id="descuentoItem" class="form-control number desc" value="" style="text-align: right"/>
         </div>
 
         <div class="col-xs-1" style="margin-left: -25px; width: 130px;">
             <b>Total</b>
-            <g:textField name="total_name" id="totalItem" class="form-control number tot" value=""
-                         style="text-align: right;"
-                         readonly="${proceso?.tipoProceso?.codigo?.trim() == 'V'}"/>
+            <g:textField name="total_name" id="totalItem" class="form-control number tot" value="" style="text-align: right;" readonly="${proceso?.tipoProceso?.codigo?.trim() == 'V'}"/>
         </div>
     </g:if>
 
-    <div class="col-xs-2" style="margin-top: 25px; margin-bottom: 15px; margin-left: -10px; width: 110px">
+    <div class="col-xs-2" style="margin-top: 15px; margin-bottom: 15px; margin-left: -10px; width: 130px">
         <a href="#" id="btnBuscar" class="btn btn-info" title="Buscar Item">
             <i class="fa fa-search"></i>
         </a>
@@ -120,9 +114,6 @@
 </div>
 
 <div class="vertical-container" style="position: relative;float: left; width: 100%;padding-left: 45px">
-%{--    <p class="css-vertical-text">Tabla de Items</p>--}%
-
-%{--    <div class="linea" style="height: 98%;"></div>--}%
     <table class="table table-bordered table-hover table-condensed" style="margin-top: 10px">
         <thead>
         <tr>
@@ -170,9 +161,9 @@
          39         -> flecha der
          */
         return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
-        (ev.keyCode >= 96 && ev.keyCode <= 105) ||
-        ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
-        ev.keyCode === 37 || ev.keyCode === 39 );
+            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39 );
     }
 
     $(".validacionNumeroSinPuntos").keydown(function (ev) {
