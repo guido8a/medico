@@ -172,7 +172,7 @@ class DetalleFacturaController  {
             original = params.original.toInteger()
         }else{
             res.each { im->
-                if(item.codigo == im.prodcdgo){
+                if(item.numero == im.prodnmro){
                     original = im.exst.toInteger()
                 }
             }
@@ -249,7 +249,7 @@ class DetalleFacturaController  {
 
     def cargarEdicion_ajax () {
         def detalle = DetalleFactura.get(params.detalle)
-        render detalle.id + "_" + detalle.producto.codigo + "_" + detalle.producto.titulo + "_" + detalle.precioUnitario +
+        render detalle.id + "_" + detalle.producto.numero + "_" + detalle.producto.texto + "_" + detalle.precioUnitario +
                 "_" + detalle.cantidad.toInteger() + "_" + detalle.descuento + "_" + detalle?.bodega?.id + "_" +
                 "_" + detalle?.producto?.id
     }

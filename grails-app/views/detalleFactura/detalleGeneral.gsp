@@ -10,6 +10,16 @@
         margin-left: -25px;
     }
 
+    table {
+        table-layout: fixed;
+        overflow-x: scroll;
+    }
+    th, td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+    }
+
     </style>
 </head>
 
@@ -120,20 +130,20 @@
             <th style="width: 90px">Código</th>
             <th style="width: 200px">Descripción</th>
             <th style="width: 50px">Bodega</th>
-            <th style="width: 50px">C. Cost.</th>
-            <th style="width: 30px">Uni</th>
             <th style="width: 40px">Canti</th>
             <th style="width: 80px">P.U.</th>
             <g:if test="${proceso?.tipoProceso?.id != 8}">
                 <th style="width: 50px">% Desc</th>
             </g:if>
             <th style="width: 90px">Total</th>
-            <th style="width: 60px"><i class="fa fa-pencil"></i></th>
+            <th style="width: 60px">Acciones</th>
         </tr>
         </thead>
     </table>
 
-    <div style="width: 99.7%;height: 500px;overflow-y: auto;float: right;" id="divTablaDetalle"></div>
+    <div id="divTablaDetalle">
+
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -252,7 +262,8 @@
                             cancelar();
                             ocultar();
                         } else {
-                            log(parts[1], "error");
+                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                            return false;
                         }
                     }
                 });
