@@ -285,14 +285,13 @@ class ProcesoController  {
             println "registrar " + params
             def proceso = Proceso.get(params.id)
             if (proceso.estado == "R") {
-                render("El proceso ya ha sido registrado previamente")
+                render("no_El proceso ya ha sido registrado previamente")
             } else {
                 def lista = procesoService.registrar(proceso)
-//                kerberosoldService.generarEntradaAuditoria(params, proceso, "registrado", "R", session.usuario)
                 if (lista[0] != false) {
                     render("ok_Proceso registrado exitosamente")
                 } else {
-                    render("Error_No se ha podido registrar el proceso")
+                    render("no_No se ha podido registrar el proceso")
                 }
             }
         } else {
