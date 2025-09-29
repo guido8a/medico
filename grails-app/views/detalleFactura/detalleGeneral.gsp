@@ -191,7 +191,7 @@
             success: function (msg) {
                 bootbox.dialog({
                     title: "Buscar Item",
-                    class: 'long',
+                    class: "modal-lg",
                     message: msg,
                     buttons: {
                         cancelar: {
@@ -221,49 +221,55 @@
         var precio = $("#precioItem").val();
         var cantidad = $("#cantidadItem").val();
         var descuento = $("#descuentoItem").val();
-        var bodega = $("#bodegas").val();
+        var bodega = $("#bodegas option:selected").val();
         var centro = $("#centros").val();
         var original = $("#cantiOriginal").val();
         if (!item) {
-            log("Debe seleccionar un item!", 'error')
+            bootbox.alert( "<strong style='font-size: 16px'><i class='fa fa-exclamation-triangle fa-2x text-warning'></i>  Seleccione un item  </strong>")
         } else {
-            $.ajax({
-                type: 'POST',
-                url: '${createLink(controller: 'detalleFactura', action: 'guardarDetalle_ajax')}',
-                data: {
-                    item: item,
-                    precio: precio,
-                    cantidad: cantidad,
-                    descuento: descuento,
-                    bodega: bodega,
-                    centro: centro,
-                    proceso: '${proceso?.id}',
-                    id: id,
-                    original: original
-                },
-                success: function (msg) {
-                    var parts = msg.split("_");
-                    if (parts[0] === 'ok') {
-                        log(parts[1], "success");
-                        cargarTablaDetalle();
-                        cancelar();
-                        ocultar();
-                    } else {
-                        log(parts[1], "error");
+            if(!precio){
+                bootbox.alert( "<strong style='font-size: 16px'><i class='fa fa-exclamation-triangle fa-2x text-warning'></i>  Ingrese un precio  </strong>")
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    url: '${createLink(controller: 'detalleFactura', action: 'guardarDetalle_ajax')}',
+                    data: {
+                        item: item,
+                        precio: precio,
+                        cantidad: cantidad,
+                        descuento: descuento,
+                        bodega: bodega,
+                        centro: centro,
+                        proceso: '${proceso?.id}',
+                        id: id,
+                        original: original
+                    },
+                    success: function (msg) {
+                        var parts = msg.split("_");
+                        if (parts[0] === 'ok') {
+                            log(parts[1], "success");
+                            cargarTablaDetalle();
+                            cancelar();
+                            ocultar();
+                        } else {
+                            log(parts[1], "error");
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
     cargarTablaDetalle();
 
     function cargarTablaDetalle() {
+        var bodega = $("#bodegas option:selected").val();
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'detalleFactura', action: 'tablaDetalle_ajax')}',
             data: {
-                proceso: '${proceso?.id}'
+                proceso: '${proceso?.id}',
+                bodega: bodega
             },
             success: function (msg) {
                 $("#divTablaDetalle").html(msg)

@@ -138,11 +138,11 @@ class DetalleFacturaController  {
         def cn = dbConnectionService.getConnection()
         def sql
         if(params.nombre && params.codigo){
-            sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}') where itemcdgo ilike '${params.codigo}' and itemnmbr ilike '%${params.nombre}%' "
+            sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}') where prodnmro ilike '${params.codigo}' and prodtxto ilike '%${params.nombre}%' "
         }else if (params.nombre){
-            sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}') where itemnmbr ilike '%${params.nombre}%' "
+            sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}') where prodtxto ilike '%${params.nombre}%' "
         }else if(params.codigo){
-            sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}') where itemcdgo ilike '%${params.codigo}%' "
+            sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}') where prodnmro ilike '%${params.codigo}%' "
         }else{
             sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}')"
         }
@@ -157,7 +157,6 @@ class DetalleFacturaController  {
         def proceso = Proceso.get(params.proceso)
         def item = Producto.get(params.item)
         def bodega = Bodega.get(params.bodega)
-//        def centroCostos = CentroCosto.get(params.centro)
         def especifico = DetalleFactura.findByProcesoAndProductoAndBodega(proceso,item,bodega)
         def detalle
         if(params.descuento == ''){
@@ -179,15 +178,12 @@ class DetalleFacturaController  {
             }
         }
 
-//        println("original " + original)
-
         if(params.cantidad.toInteger() > original && proceso.tipoProceso.codigo.trim() != 'C'){
             render "no_La cantidad ingresada es mayor a la cantidad en existencia"
         }else{
             if(params.id){
                 detalle = DetalleFactura.get(params.id)
                 detalle.precioUnitario = params.precio.toDouble()
-//                detalle.centroCosto = centroCostos
                 detalle.bodega = bodega
                 detalle.cantidad = params.cantidad.toDouble()
             }else{
@@ -204,13 +200,10 @@ class DetalleFacturaController  {
                     detalle.proceso = proceso
                     detalle.producto = item
                     detalle.precioUnitario = params.precio.toDouble()
-//                    detalle.centroCosto = centroCostos
                     detalle.bodega = bodega
                     detalle.cantidad = params.cantidad.toDouble()
                 }
             }
-
-//        println("tipo " + proceso.tipoProceso.codigo)
 
             switch (proceso.tipoProceso.codigo.trim()){
                 case 'C':
