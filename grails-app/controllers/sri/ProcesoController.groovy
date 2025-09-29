@@ -19,7 +19,22 @@ class ProcesoController  {
 
     def index = { redirect(action: "buscarPrcs") }
 
-    def procesoForm = {
+//    def procesoForm = {
+//        def paciente
+//        def sucursal = Establecimiento.findAllByEmpresa(Empresa.get(session.empresa.id))
+//        if (params.id) {
+//            def proceso = Proceso.get(params.id).refresh()
+//            def fps = ProcesoFormaDePago.findAllByProceso(proceso)
+//            paciente = proceso.paciente
+//
+//            render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal, paciente: paciente])
+//        } else{
+//            paciente = Paciente.get(params.paciente)
+//            render(view: "procesoForm", model: [proceso: null, estb: sucursal, paciente: paciente])
+//        }
+//    }
+
+    def procesoForm() {
 //        println "ProcesofORM "+params
 
         def paciente
@@ -29,12 +44,14 @@ class ProcesoController  {
             def fps = ProcesoFormaDePago.findAllByProceso(proceso)
             paciente = proceso.paciente
 
-            render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal, paciente: paciente])
+//            render(view: "procesoForm", model: [proceso: proceso, fps: fps, estb: sucursal, paciente: paciente])
+
+            return [proceso: proceso, fps: fps, estb: sucursal, paciente: paciente]
         } else{
             paciente = Paciente.get(params.paciente)
-            render(view: "procesoForm", model: [proceso: null, estb: sucursal, paciente: paciente])
+//            render(view: "procesoForm", model: [proceso: null, estb: sucursal, paciente: paciente])
+            return [proceso: null, estb: sucursal, paciente: paciente]
         }
-
     }
 
     /** actualiza los valores de proceso a los totales de detalle **/
@@ -241,74 +258,17 @@ class ProcesoController  {
                 break
         }
 
-
         try {
             proceso.save(flush: true)
             if(params.tipoProceso != '8' && params.tipoProceso != '3' ){
                 println("ejecutó proceso.save")
-//                if(params.paciente){
-//                    paciente.save(flush:true)
-//                }else{
-//                    proveedor.save(flush: true)
-//                }
-
             }
             proceso.refresh()
-
-//            if (proceso.errors.getErrorCount() == 0) {
-//
-//
-//                def formasPago = ProcesoFormaDePago.findAllByProceso(proceso)
-//
-//                formasPago.each {
-//                    it.delete(flush: true)
-//                }
-//
-//
-//
-//                if (params.data != "") {
-//                    def data = params.data.split(";")
-//                    def fp
-//                    def tppgLista = []
-//                    // println "data "+data
-//                    data.each {
-//                        if (it != "") {
-//                            println "porcesando... $it"
-//                            def tppg = TipoPago.get(it)
-//                            fp = ProcesoFormaDePago.findByProcesoAndTipoPago(proceso, tppg)
-//                            if(!fp) {
-//                                def psfp = new ProcesoFormaDePago()
-//                                psfp.proceso = proceso
-//                                psfp.tipoPago = tppg
-//                                psfp.save(flush: true)
-//                            }
-//                            tppgLista.add(tppg)
-//                        }
-//                    }
-////                    println "existentes: $tppgLista"
-//                    if(tppgLista) {
-//                        fp = ProcesoFormaDePago.findAllByProcesoAndTipoPagoNotInList(proceso, tppgLista)
-//                    } else {
-////                        println "borrar todo........."
-//                    }
-//
-////                    println "a borrar: $fp"
-//                    fp.each {
-//                        println "borrando: ${it}"
-//                        it.delete(flush: true)
-//                    }
-//                }
-//            } else {
-//                println "errores: ${proceso.errors}"
-//            }
-
-//            redirect(action: 'nuevoProceso', id: proceso.id)
-            redirect(action: 'procesoForm', params: [id: proceso.id] )
-
-
+//            redirect(action: 'procesoForm', params: [id: proceso.id] )
+            render "ok_Proceso guardado correctamenete_${proceso?.id}"
         } catch (e) {
-//            println "...8"
             println "error al grabar el proceso $e" + proceso.errors
+            render "no_Error al guardar el proceso"
         }
     }
 

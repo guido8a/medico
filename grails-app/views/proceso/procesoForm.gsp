@@ -10,7 +10,7 @@
     }
 
     .filaFP {
-        width: 95%;
+        width: 100%;
         height: 20px;
         border-bottom: 1px solid #d0d0d0;
         margin: 10px;
@@ -43,23 +43,6 @@
 </head>
 
 <body>
-<g:if test="${flash.message}">
-    <div class="alert ${flash.tipo == 'error' ? 'alert-danger' : flash.tipo == 'success' ? 'alert-success' : 'alert-info'} ${flash.clase}">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <g:if test="${flash.tipo == 'error'}">
-            <i class="fa fa-warning fa-2x pull-left"></i>
-        </g:if>
-        <g:elseif test="${flash.tipo == 'success'}">
-            <i class="fa fa-check-square fa-2x pull-left"></i>
-        </g:elseif>
-        <g:elseif test="${flash.tipo == 'notFound'}">
-            <i class="icon-ghost fa-2x pull-left"></i>
-        </g:elseif>
-        <p>
-            ${flash.message}
-        </p>
-    </div>
-</g:if>
 <div class="btn-toolbar toolbar">
     <div class="btn-group">
         <a href="#" class="btn btn-info" id="btnRegresar">
@@ -102,7 +85,6 @@
                 </a>
             </g:if>
         </g:if>
-
         <g:if test="${proceso}">
             <g:if test="${proceso?.estado == 'R'}">
                 <g:form action="borrarProceso" class="br_prcs" style="display: inline">
@@ -112,8 +94,6 @@
                         Anular
                     </a>
                 </g:form>
-
-            %{--<g:if test="${proceso?.estado == 'R'}">--}%
                 <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V', 'NC', 'ND']}">
                     <a href="#" class="btn btn-info" id="btnImprimirFactElect">
                         <i class="fa fa-print"></i> Factura, NC o ND
@@ -146,9 +126,6 @@
                         </a>
                     </g:else>
                 </g:if>
-
-
-            %{--</g:if>--}%
                 <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['P','I', 'A']}">
                     <a href="#" class="btn btn-info" id="btnConciliar">
                         <i class="fa fa-pencil-square-o"></i>
@@ -156,13 +133,6 @@
                     </a>
                 </g:if>
             </g:if>
-        %{--<g:if test="${cratos.Retencion.findByProceso(proceso)}">--}%
-        %{--<g:link controller="reportes3" action="imprimirRetencion" class="btn btn-default btnRetencion"--}%
-        %{--id="${proceso?.id}" params="[empresa: session.empresa.id]" style="margin-bottom: 10px;">--}%
-        %{--<i class="fa fa-print"></i>--}%
-        %{--Imprimir retención--}%
-        %{--</g:link>--}%
-        %{--</g:if>--}%
             <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['C','V','T','NC']}">
                 <a href="#" class="btn btn-success" id="btnDetalle">
                     <i class="fa fa-list"></i>
@@ -190,7 +160,8 @@
     <span style="" id="spanError">Se encontraron los siguientes errores:</span>
     <ul id="listaErrores"></ul>
 </div>
-<g:form name="procesoForm" action="save" method="post" class="frmProceso">
+
+<g:form name="procesoForm" action="save" method="post" class="frmProceso col-md-12">
     <input type="hidden" name="proveedor.id" id="prve__id" value="${proceso?.proveedor?.id}">
     <input type="hidden" id="libretin_id" value="${proceso?.proveedor?.id}">
     <input type="hidden" name="paciente" value="${paciente?.id}">
@@ -211,16 +182,7 @@
                     ${proceso?.fechaEmision?.format("dd-MM-yyyy")}
                 </g:if>
                 <g:else>
-                %{--poner fecha de inicio 30 días antes fechaInicio - 30--}%
-%{--                    <elm:datepicker name="fecha" title="Fecha de emisión del comprobante"--}%
-%{--                                    class="datepicker form-control required col-xs-3 fechaE"--}%
-%{--                                    value="${proceso?.fechaEmision?: new Date()}"--}%
-%{--                                    minDate="${(Contabilidad.get(session.contabilidad?.id)?.fechaInicio)?.format("dd-MM-yyyy")}"--}%
-%{--                                    maxDate="${Contabilidad.get(session.contabilidad?.id)?.fechaCierre?.format("dd-MM-yyyy")}"--}%
-%{--                                    style="width: 80px; margin-left: 5px"/>--}%
-
                     <input aria-label="" name="fecha" id='fecha' type='text' class="form-control required col-xs-3 fechaE" value="${proceso?.fechaEmision?.format("dd-MM-yyyy") ?: new Date()?.format("dd-MM-yyyy")}" />
-
                 </g:else>
             </div>
 
@@ -233,13 +195,6 @@
                     ${proceso?.fechaIngresoSistema?.format("dd-MM-yyyy")}
                 </g:if>
                 <g:else>
-%{--                    <elm:datepicker name="fechaingreso" title="Fecha de registro en el sistema"--}%
-%{--                                    class="datepicker form-control required col-xs-3"--}%
-%{--                                    value="${proceso?.fechaIngresoSistema?: new Date()}"--}%
-%{--                                    minDate="${Contabilidad.get(session.contabilidad.id).fechaInicio.format("dd-MM-yyyy")}"--}%
-%{--                                    maxDate="${Contabilidad.get(session.contabilidad.id).fechaCierre.format("dd-MM-yyyy")}"--}%
-%{--                                    style="width: 80px; margin-left: 5px"/>--}%
-
                     <input aria-label="" name="fechaingreso" id='fechaingreso' type='text' class="form-control required col-xs-3" value="${proceso?.fechaIngresoSistema?.format("dd-MM-yyyy") ?: new Date()?.format("dd-MM-yyyy")}" />
                 </g:else>
             </div>
@@ -249,12 +204,6 @@
             </div>
 
             <div class="col-xs-1 negrilla">
-                %{--
-                                <g:select class="form-control required cmbRequired" name="establecimiento" id="establecimiento"
-                                          from="${estb}" label="Proceso tipo: " value="${proceso?.establecimiento}" optionKey="key"
-                                          optionValue="value" title="Establecimientos" disabled="${proceso?.estado == 'R' ?: false}"
-                                          style="margin-left: 0; width: 70px" />
-                --}%
                 <g:select class="form-control required cmbRequired" name="establecimiento" id="establecimiento"
                           from="${estb}" label="Proceso tipo: " value="${proceso?.establecimiento}" optionKey="id"
                           optionValue="numero" title="Establecimientos" disabled="${proceso?.estado == 'R' ?: false}"
@@ -320,14 +269,10 @@
 
     <div class="vertical-container" style="margin-top: 25px;color: black;padding-bottom: 10px;">
         <p class="css-vertical-text" id="lblValores">Val</p>
-
         <div class="linea"></div>
-
         <div id="divValores"></div>
     </div>
-
 </g:form>
-
 
 <!-- Modal -->
 <div class="modal fade" id="modal-formas-pago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -425,7 +370,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 
 <script type="text/javascript">
@@ -1370,25 +1314,55 @@
                     info += " Esta seguro de continuar?";
                     bootbox.confirm(info, function (result) {
                         if (result) {
-                            openLoader("Guardando..");
+                            // cargarLoader("Guardando..");
                             if('${proceso?.id}'){
                                 $("#tipoProceso").removeAttr('disabled', false);
                             }
-                            $(".frmProceso").submit();
-                            closeLoader();
+                            // $(".frmProceso").submit();
+                            submitFormProceso();
+                            // closeLoader();
                         }
                     })
                 } else {
-                    openLoader("Guardando..");
+                    // cargarLoader("Guardando..");
                     if('${proceso?.id}'){
                         $("#tipoProceso").removeAttr('disabled', false);
                     }
-                    $(".frmProceso").submit();
-                    closeLoader()
+                    // $(".frmProceso").submit();
+                    submitFormProceso();
+                    // closeLoader()
                 }
             }
             closeLoader()
         });
+
+        function submitFormProceso() {
+            var $form = $(".frmProceso");
+            if ($form.valid()) {
+              var a = cargarLoader("Guardando...");
+                $.ajax({
+                    type    : "POST",
+                    url     : $form.attr("action"),
+                    data    : $form.serialize(),
+                    success : function (msg) {
+                        a.modal("hide");
+                        var parts = msg.split("_");
+                        if (parts[0] === "ok") {
+                            log(parts[1],"success");
+                            setTimeout(function () {
+                                location.href="${createLink(controller: 'proceso', action: 'procesoForm')}/" + parts[2]
+                            }, 1000);
+                        } else {
+                            log(parts[1],"error");
+                            return false;
+                        }
+                    }
+                });
+            } else {
+                return false;
+            } //else
+        }
+
 
         $(".number").blur(function () {
             if (isNaN($(this).val()))
