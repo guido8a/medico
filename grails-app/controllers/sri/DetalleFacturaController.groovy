@@ -146,8 +146,8 @@ class DetalleFacturaController  {
         }else{
             sql = "select * from lsta_prod('${proceso?.id}','${bodega?.id}')"
         }
-        def res = cn.rows(sql.toString())
         println "sql $sql"
+        def res = cn.rows(sql.toString())
         return[items: res, proceso: proceso]
     }
 
@@ -235,7 +235,7 @@ class DetalleFacturaController  {
         def cn = dbConnectionService.getConnection()
         def proceso = Proceso.get(params.proceso)
         def detalles = DetalleFactura.findAllByProceso(proceso).sort{it?.producto?.codigo}
-        def sql = "select * from total_detalle(${params.proceso}, ${params.bodega})"
+        def sql = "select * from total_detalle(${params.proceso}, 0)"   //debe ser 0 la bodega
         def totl = cn.rows(sql.toString())[0]
         def truncar
         println "params: $params, \n sql: $sql"
