@@ -147,7 +147,7 @@
             </g:if>
         </g:if>
         <g:if test="${proceso && proceso?.tipoProceso?.codigo?.trim() in ['C','V']}">
-            <a href="#" class="btn btn-info" style="cursor: default; margin-right: 20px" id="btnFormaPago">
+            <a href="#" class="btn btn-info" style="margin-right: 20px" id="btnFormaPago">
                 <i class="fa fa-money-bill"></i>
                 Forma de Pago
             </a>
@@ -401,7 +401,7 @@
                 var b = bootbox.dialog({
                     id: "dlgFP",
                     title: "Formas de Pago",
-                    class: "long",
+                    class: "modal-lg",
                     message: msg,
                     buttons: {
                         cancelar: {
@@ -427,7 +427,7 @@
                         id: '${proceso?.id}'
                     },
                     success: function (msg) {
-                        if(msg == 'ok'){
+                        if(msg === 'ok'){
                             closeLoader();
                             log("Factura enviada al SRI correctamente!","success");
                             setTimeout(function () {
