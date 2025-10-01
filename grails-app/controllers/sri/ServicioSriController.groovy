@@ -183,6 +183,8 @@ class ServicioSriController {
                     "from dtfc, prod where prcs__id = ${prcs.id} and prod.prod__id = dtfc.prod__id " +
                     "order by tpiv__id, prodnmro"
 
+            println("sql dtfc " + sql)
+
             def dtfc = cn.rows(sql.toString())
 
             def writer = new StringWriter()
@@ -218,8 +220,10 @@ class ServicioSriController {
                     obligadoContabilidad(empr.emprcont == '1' ? 'SI' : 'NO' )
                     tipoIdentificacionComprador(tipoId(prcs.id))   // Usar dato desde TITT
 //                    tipoIdentificacionComprador(prcs.proveedor.tipoIdentificacion.codigoSri)   // desde PRVE
-                    razonSocialComprador(prcs.proveedor.nombre)
-                    identificacionComprador(prcs.proveedor.ruc.trim())
+//                    razonSocialComprador(prcs.proveedor.nombre)
+                    razonSocialComprador(prcs.paciente.nombre)
+//                    identificacionComprador(prcs.proveedor.ruc.trim())
+                    identificacionComprador(prcs.paciente.cedula.trim())
                     totalSinImpuestos(utilitarioService.numero(prcs.baseImponibleNoIva + prcs.baseImponibleIva0 +
                     prcs.baseImponibleIva))
 //                    totalSinImpuestos(utilitarioService.numero(prcs.baseImponibleIva))
@@ -239,6 +243,9 @@ class ServicioSriController {
                         if(prcs.baseImponibleIva){
                             totalImpuesto() {
                                 sql = "select trivcdgo, trivvlor from triv where trivvlor = ${valorIva}"
+
+                                println("sql  triv" + sql)
+
                                 def trfa = cn.rows(sql.toString())[0]
 
                                 codigo(TipoDeImpuesto.findByDescripcion('IVA').codigo)   // +++ código del IVA
@@ -291,9 +298,12 @@ class ServicioSriController {
                         def parcialIva = Math.round(sbtt * valorIva) / 100
 
                         detalle() {
-                            codigoPrincipal(dt.itemcdgo)
-                            codigoAuxiliar(dt.itemcdgo)
-                            descripcion(dt.itemnmbr)
+//                            codigoPrincipal(dt.itemcdgo)
+                            codigoPrincipal(dt.prodnmro)
+//                            codigoAuxiliar(dt.itemcdgo)
+                            codigoAuxiliar(dt.prodnmro)
+//                            descripcion(dt.itemnmbr)
+                            descripcion(dt.prodtxto)
                             cantidad(dt.dtfccntd)
                             precioUnitario(utilitarioService.numero4(dt.dtfcpcun))
                             descuento(utilitarioService.numero(dt.dtfcdsct))
