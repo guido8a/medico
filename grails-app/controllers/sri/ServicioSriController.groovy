@@ -470,9 +470,9 @@ class ServicioSriController {
 
     def tipoId(id) {
         def cn = dbConnectionService.getConnection()
-        def sql = "select tittcdgo from titt, tpid, prve, prcs " +
-                "where prcs__id = ${id} and prve.prve__id = prcs.prve__id and " +
-                "tpid.tpid__id = prve.tpid__id and titt.tpid__id = tpid.tpid__id and " +
+        def sql = "select tittcdgo from titt, tpid, pcnt, prcs " +
+                "where prcs__id = ${id} and pcnt.pcnt__id = prcs.pcnt__id and " +
+                "tpid.tpid__id = pcnt.tpid__id and titt.tpid__id = tpid.tpid__id and " +
                 "titt.tptr__id = prcs.tptr__id"
         println sql
         def tipo = cn.rows(sql.toString())[0].tittcdgo
