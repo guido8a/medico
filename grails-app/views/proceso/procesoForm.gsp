@@ -53,7 +53,7 @@
     <div class="btn-group" style="margin-right: 10px">
         <g:if test="${proceso?.estado == 'R'}">
             <a href="#" class="btn btn-success" id="comprobanteN">
-                <i class="fa fa-calendar-o"></i>
+                <i class="fa fa-calendar"></i>
                 Comprobante
             </a>
         </g:if>
@@ -90,7 +90,7 @@
                 <g:form action="borrarProceso" class="br_prcs" style="display: inline">
                     <input type="hidden" name="id" value="${proceso?.id}">
                     <a class="btn btn-danger" id="btn-br-prcs" action="borrarProceso">
-                        <i class="fa fa-trash-o"></i>
+                        <i class="fa fa-trash"></i>
                         Anular
                     </a>
                 </g:form>
@@ -119,8 +119,7 @@
                         </g:if>
                     </g:if>
                     <g:else>
-                        <a href="#" id="btnEnviarFactura" class="btn btn-info" title="Enviar factura al SRI"
-                           style="border-style: solid; border-color: #d05a05; border-width: 1px; margin-right: 1px">
+                        <a href="#" id="btnEnviarFactura" class="btn btn-warning" title="Enviar factura al SRI" >
                             <i class="fa fa-plane"></i>
                             Factura a SRI
                         </a>
@@ -140,7 +139,7 @@
                 </a>
             </g:if>
             <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V' && proceso?.estado == 'R'}">
-                <a href="#" class="btn btn-info" id="btnDocRetencion" style="color: #0b0b0b">
+                <a href="#" class="btn btn-info" id="btnDocRetencion" >
                     <i class="fa fa-clipboard"></i>
                     Ret. en Ventas
                 </a>
@@ -417,30 +416,43 @@
     });
 
     $("#btnEnviarFactura").click(function () {
-        bootbox.confirm("<i class='fa fa-warning fa-3x pull-left text-warning text-shadow'></i> Está seguro que desea enviar esta factura al SRI?", function (result) {
-            if (result) {
-                openLoader('Enviando al SRI...');
-                $.ajax({
-                    type: 'POST',
-                    url: '${createLink(controller: 'servicioSri', action: 'facturaElectronica')}',
-                    data:{
-                        id: '${proceso?.id}'
-                    },
-                    success: function (msg) {
-                        if(msg === 'ok'){
-                            closeLoader();
-                            log("Factura enviada al SRI correctamente!","success");
-                            setTimeout(function () {
-                                location.href="${createLink(controller: 'proceso', action: 'nuevoProceso')}/?id=" + '${proceso?.id}'
-                            }, 800);
-                        }else{
-                            closeLoader();
-                            log("Error al enviar la factura al SRI","error");
+        bootbox.confirm({
+            message: "<i class='fa fa-3x fa-exclamation-triangle text-info'></i> <strong style='font-size: 14px'>  Está seguro que desea enviar esta factura al SRI? </strong>",
+            buttons: {
+                confirm: {
+                    label: '<i class="fa fa-send-o"></i> Enviar',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancelar',
+                    className: 'btn-primary'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                  var en = cargarLoader("Enviando...");
+                    $.ajax({
+                        type: 'POST',
+                        url: '${createLink(controller: 'servicioSri', action: 'facturaElectronica')}',
+                        data:{
+                            id: '${proceso?.id}'
+                        },
+                        success: function (msg) {
+                            if(msg === 'ok'){
+                               en.modal("hide");
+                                log("Factura enviada al SRI correctamente","success");
+                                setTimeout(function () {
+                                    location.href="${createLink(controller: 'proceso', action: 'procesoForm')}/" + '${proceso?.id}'
+                                }, 800);
+                            }else{
+                                closeLoader();
+                                log("Error al enviar la factura al SRI","error");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
-        })
+        });
     });
 
     $("#btnImprimirFactElect").click(function () {

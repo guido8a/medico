@@ -93,7 +93,7 @@ class ServicioSriController {
 
     def facturaElectronica(){
         def empresa_id = session.empresa.id
-        def pathBase = "/var/tienda/empresas/empr_" + empresa_id
+        def pathBase = "/var/medico/empresa/empr_" + empresa_id
         def pathxml = pathBase + "/xml/"
 
         println "facturaElectrónica: $params"   // debe enviarse prcs__id de la factura
@@ -134,7 +134,7 @@ class ServicioSriController {
         if(autorizacion) {
             prcs.claveAcceso = clave
             prcs.autorizacion = autorizacion
-            prcs.fechaAutorizacion = fecha
+//            prcs.fechaAutorizacion = fecha
             prcs.tipoEmision = '1'  // si contesta el SRI
             retorna = "ok"
         } else {
@@ -159,7 +159,7 @@ class ServicioSriController {
         def hoy = new Date().format('yyyy-MM-dd')
         def valorIva = utilitarioService.valorIva(hoy)
 
-        def pathBase = "/var/tienda/empresas/empr_" + empresa.id
+        def pathBase = "/var/medico/empresa/empr_" + empresa_id
         def pathxml = pathBase + "/xml/"
         def path = pathxml + "fc_${clave}.xml"
         new File(pathxml).mkdirs()
@@ -175,11 +175,15 @@ class ServicioSriController {
             println "...empresa: $sql  --> ${empr}"
 
             /** detalle de la facura **/
-            sql = "select itemcdgo, itemnmbr, dtfccntd, dtfcpcun, dtfcdsct, tpiv__id " +
-                    "from dtfc, item where prcs__id = ${prcs.id} and item.item__id = dtfc.item__id " +
-                    "order by tpiv__id, itemcdgo"
-            def dtfc = cn.rows(sql.toString())
+//            sql = "select itemcdgo, itemnmbr, dtfccntd, dtfcpcun, dtfcdsct, tpiv__id " +
+//                    "from dtfc, item where prcs__id = ${prcs.id} and item.item__id = dtfc.item__id " +
+//                    "order by tpiv__id, itemcdgo"
 
+            sql = "select prodnmro, prodtxto, dtfccntd, dtfcpcun, dtfcdsct, tpiv__id " +
+                    "from dtfc, prod where prcs__id = ${prcs.id} and prod.prod__id = dtfc.prod__id " +
+                    "order by tpiv__id, prodnmro"
+
+            def dtfc = cn.rows(sql.toString())
 
             def writer = new StringWriter()
             def xml = new MarkupBuilder(writer)
