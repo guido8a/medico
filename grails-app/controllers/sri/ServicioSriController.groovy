@@ -93,7 +93,7 @@ class ServicioSriController {
 
     def facturaElectronica(){
         def empresa_id = session.empresa.id
-        def pathBase = "/var/medico/empresa/empr_" + empresa_id
+        def pathBase = "/var/medico/empresa/emp_" + empresa_id
         def pathxml = pathBase + "/xml/"
 
         println "facturaElectrónica: $params"   // debe enviarse prcs__id de la factura
@@ -106,7 +106,7 @@ class ServicioSriController {
         println "archivo: $archivo"
 //        def archivo = "fc_667.xml"
         println "finaliza xml de facura en --> ${archivo}"
-        firmaSri(archivo)
+//        firmaSri(archivo)
         println "finaliza firma..."
         //se envía al SRI y si todo va bien se pone TipoEmision = 1, caso contrario 2
 
@@ -117,19 +117,20 @@ class ServicioSriController {
 */
         println "antes de enviar archivo al SRI"
 //        def retornaSri = enviar(archivo, clave)
-        def retornaSri = "Ok++++"
+//        def retornaSri = "Ok++++"
+        def retornaSri = "123456789_"
         println "retornaSri: $retornaSri"
         
         def arr = retornaSri.split('_')
         def autorizacion = arr[0]
-        def txfecha = arr[1]
-        def fecha
-        if(txfecha.contains('T')) {
-            fecha = new Date().parse("yyyy-MM-dd'T'HH:mm:ss", txfecha)
-        } else {
-            fecha = new Date().parse("yyyy-MM-dd HH:mm:ss", txfecha)
-        }
-        println "retorna de enviar: autorización ${autorizacion} y fecha: $fecha"
+//        def txfecha = arr[1]
+//        def fecha
+//        if(txfecha.contains('T')) {
+//            fecha = new Date().parse("yyyy-MM-dd'T'HH:mm:ss", txfecha)
+//        } else {
+//            fecha = new Date().parse("yyyy-MM-dd HH:mm:ss", txfecha)
+//        }
+//        println "retorna de enviar: autorización ${autorizacion} y fecha: $fecha"
 
         if(autorizacion) {
             prcs.claveAcceso = clave
@@ -159,7 +160,7 @@ class ServicioSriController {
         def hoy = new Date().format('yyyy-MM-dd')
         def valorIva = utilitarioService.valorIva(hoy)
 
-        def pathBase = "/var/medico/empresa/empr_" + empresa_id
+        def pathBase = "/var/medico/empresa/emp_" + empresa_id
         def pathxml = pathBase + "/xml/"
         def path = pathxml + "fc_${clave}.xml"
         new File(pathxml).mkdirs()
@@ -329,9 +330,9 @@ class ServicioSriController {
 //                }
 
                 infoAdicional(){
-                    campoAdicional(nombre: 'Dirección', prcs.proveedor.direccion )
-                    campoAdicional(nombre: 'Teléfono', prcs.proveedor.telefono )
-                    campoAdicional(nombre: 'Correo Electrónico', prcs.proveedor.email )
+                    campoAdicional(nombre: 'Dirección', prcs.paciente.direccion )
+                    campoAdicional(nombre: 'Teléfono', prcs.paciente.telefono )
+                    campoAdicional(nombre: 'Correo Electrónico', prcs.paciente.mail )
                 }
 
 
@@ -347,7 +348,7 @@ class ServicioSriController {
     def enviar(archivo, clave) {
 //        def prcs = Proceso.get(params.id)
         def empresa_id = session.empresa.id
-        def pathBase = "/var/tienda/empresas/empr_" + empresa_id
+        def pathBase = "/var/tienda/empresas/emp_" + empresa_id
         def path = pathBase + "/xml/"
         def pathxml = path + "f${archivo}"
 //        def arch_xml = new File(path + "xml/46/enviar.xml").text
