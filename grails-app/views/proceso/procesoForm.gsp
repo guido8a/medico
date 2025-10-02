@@ -416,40 +416,56 @@
     });
 
     $("#btnEnviarFactura").click(function () {
-        bootbox.confirm({
-            message: "<i class='fa fa-3x fa-exclamation-triangle text-info'></i> <strong style='font-size: 14px'>  Está seguro que desea enviar esta factura al SRI? </strong>",
-            buttons: {
-                confirm: {
-                    label: '<i class="fa fa-send-o"></i> Enviar',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: '<i class="fa fa-times"></i> Cancelar',
-                    className: 'btn-primary'
-                }
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: '${createLink(controller: 'proceso', action: 'revisarFormaPago_ajax')}',
+            data: {
+                proceso : '${proceso?.id}'
             },
-            callback: function (result) {
-                if(result){
-                  var en = cargarLoader("Enviando...");
-                    $.ajax({
-                        type: 'POST',
-                        url: '${createLink(controller: 'servicioSri', action: 'facturaElectronica')}',
-                        data:{
-                            id: '${proceso?.id}'
+            success: function (msg){
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    bootbox.confirm({
+                        message: "<i class='fa fa-3x fa-exclamation-triangle text-info'></i> <strong style='font-size: 14px'>  Está seguro que desea enviar esta factura al SRI? </strong>",
+                        buttons: {
+                            confirm: {
+                                label: '<i class="fa fa-send-o"></i> Enviar',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: '<i class="fa fa-times"></i> Cancelar',
+                                className: 'btn-primary'
+                            }
                         },
-                        success: function (msg) {
-                            if(msg === 'ok'){
-                               en.modal("hide");
-                                log("Factura enviada al SRI correctamente","success");
-                                setTimeout(function () {
-                                    location.href="${createLink(controller: 'proceso', action: 'procesoForm')}/" + '${proceso?.id}'
-                                }, 800);
-                            }else{
-                                closeLoader();
-                                log("Error al enviar la factura al SRI","error");
+                        callback: function (result) {
+                            if(result){
+                                var en = cargarLoader("Enviando...");
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '${createLink(controller: 'servicioSri', action: 'facturaElectronica')}',
+                                    data:{
+                                        id: '${proceso?.id}'
+                                    },
+                                    success: function (msg) {
+                                        if(msg === 'ok'){
+                                            en.modal("hide");
+                                            log("Factura enviada al SRI correctamente","success");
+                                            setTimeout(function () {
+                                                location.href="${createLink(controller: 'proceso', action: 'procesoForm')}/" + '${proceso?.id}'
+                                            }, 800);
+                                        }else{
+                                            closeLoader();
+                                            log("Error al enviar la factura al SRI","error");
+                                        }
+                                    }
+                                });
                             }
                         }
                     });
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false
                 }
             }
         });
@@ -1351,7 +1367,7 @@
         function submitFormProceso() {
             var $form = $(".frmProceso");
             if ($form.valid()) {
-              var a = cargarLoader("Guardando...");
+                var a = cargarLoader("Guardando...");
                 $.ajax({
                     type    : "POST",
                     url     : $form.attr("action"),
@@ -1417,7 +1433,6 @@
                 },
                 callback: function (result) {
                     if(result){
-                        if(tipoP === 1 || tipoP === 2){
                             $.ajax({
                                 type: 'POST',
                                 async: false,
@@ -1428,7 +1443,7 @@
                                 success: function (msg){
                                     var parts = msg.split("_");
                                     if(parts[0] === 'no'){
-                                        bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-danger text-shadow'></i>" + parts[1])
+                                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                                     }else{
                                         $.ajax({
                                             type: 'POST',
@@ -1439,7 +1454,7 @@
                                             },
                                             success: function (msg2){
                                                 if(msg2 === 'no'){
-                                                    bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-danger text-shadow'></i> La transacción no tiene ingresado ningún detalle")
+                                                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "La transacción no tiene ingresado ningún detalle" + '</strong>');
                                                 }else{
                                                     var rl =  cargarLoader("Registrando...");
                                                     $.ajax({
@@ -1460,7 +1475,7 @@
                                                             }
                                                         },
                                                         error: function () {
-                                                            bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-danger text-shadow'></i> Ha ocurrido un error. Por favor revise el gestor y los valores del proceso")
+                                                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ha ocurrido un error. Por favor revise el gestor y los valores del proceso" + '</strong>');
                                                         }
                                                     });
                                                 }
@@ -1469,21 +1484,6 @@
                                     }
                                 }
                             });
-                        }else{
-                            openLoader("Registrando...");
-                            $.ajax({
-                                type: "POST",
-                                url: "${g.createLink(controller: 'proceso',action: 'registrar')}",
-                                data: "id=" + $("#idProceso").val(),
-                                success: function (msg) {
-                                    closeLoader();
-                                    location.reload(true);
-                                },
-                                error: function () {
-                                    bootbox.alert("Ha ocurrido un error. Por favor revise el gestor y los valores del proceso.")
-                                }
-                            });
-                        }
                     }
                 }
             });

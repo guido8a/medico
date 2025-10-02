@@ -4,7 +4,9 @@
         <th style="width: 50%">Tipo de Pago</th>
         <th style="width: 15%">Plazo</th>
         <th style="width: 25%">Valor</th>
-        <th style="width: 10%">Acciones</th>
+%{--        <g:if test="${proceso?.estado != 'R'}">--}%
+            <th style="width: 10%">Acciones</th>
+%{--        </g:if>--}%
     </tr>
     </thead>
     <tbody>
@@ -28,18 +30,18 @@
     $(".btnBorrarFormaPago").click(function () {
         var id = $(this).data("id");
         $.ajax({
-           type: 'POST',
-           url: '${createLink(controller: 'proceso', action: 'borrarFormaPago_ajax')}',
+            type: 'POST',
+            url: '${createLink(controller: 'proceso', action: 'borrarFormaPago_ajax')}',
             data:{
-               id: id
+                id: id
             },
             success: function (msg){
-               if(msg === 'ok'){
-                   log("Forma de pago borrada correctamente","success");
-                   cargarTablaFormaPago();
-               }else{
-                   log("Error al borrar la Forma de Pago", "error");
-               }
+                if(msg === 'ok'){
+                    log("Forma de pago borrada correctamente","success");
+                    cargarTablaFormaPago();
+                }else{
+                    log("Error al borrar la Forma de Pago", "error");
+                }
             }
         });
     });

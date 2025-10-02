@@ -2293,21 +2293,21 @@ class ProcesoController  {
     }
 
     def revisarFormaPago_ajax () {
-        println "revisarFormaPago_ajax $params"
+//        println "revisarFormaPago_ajax $params"
         def proceso = Proceso.get(params.proceso)
         def formasPago = ProcesoFormaDePago.findAllByProceso(proceso)
 
-        println "valor: ${proceso.valor}"
+//        println "valor: ${proceso.valor}"
 
         if(proceso.valor <= 0.0) {
             render "no_Revise el valor ingresado"
         }
 
-        println "... no es cero"
+//        println "... no es cero"
         if(proceso.tipoProceso.codigo.trim() == 'C') {
-            println "compra con: ${formasPago.size()} registro de pago, valor: ${proceso.valor} "
+//            println "compra con: ${formasPago.size()} registro de pago, valor: ${proceso.valor} "
             if((formasPago.size() < 1) && (proceso.valor >= 1000)) {
-                render "no_Ingrese una forma de pago!"
+                render "no_Ingrese una forma de pago"
             }
             else {
                 render "ok"
@@ -2318,7 +2318,7 @@ class ProcesoController  {
             if(formasPago.size() > 0){
                 render "ok"
             }else{
-                render "no_Ingrese una forma de pago!"
+                render "no_Ingrese una forma de pago"
             }
         }
     }
