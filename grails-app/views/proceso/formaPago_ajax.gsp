@@ -9,7 +9,7 @@
 
         <g:if test="${proceso?.estado != 'R'}">
             <div class="row">
-                <div class="col-xs-5 negrilla">
+                <div class="col-xs-6 negrilla">
                   Forma de Pago
                     <g:select name="formaPago_name" from="${sri.TipoPago.list().sort{it.descripcion}}" optionKey="id"
                               optionValue="descripcion" id="formaPago" class="form-control" value="7"/>
