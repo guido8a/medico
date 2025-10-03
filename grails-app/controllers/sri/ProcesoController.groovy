@@ -65,7 +65,9 @@ class ProcesoController  {
 
         if(detalle) {
             if(proceso.estado != 'R') {
-                def sql = "select * from total_detalle(${proceso.id}, 0, 0)"
+                def sql = "select * from total_detalle(${proceso.id}, 0)"
+                println("sql---> " + sql)
+
                 //  base__nz | basecero | basenoiv | iva  | ice  | dsct | flte | totl
                 // ----------+----------+----------+------+------+------+------+------
                 //      4.50 |     0.00 |     0.00 | 0.54 | 0.00 | 0.00 | 0.00 | 5.04
@@ -75,7 +77,7 @@ class ProcesoController  {
                     proceso.baseImponibleIva0 = d.basecero
                     proceso.baseImponibleNoIva = d.basenoiv
                     proceso.ivaGenerado = d.iva
-                    proceso.iceGenerado = d.ice
+//                    proceso.iceGenerado = d.ice
 /*
                     if(proceso.gestor.tipo == 'I')
                         proceso.flete = d.flte

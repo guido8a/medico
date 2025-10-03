@@ -149,8 +149,7 @@
 <script type="text/javascript">
 
     $("#btnImprimirDetalle").click(function () {
-        url = "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";
-        location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=facturaElectronica.pdf";
+        location.href = "${g.createLink(controller:'reportes3' , action: '_facturaElectronicaPdf')}?id=" + '${proceso?.id}' + "&emp=${empresa.id}";
     });
 
     $(".btnIrProceso").click(function () {

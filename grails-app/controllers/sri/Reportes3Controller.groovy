@@ -626,13 +626,13 @@ class Reportes3Controller {
     }
 
 
-    def facturaElectronica () {
+    def _facturaElectronicaPdf () {
         def proceso = Proceso.get(params.id)
         def empresa = Empresa.get(params.emp)
-        def detalles = DetalleFactura.findAllByProceso(proceso).sort{it?.item?.codigo}
+        def detalles = DetalleFactura.findAllByProceso(proceso).sort{it?.producto?.numero}
 
-
-        return[proceso: proceso, empresa: empresa, detalles: detalles]
+       renderPdf(template:'/reportes3/facturaElectronicaPdf', model: [proceso: proceso, empresa: empresa, detalles: detalles], filename: 'factura.pdf')
+//        return[proceso: proceso, empresa: empresa, detalles: detalles]
     }
 
     def showBarcode(String barcode) {
