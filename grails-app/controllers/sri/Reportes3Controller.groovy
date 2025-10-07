@@ -21,11 +21,6 @@ import com.lowagie.text.pdf.PdfWriter
 import inventario.Bodega
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.krysalis.barcode4j.BarcodeGenerator
-import org.krysalis.barcode4j.impl.code128.EAN128Bean
-import org.krysalis.barcode4j.impl.upcean.UPCEANBean
-import org.krysalis.barcode4j.impl.upcean.UPCEANLogicImpl
-import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
 import pdf.PdfService
 import seguridad.Empresa
 import seguridad.Persona
@@ -33,8 +28,6 @@ import medico.Producto
 
 import javax.imageio.ImageIO
 import java.awt.*
-
-import org.krysalis.barcode4j.impl.code128.Code128Bean
 
 import java.awt.image.BufferedImage
 import java.nio.file.Path
