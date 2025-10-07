@@ -8,7 +8,6 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-
 import com.itextpdf.text.BaseColor
 import com.itextpdf.text.pdf.PdfPCell
 import com.lowagie.text.Document
@@ -33,11 +32,6 @@ import java.awt.image.BufferedImage
 import java.nio.file.Path
 import java.nio.file.Paths
 
-//import org.krysalis.barcode4j.
-//import org.krysalis.barcode4j.impl.code128.EAN128Bean
-//import org.krysalis.barcode4j.impl.code39.Code39Bean
-//
-//import org.krysalis.barcode4j.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
@@ -46,7 +40,6 @@ class Reportes3Controller {
     def dbConnectionService
     def cuentasService
     def buscadorService
-    def barcode4jService
     def mailService
     PdfService pdfService
     def reportesPdfService
