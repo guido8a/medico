@@ -247,6 +247,7 @@
     .mar2{
         margin-top: 7px;
     }
+
     </style>
 </head>
 
@@ -265,16 +266,16 @@
             <div class="mar1"><strong>N°.</strong> ${proceso?.documento ?: ''}</div>
             <div class="mar2 letra2"><strong>NÚMERO DE AUTORIZACIÓN:</strong></div>
             <div class="mar2 letra3"><strong>${proceso?.claveAcceso ?: ''}</strong></div>
-%{--            <div class="mar2 letra2">FECHA Y HORA DE AUTORIZACIÓN: ${proceso?.fechaAutorizacion?.format('dd/MM/yyyy HH:mm')} </div>--}%
+            %{--            <div class="mar2 letra2">FECHA Y HORA DE AUTORIZACIÓN: ${proceso?.fechaAutorizacion?.format('dd/MM/yyyy HH:mm')} </div>--}%
             <div class="mar2 letra2"><strong>AMBIENTE :</strong> ${empresa?.ambiente == '0' ? 'PRUEBAS' : 'PRODUCCIÓN'}</div>
             <div class="mar2 letra2"><strong>EMISIÓN :</strong> NORMAL</div>
             <div class="mar2 letra2">CLAVE DE ACCESO</div>
             <g:if test="${proceso?.claveAcceso}">
-%{--                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>--}%
+            %{--                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>--}%
                 <img alt="barras" src="${createLink(controller: 'reportes3', action: 'getImageCodigoBarras', params: [id: proceso?.id ,empresa:empresa?.id] )}" class="" width="290" height="50"/>
-%{--                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>--}%
-%{--                <div><asset:image src="reportes3/showBarcode?barcode=${proceso?.claveAcceso}"/></div>--}%
-%{--                <img alt="nada" src="${createLink(controller: 'reportes3', action: 'showBarcode', params: [bacode:proceso?.claveAcceso] )}" class="" style="width: 290px; height: 50px"/>--}%
+            %{--                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>--}%
+            %{--                <div><asset:image src="reportes3/showBarcode?barcode=${proceso?.claveAcceso}"/></div>--}%
+            %{--                <img alt="nada" src="${createLink(controller: 'reportes3', action: 'showBarcode', params: [bacode:proceso?.claveAcceso] )}" class="" style="width: 290px; height: 50px"/>--}%
             </g:if>
             <g:else>
                 <div>No tiene clave de acceso</div>
@@ -284,9 +285,9 @@
 
     <div style="height: 135px; width: 320px;" class="borde pos">
         <div class="left" style="margin-left: 5px; margin-top: 5px; font-size: 11px">
-            <div class="mar1"><strong>${empresa?.nombre}</strong></div>
-            <div class="mar" style="margin-top: 15px;"><strong>Dirección Matriz:</strong> ${empresa?.direccion ?: ''}</div>
-            <div class="mar"><strong>Dirección Sucursal:</strong> ${empresa?.direccion ?: ''}</div>
+            <div class="mar1"><strong>${empresa?.nombre ?: ''}</strong></div>
+            <div class="mar" style="margin-top: 5px;"><strong>Dirección Matriz:</strong> ${empresa?.direccion?.substring(0,40) ?: ''}</div>
+            <div class="mar"><strong>Dirección Sucursal:</strong> ${empresa?.direccion?.substring(0,40) ?: ''}</div>
             <div class="mar"><strong>Contribuyente Régimen RIMPE</strong></div>
             <div class="mar"><strong>OBLIGADO A LLEVAR CONTABILIDAD:</strong> ${empresa?.obligadaContabilidad == '0' ? 'NO' : 'SI'}</div>
         </div>
@@ -295,7 +296,6 @@
     <div style="height: 80px; width: 640px; margin-top: 140px" class="borde2">
         <div class="left">
             <table style="margin-left: 10px; margin-top: 10px">
-                %{--<thead style="width: 600px">--}%
                 <tr class="" style="height: 20px;">
                     <td class="tl letra3" style="width: 350px"><strong>Razón Social / Nombres y Apellidos:</strong> ${proceso?.paciente?.nombre ?: ''}</td>
                     <td class="tl" style="width: 50px"></td>
@@ -315,8 +315,8 @@
         </div>
     </div>
 
-    <div style="margin-top: 15px;">
-        <table>
+    <div style="margin-top: 15px; width: 100%">
+        <table style="width: 100%">
             <thead>
             <tr>
                 <th class="tc letra borde">Código</th>
@@ -346,22 +346,22 @@
     </div>
 
 
-    <div style="height: 120px; width: 400px; margin-top: 10px" class="left" >
-        %{--<div style="margin-top: 10px; margin-left: 10px"><strong>Información Adicional</strong></div>--}%
-        %{--<div style="margin-top: 10px">--}%
-        %{--<table style="margin-left: 5px">--}%
-        %{--<thead>--}%
-        %{--<tr class="letra2" style="height: 20px">--}%
-        %{--<th class="tl tam3">Dirección</th>--}%
-        %{--<th class="tl">${proceso?.proveedor?.direccion ?: ''}</th>--}%
-        %{--</tr>--}%
-        %{--<tr class="letra2" style="height: 10px">--}%
-        %{--<th class="tl tam3">Email</th>--}%
-        %{--<th class="tr">${proceso?.proveedor?.email ?: ''}</th>--}%
-        %{--</tr>--}%
-        %{--</thead>--}%
-        %{--</table>--}%
-        %{--</div>--}%
+    <div style="height: 120px; width: 400px; margin-top: 10px" class="left borde" >
+        <div style="margin-top: 10px; margin-left: 10px"><strong>Información Adicional</strong></div>
+        <div style="margin-top: 10px">
+            <table style="margin-left: 5px">
+                <thead>
+%{--                <tr class="letra2" style="height: 20px">--}%
+%{--                    <th class="tl tam3">Dirección</th>--}%
+%{--                    <th class="tl">${proceso?.proveedor?.direccion ?: ''}</th>--}%
+%{--                </tr>--}%
+                <tr class="letra2" style="height: 10px">
+                    <th class="tl tam3">Email:</th>
+                    <th class="tr">${proceso?.paciente?.mail ?: 'Sin email registrado'}</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 
     %{--<table border="1" style="width: 230px; margin-top: 20px;" class="right borde2">--}%
@@ -415,9 +415,7 @@
         </thead>
     </table>
 
-
-    %{--<table border="1" style="height: 60px; width: 360px; margin-top: 10px;" class="left borde2">--}%
-    <table style="height: 60px; width: 360px; margin-top: 10px;" class="left">
+    <table style="height: 60px; width: 400px; margin-top: 10px;" class="left">
         <thead>
         <tr>
             <th class="tc tam borde" style="width: 75%">Forma de Pago</th>
@@ -427,8 +425,6 @@
         <tbody>
         <g:each in="${pagos}" var="pago">
             <tr>
-                %{--<td class="tl tam letra2 borde">${cratos.TipoPago.findByCodigo(proceso?.pago)?.descripcion?.toUpperCase() ?: ''}</td>--}%
-                %{--<td class="tc borde"><g:formatNumber number="${proceso?.valor ?: 0}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></td>--}%
                 <td class="tl tam letra2 borde">${pago?.tipoPago?.descripcion?.toUpperCase() ?: ''}</td>
                 <td class="tc borde"><g:formatNumber number="${pago?.valor ?: 0}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></td>
             </tr>

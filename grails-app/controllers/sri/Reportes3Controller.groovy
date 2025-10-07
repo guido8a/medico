@@ -636,8 +636,9 @@ class Reportes3Controller {
         def proceso = Proceso.get(params.id)
         def empresa = Empresa.get(params.emp)
         def detalles = DetalleFactura.findAllByProceso(proceso).sort{it?.producto?.numero}
+        def pagos = ProcesoFormaDePago.findAllByProceso(proceso)
 
-       renderPdf(template:'/reportes3/facturaElectronicaPdf', model: [proceso: proceso, empresa: empresa, detalles: detalles], filename: 'factura.pdf')
+        renderPdf(template:'/reportes3/facturaElectronicaPdf', model: [proceso: proceso, empresa: empresa, detalles: detalles, pagos: pagos], filename: 'factura.pdf')
     }
 
     public static void generateBarCode(String data, String filePath, int width, int height)
@@ -654,7 +655,7 @@ class Reportes3Controller {
         Path path = Paths.get(filePath);
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 
-        System.out.println("QR Code generated successfully at: " + filePath);
+//        System.out.println("QR Code generated successfully at: " + filePath);
     }
 
     public void generarCodigoBarras(String codigo, int empresa) {
@@ -694,7 +695,9 @@ class Reportes3Controller {
         def proceso = Proceso.get(params.id)
         def empresa = Empresa.get(params.empresa)
 
-        generarCodigoBarras(proceso?.claveAcceso, empresa?.id?.toInteger())
+        if(proceso?.claveAcceso){
+            generarCodigoBarras(proceso?.claveAcceso, empresa?.id?.toInteger())
+        }
 
         render "ok"
     }
@@ -995,7 +998,7 @@ class Reportes3Controller {
         }
 
         renderPdf(template:'/reportes3/resultadoIntegral', model: [periodo: periodo, empresa: empresa?.id, cuenta4: cuenta4, cuenta5: cuenta5, cuenta6: cuenta6, saldo4: saldo4.values(),
-                                                            saldo5: saldo5.values(), saldo6: saldo6.values(), total4: total4, total5: total5, total6: total6, maxLvl: maxLvl, contabilidad: contabilidad], filename: 'resultadoIntegral.pdf')
+                                                                   saldo5: saldo5.values(), saldo6: saldo6.values(), total4: total4, total5: total5, total6: total6, maxLvl: maxLvl, contabilidad: contabilidad], filename: 'resultadoIntegral.pdf')
 
     }
 
