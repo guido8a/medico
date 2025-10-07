@@ -149,8 +149,52 @@
 <script type="text/javascript">
 
     $("#btnImprimirDetalle").click(function () {
-        location.href = "${g.createLink(controller:'reportes3' , action: '_facturaElectronicaPdf')}?id=" + '${proceso?.id}' + "&emp=${empresa.id}";
+        %{--location.href = "${g.createLink(controller:'reportes3' , action: '_facturaElectronicaPdf')}?id=" + '${proceso?.id}' + "&emp=${empresa.id}";--}%
+        cargarPdf();
     });
+
+    function cargarPdf() {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'reportes3', action:'generarCodigoDeBarras_ajax')}",
+            data    : {
+                id: '${proceso?.id}',
+                empresa: '${empresa?.id}'
+            },
+            success : function (msg1) {
+                $.ajax({
+                    type    : "POST",
+                    url     : "${createLink(controller: 'detalleFactura', action:'verPdf_ajax')}",
+                    data    : {
+                        id: '${proceso?.id}',
+                        emp: '${empresa?.id}'
+                    },
+                    success : function (msg) {
+                        var di = bootbox.dialog({
+                            id      : "dlgVerPdfTramite",
+                            title   : "PDF del trámite",
+                            message : msg,
+                            buttons : {
+                                cancelar : {
+                                    label     : "<i class='fa fa-times'></i> Cerrar",
+                                    className : "btn-primary",
+                                    callback  : function () {
+
+                                    }
+                                }
+                            } //buttons
+                        }); //dialog
+                    } //success
+                }); //ajax
+            } //success
+        }); //ajax
+
+
+
+
+    } //createEdit
+
+
 
     $(".btnIrProceso").click(function () {
         location.href='${createLink(controller: 'proceso', action: 'nuevoProceso')}?id=' + '${proceso?.id}'

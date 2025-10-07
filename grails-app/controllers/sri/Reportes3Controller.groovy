@@ -1,5 +1,14 @@
 package sri
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+
 import com.itextpdf.text.BaseColor
 import com.itextpdf.text.pdf.PdfPCell
 import com.lowagie.text.Document
@@ -12,14 +21,26 @@ import com.lowagie.text.pdf.PdfWriter
 import inventario.Bodega
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.krysalis.barcode4j.BarcodeGenerator
+import org.krysalis.barcode4j.impl.code128.EAN128Bean
+import org.krysalis.barcode4j.impl.upcean.UPCEANBean
+import org.krysalis.barcode4j.impl.upcean.UPCEANLogicImpl
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
 import pdf.PdfService
 import seguridad.Empresa
 import seguridad.Persona
 import medico.Producto
 
+import javax.imageio.ImageIO
 import java.awt.*
 
-//import org.krysalis.barcode4j.impl.code128.Code128Bean
+import org.krysalis.barcode4j.impl.code128.Code128Bean
+
+import java.awt.image.BufferedImage
+import java.nio.file.Path
+import java.nio.file.Paths
+
+//import org.krysalis.barcode4j.
 //import org.krysalis.barcode4j.impl.code128.EAN128Bean
 //import org.krysalis.barcode4j.impl.code39.Code39Bean
 //
@@ -625,45 +646,71 @@ class Reportes3Controller {
         renderPdf(template:'/reportes3/reporteSituacion', model: [periodo: periodoFinal, empresa: empresa.id, cuentas: data, contabilidad: contabilidad], filename: 'estadoDeSituacion.pdf')
     }
 
-
     def _facturaElectronicaPdf () {
         def proceso = Proceso.get(params.id)
         def empresa = Empresa.get(params.emp)
         def detalles = DetalleFactura.findAllByProceso(proceso).sort{it?.producto?.numero}
 
        renderPdf(template:'/reportes3/facturaElectronicaPdf', model: [proceso: proceso, empresa: empresa, detalles: detalles], filename: 'factura.pdf')
-//        return[proceso: proceso, empresa: empresa, detalles: detalles]
     }
 
-    def showBarcode(String barcode) {
-//        println("params " + barcode)
-//        def generator = new
-//        def generator = new Code39Bean()
+    public static void generateBarCode(String data, String filePath, int width, int height)
+            throws WriterException, IOException {
 
+        Map<EncodeHintType, Object> hints = new HashMap<>();
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H); // High error correction
+        hints.put(EncodeHintType.MARGIN, 4); // White border around the QR code
 
-//        def generator = new Code128Bean()
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(
+                data, BarcodeFormat.CODE_128, width, height, hints);
 
+        Path path = Paths.get(filePath);
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 
+        System.out.println("QR Code generated successfully at: " + filePath);
+    }
 
-//        def generator = new EAN128Bean()
+    public void generarCodigoBarras(String codigo, int empresa) {
+//            String data = "https://www.example.com"; // Data to encode in the QR code
+        String data = codigo; // Data to encode in the QR code
+        String filePath = "/var/medico/empresa/" + "emp_" + empresa + "/xml/" + codigo + ".png"; // Output file path
+        int width = 150; // Width of the QR code image
+        int height = 150; // Height of the QR code image
 
+        try {
+            generateBarCode(data, filePath, width, height);
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    def getImageCodigoBarras() {
+        def proceso = Proceso.get(params.id)
+        def empresa = Empresa.get(params.empresa)
 
-//        generator.height = 6
-//        generator.fontSize = 2
+        byte[] imageInBytes = im(proceso?.claveAcceso, "png" , empresa?.id)
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/png" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
 
+    byte[] im(codigo,ext,empresa) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_" + empresa + "/xml/" + codigo + ".png")), ext.toString(), baos)
+        baos.toByteArray()
+    }
 
+    def generarCodigoDeBarras_ajax(){
+        def proceso = Proceso.get(params.id)
+        def empresa = Empresa.get(params.empresa)
 
-//        def imageMimeType = "image/png"
-//        barcode4jService.png(generator, barcode)
-//       barcode4jService.render(generator, barcode, imageMimeType)
+        generarCodigoBarras(proceso?.claveAcceso, empresa?.id?.toInteger())
 
-//        new File("barcode.png").withOutputStream { out ->
-//         barcode4jService.png(generator, barcode, out)
-//            render out
-//        }
-
-        renderBarcodePng(generator, barcode)
+        render "ok"
     }
 
     def notaCreditoElectronica () {

@@ -48,15 +48,15 @@ class WardInterceptor {
             println("entro")
             return true
         } else {
-            if (!session?.usuario && !session?.perfil) {
-                if(controllerName != "inicio" && actionName != "index") {
-//                    flash.message = "Usted ha superado el tiempo de inactividad máximo de la sesión"
-                }
-                println "redireccionando a raiz de aplicación: $app"
-                render "<script type='text/javascript'> window.location.href = '${app}' </script>"
-                session.finalize()
-                return false
-            }
+//            if (!session?.usuario && !session?.perfil) {
+//                if(controllerName != "inicio" && actionName != "index") {
+////                    flash.message = "Usted ha superado el tiempo de inactividad máximo de la sesión"
+//                }
+//                println "redireccionando a raiz de aplicación: $app"
+//                render "<script type='text/javascript'> window.location.href = '${app}' </script>"
+//                session.finalize()
+                return true
+//            }
         }
 
         true

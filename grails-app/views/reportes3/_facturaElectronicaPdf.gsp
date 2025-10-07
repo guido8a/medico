@@ -270,7 +270,11 @@
             <div class="mar2 letra2"><strong>EMISIÓN :</strong> NORMAL</div>
             <div class="mar2 letra2">CLAVE DE ACCESO</div>
             <g:if test="${proceso?.claveAcceso}">
-                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>
+%{--                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>--}%
+                <img alt="barras" src="${createLink(controller: 'reportes3', action: 'getImageCodigoBarras', params: [id: proceso?.id ,empresa:empresa?.id] )}" class="" width="290" height="50"/>
+%{--                <div><g:img dir="reportes3" file="showBarcode?barcode=${proceso?.claveAcceso}" width="290" height="50"/></div>--}%
+%{--                <div><asset:image src="reportes3/showBarcode?barcode=${proceso?.claveAcceso}"/></div>--}%
+%{--                <img alt="nada" src="${createLink(controller: 'reportes3', action: 'showBarcode', params: [bacode:proceso?.claveAcceso] )}" class="" style="width: 290px; height: 50px"/>--}%
             </g:if>
             <g:else>
                 <div>No tiene clave de acceso</div>

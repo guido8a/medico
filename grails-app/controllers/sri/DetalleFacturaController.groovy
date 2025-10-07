@@ -266,4 +266,10 @@ class DetalleFacturaController  {
         }
     }
 
+    def verPdf_ajax(){
+        def proceso = Proceso.get(params.id)
+        def empresa = Empresa.get(params.emp)
+        return [proceso: proceso, empresa: empresa]
+    }
+
 }
