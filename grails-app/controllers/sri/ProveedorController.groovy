@@ -10,7 +10,7 @@ class ProveedorController {
 
     def tablaProveedor_ajax(){
 
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
 
         def proveedores = Proveedor.withCriteria {
@@ -121,7 +121,7 @@ class ProveedorController {
     def save_ajax(){
         println("params " + params)
 
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
 
         params.empresa = empresa

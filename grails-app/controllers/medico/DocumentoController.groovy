@@ -8,12 +8,12 @@ class DocumentoController {
     def dbConnectionService
 
     def biblioteca(){
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         return [usuario: usuario]
     }
 
     def tablaBiblioteca_ajax(){
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def bsca
         def sqlTx = ""
 
@@ -31,7 +31,7 @@ class DocumentoController {
     def form_ajax(){
 
         def documentoInstance
-        def empresa = Persona.get(session.usuario.id)?.empresa?.id
+        def empresa = Persona.get(session.usuario?.id)?.empresa?.id
 
         if(params.id){
             documentoInstance = Documento.get(params.id)

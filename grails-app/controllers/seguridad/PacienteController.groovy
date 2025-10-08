@@ -24,7 +24,7 @@ class PacienteController {
 
     def list() {
         println "list: $params"
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def consultorio = usuario.empresa
         def empresa
         if (params.id) {
@@ -38,7 +38,7 @@ class PacienteController {
     def tablaPacientes_ajax() {
         println "tablaPacientes_ajax: $params"
         def cn = dbConnectionService.getConnection()
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
 
         def listaItems = ['pcntcdla', 'pcntapll', 'pcntnmbr']
@@ -110,7 +110,7 @@ class PacienteController {
                 return
             }
 
-            def persona = Persona.get(session.usuario.id)
+            def persona = Persona.get(session.usuario?.id)
             def consultorio = persona.empresa
 
             paciente = new Paciente()
@@ -410,7 +410,7 @@ class PacienteController {
     def datos_ajax() {
         def paciente
 
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
 
         def pacientes = Paciente.findAllByEmpresa(empresa)
@@ -641,7 +641,7 @@ class PacienteController {
     def datosCompletos_ajax() {
         def paciente
 
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
 
         def pacientes = Paciente.findAllByEmpresa(empresa)

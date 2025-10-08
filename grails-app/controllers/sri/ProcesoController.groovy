@@ -38,7 +38,7 @@ class ProcesoController  {
 //        println "ProcesofORM "+params
 
         def paciente
-        def sucursal = Establecimiento.findAllByEmpresa(Empresa.get(session.empresa.id))
+        def sucursal = Establecimiento.findAllByEmpresa(Empresa.get(session.empresa?.id))
         if (params.id) {
             def proceso = Proceso.get(params.id).refresh()
             def fps = ProcesoFormaDePago.findAllByProceso(proceso)
@@ -416,7 +416,7 @@ class ProcesoController  {
             println "LOG: mayorizando por comprobante ${comprobante.id}" + msn["mayorizar"]
             try {
                 def log = new LogMayorizacion()
-                log.usuario = cratos.seguridad.Persona.get(session.usuario.id)
+                log.usuario = cratos.seguridad.Persona.get(session.usuario?.id)
                 log.comprobante = comprobante
                 log.tipo = "M"
                 log.resultado = msn["mayorizar"].toString()
@@ -450,7 +450,7 @@ class ProcesoController  {
             println "LOG: desmayorizando  comprobante ${comprobante.id} " + msn["mayorizar"]
             try {
                 def log = new LogMayorizacion()
-                log.usuario = cratos.seguridad.Persona.get(session.usuario.id)
+                log.usuario = cratos.seguridad.Persona.get(session.usuario?.id)
                 log.comprobante = comprobante
                 log.tipo = "D"
                 log.resultado = msn["mayorizar"].toString()
@@ -830,7 +830,7 @@ class ProcesoController  {
                 println "LOG: anulando el comprobante ${comprobante.id} "
                 try {
                     def log = new LogMayorizacion()
-                    log.usuario = cratos.seguridad.Persona.get(session.usuario.id)
+                    log.usuario = cratos.seguridad.Persona.get(session.usuario?.id)
                     log.comprobante = comprobante
                     log.tipo = "B"
                     log.save(flush: true)
@@ -1475,7 +1475,7 @@ class ProcesoController  {
     }
 
     def cambiarContabilidad_ajax () {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def contabilidad = Contabilidad.get(session.contabilidad.id)
         def empresa = Empresa.get(session.empresa.id)
         def contabilidades = Contabilidad.findAllByInstitucion(empresa, [sort: "fechaInicio"])
@@ -2280,6 +2280,7 @@ class ProcesoController  {
         if(valor > proceso?.valor){
             render "error1"
         }else{
+            println " a insertar: ${formaPago.valor} ${formaPago.proceso} ${formaPago.plazo} ${formaPago.tipoPago} "
             if(valor > (proceso?.valor - total)){
                 render "error2_${proceso?.valor - total}"
             }else{

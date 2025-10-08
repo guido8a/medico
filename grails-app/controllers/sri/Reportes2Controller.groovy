@@ -657,7 +657,7 @@ class Reportes2Controller {
     }
 
     def kardex2_ajax () {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
         return[empresa: empresa]
     }
@@ -692,7 +692,7 @@ class Reportes2Controller {
     }
 
     def kardex3_ajax () {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
         return[empresa: empresa]
     }
@@ -712,7 +712,7 @@ class Reportes2Controller {
     }
 
     def costoVentas_ajax () {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
         return[empresa: empresa]
     }

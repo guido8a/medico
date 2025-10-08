@@ -790,7 +790,7 @@ class ReportesController {
         def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
         def tratamientos = Tratamiento.findAllByHistorial(cita, [sort: 'orden'])
         def diagnosticos = ''
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empr = usuario.empresa.id
         def edad = ''
         def citaProxima
@@ -1040,7 +1040,7 @@ class ReportesController {
     }
 
     def listaPacientes_ajax(){
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa.id
         def consultorio = Empresa.get(empresa)
         def pacientes = Paciente.findAllByEmpresa(consultorio)
@@ -1051,7 +1051,7 @@ class ReportesController {
 
         def paciente = Paciente.get(params.paciente)
         def citas = Historial.findAllByPaciente(paciente)
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empr = usuario.empresa.id
         def dire = usuario.empresa.direccion
 
@@ -1455,7 +1455,7 @@ class ReportesController {
         }
 
         def edad = calculaEdad( new Date().format('yyyy-MM-dd'), paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empr = usuario.empresa.id
 
         def path = "/var/medico/empresa/emp_${empr}/logo.jpeg"
@@ -1604,7 +1604,7 @@ class ReportesController {
 
     def tablaPacientes_ajax(){
         def cn = dbConnectionService.getConnection()
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
 
         def listaItems = ['pcntcdla', 'pcntapll', 'pcntnmbr']
@@ -1648,7 +1648,7 @@ class ReportesController {
         def examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(cita, tipoExamen, [sort: "id"])
 
         def edad = calculaEdad( new Date().format('yyyy-MM-dd'), paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empr = usuario.empresa.id
 
         def path = "/var/medico/empresa/emp_${empr}/logo.jpeg"

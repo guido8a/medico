@@ -104,7 +104,7 @@ class PersonaController {
     }
 
     def uploadFile() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def path = servletContext.getRealPath("/") + "images/perfiles/"    //web-app/archivos
         new File(path).mkdirs()
 
@@ -256,7 +256,7 @@ class PersonaController {
     }
 
     def resizeCropImage() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def path = servletContext.getRealPath("/") + "images/perfiles/"    //web-app/archivos
         def fileName = usuario.foto
         def ext = fileName.split("\\.").last()
@@ -292,7 +292,7 @@ class PersonaController {
     }
 
     def personal() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         return [usuario: usuario]
     }
 
@@ -320,7 +320,7 @@ class PersonaController {
     }
 
     def loadFoto() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def path = servletContext.getRealPath("/") + "images/perfiles/" //web-app/archivos
         def img
         def w
@@ -339,7 +339,7 @@ class PersonaController {
     }
 
     def validarPass_ajax() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         render usuario.password == params.password_actual.toString().trim().encodeAsMD5()
     }
 
@@ -402,7 +402,7 @@ class PersonaController {
     }
 
     def saveTelf() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def telefono = params.telefono
         usuario.telefono = params.telefono?.trim()
         if (usuario.save(flush: true)) {
@@ -517,7 +517,7 @@ class PersonaController {
                     sesion.save(flush: true)
                     def sesion2 = new Sesn()
                     sesion2.perfil = perfil
-                    def usuarioOriginal = Persona.get(session.usuario.id)
+                    def usuarioOriginal = Persona.get(session.usuario?.id)
                     sesion2.usuario = usuarioOriginal
                     sesion2.fechaInicio = accs.accsFechaFinal
                     sesion2.fechaFin = null
@@ -542,7 +542,7 @@ class PersonaController {
                 def usu = accs.usuario
             }
             accs.save(flush: true)
-            if (session.usuario.id == accs?.usuario?.id) {
+            if (session.usuario?.id == accs?.usuario?.id) {
                 if (accs.accsFechaInicial <= new Date()) {
 
                     session.flag = 2

@@ -10,7 +10,7 @@ class AgendaController {
     def dbConnectionService
 
     def agenda() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def tipoPersona = TipoMedico.findAllByCodigoInList(['E', 'M'])
         def consultorio = usuario.empresa
         [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona, cita_actual: params.cita]
@@ -176,7 +176,7 @@ class AgendaController {
     }
 
     def agnd_semana() {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def consultorio = usuario.empresa
         def paciente = Paciente.get(params.paciente)
         [consultorio: consultorio, usuario: usuario, paciente: paciente]
@@ -187,7 +187,7 @@ class AgendaController {
         def fcha = new Date().parse("dd-MM-yyyy", params.fecha)
         def cn = dbConnectionService.getConnection()
         def smna = buscaSemana(params.fecha)
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def consultorio = usuario.empresa
         def sql = ""
         println "semana --> $smna"

@@ -721,7 +721,7 @@ class Reportes3Controller {
     }
 
     def kardex4_ajax () {
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
         return[empresa: empresa]
     }

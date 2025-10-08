@@ -56,7 +56,7 @@ class BaseController {
         println("params " + params)
 
         def subtema = Subtema.get(params.subtema)
-        def usuario = Persona.get(session.usuario.id)
+        def usuario = Persona.get(session.usuario?.id)
         def baseInstance
         def edita = params.id ? params.id : 0
 

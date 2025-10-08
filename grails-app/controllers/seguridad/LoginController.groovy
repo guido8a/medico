@@ -60,7 +60,7 @@ class LoginController {
     }
 
     def cambiarPass() {
-        def usu = Persona.get(session.usuario.id)
+        def usu = Persona.get(session.usuario?.id)
         return [usu: usu]
     }
 
@@ -341,10 +341,10 @@ class LoginController {
                 println("entro 2")
 //                if (session.usuario.getPuedeDirector() || session.usuario.getPuedeJefe()) {
 //
-//                    redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidadoDir", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1", dir: "1"])
+//                    redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidadoDir", params: [dpto: Persona.get(session.usuario?.id).departamento.id, inicio: "1", dir: "1"])
 //                } else {
 //                    if (session.usuario.getPuedeJefe()) {
-//                        redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidado", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1"])
+//                        redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidado", params: [dpto: Persona.get(session.usuario?.id).departamento.id, inicio: "1"])
 //                    } else {
                         redirect(controller: "inicio", action: "index")
 //                    }

@@ -7,16 +7,16 @@ class InicioController {
 
     def index() {
 
-      def usuario = Persona.get(session.usuario.id)
-      def empresa = usuario.empresa
+      def usuario = Persona.get(session.usuario?.id)
+      def empresa = usuario?.empresa
 
 
 /*
         if (session.usuario.getPuedeDirector()) {
-            redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidadoDir", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1", dir: "1"])
+            redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidadoDir", params: [dpto: Persona.get(session.usuario?.id).departamento.id, inicio: "1", dir: "1"])
         } else {
             if (session.usuario.getPuedeJefe()) {
-                redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidado", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1"])
+                redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidado", params: [dpto: Persona.get(session.usuario?.id).departamento.id, inicio: "1"])
             } else {
             }
 

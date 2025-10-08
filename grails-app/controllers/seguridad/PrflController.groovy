@@ -310,14 +310,14 @@ class PrflController {
         tx = "select prsn__id from sesn where prfl__id = ${prfl}"
         prsn = []
         cn.eachRow(tx.toString()) { d ->
-            tx2 = "update prus set prusfcfn = '${fcha}', prsnmdfc = ${session.usuario.id} where prus__id in (select prus__id from prus " +
+            tx2 = "update prus set prusfcfn = '${fcha}', prsnmdfc = ${session.usuario?.id} where prus__id in (select prus__id from prus " +
                     "where prsn__id = ${d.prsn__id} and perm__id not in (select perm__id from prpf, sesn " +
                     "where prpf.prfl__id = sesn.prfl__id and sesn.prsn__id = ${d.prsn__id}) and prusfcfn is null)"
 
             cn1.execute(tx2.toString())
 
             tx2 = "insert into prus (prsn__id, perm__id, prusfcin, prsnasgn) select ${d.prsn__id}, perm__id, '${fcha}', " +
-                    "${session.usuario.id} from prpf where prfl__id = ${prfl} and perm__id not in " +
+                    "${session.usuario?.id} from prpf where prfl__id = ${prfl} and perm__id not in " +
                     "(select perm__id from prus where prsn__id = ${d.prsn__id} and prusfcfn is null)"
             try {
                 cn1.execute(tx2.toString())  /* añade permisos nuevos */

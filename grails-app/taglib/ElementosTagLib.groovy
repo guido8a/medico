@@ -133,7 +133,7 @@ class ElementosTagLib {
      * muestra un combobox con los tipos de documento que puede enviar la persona
      */
     def comboTipoDoc = { attrs ->
-        def persona = Persona.get(session.usuario.id)
+        def persona = Persona.get(session.usuario?.id)
         def depar = persona.departamento
 
 //        def tipos = TipoDocumentoDepartamento.findAllByDepartamentoAndEstado(depar, 1).tipo
@@ -185,7 +185,7 @@ class ElementosTagLib {
     def comboPara = { attrs ->
 //        println "ATTRS= " + attrs
         def html
-        def persona = Persona.get(session.usuario.id)
+        def persona = Persona.get(session.usuario?.id)
         def esTriangulo = session.usuario.esTriangulo
 
 //        println "persona " + persona
@@ -653,7 +653,7 @@ class ElementosTagLib {
             tramite.fechaCreacion = new Date()
         }
 
-        def persona = Persona.get(session.usuario.id)
+        def persona = Persona.get(session.usuario?.id)
 
         def de = session.usuario
         def disp, disponibles = []

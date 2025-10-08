@@ -22,7 +22,7 @@ class GuiaController {
       def acceptedExt = ["jpg", "png", "jpeg", "pdf", "doc", "xlsx", "xls"]
 
       def base = Base.get(params.id)
-      def usuario = Persona.get(session.usuario.id)
+      def usuario = Persona.get(session.usuario?.id)
       def empresa = usuario.empresa.id
 
       def path = "/var/medico/empresa/emp_${empresa}/guias/guia_${base?.id}/"
@@ -68,7 +68,7 @@ class GuiaController {
    def borrarDocumento_ajax(){
       def guia = Guia.get(params.id)
       def base = guia.base
-      def usuario = Persona.get(session.usuario.id)
+      def usuario = Persona.get(session.usuario?.id)
       def empresa = usuario.empresa.id
 
       if(guia){
@@ -98,7 +98,7 @@ class GuiaController {
    def downloadFile() {
       def guia = Guia.get(params.id)
       def base = guia.base
-      def usuario = Persona.get(session.usuario.id)
+      def usuario = Persona.get(session.usuario?.id)
       def empresa = usuario.empresa.id
 
       def path = "/var/medico/empresa/emp_${empresa}/guias/guia_${base?.id}/" + guia.ruta

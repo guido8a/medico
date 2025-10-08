@@ -16,7 +16,7 @@ class ContabilidadController {
 
 
     def cambiar() {
-        def yo = Persona.get(session.usuario.id)
+        def yo = Persona.get(session.usuario?.id)
         def cont = Contabilidad.get(session.contabilidad.id)
         def empresa = Empresa.get(session.empresa.id)
 
