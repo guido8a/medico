@@ -149,7 +149,6 @@
 <script type="text/javascript">
 
     $("#btnImprimirDetalle").click(function () {
-        %{--location.href = "${g.createLink(controller:'reportes3' , action: '_facturaElectronicaPdf')}?id=" + '${proceso?.id}' + "&emp=${empresa.id}";--}%
         cargarPdf();
     });
 
@@ -159,7 +158,7 @@
             url     : "${createLink(controller: 'reportes3', action:'generarCodigoDeBarras_ajax')}",
             data    : {
                 id: '${proceso?.id}',
-                empresa: '${empresa?.id}'
+                empresa: '${proceso?.empresa?.id}'
             },
             success : function (msg1) {
                 $.ajax({
@@ -167,7 +166,7 @@
                     url     : "${createLink(controller: 'detalleFactura', action:'verPdf_ajax')}",
                     data    : {
                         id: '${proceso?.id}',
-                        emp: '${empresa?.id}'
+                        emp: '${proceso?.empresa?.id}'
                     },
                     success : function (msg) {
                         var di = bootbox.dialog({
@@ -188,13 +187,7 @@
                 }); //ajax
             } //success
         }); //ajax
-
-
-
-
     } //createEdit
-
-
 
     $(".btnIrProceso").click(function () {
         location.href='${createLink(controller: 'proceso', action: 'nuevoProceso')}?id=' + '${proceso?.id}'

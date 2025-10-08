@@ -50,25 +50,25 @@
             Procesos
         </a>
     </div>
-    <div class="btn-group" style="margin-right: 10px">
-        <g:if test="${proceso?.estado == 'R'}">
-            <a href="#" class="btn btn-success" id="comprobanteN">
-                <i class="fa fa-calendar"></i>
-                Comprobante
-            </a>
-        </g:if>
-        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C'}">
-            <g:link class="btn btn-success" action="detalleSri" id="${proceso?.id}" style="margin-bottom: 10px;">
-                <i class="fa fa-money"></i> Retenciones
-            </g:link>
-        </g:if>
-        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C' && proceso?.tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim() == '41'}">
-            <a href="#" class="btn btn-success" id="reembolsoN">
-                <i class="fa fa-thumbs-up"></i>
-                Reembolso
-            </a>
-        </g:if>
-    </div>
+%{--    <div class="btn-group" style="margin-right: 10px">--}%
+%{--        <g:if test="${proceso?.estado == 'R'}">--}%
+%{--            <a href="#" class="btn btn-success" id="comprobanteN">--}%
+%{--                <i class="fa fa-calendar"></i>--}%
+%{--                Comprobante--}%
+%{--            </a>--}%
+%{--        </g:if>--}%
+%{--        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C'}">--}%
+%{--            <g:link class="btn btn-success" action="detalleSri" id="${proceso?.id}" style="margin-bottom: 10px;">--}%
+%{--                <i class="fa fa-money"></i> Retenciones--}%
+%{--            </g:link>--}%
+%{--        </g:if>--}%
+%{--        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C' && proceso?.tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim() == '41'}">--}%
+%{--            <a href="#" class="btn btn-success" id="reembolsoN">--}%
+%{--                <i class="fa fa-thumbs-up"></i>--}%
+%{--                Reembolso--}%
+%{--            </a>--}%
+%{--        </g:if>--}%
+%{--    </div>--}%
 
     <div class="btn-group">
         <g:if test="${!proceso || (proceso?.estado == 'N')}">
@@ -94,29 +94,31 @@
                         Anular
                     </a>
                 </g:form>
+
+
                 <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V', 'NC', 'ND']}">
-                    <a href="#" class="btn btn-info" id="btnImprimirFactElect">
-                        <i class="fa fa-print"></i> Factura, NC o ND
-                    </a>
-                    <g:if test="${proceso?.claveAcceso != null}">
-                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">
-                            <a href="#" class="btn btn-success" id="btnImprimirFactElect1">
-                                <i class="fa fa-print"></i> Fact. Elect.
-                            </a>
-                            <a href="#" class="btn btn-primary" id="btnEnviarFactElect">
-                                <i class="fa fa-envelope"></i> Enviar Factura
-                            </a>
-                        </g:if>
-                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['NC']}">
-                            <a href="#" class="btn btn-success" id="btnImprimirNCElect">
-                                <i class="fa fa-print"></i> Nota Crédito Electŕonica
-                            </a>
-                        </g:if>
-                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['ND']}">
-                            <a href="#" class="btn btn-success" id="btnImprimirNDElect">
-                                <i class="fa fa-print"></i> Nota Débito Electŕonica
-                            </a>
-                        </g:if>
+                %{--                    <a href="#" class="btn btn-info" id="btnImprimirFactElect">--}%
+                %{--                        <i class="fa fa-print"></i> Factura, NC o ND--}%
+                %{--                    </a>--}%
+                  <g:if test="${proceso?.claveAcceso != null}">
+%{--                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">--}%
+                        %{--                            <a href="#" class="btn btn-success" id="btnImprimirFactElect1">--}%
+                        %{--                                <i class="fa fa-print"></i> Fact. Elect.--}%
+                        %{--                            </a>--}%
+%{--                            <a href="#" class="btn btn-primary" id="btnEnviarFactElect">--}%
+%{--                                <i class="fa fa-envelope"></i> Enviar Factura--}%
+%{--                            </a>--}%
+%{--                        </g:if>--}%
+                    %{--                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['NC']}">--}%
+                    %{--                            <a href="#" class="btn btn-success" id="btnImprimirNCElect">--}%
+                    %{--                                <i class="fa fa-print"></i> Nota Crédito Electŕonica--}%
+                    %{--                            </a>--}%
+                    %{--                        </g:if>--}%
+                    %{--                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['ND']}">--}%
+                    %{--                            <a href="#" class="btn btn-success" id="btnImprimirNDElect">--}%
+                    %{--                                <i class="fa fa-print"></i> Nota Débito Electŕonica--}%
+                    %{--                            </a>--}%
+                    %{--                        </g:if>--}%
                     </g:if>
                     <g:else>
                         <a href="#" id="btnEnviarFactura" class="btn btn-warning" title="Enviar factura al SRI" >
@@ -125,18 +127,24 @@
                         </a>
                     </g:else>
                 </g:if>
-                <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['P','I', 'A']}">
-                    <a href="#" class="btn btn-info" id="btnConciliar">
-                        <i class="fa fa-pencil-square-o"></i>
-                        Conciliar Total
-                    </a>
-                </g:if>
+            %{--                <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['P','I', 'A']}">--}%
+            %{--                    <a href="#" class="btn btn-info" id="btnConciliar">--}%
+            %{--                        <i class="fa fa-pencil-square-o"></i>--}%
+            %{--                        Conciliar Total--}%
+            %{--                    </a>--}%
+            %{--                </g:if>--}%
             </g:if>
             <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['C','V','T','NC']}">
                 <a href="#" class="btn btn-success" id="btnDetalle">
                     <i class="fa fa-list"></i>
-                    Detalle
+                    Detalle de factura
                 </a>
+
+                <a href="#" class="btn btn-info" id="comprobanteN">
+                    <i class="fa fa-file"></i>
+                    Comprobante
+                </a>
+
             </g:if>
             <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V' && proceso?.estado == 'R'}">
                 <a href="#" class="btn btn-info" id="btnDocRetencion" >
@@ -150,6 +158,24 @@
                 <i class="fa fa-money-bill"></i>
                 Forma de Pago
             </a>
+        </g:if>
+
+        <g:if test="${proceso}">
+            <g:if test="${proceso?.estado == 'R'}">
+                <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">
+                    <a href="#" class="btn btn-success" id="btnImprimirFactElect1">
+                        <i class="fa fa-print"></i> Fact. Elect.
+                    </a>
+                </g:if>
+
+                <g:if test="${proceso?.claveAcceso != null}">
+                    <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">
+                        <a href="#" class="btn btn-primary" id="btnEnviarFactElect">
+                            <i class="fa fa-envelope"></i> Enviar Factura
+                        </a>
+                    </g:if>
+                </g:if>
+            </g:if>
         </g:if>
     </div>
 </div>
@@ -274,58 +300,58 @@
 </g:form>
 
 <!-- Modal -->
-<div class="modal fade" id="modal-formas-pago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Formas de pago</h4>
-            </div>
+%{--<div class="modal fade" id="modal-formas-pago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"--}%
+%{--     aria-hidden="true">--}%
+%{--    <div class="modal-dialog">--}%
+%{--        <div class="modal-content">--}%
+%{--            <div class="modal-header">--}%
+%{--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}%
+%{--                <h4 class="modal-title" id="myModalLabel">Formas de pago</h4>--}%
+%{--            </div>--}%
 
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-3 negrilla" style="width: 140px">
-                        Tipo de pago:
-                    </div>
+%{--            <div class="modal-body">--}%
+%{--                <div class="row">--}%
+%{--                    <div class="col-xs-3 negrilla" style="width: 140px">--}%
+%{--                        Tipo de pago:--}%
+%{--                    </div>--}%
 
-                    <div class="col-xs-7 negrilla" style="margin-left: -20px">
-                        <g:select name="tipoPago.id" id="comboFP" class=" form-control" from="${sri.TipoPago.list()}"
-                                  label="Tipo de pago: " optionKey="id" optionValue="descripcion"/>
-                    </div>
+%{--                    <div class="col-xs-7 negrilla" style="margin-left: -20px">--}%
+%{--                        <g:select name="tipoPago.id" id="comboFP" class=" form-control" from="${sri.TipoPago.list()}"--}%
+%{--                                  label="Tipo de pago: " optionKey="id" optionValue="descripcion"/>--}%
+%{--                    </div>--}%
 
-                    <div class="col-xs-2 negrilla">
-                        <g:if test="${!(proceso?.estado == 'R')}">
-                            <a href="#" id="agregarFP" class="btn btn-azul">
-                                <i class="fa fa-plus"></i>
-                                Agregar
-                            </a>
-                        </g:if>
-                    </div>
-                </div>
+%{--                    <div class="col-xs-2 negrilla">--}%
+%{--                        <g:if test="${!(proceso?.estado == 'R')}">--}%
+%{--                            <a href="#" id="agregarFP" class="btn btn-azul">--}%
+%{--                                <i class="fa fa-plus"></i>--}%
+%{--                                Agregar--}%
+%{--                            </a>--}%
+%{--                        </g:if>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
 
-                <div class="ui-corner-all"
-                     style="height: 170px;border: 1px solid #000000;width: 100%;margin-left: 5px;margin-top: 20px"
-                     id="detalle-fp">
-                    <g:each in="${fps}" var="f">
-                        <div class="filaFP ui-corner-all fp-${f.tipoPago.id}" fp="${f.tipoPago.id}">
-                            <g:if test="${!(proceso?.estado == 'R')}">
-                                <span class='span-eliminar ui-corner-all' title='Click para eliminar'>Eliminar</span>
-                            </g:if>
-                            ${f.tipoPago.descripcion}
-                        </div>
-                    </g:each>
-                </div>
+%{--                <div class="ui-corner-all"--}%
+%{--                     style="height: 170px;border: 1px solid #000000;width: 100%;margin-left: 5px;margin-top: 20px"--}%
+%{--                     id="detalle-fp">--}%
+%{--                    <g:each in="${fps}" var="f">--}%
+%{--                        <div class="filaFP ui-corner-all fp-${f.tipoPago.id}" fp="${f.tipoPago.id}">--}%
+%{--                            <g:if test="${!(proceso?.estado == 'R')}">--}%
+%{--                                <span class='span-eliminar ui-corner-all' title='Click para eliminar'>Eliminar</span>--}%
+%{--                            </g:if>--}%
+%{--                            ${f.tipoPago.descripcion}--}%
+%{--                        </div>--}%
+%{--                    </g:each>--}%
+%{--                </div>--}%
 
-            </div>
+%{--            </div>--}%
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" id="btnCerrarPagos"><i
-                        class="fa fa-save"></i> Cerrar y continuar</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+%{--            <div class="modal-footer">--}%
+%{--                <button type="button" class="btn btn-success" data-dismiss="modal" id="btnCerrarPagos"><i--}%
+%{--                        class="fa fa-save"></i> Cerrar y continuar</button>--}%
+%{--            </div>--}%
+%{--        </div><!-- /.modal-content -->--}%
+%{--    </div><!-- /.modal-dialog -->--}%
+%{--</div><!-- /.modal -->--}%
 
 <!-- Modal -->
 <div class="modal fade" id="modal-proveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -477,8 +503,9 @@
     });
 
     $("#btnImprimirFactElect1").click(function () {
-        url = "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";
-        location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=facturaElectronica.pdf"
+        %{--url = "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";--}%
+        %{--location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=facturaElectronica.pdf"--}%
+        cargarPdf();
     });
 
     $("#btnImprimirNCElect").click(function () {
@@ -509,7 +536,6 @@
             });
         })
     });
-
 
     $("#btnDocRetencion").click(function () {
         var titulo = "";
@@ -599,66 +625,10 @@
                     align: 'right',
                     message: msg,
                     buttons : botones
-                    %{--buttons: {--}%
-                    %{--cancelar: {--}%
-                    %{--label: "<i class='fa fa-times'></i> Cancelar",--}%
-                    %{--className: "btn-primary",--}%
-                    %{--callback: function () {--}%
-                    %{--}--}%
-                    %{--},--}%
-                    %{--registrar:{--}%
-                    %{--label: "<i class='fa fa-check'></i> " + titulo,--}%
-                    %{--className: clase,--}%
-                    %{--callback: function () {--}%
-                    %{--bootbox.confirm("<i class='fa fa-exclamation-circle fa-3x pull-left text-warning text-shadow'>" +--}%
-                    %{--"</i>" + mnsj, function (result) {--}%
-                    %{--if (result) {--}%
-                    %{--$.ajax({--}%
-                    %{--type: 'POST',--}%
-                    %{--url: "${createLink(controller: 'retencion', action: 'registrarRetVentas')}",--}%
-                    %{--data: {--}%
-                    %{--id: "${proceso?.id}"--}%
-                    %{--},--}%
-                    %{--success: function (msg) {--}%
-                    %{--location.reload()--}%
-                    %{--}--}%
-                    %{--});--}%
-                    %{--}--}%
-                    %{--})--}%
-                    %{--}--}%
-                    %{--},--}%
-                    %{--aceptar:{--}%
-                    %{--label: "<i class='fa fa-save'></i> Guardar",--}%
-                    %{--className: "btn-success",--}%
-                    %{--callback: function () {--}%
-                    %{--$.ajax({--}%
-                    %{--type: 'POST',--}%
-                    %{--url: '${createLink(controller: 'proceso', action: 'guardarDocRetencion_ajax')}',--}%
-                    %{--data:{--}%
-                    %{--proceso :'${proceso?.id}',--}%
-                    %{--documento: $("#retencionVenta2").val(),--}%
-                    %{--retenido : $("#retenidoIva2").val(),--}%
-                    %{--renta: $("#retenidoRenta2").val()--}%
-                    %{--},--}%
-                    %{--success: function (msg){--}%
-                    %{--if(msg == 'ok'){--}%
-                    %{--log("Documento de retención guardado correctamente","success");--}%
-                    %{--setTimeout(function () {--}%
-                    %{--location.href="${createLink(controller: 'proceso', action: 'nuevoProceso')}/?id=" + '${proceso?.id}'--}%
-                    %{--}, 800);--}%
-                    %{--}else{--}%
-                    %{--log("Error al guardar el documento de retención","error")--}%
-                    %{--}--}%
-                    %{--}--}%
-                    %{--});--}%
-                    %{--}--}%
-                    %{--}--}%
-                    %{--}--}%
                 });
             }
         })
     });
-
 
     $("#btnConciliar").click(function () {
         $.ajax({
@@ -695,7 +665,7 @@
                                             valor: $("#conciliacion").val()
                                         },
                                         success:function (msg){
-                                            if(msg == 'ok'){
+                                            if(msg === 'ok'){
                                                 log("Valor cambiado correctamente","success");
                                                 setTimeout(function () {
                                                     location.href="${createLink(controller: 'proceso', action: 'nuevoProceso')}/?id=" + '${proceso?.id}'
@@ -719,24 +689,11 @@
             '${proceso?.id}' + '&tipo=' + '${proceso?.tipoProceso?.codigo}'
     });
 
-
     function validarNumSinPuntos(ev) {
-        /*
-         48-57      -> numeros
-         96-105     -> teclado numerico
-         188        -> , (coma)
-         190        -> . (punto) teclado
-         110        -> . (punto) teclado numerico
-         8          -> backspace
-         46         -> delete
-         9          -> tab
-         37         -> flecha izq
-         39         -> flecha der
-         */
         return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
             (ev.keyCode >= 96 && ev.keyCode <= 105) ||
-            ev.keyCode == 8 || ev.keyCode == 46 || ev.keyCode == 9 ||
-            ev.keyCode == 37 || ev.keyCode == 39 );
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39 );
     }
 
     $(".validacionNumeroSinPuntos").keydown(function (ev) {
@@ -763,7 +720,7 @@
             cargarProveedor(tipo)
         }
 
-        if (prve && (tipo == '1')) {
+        if (prve && (tipo === '1')) {
             $("#libretinFacturas").hide();
             $("#pagoProceso").show();
             cargarProveedor(tipo);
@@ -786,7 +743,7 @@
             // cargarTcsr(prve);
         }
 
-        if (tipo == '2' || tipo == '6' || tipo == '7') {
+        if (tipo === '2' || tipo === '6' || tipo === '7') {
             cargarLibretin();
             $("#libretinFacturas").show();
             $("#pagoProceso").hide()
@@ -795,31 +752,29 @@
         }
 
 
-        if (tipo == '3') {
+        if (tipo === '3') {
             $("#libretinFacturas").hide();
             $("#pagoProceso").hide();
-//            cargarTipo(tipo);
         }
 
-        if (tipo == '4' || tipo == '5' || tipo == '6' || tipo == '7') {
+        if (tipo === '4' || tipo === '5' || tipo === '6' || tipo === '7') {
             $("#libretinFacturas").hide();
             $("#pagoProceso").hide();
             $("#divFilaComprobante").show();
-//            cargarTipo(tipo);
         }
 
         cargarBotonBuscar($(".tipoProcesoSel option:selected").val());
-        if (tipo =='4' || tipo == '6' || tipo == '7' || tipo == '5') {
+        if (tipo ==='4' || tipo === '6' || tipo === '7' || tipo === '5') {
 //            console.log('carga ComPago')
             cargarCompPago();
         }
 
-        if(tipo != '1') {
+        if(tipo !== '1') {
             cargarTipo(tipo);
             $("#pagoProceso").hide()
         }
 
-        if(tipo == '8') {
+        if(tipo === '8') {
             $("#bodegas").removeClass('hidden');
         } else {
             $("#bodegas").addClass('hidden');
@@ -835,18 +790,18 @@
         $("#divSustento").html('');
         $("#divSustento").hide();
 
-        if (tipo == '1' || tipo == '2' || tipo == '4' || tipo == '5' || tipo == '6' || tipo == '7') {
+        if (tipo === '1' || tipo === '2' || tipo === '4' || tipo === '5' || tipo === '6' || tipo === '7') {
             cargarProveedor(tipo);
         } else {
             $("#divCargaProveedor").html('');
             $("#divCargaProveedor").hide();
         }
 
-        if(tipo != 'C') {
+        if(tipo !== 'C') {
             cargarTipo(tipo);  //carga valores
         }
 
-        if (tipo == '2' || tipo == '6' || tipo == '7') {
+        if (tipo === '2' || tipo === '6' || tipo === '7') {
 //            console.log('libretin con tpps:', tipo);
 //            $("#libretin").change();
             cargarLibretin();
@@ -1433,134 +1388,60 @@
                 },
                 callback: function (result) {
                     if(result){
-                            $.ajax({
-                                type: 'POST',
-                                async: false,
-                                url: '${createLink(controller: 'proceso', action: 'revisarFormaPago_ajax')}',
-                                data: {
-                                    proceso : '${proceso?.id}'
-                                },
-                                success: function (msg){
-                                    var parts = msg.split("_");
-                                    if(parts[0] === 'no'){
-                                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
-                                    }else{
-                                        $.ajax({
-                                            type: 'POST',
-                                            async: false,
-                                            url: '${createLink(controller: 'proceso', action: 'revisarDetalle_ajax')}',
-                                            data: {
-                                                proceso : '${proceso?.id}'
-                                            },
-                                            success: function (msg2){
-                                                if(msg2 === 'no'){
-                                                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "La transacción no tiene ingresado ningún detalle" + '</strong>');
-                                                }else{
-                                                    var rl =  cargarLoader("Registrando...");
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "${g.createLink(controller: 'proceso',action: 'registrar')}",
-                                                        data: "id=" + $("#idProceso").val(),
-                                                        success: function (msg3) {
-                                                            rl.modal("hide");
-                                                            var parts3 = msg3.split("_");
-                                                            if (parts3[0] === "ok") {
-                                                                log(parts[1],"success");
-                                                                setTimeout(function () {
-                                                                    location.reload()
-                                                                }, 1000);
-                                                            } else {
-                                                                log(parts3[1],"error");
-                                                                return false;
-                                                            }
-                                                        },
-                                                        error: function () {
-                                                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ha ocurrido un error. Por favor revise el gestor y los valores del proceso" + '</strong>');
+                        $.ajax({
+                            type: 'POST',
+                            async: false,
+                            url: '${createLink(controller: 'proceso', action: 'revisarFormaPago_ajax')}',
+                            data: {
+                                proceso : '${proceso?.id}'
+                            },
+                            success: function (msg){
+                                var parts = msg.split("_");
+                                if(parts[0] === 'no'){
+                                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                                }else{
+                                    $.ajax({
+                                        type: 'POST',
+                                        async: false,
+                                        url: '${createLink(controller: 'proceso', action: 'revisarDetalle_ajax')}',
+                                        data: {
+                                            proceso : '${proceso?.id}'
+                                        },
+                                        success: function (msg2){
+                                            if(msg2 === 'no'){
+                                                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "La transacción no tiene ingresado ningún detalle" + '</strong>');
+                                            }else{
+                                                var rl =  cargarLoader("Registrando...");
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "${g.createLink(controller: 'proceso',action: 'registrar')}",
+                                                    data: "id=" + $("#idProceso").val(),
+                                                    success: function (msg3) {
+                                                        rl.modal("hide");
+                                                        var parts3 = msg3.split("_");
+                                                        if (parts3[0] === "ok") {
+                                                            log(parts[1],"success");
+                                                            setTimeout(function () {
+                                                                location.reload()
+                                                            }, 1000);
+                                                        } else {
+                                                            log(parts3[1],"error");
+                                                            return false;
                                                         }
-                                                    });
-                                                }
+                                                    },
+                                                    error: function () {
+                                                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ha ocurrido un error. Por favor revise el gestor y los valores del proceso" + '</strong>');
+                                                    }
+                                                });
                                             }
-                                        })
-                                    }
+                                        }
+                                    })
                                 }
-                            });
+                            }
+                        });
                     }
                 }
             });
-
-            %{--bootbox.confirm("<i class='fa fa-exclamation-circle fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea registrar la transacción? </br> Una vez registrado, la información <b>NO</b> podrá ser " +--}%
-            %{--    "cambiada.</p>", function (result) {--}%
-            %{--    if (result) {--}%
-            %{--        if(tipoP === 1 || tipoP === 2){--}%
-            %{--            $.ajax({--}%
-            %{--                type: 'POST',--}%
-            %{--                async: false,--}%
-            %{--                url: '${createLink(controller: 'proceso', action: 'revisarFormaPago_ajax')}',--}%
-            %{--                data: {--}%
-            %{--                    proceso : '${proceso?.id}'--}%
-            %{--                },--}%
-            %{--                success: function (msg){--}%
-            %{--                    var parts = msg.split("_");--}%
-            %{--                    if(parts[0] === 'no'){--}%
-            %{--                        bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-danger text-shadow'></i>" + parts[1])--}%
-            %{--                    }else{--}%
-            %{--                        $.ajax({--}%
-            %{--                            type: 'POST',--}%
-            %{--                            async: false,--}%
-            %{--                            url: '${createLink(controller: 'proceso', action: 'revisarDetalle_ajax')}',--}%
-            %{--                            data: {--}%
-            %{--                                proceso : '${proceso?.id}'--}%
-            %{--                            },--}%
-            %{--                            success: function (msg2){--}%
-            %{--                                if(msg2 === 'no'){--}%
-            %{--                                    bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-danger text-shadow'></i> La transacción no tiene ingresado ningún detalle")--}%
-            %{--                                }else{--}%
-            %{--                                  var rl =  cargarLoader("Registrando...");--}%
-            %{--                                    $.ajax({--}%
-            %{--                                        type: "POST",--}%
-            %{--                                        url: "${g.createLink(controller: 'proceso',action: 'registrar')}",--}%
-            %{--                                        data: "id=" + $("#idProceso").val(),--}%
-            %{--                                        success: function (msg3) {--}%
-            %{--                                            rl.modal("hide");--}%
-            %{--                                            var parts3 = msg3.split("_");--}%
-            %{--                                            if (parts3[0] === "ok") {--}%
-            %{--                                                log(parts[1],"success");--}%
-            %{--                                                setTimeout(function () {--}%
-            %{--                                                    location.reload()--}%
-            %{--                                                }, 1000);--}%
-            %{--                                            } else {--}%
-            %{--                                                log(parts3[1],"error");--}%
-            %{--                                                return false;--}%
-            %{--                                            }--}%
-            %{--                                        },--}%
-            %{--                                        error: function () {--}%
-            %{--                                            bootbox.alert("<i class='fa fa-exclamation-circle fa-3x pull-left text-danger text-shadow'></i> Ha ocurrido un error. Por favor revise el gestor y los valores del proceso")--}%
-            %{--                                        }--}%
-            %{--                                    });--}%
-            %{--                                }--}%
-            %{--                            }--}%
-            %{--                        })--}%
-            %{--                    }--}%
-            %{--                }--}%
-            %{--            });--}%
-            %{--        }else{--}%
-            %{--            openLoader("Registrando...");--}%
-            %{--            $.ajax({--}%
-            %{--                type: "POST",--}%
-            %{--                url: "${g.createLink(controller: 'proceso',action: 'registrar')}",--}%
-            %{--                data: "id=" + $("#idProceso").val(),--}%
-            %{--                success: function (msg) {--}%
-            %{--                    closeLoader();--}%
-            %{--                    location.reload(true);--}%
-            %{--                },--}%
-            %{--                error: function () {--}%
-            %{--                    bootbox.alert("Ha ocurrido un error. Por favor revise el gestor y los valores del proceso.")--}%
-            %{--                }--}%
-            %{--            });--}%
-            %{--        }--}%
-            %{--    }--}%
-
-            %{--})--}%
         });
     });
 
@@ -1751,6 +1632,43 @@
     function cerrarDialogoEditaPaciente(){
         dep.modal("hide");
     }
+
+    function cargarPdf() {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'reportes3', action:'generarCodigoDeBarras_ajax')}",
+            data    : {
+                id: '${proceso?.id}',
+                empresa: '${proceso?.empresa?.id}'
+            },
+            success : function (msg1) {
+                $.ajax({
+                    type    : "POST",
+                    url     : "${createLink(controller: 'detalleFactura', action:'verPdf_ajax')}",
+                    data    : {
+                        id: '${proceso?.id}',
+                        emp: '${proceso?.empresa?.id}'
+                    },
+                    success : function (msg) {
+                        var di = bootbox.dialog({
+                            id      : "dlgVerPdfTramite",
+                            title   : "PDF del trámite",
+                            message : msg,
+                            buttons : {
+                                cancelar : {
+                                    label     : "<i class='fa fa-times'></i> Cerrar",
+                                    className : "btn-primary",
+                                    callback  : function () {
+
+                                    }
+                                }
+                            } //buttons
+                        }); //dialog
+                    } //success
+                }); //ajax
+            } //success
+        }); //ajax
+    } //createEdit
 
 </script>
 </body>

@@ -13,17 +13,22 @@
     <g:textField name="numEstablecimiento" id="numEstablecimiento" readonly="true"  style="width: 50px"
                  title="Número de Establecimento"  class="form-control" value="${proceso?.facturaEstablecimiento ?: estb}"/>
 </div>
-<div class="col-md-1">
+<div class="col-md-1" style="margin-left: -25px; width: 55px; vertical-align: center">
+    <i class="fa fa-minus"></i>
+</div>
+<div class="col-md-1" style="margin-left: -25px">
     <g:textField name="numeroEmision" id="numEmision" readonly="true" style="width: 50px"
                  title="Numeración Emisión"  class="form-control" value="${proceso?.facturaPuntoEmision?:emsn}"/>
 </div>
-<div class="col-md-2">
+<div class="col-md-1" style="margin-left: -25px; width: 55px">
+    <i class="fa fa-minus"></i>
+</div>
+<div class="col-md-2" style="margin-left: -25px">
     <g:textField name="serie" id="serie" value="${proceso?.facturaSecuencial?:nmro}" maxlength="9"
                  class="form-control required validacionNumeroSinPuntos" readonly="${proceso?.estado == 'R' ? true : false}"
                  style="width: 120px; display: inline"/>
     <p class="help-block ui-helper-hidden" id="error_serie"></p>
 </div>
-
 
 
 <script type="text/javascript">

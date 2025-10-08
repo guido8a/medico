@@ -1373,18 +1373,18 @@ class ProcesoController  {
         if(params.proceso){
             println "tipo de proceso: ${proceso.tipoProceso.id}"
             if(proceso.tipoProceso.id == 4) {
-                println "1---------"
+//                println "1---------"
                 sql = "select sldo from porpagar(${proceso?.proveedor?.id}) where cmpr__id = ${proceso?.comprobante?.id}"
             } else
                 println "2--------- ${proceso.tipoProceso.id}"
             if(proceso.tipoProceso.id.toInteger() in [5, 6, 7]) {
-                println "si se contiene-----"
+//                println "si se contiene-----"
                 sql = "select sldo from ventas(${proceso?.proveedor?.id}) where cmpr__id = ${proceso?.comprobante?.id}"
             }
-            println "sql: $sql"
+//            println "sql: $sql"
             data = cn.firstRow(sql.toString())
         }
-        println "saldo: ${data?.sldo}"
+//        println "saldo: ${data?.sldo}"
         return[proceso: proceso, saldo: data?.sldo ?: 0]
     }
 

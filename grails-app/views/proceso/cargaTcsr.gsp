@@ -2,7 +2,7 @@
     Tipo de comprobante:
 </div>
 
-<div class="col-md-9 negrilla">
+<div class="col-md-10 negrilla">
     <g:if test="${reembolso}">
         <g:select class="form-control cmbRequired" name="tipoComprobanteSri.id" id="tipoComprobante"
                   from="${data}"

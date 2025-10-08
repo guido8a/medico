@@ -62,10 +62,10 @@
                    placeholder="RUC" idP="${proceso?.paciente?.id}"/>
         </div>
 
-        <div class="col-xs-5" style="margin-left: -15px">
+        <div class="col-xs-7" style="margin-left: -15px">
             <input type="text" name="proveedor?.nombre" class="form-control label-shared proveedor" id="prve_nombre"
                    readonly value="${proceso?.paciente?.nombre}" title="Nombre del proveedor o cliente"
-                   style="width: 300px; font-weight: bold" placeholder="Nombre"/>
+                   style="width: 350px; font-weight: bold" placeholder="Nombre"/>
         </div>
 
         <div class="col-xs-4">
@@ -106,7 +106,7 @@
             </div>
 
             <div class="col-xs-10 negrilla">
-                <div class="col-xs-6" style="margin-left: -15px">
+                <div class="col-xs-7" style="margin-left: -15px">
                     <input type="text" name="claveCliente" class="form-control claveCliente" id="claveCliente" readonly
                            value="${proceso?.claveAcceso}" title="Clave del proveedor o cliente"
                            placeholder="clave de acceso" />

@@ -1,157 +1,3 @@
-%{--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">--}%
-%{--<%@ page contentType="text/html;charset=UTF-8" %>--}%
-%{--<html>--}%
-%{--<head>--}%
-
-%{--    <title>Factura</title>--}%
-
-%{--    <rep:estilosFactura orientacion="p" pagTitle="${"Factura"}"/>--}%
-
-%{--    <style type="text/css">--}%
-
-%{--    html {--}%
-%{--        font-family: Verdana, Arial, sans-serif;--}%
-%{--        font-size: 15px;--}%
-%{--    }--}%
-
-%{--    h1, h2, h3 {--}%
-%{--        text-align: center;--}%
-%{--    }--}%
-
-%{--    table {--}%
-%{--        border-collapse: collapse;--}%
-%{--        width: 100%;--}%
-%{--    }--}%
-
-%{--    th, td {--}%
-%{--        vertical-align: middle;--}%
-%{--    }--}%
-
-%{--    th {--}%
-%{--        background: #bbb;--}%
-%{--    }--}%
-
-%{--    .derecha{--}%
-%{--        text-align: right;--}%
-%{--    }--}%
-
-%{--    .centro{--}%
-%{--        text-align: center;--}%
-%{--    }--}%
-
-%{--    .cabeceraIzquierda {--}%
-%{--        margin-left: 2cm;--}%
-%{--    }--}%
-
-%{--    </style>--}%
-
-%{--</head>--}%
-
-%{--<body>--}%
-
-%{--<div class="cabeceraIzquierda">--}%
-%{--    <g:formatDate date="${proceso?.fechaEmision}" format="dd-MM-yyyy"/>--}%
-%{--</div>--}%
-%{--<div class="cabeceraIzquierda" style="margin-top: 0.40cm">--}%
-%{--    ${proceso?.paciente?.nombre}--}%
-%{--</div>--}%
-%{--<div class="cabeceraIzquierda" style="margin-top: 0.30cm">--}%
-%{--    ${proceso?.paciente?.cedula} <span class="centro" style="margin-left: 240px">${proceso?.paciente?.telefono}</span>--}%
-%{--</div>--}%
-%{--<div class="cabeceraIzquierda" style="margin-top: 0.30cm; margin-bottom: 1cm">--}%
-%{--    ${proceso?.paciente?.direccion}--}%
-%{--</div>--}%
-
-
-%{--<div style="height: 9.4cm">--}%
-%{--    <table border="0">--}%
-%{--        <tbody>--}%
-%{--        <g:each in="${detalles}" var="detalle">--}%
-%{--            <tr style="width: 540px">--}%
-%{--                <td class="centro" style="width: 60px">--}%
-%{--                    ${detalle?.cantidad}--}%
-%{--                </td>--}%
-%{--                <td style="width: 330px">--}%
-%{--                    ${detalle?.producto?.texto}--}%
-%{--                </td>--}%
-%{--                <td class="derecha" style="width: 75px">--}%
-%{--                    <g:formatNumber number="${detalle?.precioUnitario}" maxFractionDigits="2" minFractionDigits="2" locale="en_US" format="##,##0"/>--}%
-%{--                </td>--}%
-%{--                <td class="derecha" style="width: 75px;">--}%
-%{--                    <g:formatNumber number="${detalle?.cantidad * detalle?.precioUnitario}" maxFractionDigits="2" minFractionDigits="2" locale="en_US" format="##,##0"/>--}%
-%{--                </td>--}%
-%{--            </tr>--}%
-%{--        </g:each>--}%
-%{--        </tbody>--}%
-%{--    </table>--}%
-%{--</div>--}%
-
-%{--<div>--}%
-%{--    <table border="0">--}%
-%{--        <tbody>--}%
-%{--        <tr>--}%
-%{--            <td style="width: 380px">--}%
-%{--                <g:if test="${pago?.codigo == '01'}">--}%
-%{--                    <div style="margin-left: 1cm">--}%
-%{--                        ${'X'}--}%
-
-%{--                    </div>--}%
-%{--                </g:if>--}%
-%{--                <g:else>--}%
-%{--                    <g:if test="${pago?.codigo == '17'}">--}%
-%{--                        <div style="margin-left: 3.5cm">--}%
-%{--                            ${'X'}--}%
-%{--                        </div>--}%
-%{--                    </g:if>--}%
-%{--                    <g:else>--}%
-%{--                        <g:if test="${pago?.codigo == '19' || pago?.codigo == '16'}">--}%
-%{--                            <div style="margin-left: 6.5cm">--}%
-%{--                                ${'X'}--}%
-%{--                            </div>--}%
-%{--                        </g:if>--}%
-%{--                        <g:else>--}%
-%{--                            <div style="margin-left: 8.2cm">--}%
-%{--                                ${'X'}--}%
-%{--                            </div>--}%
-%{--                        </g:else>--}%
-%{--                    </g:else>--}%
-%{--                </g:else>--}%
-%{--            </td>--}%
-%{--            <td style="width: 80px">--}%
-%{--            </td>--}%
-%{--            <td style="width: 80px" class="derecha">--}%
-%{--                <g:formatNumber number="${totl?.base__nz}" maxFractionDigits="2" minFractionDigits="2" locale="en_US" format="##,##0"/>--}%
-%{--            </td>--}%
-%{--        </tr>--}%
-%{--        <tr style="margin-top: 0.50cm">--}%
-%{--            <td style="width: 380px"></td>--}%
-%{--            <td style="width: 80px"></td>--}%
-%{--            <td style="width: 80px" class="derecha">--}%
-%{--                <g:formatNumber number="${0}" maxFractionDigits="2" minFractionDigits="2" locale="en_US" format="##,##0"/>--}%
-%{--            </td>--}%
-%{--        </tr>--}%
-%{--        <tr style="margin-top: 0.50cm">--}%
-%{--            <td style="width: 380px"></td>--}%
-%{--            <td style="width: 80px"></td>--}%
-%{--            <td style="width: 80px" class="derecha">--}%
-%{--                <g:formatNumber number="${totl?.iva}" maxFractionDigits="2" minFractionDigits="2" locale="en_US" format="##,##0"/>--}%
-%{--            </td>--}%
-%{--        </tr>--}%
-%{--        <tr style="margin-top: 0.50cm">--}%
-%{--            <td style="width: 380px"></td>--}%
-%{--            <td style="width: 80px"></td>--}%
-%{--            <td style="width: 80px" class="derecha">--}%
-%{--                <g:formatNumber number="${totl?.totl}" maxFractionDigits="2" minFractionDigits="2" locale="en_US" format="##,##0"/>--}%
-%{--            </td>--}%
-%{--        </tr>--}%
-%{--        </tbody>--}%
-%{--    </table>--}%
-%{--</div>--}%
-
-%{--</body>--}%
-%{--</html>--}%
-
-
 <html>
 <head>
     <title></title>
@@ -200,7 +46,6 @@
         border-collapse: separate !important;
         border: 0.3px solid grey !important;
         padding: 1px;
-
     }
 
     .borde2{
@@ -256,7 +101,9 @@
 <div class="hoja">
 
     <div style="height: 100px; width: 330px;" class="left">
-        <div><g:img dir="images" file="logoTedein.png" width="300" height="100"/></div>
+        <div>
+            <img alt="logo" src="${createLink(controller: 'reportes3', action: 'getLogo', params: [empresa:empresa?.id] )}" class="" width="290" height="100"/>
+        </div>
     </div>
 
     <div style="height: 260px; width: 300px;" class="right borde" >
@@ -345,26 +192,20 @@
         </table>
     </div>
 
-
     <div style="height: 120px; width: 400px; margin-top: 10px" class="left borde" >
-        <div style="margin-top: 10px; margin-left: 10px"><strong>Información Adicional</strong></div>
+        <div style="margin-top: 10px; margin-left: 10px">Información Adicional</div>
         <div style="margin-top: 10px">
             <table style="margin-left: 5px">
-                <thead>
-%{--                <tr class="letra2" style="height: 20px">--}%
-%{--                    <th class="tl tam3">Dirección</th>--}%
-%{--                    <th class="tl">${proceso?.proveedor?.direccion ?: ''}</th>--}%
-%{--                </tr>--}%
-                <tr class="letra2" style="height: 10px">
-                    <th class="tl tam3">Email:</th>
-                    <th class="tr">${proceso?.paciente?.mail ?: 'Sin email registrado'}</th>
+                <tbody>
+                <tr class="" style="height: 10px">
+                    <td class="tl tam letra2"><strong>Email:</strong></td>
+                    <td class="">${proceso?.paciente?.mail ?: 'Sin email registrado'}</td>
                 </tr>
-                </thead>
+                </tbody>
             </table>
         </div>
     </div>
 
-    %{--<table border="1" style="width: 230px; margin-top: 20px;" class="right borde2">--}%
     <table style="width: 230px; margin-top: 20px;" class="right">
         <thead>
         <tr>
@@ -431,28 +272,6 @@
         </g:each>
         </tbody>
     </table>
-
-    %{--<div style="height: 60px; width: 230px;" class="right borde2">--}%
-    %{--<div>--}%
-    %{--<table>--}%
-    %{--<thead>--}%
-    %{--<tr class="letra2" style="height: 20px">--}%
-    %{--<th class="tl tam2">VALOR TOTAL SIN SUBSIDIO</th>--}%
-    %{--<th class="tr"><g:formatNumber number="${0}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></th>--}%
-    %{--</tr>--}%
-    %{--<tr class="letra2" style="height: 10px">--}%
-    %{--<th class="tl tam2">AHORRO POR SUBSIDIO</th>--}%
-    %{--<th class="tr"><g:formatNumber number="${0}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></th>--}%
-    %{--</tr>--}%
-    %{--<tr class="letra2">--}%
-    %{--<th class="tl tam2" style="font-size: 9px">(Incluye IVA cuando corresponda)</th>--}%
-    %{--<th class="tr"></th>--}%
-    %{--</tr>--}%
-    %{--</thead>--}%
-    %{--</table>--}%
-    %{--</div>--}%
-    %{--</div>--}%
-
 
 </div>
 </body>

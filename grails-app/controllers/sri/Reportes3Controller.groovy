@@ -702,6 +702,24 @@ class Reportes3Controller {
         render "ok"
     }
 
+    def getLogo() {
+        def empresa = Empresa.get(params.empresa)
+
+        byte[] imageInBytes = imLogo("jpeg" , empresa?.id)
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/jpeg" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] imLogo(ext,empresa) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_" + empresa + "/" + "logo.jpeg")), ext.toString(), baos)
+        baos.toByteArray()
+    }
+
     def notaCreditoElectronica () {
 
         def proceso = Proceso.get(params.id)
