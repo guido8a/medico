@@ -15,6 +15,7 @@ import medico.TipoExamen
 import medico.Tratamiento
 import sri.DocumentoEmpresa
 import sri.Establecimiento
+import sri.Proceso
 
 import javax.imageio.ImageIO
 
@@ -739,4 +740,29 @@ class PacienteController {
     def formaDePago_ajax(){
 
     }
+
+    def filaComprobante_ajax () {
+//        println "filaComprobante_ajax: $params"
+        def proceso = Proceso.get(params.proceso)
+        def data
+        def cn = dbConnectionService.getConnection()
+        def sql
+        if(params.proceso){
+            println "tipo de proceso: ${proceso.tipoProceso.id}"
+            if(proceso.tipoProceso.id == 4) {
+                println "1---------"
+                sql = "select sldo from porpagar(${proceso?.proveedor?.id}) where cmpr__id = ${proceso?.comprobante?.id}"
+            } else
+                println "2--------- ${proceso.tipoProceso.id}"
+            if(proceso.tipoProceso.id.toInteger() in [5, 6, 7]) {
+                println "si se contiene-----"
+                sql = "select sldo from ventas(${proceso?.proveedor?.id}) where cmpr__id = ${proceso?.comprobante?.id}"
+            }
+            println "sql: $sql"
+            data = cn.firstRow(sql.toString())
+        }
+        println "saldo: ${data?.sldo}"
+        return[proceso: proceso, saldo: data?.sldo ?: 0]
+    }
+
 }

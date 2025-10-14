@@ -2,6 +2,7 @@ package sri
 
 import inventario.Bodega
 import inventario.CentroCosto
+import retenciones.Retencion
 import seguridad.Empresa
 import seguridad.Paciente
 import seguridad.Persona
@@ -2344,5 +2345,7 @@ class ProcesoController  {
         def restante = proceso?.valor ? proceso.valor.minus(total) : 0
         return [restante: restante, proceso: proceso]
     }
+
+
 }
 

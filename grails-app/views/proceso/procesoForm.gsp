@@ -1,4 +1,4 @@
-<%@ page import="sri.Contabilidad; sri.ProcesoFormaDePago; inventario.Bodega; sri.Asiento; sri.TipoComprobanteSri" %>
+<%@ page import="sri.Contabilidad; sri.ProcesoFormaDePago; sri.Asiento; sri.TipoComprobanteSri" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -146,12 +146,12 @@
                 </a>
 
             </g:if>
-            <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V' && proceso?.estado == 'R'}">
-                <a href="#" class="btn btn-info" id="btnDocRetencion" >
-                    <i class="fa fa-clipboard"></i>
-                    Ret. en Ventas
-                </a>
-            </g:if>
+%{--            <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V' && proceso?.estado == 'R'}">--}%
+%{--                <a href="#" class="btn btn-info" id="btnDocRetencion" >--}%
+%{--                    <i class="fa fa-clipboard"></i>--}%
+%{--                    Ret. en Ventas--}%
+%{--                </a>--}%
+%{--            </g:if>--}%
         </g:if>
         <g:if test="${proceso && proceso?.tipoProceso?.codigo?.trim() in ['C','V']}">
             <a href="#" class="btn btn-info" style="margin-right: 20px" id="btnFormaPago">
@@ -164,7 +164,7 @@
             <g:if test="${proceso?.estado == 'R'}">
                 <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">
                     <a href="#" class="btn btn-success" id="btnImprimirFactElect1">
-                        <i class="fa fa-print"></i> Fact. Elect.
+                        <i class="fa fa-print"></i> Factura
                     </a>
                 </g:if>
 
@@ -269,23 +269,23 @@
                              class="form-control required" readonly="${proceso?.estado == 'R' ?: false}" />
             </div>
         </div>
-        <div class="row hidden" id="bodegas">
-            <div class="col-xs-2 negrilla">
-                Bodega que entrega:
-            </div>
+%{--        <div class="row hidden" id="bodegas">--}%
+%{--            <div class="col-xs-2 negrilla">--}%
+%{--                Bodega que entrega:--}%
+%{--            </div>--}%
 
-            <div class="col-xs-4 negrilla">
-                <g:select class="form-control required cmbRequired tipoProcesoSel" name="bodega" id="bodega"
-                          from="${inventario.Bodega.list(sort: 'descripcion')}" label="Bodega"
-                          value="${proceso?.bodega?.id}" optionKey="id"
-                          optionValue="descripcion" title="Bodega que entrega" disabled="${proceso?.estado == 'R' ?: false}" />
-            </div>
-            <div class="col-xs-2 negrilla" style="text-align: right">
-                Bodega que recibe:
-            </div>
+%{--            <div class="col-xs-4 negrilla">--}%
+%{--                <g:select class="form-control required cmbRequired tipoProcesoSel" name="bodega" id="bodega"--}%
+%{--                          from="${inventario.Bodega.list(sort: 'descripcion')}" label="Bodega"--}%
+%{--                          value="${proceso?.bodega?.id}" optionKey="id"--}%
+%{--                          optionValue="descripcion" title="Bodega que entrega" disabled="${proceso?.estado == 'R' ?: false}" />--}%
+%{--            </div>--}%
+%{--            <div class="col-xs-2 negrilla" style="text-align: right">--}%
+%{--                Bodega que recibe:--}%
+%{--            </div>--}%
 
-            <div class="col-xs-4 negrilla" id="divBodegaRecibe"></div>
-        </div>
+%{--            <div class="col-xs-4 negrilla" id="divBodegaRecibe"></div>--}%
+%{--        </div>--}%
 
         <div class="row" id="libretinFacturas">
         </div>
@@ -766,7 +766,7 @@
         cargarBotonBuscar($(".tipoProcesoSel option:selected").val());
         if (tipo ==='4' || tipo === '6' || tipo === '7' || tipo === '5') {
 //            console.log('carga ComPago')
-            cargarCompPago();
+//             cargarCompPago();
         }
 
         if(tipo !== '1') {
@@ -819,7 +819,7 @@
         }
 
         if (tipo == '4' || tipo == '5' || tipo == '6' || tipo == '7') {
-            cargarCompPago()
+            // cargarCompPago()
         } else {
             $("#divFilaComprobante").hide()
         }
@@ -910,22 +910,22 @@
         }
     }
 
-    function cargarCompPago() {
-        var idProveedor = $("#prve_id").val();
-        $.ajax({
-            type: 'POST',
-            async: 'true',
-            url: "${createLink(controller: 'proceso', action: 'filaComprobante_ajax')}",
-            data: {
-                proceso: '${proceso?.id}',
-                proveedor: idProveedor
-            },
-            success: function (msg) {
-                $("#divFilaComprobante").html(msg);
-                $("#divFilaComprobante").show()
-            }
-        });
-    }
+    %{--function cargarCompPago() {--}%
+    %{--    // var idProveedor = $("#prve_id").val();--}%
+    %{--    $.ajax({--}%
+    %{--        type: 'POST',--}%
+    %{--        async: 'true',--}%
+    %{--        url: "${createLink(controller: 'proceso', action: 'filaComprobante_ajax')}",--}%
+    %{--        data: {--}%
+    %{--            proceso: '${proceso?.id}',--}%
+    %{--            proveedor: '${proceso?.paciente?.id}'--}%
+    %{--        },--}%
+    %{--        success: function (msg) {--}%
+    %{--            $("#divFilaComprobante").html(msg);--}%
+    %{--            $("#divFilaComprobante").show()--}%
+    %{--        }--}%
+    %{--    });--}%
+    %{--}--}%
 
     function cargarBotonBuscar(tipo) {
         if (tipo !== '-1') {
@@ -1531,31 +1531,31 @@
         }
     }
 
-    revisarBodega($("#bodega").val());
-
-    $("#bodega").change(function () {
-        var bodega = $("#bodega").val();
-        revisarBodega(bodega)
-    });
+    // revisarBodega($("#bodega").val());
+    //
+    // $("#bodega").change(function () {
+    //     var bodega = $("#bodega").val();
+    //     revisarBodega(bodega)
+    // });
 
     $("#establecimiento").change(function () {
         $("#libretinFacturas").html('');
         cargarLibretin()
     });
 
-    function revisarBodega (bodega) {
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'proceso', action: 'bodegaRecibe_ajax')}',
-            data:{
-                bodega: bodega,
-                proceso: '${proceso?.id}'
-            },
-            success: function (msg){
-                $("#divBodegaRecibe").html(msg)
-            }
-        });
-    }
+    %{--function revisarBodega (bodega) {--}%
+    %{--    $.ajax({--}%
+    %{--        type: 'POST',--}%
+    %{--        url: '${createLink(controller: 'proceso', action: 'bodegaRecibe_ajax')}',--}%
+    %{--        data:{--}%
+    %{--            bodega: bodega,--}%
+    %{--            proceso: '${proceso?.id}'--}%
+    %{--        },--}%
+    %{--        success: function (msg){--}%
+    %{--            $("#divBodegaRecibe").html(msg)--}%
+    %{--        }--}%
+    %{--    });--}%
+    %{--}--}%
 
     $("#comprobanteN").click(function () {
         location.href="${createLink(controller: 'proceso', action: 'comprobante')}/?proceso=" + '${proceso?.id}'
