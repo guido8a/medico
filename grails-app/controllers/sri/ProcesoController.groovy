@@ -2084,7 +2084,7 @@ class ProcesoController  {
     }
 
     def tablaProveedor_ajax () {
-//        println "buscar proveedor "+params
+        println "buscar proveedor "+params
         def prve = []
         def proceso = Proceso.get(params.proceso)
         def tr = TipoRelacion.list()

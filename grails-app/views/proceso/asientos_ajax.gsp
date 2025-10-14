@@ -112,7 +112,7 @@
                     </td>
                 </tr>
                 <g:if test="${sri.Auxiliar.findAllByAsiento(asiento)}">
-                    <g:set var="auxiliares1" value="${sri.Auxiliar.findAllByAsiento(asiento).sort{it.proveedor.nombre}}"/>
+                    <g:set var="auxiliares1" value="${sri.Auxiliar.findAllByAsiento(asiento).sort{it.paciente.nombre}}"/>
                     <g:set var="cabecera" value="N"/>
                     <g:each in="${auxiliares1}" var="auxiliar">
                         <g:if test="${cabecera != 'S'}">
@@ -129,7 +129,7 @@
                         <tr class="colorAtras">
                             <g:set var="dcmt" value="${auxiliar?.documento? ' - Doc: ' + auxiliar?.documento : ''}"/>
                             <td class="dato">${auxiliar?.fechaPago?.format("dd-MM-yyyy")}</td>
-                            <td class="dato izquierda">${auxiliar?.proveedor?.nombre} ${dcmt}</td>
+                            <td class="dato izquierda">${auxiliar?.paciente?.nombre} ${dcmt}</td>
                             <td class="dato izquierda"></td>
                             <td class="dato derecha">${auxiliar?.debe ? g.formatNumber(number: auxiliar.debe, format: '##,##0', minFractionDigits: 2, maxFractionDigits: 2) : 0.00}</td>
                             <td class="dato derecha">${auxiliar.haber ? g.formatNumber(number: auxiliar.haber, format: '##,##0', minFractionDigits: 2, maxFractionDigits: 2) : 0.00}</td>
