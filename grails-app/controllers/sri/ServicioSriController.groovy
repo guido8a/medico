@@ -106,7 +106,7 @@ class ServicioSriController {
         println "archivo: $archivo"
 //        def archivo = "fc_667.xml"
         println "finaliza xml de facura en --> ${archivo}"
-        firmaSri(archivo)
+//        firmaSri(archivo)
         println "finaliza firma..."
         //se envía al SRI y si todo va bien se pone TipoEmision = 1, caso contrario 2
 

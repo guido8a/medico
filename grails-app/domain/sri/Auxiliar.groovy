@@ -1,5 +1,7 @@
 package sri
 
+import seguridad.Paciente
+
 class Auxiliar implements Serializable {
     double haber = 0
     double debe = 0
@@ -7,7 +9,7 @@ class Auxiliar implements Serializable {
     Asiento asiento
     Date fechaRegistro = new Date()
     Date fechaPago
-    Proveedor proveedor
+    Paciente paciente
     TipoDocumentoPago tipoDocumentoPago
     Comprobante comprobante
     String factura
@@ -31,7 +33,7 @@ class Auxiliar implements Serializable {
             asiento column: 'asnt__id'
             fechaRegistro column: 'axlrfcrg'
             fechaPago column: 'axlrfcpg'
-            proveedor column: 'prve__id'
+            paciente column: 'pcnt__id'
             tipoDocumentoPago column: 'tpdp__id'
             comprobante column: 'cmpr__id'
             factura column: 'axlrfctr'
@@ -47,7 +49,7 @@ class Auxiliar implements Serializable {
         asiento(blank: true, nullable: true, attributes: [title: 'asiento'])
         fechaPago(blank: true, nullable: true)
         fechaRegistro(blank: true, nullable: true)
-        proveedor(blank: true, nullable: true)
+        paciente(blank: true, nullable: true)
         tipoDocumentoPago (blank: true, nullable: true)
         comprobante (blank: true, nullable: true)
         factura (blank: true, nullable: true)
