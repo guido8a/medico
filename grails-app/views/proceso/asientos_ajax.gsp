@@ -47,11 +47,11 @@
     <div class="btn-group" style="float: right; margin-top: -90px">
         <a href="#" class="btn btn-success btnAgregarAsiento" comp="${comprobante?.id}"
            title="Agregar asiento contable">
-            <i class="fa fa-plus"> Agregar Cuenta</i>
+            <i class="fa fa-plus"></i> Agregar Cuenta
         </a>
         <a href="#" class="btn btn-danger btnBorrarAsientos" comp="${comprobante?.id}"
            title="Borrar los asientos con valores en 0 al debe y al haber">
-            <i class="fa fa-minus"> Borrar Cuentas con 0</i>
+            <i class="fa fa-minus"></i> Borrar Cuentas con 0
         </a>
     </div>
 </g:if>
@@ -122,7 +122,7 @@
                                 <td class="colorAtras"></td>
                                 <td class="colorAtras">Debe</td>
                                 <td class="colorAtras">Haber</td>
-                                <td class="colorAtras"><i class="fa fa-pencil"></i></td>
+                                <td class="colorAtras"><i class="fa fa-edit"></i></td>
                                 <g:set var="cabecera" value="S"/>
                             </tr>
                         </g:if>
@@ -136,13 +136,13 @@
                             <td class="dato" style="text-align: center; width: 100px">
                                 <g:if test="${auxiliar?.asiento?.comprobante?.registrado != 'S'}">
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-success btn-sm btnEditarAuxiliar"
+                                        <a href="#" class="btn btn-success btn-xs btnEditarAuxiliar"
                                            idAu="${auxiliar?.id}" title="Editar auxiliar">
-                                            <i class="fa fa-pencil"></i>
+                                            <i class="fa fa-edit"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-sm btnEliminarAuxiliar"
+                                        <a href="#" class="btn btn-danger btn-xs btnEliminarAuxiliar"
                                            idAu="${auxiliar?.id}" title="Eliminar auxiliar">
-                                            <i class="fa fa-trash-o"></i>
+                                            <i class="fa fa-trash"></i>
                                         </a>
                                     </div>
                                 </g:if>

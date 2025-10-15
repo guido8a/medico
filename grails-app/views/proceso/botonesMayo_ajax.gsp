@@ -3,7 +3,7 @@
         <g:if test="${comprobante.registrado != 'S'}">
             <g:if test="${band}">
                 <a href="#" class="btn btnMayorizar btn-success" id="reg_${comprobante?.id}" idComp="${comprobante?.id}" style="margin-bottom: 10px;">
-                    <i class="fa fa-pencil-square-o"></i>
+                    <i class="fa fa-plus"></i>
                     Mayorizar
                 </a>
             </g:if>
@@ -47,11 +47,11 @@
                     data    : "id=" + id,
                     success : function (msg) {
                         var parts = msg.split("_");
-                        if(parts[0] == 'ok'){
+                        if(parts[0] === 'ok'){
                             log(parts[1],"success");
                             closeLoader();
                             setTimeout(function () {
-                                location.href="${createLink(controller: 'proceso', action: 'comprobante')}?proceso=" + '${comprobante?.proceso?.id}'
+                                location.href="${createLink(controller: 'proceso', action: 'comprobante')}?proceso=" + '${comprobante?.proceso?.id}';
                                 cargarComprobanteP('${comprobante?.proceso?.id}');
                                 cargarAsiento('${comprobante?.id}');
                                 cargarBotones('${comprobante?.id}');
@@ -79,7 +79,7 @@
                     data    : "id=" + id,
                     success : function (msg) {
                         var parts = msg.split("_");
-                        if(parts[0] == 'ok'){
+                        if(parts[0] === 'ok'){
                             closeLoader();
                             log(parts[1],'success');
                             setTimeout(function () {
