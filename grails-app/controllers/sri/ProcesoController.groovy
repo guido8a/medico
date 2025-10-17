@@ -1092,19 +1092,18 @@ class ProcesoController  {
     }
 
     def formAsiento_ajax () {
-//        println("params asiento " + params)
+        println("params fa " + params)
         def comprobante = Comprobante.get(params.comprobante)
         if(params.asiento){
             def asiento = Asiento.get(params.asiento)
-            return [asiento: asiento]
+            return [asiento: asiento, comprobante: comprobante]
         }else{
             return [comprobante: comprobante]
         }
     }
 
-
     def buscarCuenta_ajax () {
-        def empresa = Empresa.get(params.empresa)
+        def empresa = Empresa.get(session.empresa.id)
         return [empresa: empresa]
     }
 
@@ -1132,42 +1131,42 @@ class ProcesoController  {
     }
 
     def guardarAsiento_ajax () {
-//        println("params guardar " + params)
         def asiento
-        def cuenta = Cuenta.get(params.cuenta)
-        def proceso = Proceso.get(params.proceso)
-        def comprobante = Comprobante.get(params.comprobante)
-        def asientos = Asiento.findAllByComprobante(comprobante).sort{it.numero}
-        def siguiente = 0
-        if(asientos){
-            siguiente = asientos.numero.last() + 1
-        }
-//        println("asientos " + asientos.numero)
 
-        if(params.asiento){
-            asiento = Asiento.get(params.asiento)
+        if(params.cuenta){
+            def cuenta = Cuenta.get(params.cuenta)
+            def comprobante = Comprobante.get(params.comprobante)
+            def asientos = Asiento.findAllByComprobante(comprobante).sort{it.numero}
+            def siguiente = 0
+
+            if(asientos){
+                siguiente = asientos.numero.last() + 1
+            }
+
+            if(params.asiento){
+                asiento = Asiento.get(params.asiento)
+            }else{
+                asiento = new Asiento()
+                asiento.comprobante = comprobante
+                asiento.numero = siguiente
+            }
+
             asiento.cuenta = cuenta
             asiento.debe = params.debe.toDouble()
             asiento.haber = params.haber.toDouble()
-        }else{
-            asiento = new Asiento()
-            asiento.cuenta = cuenta
-            asiento.debe = params.debe.toDouble()
-            asiento.haber = params.haber.toDouble()
-            asiento.comprobante = comprobante
-            asiento.numero = siguiente
-        }
 
-        if(!asiento.save(flush: true)){
-            render "no"
-            println("error " + asiento.errors)
+            if(!asiento.save(flush: true)){
+                render "no_Error al guardar el asiento"
+                println("error " + asiento.errors)
+            }else{
+                render "ok_Asiento guardado correctamente"
+            }
         }else{
-            render "ok"
+            render "no_Seleccione una cuenta"
         }
     }
 
     def borrarAsiento_ajax () {
-//        println("borrar asiento params " + params)
         def comprobante = Comprobante.get(params.comprobante)
         def asiento = Asiento.get(params.asiento)
         def auxiliar = Auxiliar.findByAsiento(asiento)
@@ -1177,7 +1176,7 @@ class ProcesoController  {
                 try{
                     asiento.delete(flush: true)
                     render "ok_Asiento borrado correctamente"
-                }catch (e){
+                }catch(e){
                     render "no_Error al borrar el asiento"
                 }
             } else{
@@ -1245,7 +1244,8 @@ class ProcesoController  {
             band = auxiliar?.asiento?.comprobante?.proceso?.tipoProceso?.codigo?.trim() == 'A' && auxiliar?.asiento?.comprobante?.proceso?.gestor?.codigo == 'SLDO'
             band2 = auxiliar?.asiento?.comprobante?.proceso?.tipoProceso?.codigo?.trim() in ['P', 'I', 'NC', 'ND']
             band3 = auxiliar?.asiento?.comprobante?.proceso?.tipoProceso?.codigo?.trim() in ['P', 'I', 'NC']
-            sql = "select * from ${funcion}(${auxiliar?.asiento?.comprobante?.proceso?.proveedor?.id})"
+//            sql = "select * from ${funcion}(${auxiliar?.asiento?.comprobante?.proceso?.proveedor?.id})"
+            sql = "select * from ${funcion}(${auxiliar?.asiento?.comprobante?.proceso?.paciente?.id})"
             res = cn.rows(sql.toString())
             println("res " + sql)
             return [asiento: asiento, auxiliar: auxiliar, comprobante: comprobante, proveedores: proveedores,
@@ -1265,7 +1265,8 @@ class ProcesoController  {
             band = asiento?.comprobante?.proceso?.tipoProceso?.codigo?.trim() == 'A' && asiento?.comprobante?.proceso?.gestor?.codigo == 'SLDO'
             band2 = asiento?.comprobante?.proceso?.tipoProceso?.codigo?.trim() in ['P', 'I', 'NC', 'ND']
             band3 = asiento?.comprobante?.proceso?.tipoProceso?.codigo?.trim() in ['P', 'I', 'NC']
-            sql = "select * from ${funcion}(${asiento?.comprobante?.proceso?.proveedor?.id})"
+//            sql = "select * from ${funcion}(${asiento?.comprobante?.proceso?.proveedor?.id})"
+            sql = "select * from ${funcion}(${asiento?.comprobante?.proceso?.paciente?.id})"
             res = cn.rows(sql.toString())
             println("res " + sql)
             return [asiento: asiento, comprobante: comprobante, proveedores: proveedores, maximoDebe: maximoDebe,
@@ -1278,11 +1279,10 @@ class ProcesoController  {
         def asiento
         def afecta = Auxiliar.get(params.factura)
         def tipoPago = TipoDocumentoPago.get(params.tipoPago)
-        def proveedor = Proveedor.get(params.proveedor)
-        def fechaPago
-        if(params.fechaPago) {
-            fechaPago =  new Date().parse("dd-MM-yyyy", params.fechaPago)
-        }
+        def comprobante = Comprobante.get(params.comprobante)
+//        def proveedor = Proveedor.get(params.proveedor)
+        def paciente = Paciente.get(params.paciente)
+        def fechaPago = params.fechaPago ? new Date().parse("dd-MM-yyyy", params.fechaPago) : new Date().format("dd-MM-yyyy")
 
         def auxiliar
 
@@ -1296,11 +1296,12 @@ class ProcesoController  {
 
         auxiliar.descripcion = params.descripcion
         auxiliar.fechaPago = fechaPago
-        auxiliar.proveedor = proveedor
+        auxiliar.paciente = paciente
         auxiliar.tipoDocumentoPago = tipoPago
         auxiliar.debe = params.debe.toDouble()
         auxiliar.haber = params.haber.toDouble()
         auxiliar.documento = params.documento
+        auxiliar.comprobante = comprobante
 
         if(params.factura) {
             auxiliar.afecta = afecta
@@ -1312,9 +1313,9 @@ class ProcesoController  {
 
         try{
             auxiliar.save(flush: true)
-            render "ok"
+            render "ok_Guardado correctamente"
         }catch (e){
-            render "no"
+            render "no_Error al guardar"
         }
     }
 
@@ -2005,36 +2006,42 @@ class ProcesoController  {
     def guardarCentro_ajax () {
 //        println("params " + params)
 
-        def asiento = Asiento.get(params.asiento)
-        def centro = CentroCosto.get(params.centro)
-        def centroEspe = AsientoCentro.findByAsientoAndCentroCosto(asiento,centro)
-        def asientoCentro
-        params.valor = params.valor.replaceAll(',','')
-        if(centroEspe){
-            asientoCentro = AsientoCentro.get(centroEspe.id)
-            if(params.tipo == '1'){
-                asientoCentro.debe = params.valor.toDouble() + asientoCentro.debe.toDouble()
+        if(params.centro){
+            def asiento = Asiento.get(params.asiento)
+            def centro = CentroCosto.get(params.centro)
+            def centroEspe = AsientoCentro.findByAsientoAndCentroCosto(asiento,centro)
+            def asientoCentro
+            params.valor = params.valor.replaceAll(',','')
+            if(centroEspe){
+                asientoCentro = AsientoCentro.get(centroEspe.id)
+                if(params.tipo == '1'){
+                    asientoCentro.debe = params.valor.toDouble() + asientoCentro.debe.toDouble()
+                }else{
+                    asientoCentro.haber = params.valor.toDouble() + asientoCentro.haber.toDouble()
+                }
             }else{
-                asientoCentro.haber = params.valor.toDouble() + asientoCentro.haber.toDouble()
+                asientoCentro = new AsientoCentro()
+                asientoCentro.asiento = asiento
+                asientoCentro.centroCosto = centro
+                if(params.tipo == '1'){
+                    asientoCentro.debe = params.valor.toDouble()
+                }else{
+                    asientoCentro.haber = params.valor.toDouble()
+                }
+            }
+
+            try{
+                asientoCentro.save(flush: true)
+                render "ok"
+            }catch (e){
+                println("Error al agregar el cs " + e)
+                render "no"
             }
         }else{
-            asientoCentro = new AsientoCentro()
-            asientoCentro.asiento = asiento
-            asientoCentro.centroCosto = centro
-            if(params.tipo == '1'){
-                asientoCentro.debe = params.valor.toDouble()
-            }else{
-                asientoCentro.haber = params.valor.toDouble()
-            }
+            render "no_Seleccione un centro de costos"
         }
 
-        try{
-            asientoCentro.save(flush: true)
-            render "ok"
-        }catch (e){
-            println("Error al agregar el cs " + e)
-            render "no"
-        }
+
     }
 
     def calcularValor_ajax () {
@@ -2187,13 +2194,12 @@ class ProcesoController  {
                 errores += e
                 println("error al borrar los asientos con 0 " + e)
             }
-
         }
 
         if(errores == ''){
-            render "ok"
+            render "ok_Borrado correctamente"
         }else{
-            render "no"
+            render "no_Error al borrar los asientos"
         }
     }
 

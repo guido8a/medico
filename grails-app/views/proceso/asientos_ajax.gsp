@@ -25,23 +25,20 @@
     background-color: #ffd5af;
 }
 .total {
-    /*font-weight: bold;*/
     background-color: #1270c3;
     color: #fdcfa0;
 }
 
 .rojo{
     background-color: #702213;
-
 }
 
 </style>
 
-
-<div class="col-xs-6 etiqueta"><label>Comprobante:</label> ${comprobante?.descripcion}</div>
-<div class="col-xs-2 etiqueta"><label>Tipo:</label> ${comprobante?.proceso?.tipoProceso?.descripcion}</div>
-<div class="col-xs-2 etiqueta"><label>Número:</label> ${comprobante?.prefijo}${comprobante?.numero}</div>
-<div class="col-xs-2 etiqueta"><label>Valor:</label> <g:formatNumber number="${comprobante?.tipo?.codigo == 'R' ? retenciones.Retencion.findByProceso(proceso)?.total : comprobante?.proceso?.valor}" maxFractionDigits="2" format="##,##0"/></div>
+<div class="col-xs-6 etiqueta" style="font-size: 14px"><label>Comprobante:</label> ${comprobante?.descripcion}</div>
+<div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Tipo:</label> ${comprobante?.proceso?.tipoProceso?.descripcion}</div>
+<div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Número:</label> ${comprobante?.prefijo}${comprobante?.numero}</div>
+<div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Valor:</label> <g:formatNumber number="${comprobante?.tipo?.codigo == 'R' ? retenciones.Retencion.findByProceso(proceso)?.total : comprobante?.proceso?.valor}" maxFractionDigits="2" format="##,##0"/></div>
 
 <g:if test="${comprobante?.registrado != 'S'}">
     <div class="btn-group" style="float: right; margin-top: -90px">
@@ -94,9 +91,9 @@
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </g:if>
-                            <a href="#" class="btn btn-azul btn-xs btnCentroCostos" idAs="${asiento?.id}" nomAs="${asiento?.cuenta?.descripcion}"
+                            <a href="#" class="btn btn-info btn-xs btnCentroCostos" idAs="${asiento?.id}" nomAs="${asiento?.cuenta?.descripcion}"
                                title="Centro de Costos">
-                                <i class="fa fa-money-bill"></i>
+                                <i class="fa fa-building"></i>
                             </a>
                             <g:if test="${asiento?.comprobante?.registrado != 'S'}">
                                 <a href="#" class="btn btn-warning btn-xs btnAgregarAuxiliar" idAs="${asiento?.id}"
@@ -105,7 +102,7 @@
                                 </a>
                                 <a href="#" class="btn btn-danger btn-xs btnEliminarAsiento" idAs="${asiento?.id}"
                                    title="Eliminar asiento">
-                                    <i class="fa fa-times"></i>
+                                    <i class="fa fa-trash"></i>
                                 </a>
                             </g:if>
                         </div>
@@ -159,11 +156,11 @@
                     </g:each>
                 </g:if>
             </g:each>
-            <tr class="colorAsiento">
+            <tr class="colorAsiento" style="font-size: 14px; font-weight: bold">
                 <td colspan="3" class="total derecha">Totales del asiento</td>
                 <td class="total derecha ${Math.round(sumadebe*100)/100 != (comprobante?.tipo?.codigo == 'R' ? retenciones.Retencion.findByProceso(proceso)?.total : proceso?.valor) ? 'rojo' : ''}"><g:formatNumber number="${Math.round(sumadebe*100)/100}" format="##,##0" maxFractionDigits="2" minFractionDigits="2"/> </td>
                 <td class="total derecha ${Math.round(sumahber*100)/100 != (comprobante?.tipo?.codigo == 'R' ? Retencion.findByProceso(proceso)?.total : proceso?.valor) ? 'rojo' : ''}"><g:formatNumber number="${Math.round(sumahber*100)/100}" format="##,##0" maxFractionDigits="2" minFractionDigits="2"/> </td>
-                <td class="total derecha" ${Math.round((sumadebe - sumahber)*100)/100 != 0 ? 'rojo' : ''}>Dif: ${Math.round((sumadebe - sumahber)*100)/100}</td>
+                <td class="total derecha" ${Math.round((sumadebe - sumahber)*100)/100 != 0 ? 'rojo' : ''}>Diferencia: ${Math.round((sumadebe - sumahber)*100)/100}</td>
             </tr>
             </tbody>
         </table>
@@ -171,6 +168,8 @@
 </div>
 
 <script type="text/javascript">
+
+    var dea;
 
     $(".btnVerAuxiliar").click(function () {
         var aux = $(this).attr('idAuxi');
@@ -199,29 +198,42 @@
     });
 
     $(".btnBorrarAsientos").click(function (){
-        var comprobante = $(this).attr('comp');
-        bootbox.confirm("<i class='fa fa-trash-o fa-3x pull-left text-danger text-shadow'></i> Está seguro de borrar todos los asientos con valor 0.00 ?", function (result) {
-            if (result) {
-                openLoader("Borrando...")
-                $.ajax({
-                    type:'POST',
-                    url: '${createLink(controller: 'proceso', action: 'borrarCeros_ajax')}',
-                    data:{
-                        comprobante: comprobante
-                    },
-                    success: function (msg){
-                        if(msg == 'ok'){
-                            log("Asientos borrados correctamente","success");
-                            cargarComprobanteP('${proceso?.id}');
-                            closeLoader();
-                        }else{
-                            log("Error al borrar los asientos","error");
-                            closeLoader();
-                        }
+        bootbox.dialog({
+            title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Borrar Asientos",
+            message: "<p>Está seguro de borrar todos los asientos con valor 0.00 ?</p>",
+            buttons: {
+                cancelar: {
+                    label: "<i class='fa fa-times'></i> Cancelar",
+                    className: "btn-primary",
+                    callback: function () {
                     }
-                });
+                },
+                eliminar: {
+                    label: "<i class='fa fa-trash'></i> Borrar",
+                    className: "btn-danger",
+                    callback: function () {
+                       var bta = cargarLoader("Borrando..");
+                        $.ajax({
+                            type: 'POST',
+                            url: '${createLink(controller: 'proceso', action: 'borrarCeros_ajax')}',
+                            data: {
+                                comprobante: '${comprobante?.id}'
+                            },
+                            success: function (msg) {
+                                bta.modal("hide");
+                                var parts = msg.split("_");
+                                if (parts[0] === 'ok') {
+                                    log(parts[1], "success");
+                                    cargarComprobanteP('${proceso?.id}');
+                                } else {
+                                    log(parts[1], "error");
+                                }
+                            }
+                        });
+                    }
+                }
             }
-        })
+        });
     });
 
     $(".btnCentroCostos").click(function (){
@@ -252,12 +264,12 @@
     });
 
     $(".btnAgregarAsiento").click(function () {
-        agregar('${comprobante?.id}', null)
+        agregarAsiento('${comprobante?.id}', null)
     });
 
     $(".btnEditarAsiento").click(function () {
         var idAsiento = $(this).attr('idAs');
-        agregar(${comprobante?.id}, idAsiento)
+        agregarAsiento(${comprobante?.id}, idAsiento)
     });
 
     $(".btnAgregarAuxiliar").click(function () {
@@ -273,8 +285,8 @@
     $(".btnEliminarAsiento").click(function () {
         var idAsiento = $(this).attr('idAs');
         bootbox.dialog({
-            title: "Alerta",
-            message: "<i class='fa fa-trash-o fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar el asiento contable?</p>",
+            title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Borrar Asiento",
+            message: "<p>¿Está seguro que desea eliminar el asiento contable?</p>",
             buttons: {
                 cancelar: {
                     label: "<i class='fa fa-times'></i> Cancelar",
@@ -283,10 +295,10 @@
                     }
                 },
                 eliminar: {
-                    label: "<i class='fa fa-trash-o'></i> Borrar",
+                    label: "<i class='fa fa-trash'></i> Borrar",
                     className: "btn-danger",
                     callback: function () {
-                        openLoader("Borrando..");
+                        var ba = cargarLoader("Borrando..");
                         $.ajax({
                             type: 'POST',
                             url: '${createLink(controller: 'proceso', action: 'borrarAsiento_ajax')}',
@@ -295,14 +307,13 @@
                                 comprobante: '${comprobante?.id}'
                             },
                             success: function (msg) {
+                                ba.modal("hide");
                                 var parts = msg.split("_");
-                                if (parts[0] == 'ok') {
+                                if (parts[0] === 'ok') {
                                     log(parts[1], "success");
                                     cargarComprobanteP('${proceso?.id}');
-                                    closeLoader();
                                 } else {
                                     log(parts[1], "error");
-                                    closeLoader();
                                 }
                             }
                         });
@@ -312,82 +323,81 @@
         });
     });
 
-    function agregar(compro, idAsiento) {
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'proceso',action: 'formAsiento_ajax')}',
-            data: {
-                comprobante: compro,
-                asiento: idAsiento
-            },
-            success: function (msg) {
-                bootbox.dialog({
-                    title: idAsiento ? "Editar Asiento" : "Nuevo Asiento",
-                    message: msg,
-                    buttons: {
-                        cancelar: {
-                            label: "<i class='fa fa-times'></i> Cancelar",
-                            className: "btn-primary",
-                            callback: function () {
-                            }
-                        },
-                        eliminar: {
-                            label: "<i class='fa fa-save'></i> Guardar",
-                            className: "btn-success",
-                            callback: function () {
-                                if ($("#valorAsientoDebe").val() == 0 && $("#valorAsientoHaber").val() == 0) {
-                                    bootbox.alert("Ingrese un valor distinto a cero")
-                                    return false;
-                                } else {
+    %{--function agregar(compro, idAsiento) {--}%
+    %{--    $.ajax({--}%
+    %{--        type: 'POST',--}%
+    %{--        url: '${createLink(controller: 'proceso',action: 'formAsiento_ajax')}',--}%
+    %{--        data: {--}%
+    %{--            comprobante: compro,--}%
+    %{--            asiento: idAsiento--}%
+    %{--        },--}%
+    %{--        success: function (msg) {--}%
+    %{--            bootbox.dialog({--}%
+    %{--                title: idAsiento ? "Editar Asiento" : "Nuevo Asiento",--}%
+    %{--                message: msg,--}%
+    %{--                buttons: {--}%
+    %{--                    cancelar: {--}%
+    %{--                        label: "<i class='fa fa-times'></i> Cancelar",--}%
+    %{--                        className: "btn-primary",--}%
+    %{--                        callback: function () {--}%
+    %{--                        }--}%
+    %{--                    },--}%
+    %{--                    eliminar: {--}%
+    %{--                        label: "<i class='fa fa-save'></i> Guardar",--}%
+    %{--                        className: "btn-success",--}%
+    %{--                        callback: function () {--}%
+    %{--                            if ($("#valorAsientoDebe").val() == 0 && $("#valorAsientoHaber").val() == 0) {--}%
+    %{--                                bootbox.alert("Ingrese un valor distinto a cero")--}%
+    %{--                                return false;--}%
+    %{--                            } else {--}%
 
-                                    if($("#valorAsientoDebe").val().split('.').length - 1 > 1 || $("#valorAsientoHaber").val().split('.').length - 1 > 1) {
-                                        bootbox.alert("El número ingresado no es válido!")
-                                        return false;
-                                    }
+    %{--                                if($("#valorAsientoDebe").val().split('.').length - 1 > 1 || $("#valorAsientoHaber").val().split('.').length - 1 > 1) {--}%
+    %{--                                    bootbox.alert("El número ingresado no es válido!")--}%
+    %{--                                    return false;--}%
+    %{--                                }--}%
 
-                                    if ($("#idCuentaNueva").val()) {
-                                        openLoader("Guardando..");
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: '${createLink(controller: 'proceso', action: 'guardarAsiento_ajax')}',
-                                            data: {
-                                                asiento: idAsiento,
-                                                cuenta: $("#idCuentaNueva").val(),
-                                                debe: $("#valorAsientoDebe").val(),
-                                                haber: $("#valorAsientoHaber").val(),
-                                                proceso: '${proceso?.id}',
-                                                comprobante: '${comprobante?.id}'
-                                            },
-                                            success: function (msg) {
-                                                if (msg == 'ok') {
-                                                    log("Asiento contable guardado correctamente", "success");
-                                                    %{--cargarComprobante('${proceso?.id}');--}%
-                                                    cargarComprobanteP('${proceso?.id}');
-                                                    closeLoader();
-                                                } else {
-                                                    log("Error al guardar asiento contable", "error");
-                                                    closeLoader();
-                                                }
-                                            }
-                                        });
-                                    } else {
-                                        bootbox.alert("Seleccione una cuenta")
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    }
+    %{--                                if ($("#idCuentaNueva").val()) {--}%
+    %{--                                    openLoader("Guardando..");--}%
+    %{--                                    $.ajax({--}%
+    %{--                                        type: 'POST',--}%
+    %{--                                        url: '${createLink(controller: 'proceso', action: 'guardarAsiento_ajax')}',--}%
+    %{--                                        data: {--}%
+    %{--                                            asiento: idAsiento,--}%
+    %{--                                            cuenta: $("#idCuentaNueva").val(),--}%
+    %{--                                            debe: $("#valorAsientoDebe").val(),--}%
+    %{--                                            haber: $("#valorAsientoHaber").val(),--}%
+    %{--                                            proceso: '${proceso?.id}',--}%
+    %{--                                            comprobante: '${comprobante?.id}'--}%
+    %{--                                        },--}%
+    %{--                                        success: function (msg) {--}%
+    %{--                                            if (msg == 'ok') {--}%
+    %{--                                                log("Asiento contable guardado correctamente", "success");--}%
+    %{--                                                cargarComprobanteP('${proceso?.id}');--}%
+    %{--                                                closeLoader();--}%
+    %{--                                            } else {--}%
+    %{--                                                log("Error al guardar asiento contable", "error");--}%
+    %{--                                                closeLoader();--}%
+    %{--                                            }--}%
+    %{--                                        }--}%
+    %{--                                    });--}%
+    %{--                                } else {--}%
+    %{--                                    bootbox.alert("Seleccione una cuenta")--}%
+    %{--                                    return false;--}%
+    %{--                                }--}%
+    %{--                            }--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                }--}%
+    %{--            });--}%
+    %{--        }--}%
+    %{--    });--}%
+    %{--}--}%
 
     $(".btnEliminarAuxiliar").click(function () {
         var idAuxiliar = $(this).attr('idAu');
         bootbox.dialog({
-            title: "Alerta",
-            message: "<i class='fa fa-trash-o fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar el auxiliar contable?</p>",
+            title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Borrar auxiliar",
+            message: "<p>¿Está seguro que desea eliminar el auxiliar contable?</p>",
             buttons: {
                 cancelar: {
                     label: "<i class='fa fa-times'></i> Cancelar",
@@ -396,7 +406,7 @@
                     }
                 },
                 eliminar: {
-                    label: "<i class='fa fa-trash-o'></i> Borrar",
+                    label: "<i class='fa fa-trash'></i> Borrar",
                     className: "btn-danger",
                     callback: function () {
                         openLoader("Borrando..");
@@ -409,7 +419,7 @@
                             },
                             success: function (msg) {
                                 var parts = msg.split("_");
-                                if (parts[0] == 'ok') {
+                                if (parts[0] === 'ok') {
                                     log(parts[1], "success");
                                     cargarComprobanteP('${proceso?.id}');
                                     closeLoader();
@@ -425,82 +435,217 @@
         });
     });
 
-    function agregarAuxiliar(compro, idAsiento, idAuxiliar) {
+    %{--function agregarAuxiliar(compro, idAsiento, idAuxiliar) {--}%
+    %{--    $.ajax({--}%
+    %{--        type: 'POST',--}%
+    %{--        url: '${createLink(controller: 'proceso',action: 'formAuxiliar_ajax')}',--}%
+    %{--        data: {--}%
+    %{--            comprobante: compro,--}%
+    %{--            asiento: idAsiento,--}%
+    %{--            auxiliar: idAuxiliar--}%
+    %{--        },--}%
+    %{--        success: function (msg) {--}%
+    %{--            bootbox.dialog({--}%
+    %{--                title: idAuxiliar ? "Editar Auxiliar" : "Nuevo Auxiliar",--}%
+    %{--                message: msg,--}%
+    %{--                buttons: {--}%
+    %{--                    cancelar: {--}%
+    %{--                        label: "<i class='fa fa-times'></i> Cancelar",--}%
+    %{--                        className: "btn-primary",--}%
+    %{--                        callback: function () {--}%
+    %{--                        }--}%
+    %{--                    },--}%
+    %{--                    eliminar: {--}%
+    %{--                        label: "<i class='fa fa-save'></i> Guardar",--}%
+    %{--                        className: "btn-success",--}%
+    %{--                        callback: function () {--}%
+    %{--                            if ($("#valorPagar").val() == 0 && $("#valorCobrar").val() == 0) {--}%
+    %{--                                bootbox.alert("Ingrese un valor distinto a cero");--}%
+    %{--                                return false;--}%
+    %{--                            } else {--}%
+
+    %{--                                if($("#valorPagar").val().split('.').length - 1 > 1 || $("#valorCobrar").val().split('.').length - 1 > 1) {--}%
+    %{--                                    bootbox.alert("El número ingresado no es válido!");--}%
+    %{--                                    return false;--}%
+    %{--                                }else{--}%
+    %{--                                    if(!$("#facturaAuxiliar").val() && ${band2}){--}%
+    %{--                                        bootbox.alert("Ingrese un número de factura!");--}%
+    %{--                                        return false;--}%
+    %{--                                    }else{--}%
+    %{--                                        openLoader("Guardando..");--}%
+    %{--                                        $.ajax({--}%
+    %{--                                            type: 'POST',--}%
+    %{--                                            url: '${createLink(controller: 'proceso', action: 'guardarAuxiliar_ajax')}',--}%
+    %{--                                            data: {--}%
+    %{--                                                asiento: idAsiento,--}%
+    %{--                                                debe: $("#valorPagar").val(),--}%
+    %{--                                                haber: $("#valorCobrar").val(),--}%
+    %{--                                                comprobante: '${comprobante?.id}',--}%
+    %{--                                                tipoPago: $("#tipoPago").val(),--}%
+    %{--                                                fechaPago: $("#fechaPago").val(),--}%
+    %{--                                                paciente: $("#paciente").val(),--}%
+    %{--                                                descripcion: $("#descripcionAux").val(),--}%
+    %{--                                                auxiliar: idAuxiliar,--}%
+    %{--                                                documento: $("#referencia").val(),--}%
+    %{--                                                factura: $("#facturaAuxiliar").val(),  /* com,probante que se paga */--}%
+    %{--                                                dcmt: $("#facturaAuxiliar").data('dcmt'),  /* com,probante que se paga */--}%
+    %{--                                                fctr: $("#factura").val()  /* documento por pagar */--}%
+    %{--                                            },--}%
+    %{--                                            success: function (msg) {--}%
+    %{--                                                if (msg == 'ok') {--}%
+    %{--                                                    log("Auxiliar contable guardado correctamente", "success");--}%
+    %{--                                                    cargarComprobanteP('${proceso?.id}');--}%
+    %{--                                                    closeLoader();--}%
+    %{--                                                } else {--}%
+    %{--                                                    log("Error al guardar el auxiliar contable", "error");--}%
+    %{--                                                    closeLoader();--}%
+    %{--                                                }--}%
+    %{--                                            }--}%
+    %{--                                        });--}%
+    %{--                                    }--}%
+    %{--                                }--}%
+    %{--                            }--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                }--}%
+    %{--            });--}%
+    %{--        }--}%
+    %{--    });--}%
+    %{--}--}%
+
+    function agregarAuxiliar(comprobante, idAsiento, idAuxiliar) {
+        var title = idAuxiliar ? "Editar" : "Nuevo";
         $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'proceso',action: 'formAuxiliar_ajax')}',
-            data: {
-                comprobante: compro,
-                asiento: idAsiento,
-                auxiliar: idAuxiliar
+            type    : "POST",
+            url     : "${createLink(controller:'proceso', action:'formAuxiliar_ajax')}",
+            data    : {
+                comprobante: comprobante,
+                auxiliar: idAuxiliar,
+                asiento: idAsiento
             },
-            success: function (msg) {
-                bootbox.dialog({
-                    title: idAuxiliar ? "Editar Auxiliar" : "Nuevo Auxiliar",
-                    message: msg,
-                    buttons: {
-                        cancelar: {
-                            label: "<i class='fa fa-times'></i> Cancelar",
-                            className: "btn-primary",
-                            callback: function () {
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEditAuxiliar",
+                    title   : title + " Auxiliar",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
                             }
                         },
-                        eliminar: {
-                            label: "<i class='fa fa-save'></i> Guardar",
-                            className: "btn-success",
-                            callback: function () {
-                                if ($("#valorPagar").val() == 0 && $("#valorCobrar").val() == 0) {
-                                    bootbox.alert("Ingrese un valor distinto a cero");
-                                    return false;
-                                } else {
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormAuxiliar();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
 
-                                    if($("#valorPagar").val().split('.').length - 1 > 1 || $("#valorCobrar").val().split('.').length - 1 > 1) {
-                                        bootbox.alert("El número ingresado no es válido!");
-                                        return false;
-                                    }else{
-                                        if(!$("#facturaAuxiliar").val() && ${band2}){
-                                            bootbox.alert("Ingrese un número de factura!");
-                                            return false;
-                                        }else{
-                                            openLoader("Guardando..");
-                                            $.ajax({
-                                                type: 'POST',
-                                                url: '${createLink(controller: 'proceso', action: 'guardarAuxiliar_ajax')}',
-                                                data: {
-                                                    asiento: idAsiento,
-                                                    debe: $("#valorPagar").val(),
-                                                    haber: $("#valorCobrar").val(),
-                                                    comprobante: '${comprobante?.id}',
-                                                    tipoPago: $("#tipoPago").val(),
-                                                    fechaPago: $(".fechaPago").val(),
-                                                    proveedor: $("#proveedor").val(),
-                                                    descripcion: $("#descripcionAux").val(),
-                                                    auxiliar: idAuxiliar,
-                                                    documento: $("#referencia").val(),
-                                                    factura: $("#facturaAuxiliar").val(),  /* com,probante que se paga */
-                                                    dcmt: $("#facturaAuxiliar").data('dcmt'),  /* com,probante que se paga */
-                                                    fctr: $("#factura").val()  /* documento por pagar */
-                                                },
-                                                success: function (msg) {
-                                                    if (msg == 'ok') {
-                                                        log("Auxiliar contable guardado correctamente", "success");
-                                                        cargarComprobanteP('${proceso?.id}');
-                                                        closeLoader();
-                                                    } else {
-                                                        log("Error al guardar el auxiliar contable", "error");
-                                                        closeLoader();
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        }
+    function submitFormAuxiliar() {
+
+        // var documento = $("#referencia").val()
+        // var factura = $("#facturaAuxiliar").val()  /* com,probante que se paga */
+        // var dcmt = $("#facturaAuxiliar").data('dcmt')  /* com,probante que se paga */
+        // var fctr = $("#factura").val()  /* documento por pagar */
+
+        var $form = $("#frmAuxiliar");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarComprobanteP('${proceso?.id}');
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
                     }
-                });
-            }
-        });
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+    function agregarAsiento(comprobante, idAsiento) {
+        var title = idAsiento ? "Editar" : "Nuevo";
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller:'proceso', action:'formAsiento_ajax')}",
+            data    : {
+                comprobante: comprobante,
+                asiento: idAsiento
+            },
+            success : function (msg) {
+                dea = bootbox.dialog({
+                    id      : "dlgCreateEditAsiento",
+                    title   : title + " Asiento",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormAsiento();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }
+
+    function submitFormAsiento() {
+        var $form = $("#frmAsiento");
+        if ($form.valid()) {
+            var data = $form.serialize();
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : data,
+                success : function (msg) {
+                    dialog.modal('hide');
+                    var parts = msg.split("_");
+                    if(parts[0] === 'ok'){
+                        log(parts[1], "success");
+                        cargarComprobanteP('${proceso?.id}');
+                        cerrarAgregarAsiento();
+                    }else{
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
+                    }
+                }
+            });
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    function cerrarAgregarAsiento() {
+        dea.modal("hide");
     }
 
 </script>

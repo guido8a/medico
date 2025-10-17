@@ -242,6 +242,18 @@
                         <p>Administración de Bodegas</p>
                     </div>
                 </li>
+                <li>
+                    <i class="fa-li ${iconGen}"></i>
+                    <span id="centroCostos">
+                        <g:link controller="centroCosto" action="list" class="tamano">Centro de costos</g:link> administración de centro de costos
+                    </span>
+
+                    <div class="descripcion hide">
+                        <h4>Centro de Costos</h4>
+
+                        <p>Administración de centro de costos</p>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="generales right pull-right">
@@ -293,7 +305,7 @@
                     </span>
 
                     <div class="descripcion hide">
-                        <h4>Tipo de Identificaci&oacute;n</h4>
+                        <h4>Tipo de Identificación</h4>
                         <p>Tipos de identificación que posee la persona natural o jurídica, como por ejempla RUC, cédula, pasaporte, etc.</p>
                         <p class="info">No se debe editar este parámetro.</p>
                     </div>

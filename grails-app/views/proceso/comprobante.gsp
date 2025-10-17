@@ -30,7 +30,7 @@
 
         <div class="linea"></div>
 
-        <div id="divComprobanteP" class="col-xs-12"style="margin-bottom: 0px ;padding: 0px;margin-top: 5px; height: 650px">
+        <div id="divComprobanteP" class="col-xs-12"style="height: 500px">
         </div>
     </div>
 </g:if>
