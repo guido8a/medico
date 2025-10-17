@@ -284,7 +284,7 @@ class ProcesoController  {
     }
 
     def registrar = {
-        if (request.method == 'POST') {
+//        if (request.method == 'POST') {
             println "registrar " + params
             def proceso = Proceso.get(params.id)
             if (proceso.estado == "R") {
@@ -297,9 +297,9 @@ class ProcesoController  {
                     render("no_No se ha podido registrar el proceso")
                 }
             }
-        } else {
-            redirect(controller: "shield", action: "ataques")
-        }
+//        } else {
+//            redirect(controller: "shield", action: "ataques")
+//        }
     }
 
     def cargaGestor = {
@@ -1556,10 +1556,8 @@ class ProcesoController  {
     }
 
     def desmayorizar_ajax () {
-//        println("params " + params)
         def comprobante = Comprobante.get(params.id)
         def res = procesoService.desmayorizar(comprobante)
-//        println("res " + res)
         render res
     }
 

@@ -50,25 +50,25 @@
             Procesos
         </a>
     </div>
-%{--    <div class="btn-group" style="margin-right: 10px">--}%
-%{--        <g:if test="${proceso?.estado == 'R'}">--}%
-%{--            <a href="#" class="btn btn-success" id="comprobanteN">--}%
-%{--                <i class="fa fa-calendar"></i>--}%
-%{--                Comprobante--}%
-%{--            </a>--}%
-%{--        </g:if>--}%
-%{--        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C'}">--}%
-%{--            <g:link class="btn btn-success" action="detalleSri" id="${proceso?.id}" style="margin-bottom: 10px;">--}%
-%{--                <i class="fa fa-money"></i> Retenciones--}%
-%{--            </g:link>--}%
-%{--        </g:if>--}%
-%{--        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C' && proceso?.tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim() == '41'}">--}%
-%{--            <a href="#" class="btn btn-success" id="reembolsoN">--}%
-%{--                <i class="fa fa-thumbs-up"></i>--}%
-%{--                Reembolso--}%
-%{--            </a>--}%
-%{--        </g:if>--}%
-%{--    </div>--}%
+    %{--    <div class="btn-group" style="margin-right: 10px">--}%
+    %{--        <g:if test="${proceso?.estado == 'R'}">--}%
+    %{--            <a href="#" class="btn btn-success" id="comprobanteN">--}%
+    %{--                <i class="fa fa-calendar"></i>--}%
+    %{--                Comprobante--}%
+    %{--            </a>--}%
+    %{--        </g:if>--}%
+    %{--        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C'}">--}%
+    %{--            <g:link class="btn btn-success" action="detalleSri" id="${proceso?.id}" style="margin-bottom: 10px;">--}%
+    %{--                <i class="fa fa-money"></i> Retenciones--}%
+    %{--            </g:link>--}%
+    %{--        </g:if>--}%
+    %{--        <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'C' && proceso?.tipoCmprSustento?.tipoComprobanteSri?.codigo?.trim() == '41'}">--}%
+    %{--            <a href="#" class="btn btn-success" id="reembolsoN">--}%
+    %{--                <i class="fa fa-thumbs-up"></i>--}%
+    %{--                Reembolso--}%
+    %{--            </a>--}%
+    %{--        </g:if>--}%
+    %{--    </div>--}%
 
     <div class="btn-group">
         <g:if test="${!proceso || (proceso?.estado == 'N')}">
@@ -100,15 +100,15 @@
                 %{--                    <a href="#" class="btn btn-info" id="btnImprimirFactElect">--}%
                 %{--                        <i class="fa fa-print"></i> Factura, NC o ND--}%
                 %{--                    </a>--}%
-                  <g:if test="${proceso?.claveAcceso != null}">
-%{--                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">--}%
-                        %{--                            <a href="#" class="btn btn-success" id="btnImprimirFactElect1">--}%
-                        %{--                                <i class="fa fa-print"></i> Fact. Elect.--}%
-                        %{--                            </a>--}%
-%{--                            <a href="#" class="btn btn-primary" id="btnEnviarFactElect">--}%
-%{--                                <i class="fa fa-envelope"></i> Enviar Factura--}%
-%{--                            </a>--}%
-%{--                        </g:if>--}%
+                    <g:if test="${proceso?.claveAcceso != null}">
+                    %{--                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">--}%
+                    %{--                            <a href="#" class="btn btn-success" id="btnImprimirFactElect1">--}%
+                    %{--                                <i class="fa fa-print"></i> Fact. Elect.--}%
+                    %{--                            </a>--}%
+                    %{--                            <a href="#" class="btn btn-primary" id="btnEnviarFactElect">--}%
+                    %{--                                <i class="fa fa-envelope"></i> Enviar Factura--}%
+                    %{--                            </a>--}%
+                    %{--                        </g:if>--}%
                     %{--                        <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['NC']}">--}%
                     %{--                            <a href="#" class="btn btn-success" id="btnImprimirNCElect">--}%
                     %{--                                <i class="fa fa-print"></i> Nota Crédito Electŕonica--}%
@@ -140,18 +140,20 @@
                     Detalle de factura
                 </a>
 
-                <a href="#" class="btn btn-info" id="comprobanteN">
-                    <i class="fa fa-file"></i>
-                    Comprobante
-                </a>
+                <g:if test="${proceso?.estado == 'R'}">
+                    <a href="#" class="btn btn-info" id="comprobanteN">
+                        <i class="fa fa-file"></i>
+                        Comprobante
+                    </a>
+                </g:if>
 
             </g:if>
-%{--            <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V' && proceso?.estado == 'R'}">--}%
-%{--                <a href="#" class="btn btn-info" id="btnDocRetencion" >--}%
-%{--                    <i class="fa fa-clipboard"></i>--}%
-%{--                    Ret. en Ventas--}%
-%{--                </a>--}%
-%{--            </g:if>--}%
+        %{--            <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V' && proceso?.estado == 'R'}">--}%
+        %{--                <a href="#" class="btn btn-info" id="btnDocRetencion" >--}%
+        %{--                    <i class="fa fa-clipboard"></i>--}%
+        %{--                    Ret. en Ventas--}%
+        %{--                </a>--}%
+        %{--            </g:if>--}%
         </g:if>
         <g:if test="${proceso && proceso?.tipoProceso?.codigo?.trim() in ['C','V']}">
             <a href="#" class="btn btn-info" style="margin-right: 20px" id="btnFormaPago">
@@ -269,23 +271,23 @@
                              class="form-control required" readonly="${proceso?.estado == 'R' ?: false}" />
             </div>
         </div>
-%{--        <div class="row hidden" id="bodegas">--}%
-%{--            <div class="col-xs-2 negrilla">--}%
-%{--                Bodega que entrega:--}%
-%{--            </div>--}%
+        %{--        <div class="row hidden" id="bodegas">--}%
+        %{--            <div class="col-xs-2 negrilla">--}%
+        %{--                Bodega que entrega:--}%
+        %{--            </div>--}%
 
-%{--            <div class="col-xs-4 negrilla">--}%
-%{--                <g:select class="form-control required cmbRequired tipoProcesoSel" name="bodega" id="bodega"--}%
-%{--                          from="${inventario.Bodega.list(sort: 'descripcion')}" label="Bodega"--}%
-%{--                          value="${proceso?.bodega?.id}" optionKey="id"--}%
-%{--                          optionValue="descripcion" title="Bodega que entrega" disabled="${proceso?.estado == 'R' ?: false}" />--}%
-%{--            </div>--}%
-%{--            <div class="col-xs-2 negrilla" style="text-align: right">--}%
-%{--                Bodega que recibe:--}%
-%{--            </div>--}%
+        %{--            <div class="col-xs-4 negrilla">--}%
+        %{--                <g:select class="form-control required cmbRequired tipoProcesoSel" name="bodega" id="bodega"--}%
+        %{--                          from="${inventario.Bodega.list(sort: 'descripcion')}" label="Bodega"--}%
+        %{--                          value="${proceso?.bodega?.id}" optionKey="id"--}%
+        %{--                          optionValue="descripcion" title="Bodega que entrega" disabled="${proceso?.estado == 'R' ?: false}" />--}%
+        %{--            </div>--}%
+        %{--            <div class="col-xs-2 negrilla" style="text-align: right">--}%
+        %{--                Bodega que recibe:--}%
+        %{--            </div>--}%
 
-%{--            <div class="col-xs-4 negrilla" id="divBodegaRecibe"></div>--}%
-%{--        </div>--}%
+        %{--            <div class="col-xs-4 negrilla" id="divBodegaRecibe"></div>--}%
+        %{--        </div>--}%
 
         <div class="row" id="libretinFacturas">
         </div>
@@ -1420,7 +1422,7 @@
                                                         rl.modal("hide");
                                                         var parts3 = msg3.split("_");
                                                         if (parts3[0] === "ok") {
-                                                            log(parts[1],"success");
+                                                            log(parts3[1],"success");
                                                             setTimeout(function () {
                                                                 location.reload()
                                                             }, 1000);
