@@ -1,36 +1,9 @@
-<style type="text/css">
-
-/*.tab-pane {*/
-
-/*    border-left: 1px solid #ddd;*/
-/*    border-right: 1px solid #ddd;*/
-/*    border-bottom: 1px solid #ddd;*/
-/*    border-radius: 0px 0px 5px 5px;*/
-/*    background-color: #eeeeee;*/
-/*}*/
-
-/*.nav-tabs {*/
-/*    margin-bottom: 0;*/
-/*}*/
-
-</style>
 
 <ul class="nav nav-pills" style="margin-top: 20px">
-%{--    <li class="active titulo"><a data-toggle="pill" href="#generales">Contable</a></li>--}%
-%{--    <li class="titulo"><a data-toggle="pill" href="#empresa">Empresa</a></li>--}%
-%{--    <li class="titulo"><a data-toggle="pill" href="#sri">Datos SRI / ATS</a></li>--}%
     <g:each in="${comprobantes}" var="comprobante" status="j">
         <li class="${j == 0 ? 'active' : ''}"><a data-toggle="pill" href="#" class="btnComprobante" idComp="${comprobante?.id}">${comprobante?.tipo?.descripcion}</a></li>
     </g:each>
 </ul>
-
-
-
-%{--<ul class="nav nav-tabs">--}%
-%{--    <g:each in="${comprobantes}" var="comprobante" status="j">--}%
-%{--        <li class="${j == 0 ? 'active' : ''}"><a data-toggle="tab" href="#" class="btnComprobante" idComp="${comprobante?.id}">${comprobante?.tipo?.descripcion}</a></li>--}%
-%{--    </g:each>--}%
-%{--</ul>--}%
 
 <div class="tab-content ui-corner-bottom tam">
     <div class="tab-pane fade in active" id="generales">
@@ -41,12 +14,6 @@
     </div>
 </div>
 
-%{--<div class="tab-content">--}%
-%{--    <div class="tab-pane fade in active">--}%
-%{--        <div class="col-md-12" id="divBotones" style="margin-top: 20px"></div>--}%
-%{--        <div class="col-md-12" id="divAsientos"style="margin-bottom: 10px;"></div>--}%
-%{--    </div>--}%
-%{--</div>--}%
 
 <script type="text/javascript">
 

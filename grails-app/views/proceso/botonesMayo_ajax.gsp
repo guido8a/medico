@@ -39,7 +39,7 @@
     $("#btnDesmayorizar").click(function () {
         var id = $(this).attr("idComp");
         bootbox.dialog({
-            title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Alerta",
+            title: "<i class='fa fa-info-circle fa-2x pull-left text-info text-shadow'></i> Alerta",
             message: "<p style='font-size: 14px; font-weight: bold'> Está seguro de desmayorizar este comprobante? Esta acción modificará los saldos</p>",
             buttons: {
                 cancelar: {
@@ -71,7 +71,7 @@
                                         cargarBotones('${comprobante?.id}');
                                     }, 800);
                                 } else {
-                                    log(parts[1], "error");
+                                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                                 }
                             }
                         });
@@ -84,7 +84,7 @@
     $(".btnMayorizar").click(function () {
         var id = $(this).attr("idComp");
         bootbox.dialog({
-            title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Alerta",
+            title: "<i class='fa fa-info-circle fa-2x pull-left text-info text-shadow'></i> Alerta",
             message: "<p style='font-size: 14px; font-weight: bold'> Esta seguro de mayorizar este comprobante? Esta acción modificará los saldos</p>",
             buttons: {
                 cancelar: {
@@ -95,7 +95,7 @@
                 },
                 eliminar: {
                     label: "<i class='fa fa-plus-circle'></i> Mayorizar",
-                    className: "btn-danger",
+                    className: "btn-success",
                     callback: function () {
                         var m = cargarLoader("Guardando..");
                         $.ajax({
@@ -116,7 +116,7 @@
                                         cargarBotones('${comprobante?.id}');
                                     }, 800);
                                 } else {
-                                    log(parts[1], "error");
+                                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                                 }
                             }
                         });

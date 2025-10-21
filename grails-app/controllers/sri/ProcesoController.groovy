@@ -1505,7 +1505,7 @@ class ProcesoController  {
         def band
         def gestor = comprobante.proceso.gestor
 
-//        println "Mayorizar: debe: $debe, haber: $haber, valor: $valor"
+        println "Mayorizar: debe: $debe, haber: $haber, valor: $valor"
 
         if((gestor.codigo == 'SLDO' || comprobante.tipo.codigo == 'R') && Math.abs(debe - haber) < 0.001){
             band = true
@@ -1539,7 +1539,7 @@ class ProcesoController  {
                 res = procesoService.mayorizar(params.id)
             }  else {
 //            println "no cuadra"
-                render "no_no cuadran los valores de asientos y sus respectivos auxiliares"
+                render "no_Los valores de asientos y sus respectivos auxiliares no cuadran"
                 return
             }
         } else {
@@ -1547,7 +1547,7 @@ class ProcesoController  {
                 res = procesoService.mayorizar(params.id)
             }  else {
 //            println "no cuadra"
-                render "no_no cuadran los valores de asientos"
+                render "no_Los valores de asientos no cuadran"
                 return
             }
         }

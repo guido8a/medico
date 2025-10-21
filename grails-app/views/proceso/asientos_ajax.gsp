@@ -35,23 +35,27 @@
 
 </style>
 
-<div class="col-xs-6 etiqueta" style="font-size: 14px"><label>Comprobante:</label> ${comprobante?.descripcion}</div>
-<div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Tipo:</label> ${comprobante?.proceso?.tipoProceso?.descripcion}</div>
-<div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Número:</label> ${comprobante?.prefijo}${comprobante?.numero}</div>
-<div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Valor:</label> <g:formatNumber number="${comprobante?.tipo?.codigo == 'R' ? retenciones.Retencion.findByProceso(proceso)?.total : comprobante?.proceso?.valor}" maxFractionDigits="2" format="##,##0"/></div>
+<div class="col-md-12 breadcrumb">
+    <div class="col-xs-6 etiqueta" style="font-size: 14px"><label>Comprobante:</label> ${comprobante?.descripcion}</div>
+    <div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Tipo:</label> ${comprobante?.proceso?.tipoProceso?.descripcion}</div>
+    <div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Número:</label> ${comprobante?.prefijo}${comprobante?.numero}</div>
+    <div class="col-xs-2 etiqueta" style="font-size: 14px"><label>Valor:</label> <g:formatNumber number="${comprobante?.tipo?.codigo == 'R' ? retenciones.Retencion.findByProceso(proceso)?.total : comprobante?.proceso?.valor}" maxFractionDigits="2" format="##,##0"/></div>
+</div>
 
-<g:if test="${comprobante?.registrado != 'S'}">
-    <div class="btn-group" style="float: right; margin-top: -90px">
-        <a href="#" class="btn btn-success btnAgregarAsiento" comp="${comprobante?.id}"
-           title="Agregar asiento contable">
-            <i class="fa fa-plus"></i> Agregar Cuenta
-        </a>
-        <a href="#" class="btn btn-danger btnBorrarAsientos" comp="${comprobante?.id}"
-           title="Borrar los asientos con valores en 0 al debe y al haber">
-            <i class="fa fa-minus"></i> Borrar Cuentas con 0
-        </a>
-    </div>
-</g:if>
+<div class="col-md-12">
+    <g:if test="${comprobante?.registrado != 'S'}">
+        <div class="btn-group" style="float: right">
+            <a href="#" class="btn btn-success btnAgregarAsiento" comp="${comprobante?.id}"
+               title="Agregar asiento contable">
+                <i class="fa fa-plus"></i> Agregar Cuenta
+            </a>
+            <a href="#" class="btn btn-danger btnBorrarAsientos" comp="${comprobante?.id}"
+               title="Borrar los asientos con valores en 0 al debe y al haber">
+                <i class="fa fa-minus"></i> Borrar Cuentas con 0
+            </a>
+        </div>
+    </g:if>
+</div>
 
 <table class="table table-bordered table-hover table-condensed" width="1000px">
     <thead>
@@ -66,7 +70,7 @@
     </thead>
 </table>
 
-<div class="row-fluid" style="width: 100%; height: 500px; overflow-y: auto;float: right; margin-top: -20px">
+<div class="row-fluid" style="width: 100%; height: 450px; overflow-y: auto;float: right; margin-top: -20px">
     <div class="span12">
         <table class="table table-bordered table-condensed" width="980px">
             <tbody>
@@ -115,11 +119,11 @@
                         <g:if test="${cabecera != 'S'}">
                             <tr>
                                 <td class="colorAtras">Fecha</td>
-                                <td class="colorAtras">Proveedor</td>
+                                <td class="colorAtras">Cliente</td>
                                 <td class="colorAtras"></td>
                                 <td class="colorAtras">Debe</td>
                                 <td class="colorAtras">Haber</td>
-                                <td class="colorAtras"><i class="fa fa-edit"></i></td>
+                                <td class="colorAtras"></td>
                                 <g:set var="cabecera" value="S"/>
                             </tr>
                         </g:if>
@@ -145,7 +149,7 @@
                                 </g:if>
                                 <g:else>
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-info btn-sm btnVerAuxiliar"
+                                        <a href="#" class="btn btn-info btn-xs btnVerAuxiliar"
                                            idAuxi="${auxiliar?.id}" title="Ver auxiliar">
                                             <i class="fa fa-search"></i>
                                         </a>
