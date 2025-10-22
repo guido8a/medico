@@ -2350,6 +2350,8 @@ class ProcesoController  {
         return [restante: restante, proceso: proceso]
     }
 
+    def passwordFirma_ajax(){
 
+    }
 }
 

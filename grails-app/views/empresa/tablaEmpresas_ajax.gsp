@@ -3,11 +3,11 @@
         <thead>
         <tr>
             <th style="width: 10%">RUC</th>
-            <th style="width: 30%">Nombre</th>
+            <th style="width: 28%">Nombre</th>
             <th style="width: 20%">Tipo de Consultorio</th>
             <th style="width: 15%">Provincia</th>
-            <th style="width: 15%">Acciones</th>
-            <th style="width: 10%">Contabilidad</th>
+            <th style="width: 13%">Acciones</th>
+            <th style="width: 14%">Contabilidad</th>
         </tr>
         </thead>
     </table>
@@ -19,10 +19,10 @@
         <g:each in="${datos}" status="i" var="empresa">
             <tr data-id="${empresa.empr__id}">
                 <td style="width: 10%">${empresa.empr_ruc}</td>
-                <td style="width: 30%">${empresa.emprnmbr}</td>
+                <td style="width: 28%">${empresa.emprnmbr}</td>
                 <td style="width: 20%">${seguridad.TipoEmpresa.get(empresa.tpem__id)}</td>
                 <td style="width: 15%">${geografia.Canton.get(empresa.cntn__id)?.provincia?.nombre}</td>
-                <td style="width: 15%; text-align: center">
+                <td style="width: 13%; text-align: center">
                     <a href="#" class="btn btn-xs btn-success btnEditar" data-id="${empresa.empr__id}" title="Editar">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -36,7 +36,7 @@
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>
-                <td style="width: 10%; text-align: center">
+                <td style="width: 14%; text-align: center">
                     <a href="#" class="btn btn-xs btn-info btnContabilidad" data-id="${empresa.empr__id}" title="Datos de la contabilidad">
                         <i class="fas fa-book"></i>
                     </a>
@@ -49,6 +49,9 @@
                     <a href="#" class="btn btn-xs btn-success btnProductos" data-id="${empresa.empr__id}" title="Productos">
                         <i class="fa fa-copy"></i>
                     </a>
+                    <a href="#" class="btn btn-xs btn-info btnCargarFirma" data-id="${empresa.empr__id}" title="Firma electrónica">
+                        <i class="fa fa-key"></i>
+                    </a>
                 </td>
             </tr>
         </g:each>
@@ -57,6 +60,33 @@
 </div>
 
 <script type="text/javascript">
+    var fe;
+
+    $(".btnCargarFirma").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'empresa', action:'cargarFirma_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                fe = bootbox.dialog({
+                    id      : "dlgCargarFirma",
+                    title   : "Cargar certificado de firma electrónica",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
     $(".btnContabilidad").click(function () {
         var id = $(this).data("id");

@@ -422,7 +422,7 @@ h   : img?.getHeight(),
     }
 
     def logoEmpresa_ajax () {
-         def empresa = Empresa.get(params.id)
+        def empresa = Empresa.get(params.id)
         return[empresa: empresa]
     }
 
@@ -492,10 +492,10 @@ h   : img?.getHeight(),
         }
     }
 
-   def sucursales_ajax(){
-       def empresa = Empresa.get(params.id)
-       return [empresa: empresa, tipo: params.tipo]
-   }
+    def sucursales_ajax(){
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa, tipo: params.tipo]
+    }
 
     def tablaSucursales_ajax(){
         def empresa = Empresa.get(params.id)
@@ -539,6 +539,98 @@ h   : img?.getHeight(),
         }catch(e){
             println("error al borrar la sucursal " + sucursal.errors)
             render "no"
+        }
+    }
+
+    def cargarFirma_ajax(){
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa]
+    }
+
+    def uploadArchivoFirma() {
+
+        def acceptedExt = ["p12"]
+        def empresa = Empresa.get(params.id)
+        def path = "/var/medico/empresa/emp_${empresa?.id}/certificado/"
+        new File(path).mkdirs()
+
+        def f = request.getFile('file')  //archivo = name del input type file
+
+        if (f && !f.empty) {
+            def fileName = f.getOriginalFilename() //nombre original del archivo
+            def ext
+            def parts = fileName.split("\\.")
+            fileName = ""
+            parts.eachWithIndex { obj, i ->
+                if (i < parts.size() - 1) {
+                    fileName += obj
+                } else {
+                    ext = obj
+                }
+            }
+            if (acceptedExt.contains(ext.toLowerCase())) {
+                fileName = empresa.ruc +  "." + ext.toLowerCase()
+                def pathFile = path + fileName
+                def file = new File(pathFile)
+
+                f.transferTo(file)
+
+                def old = empresa?.firma
+                if (old && old.trim() != "") {
+                    def oldPath = "/var/medico/empresa/emp_${empresa?.id}/certificado/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+
+                empresa?.firma = fileName
+                empresa.save(flush: true)
+
+            } else {
+                render "no_Seleccione un archivo de tipo P12"
+                return
+            }
+        } else {
+            render "no_Seleccione un archivo"
+            return
+        }
+        render "ok_Subido correctamente"
+    }
+
+    def borrarArchivoFirma_ajax(){
+
+        def empresa = Empresa.get(params.id)
+
+        if(empresa){
+            if(empresa?.firma){
+                def old = empresa.firma
+                if (old && old.trim() != "") {
+                    def oldPath =  "/var/medico/empresa/emp_${empresa?.id}/certificado/" + old
+                    def oldFile = new File(oldPath)
+                    if (oldFile.exists()) {
+                        oldFile.delete()
+                    }
+                }
+                borrarRegistroFirma(empresa?.id)
+            }else{
+                borrarRegistroFirma(empresa?.id)
+            }
+        }else{
+            render "no_Error al borrar el documento"
+        }
+    }
+
+    def borrarRegistroFirma(id){
+        def empresa = Empresa.get(id)
+
+        empresa.firma = null;
+
+        if(!empresa.save(flush:true)){
+            println("error al borrar " + empresa.errors)
+            render "no_Error al borrar"
+        }else{
+            render "ok_Borrado correctamente"
         }
     }
 

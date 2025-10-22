@@ -458,7 +458,7 @@
                         message: "<i class='fa fa-3x fa-exclamation-triangle text-info'></i> <strong style='font-size: 14px'>  Está seguro que desea enviar esta factura al SRI? </strong>",
                         buttons: {
                             confirm: {
-                                label: '<i class="fa fa-send-o"></i> Enviar',
+                                label: '<i class="fa fa-paper-plane"></i> Enviar',
                                 className: 'btn-success'
                             },
                             cancel: {
@@ -468,24 +468,63 @@
                         },
                         callback: function (result) {
                             if(result){
-                                var en = cargarLoader("Enviando...");
                                 $.ajax({
                                     type: 'POST',
-                                    url: '${createLink(controller: 'servicioSri', action: 'facturaElectronica')}',
+                                    url: '${createLink(controller: 'proceso', action: 'passwordFirma_ajax')}',
                                     data:{
-                                        id: '${proceso?.id}'
                                     },
-                                    success: function (msg) {
-                                        if(msg === 'ok'){
-                                            en.modal("hide");
-                                            log("Factura enviada al SRI correctamente","success");
-                                            setTimeout(function () {
-                                                location.href="${createLink(controller: 'proceso', action: 'procesoForm')}/" + '${proceso?.id}'
-                                            }, 800);
-                                        }else{
-                                            closeLoader();
-                                            log("Error al enviar la factura al SRI","error");
-                                        }
+                                    success: function (msg){
+                                        var b = bootbox.dialog({
+                                            id: "dlgPasswordFirma",
+                                            title: "Clave de la firma electrónica",
+                                            class: "modal-sm",
+                                            message: msg,
+                                            buttons: {
+                                                cancelar: {
+                                                    label: "<i class='fa fa-times'></i> Salir",
+                                                    className: "btn-primary",
+                                                    callback: function () {
+                                                    }
+                                                },
+                                                aceptar: {
+                                                    label: "<i class='fa fa-check'></i> Aceptar",
+                                                    className: "btn-success",
+                                                    callback: function () {
+                                                        var clave = $("#claveFirma").val();
+                                                        if(clave !== ''){
+                                                            var en = cargarLoader("Enviando...");
+                                                            $.ajax({
+                                                                type: 'POST',
+                                                                url: '${createLink(controller: 'servicioSri', action: 'facturaElectronica')}',
+                                                                data:{
+                                                                    id: '${proceso?.id}',
+                                                                    clave: clave
+                                                                },
+                                                                success: function (msg) {
+                                                                    en.modal("hide");
+                                                                    if(msg === 'ok'){
+                                                                        log("Factura enviada al SRI correctamente","success");
+                                                                        setTimeout(function () {
+                                                                            location.href="${createLink(controller: 'proceso', action: 'procesoForm')}/" + '${proceso?.id}'
+                                                                        }, 800);
+                                                                    }else{
+                                                                        if(msg === 'err'){
+                                                                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "No existe un certificado de firma electrónica cargado" + '</strong>');
+                                                                            return false
+                                                                        }else{
+                                                                            log("Error al enviar la factura al SRI","error");
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
+                                                        }else{
+                                                            bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "Ingrese la clave" + '</strong>');
+                                                            return false
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
                                     }
                                 });
                             }

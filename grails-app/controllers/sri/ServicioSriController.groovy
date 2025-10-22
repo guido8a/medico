@@ -1,6 +1,7 @@
 package sri
 
 import groovy.xml.MarkupBuilder
+import seguridad.Empresa
 
 class ServicioSriController {
     def dbConnectionService
@@ -8,15 +9,19 @@ class ServicioSriController {
 
     def index() { }
 
-    def firmaSri(archivo){
+    def firmaSri(archivo,clave){
         def sri = new  XAdESBESSignature()
+        def empresa = Empresa.get(session.empresa.id)
         def empresa_id = session.empresa.id
-        def pathBase = "/var/tienda/empresas/empr_" + empresa_id
-        def pathxml = pathBase + "/xml/"
-        def firma = pathBase + "/firma.p12"
-        println "pathxml: $pathxml, firma en: $firma"
-        println "inicia firmar..."
-        sri.firmar(pathxml + archivo, firma, "Guido3d0cMo", pathxml, "f${archivo}")
+//        def pathBase = "/var/tienda/empresas/empr_" + empresa_id
+//        def pathxml = pathBase + "/xml/"
+        def pathxml = "/var/medico/empresa/emp_${empresa?.id}/xml/"
+//        def firma = pathBase + "/firma.p12"
+        def firma = "/var/medico/empresa/emp_${empresa?.id}/certificado/${empresa?.ruc}.p12"
+//        println "pathxml: $pathxml, firma en: $firma"
+//        println "inicia firmar..."
+//        sri.firmar(pathxml + archivo, firma, "Guido3d0cMo", pathxml, "f${archivo}")
+        sri.firmar(pathxml + archivo, firma, clave, pathxml, "f${archivo}")
     }
 
     /**
@@ -106,23 +111,26 @@ class ServicioSriController {
         println "archivo: $archivo"
 //        def archivo = "fc_667.xml"
         println "finaliza xml de facura en --> ${archivo}"
-//        firmaSri(archivo)
-        println "finaliza firma..."
-        //se envía al SRI y si todo va bien se pone TipoEmision = 1, caso contrario 2
+
+
+       if(verificarCertificadoFirma(empresa_id)){
+           firmaSri(archivo, params.clave)
+           println "finaliza firma..."
+           //se envía al SRI y si todo va bien se pone TipoEmision = 1, caso contrario 2
 
 /*
         prcs.claveAcceso = clave
         prcs.tipoEmision = '1'  // si contesta el SRI
         prcs.save(flush: true)
 */
-        println "antes de enviar archivo al SRI"
+           println "antes de enviar archivo al SRI"
 //        def retornaSri = enviar(archivo, clave)
 //        def retornaSri = "Ok++++"
-        def retornaSri = "123456789_"
-        println "retornaSri: $retornaSri"
-        
-        def arr = retornaSri.split('_')
-        def autorizacion = arr[0]
+           def retornaSri = "123456789_"
+           println "retornaSri: $retornaSri"
+
+           def arr = retornaSri.split('_')
+           def autorizacion = arr[0]
 //        def txfecha = arr[1]
 //        def fecha
 //        if(txfecha.contains('T')) {
@@ -132,22 +140,25 @@ class ServicioSriController {
 //        }
 //        println "retorna de enviar: autorización ${autorizacion} y fecha: $fecha"
 
-        if(autorizacion) {
-            prcs.claveAcceso = clave
-            prcs.autorizacion = autorizacion
+           if(autorizacion) {
+               prcs.claveAcceso = clave
+               prcs.autorizacion = autorizacion
 //            prcs.fechaAutorizacion = fecha
-            prcs.tipoEmision = '1'  // si contesta el SRI
-            retorna = "ok"
-        } else {
-            prcs.claveAcceso = clave
-            prcs.tipoEmision = '1'  // si no contesta el SRI hay que hacer otro envío de los "2"
-            retorna = "no"
-        }
-        prcs.save(flush: true)
+               prcs.tipoEmision = '1'  // si contesta el SRI
+               retorna = "ok"
+           } else {
+               prcs.claveAcceso = clave
+               prcs.tipoEmision = '1'  // si no contesta el SRI hay que hacer otro envío de los "2"
+               retorna = "no"
+           }
+           prcs.save(flush: true)
 
-        println "retorna >>> $retorna"
+           println "retorna >>> $retorna"
 
-        render retorna
+           render retorna
+       }else{
+           render "err"
+       }
     }
 
     def facturaXml(prcs) {
@@ -512,6 +523,18 @@ class ServicioSriController {
             resp = "0" * (numero - longitud) + "$valor"
         }
         return resp
+    }
+
+    def verificarCertificadoFirma(id){
+        def empresa = Empresa.get(id)
+        def certificado = "/var/medico/empresa/emp_${empresa?.id}/certificado/${empresa?.ruc}.p12"
+        def archivo = new File(certificado)
+
+        if(archivo.exists()){
+            return true
+        }else{
+            return false
+        }
     }
 
 }

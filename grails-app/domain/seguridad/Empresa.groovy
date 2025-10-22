@@ -96,7 +96,7 @@ class Empresa implements Auditable{
         contribuyenteEspecial(blank: true, nullable: true)
         razonSocial(blank: true, nullable: true)
         ambiente(blank: true, nullable: true)
-        firma(blank: true, nullable: true)
+        firma(size: 0..63, blank: true, nullable: true)
         clave(blank: true, nullable: true)
         numeroComprobanteDiario(blank: true, nullable: true, size: 1..20)
         numeroComprobanteIngreso(blank: true, nullable: true, size: 1..20)
