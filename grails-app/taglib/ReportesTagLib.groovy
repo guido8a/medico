@@ -1,4 +1,5 @@
 import org.grails.core.io.ResourceLocator
+import seguridad.Empresa
 
 /**
  * Tags para facilitar la creación de reportes (HTML -> PDF)
@@ -163,43 +164,29 @@ class ReportesTagLib {
      */
     def headerReporte = { attrs ->
         println("AQUI atributos headerReporte  " + attrs)
+        def empresa = Empresa.get(attrs.empresa)
+        println("emrpesa " + empresa)
+
         def title = attrs.title ?: ""
         def titulo = attrs.titulo ?: ""
         def unidadEjecutora
         def unidadAutonoma
+        def h = 55
 
         if(!attrs.anio){
             attrs.anio = new Date().format("yyyy")
         }
 
-        println "attrs.unidad: ${attrs.unidad.class}"
-
-
-//        println "....3"
-
-//        println("ue " + unidadEjecutora)
-//        println("ua " + unidadAutonoma)
-//        println("anio " + attrs.anio)
-
-
-
         def subtitulo = attrs.subtitulo ?: ""
-
         def estilo = attrs.estilo ?: "center"
 
-        def form
-        if(attrs.title.contains("permanente")) {
-            form = attrs.form ?: 'GAF-001'
-        }  else {
-            form = attrs.form ?: 'GPE-DPI-01'
-        }
+//        def form
+//        if(attrs.title.contains("permanente")) {
+//            form = attrs.form ?: 'GAF-001'
+//        }  else {
+//            form = attrs.form ?: 'GPE-DPI-01'
+//        }
 
-        def h = 55
-
-//        def logoPath = resource(dir: 'images', file: 'logo-pdf-header.png')
-//        ResourceLocator grailsResourceLocator
-//        def resource = grailsResourceLocator.findResourceForURI('/apli/logo-pdf-header.png')
-//        def logoPath = "${asset.image src: 'apli/logo-pdf-header.png'}"
         def logoPath = "${asset.image src: 'apli/logo.png', style:'height:55px'}"
         def html = ""
 
@@ -207,14 +194,8 @@ class ReportesTagLib {
         html += "${logoPath}\n"
         html += '</div>' + "\n"
 
-//        html += "<div class='tituloRprt'>"
-//        html += "<div class='tituloReporteSinLinea'>"
-//        html += "Empresa pública YACHAY EP"
-//        html += '</div>'
-//        html += '</div>'
-
         html += "<div class='tituloRprt tituloReporteSinLinea'>"
-        html += "Empresa pública YACHAY EP"
+        html += empresa?.nombre ?: ''
         html += '</div>'
 
         if (titulo) {
@@ -242,48 +223,43 @@ class ReportesTagLib {
             html += '</div>'
         }
 
-        if (attrs.unidad || attrs.numero != null) {
-            html += "<div class='numeracion'>" + "\n"
-            html += "<table border='1' ${estilo == 'right' ? 'style=\'float: right\'' : ''}>" + "\n"
-            html += "<tr>" + "\n"
-            html += "<td style='background: #0F243E;'>Form. ${form}</td>" + "\n"
-            html += "<td style='background: #008080;'>Numeración:</td>" + "\n"
-//            html += "<td style='background: #008080;'>${attrs.unidad ?: ''}</td>" + "\n"
-            if(attrs.unidad.id)
-            {
-//                println "atrr: ${attrs.title.trim().toLowerCase()}"
-                if(attrs.title.trim().toLowerCase() in ['aval de poa', 'reforma al poa']) {
-
-                    html += "<td style='background: #008080;'>${attrs.anio}-GPE</td>" + "\n"
-                }
-                if(attrs.title.trim().toLowerCase() in ['solicitud de reforma al poa', 'solicitud de aval de poa']) {
-                    html += "<td style='background: #008080;'>${attrs.anio}-${unidadAutonoma?.codigo}</td>" + "\n"
-                }
-
-                if(attrs.title.trim().toLowerCase() in ['aval de poa de gasto permanente', 'ajuste al poa de gasto permanente', 'reforma al poa de gasto permanente']){
-                    html += "<td style='background: #008080;'>${attrs.anio}-GAF</td>" + "\n"
-                }
-
-                if(attrs.title.toLowerCase() in ['solicitud de aval de poa permanente', 'solicitud de reforma al poa de gasto permanente']) {
-                    if(direccionesGaf.contains(unidadEjecutora.codigo)){
-                        html += "<td style='background: #008080;'>${attrs.anio}-${unidadEjecutora?.codigo}</td>" + "\n"
-                    }else{
-                        html += "<td style='background: #008080;'>${attrs.anio}-${unidadAutonoma?.codigo}</td>" + "\n"
-                    }
-
-                } else {
-//                    html += "<td style='background: #008080;'>${attrs.anio}</td>" + "\n"
-                }
-
-            }else{
-//                html += "<td style='background: #008080;'>${attrs.anio}</td>" + "\n"
-            }
-
-            html += "<td style='background: #008080;'>No. ${attrs.numero != null ? attrs.numero.toString().padLeft(3, '0') : ''}</td>" + "\n"
-            html += "</tr>" + "\n"
-            html += "</table>" + "\n"
-            html += "</div>" + "\n"
-        }
+//        if (attrs.unidad || attrs.numero != null) {
+//            html += "<div class='numeracion'>" + "\n"
+//            html += "<table border='1' ${estilo == 'right' ? 'style=\'float: right\'' : ''}>" + "\n"
+//            html += "<tr>" + "\n"
+//            html += "<td style='background: #0F243E;'>Form. ${form}</td>" + "\n"
+//            html += "<td style='background: #008080;'>Numeración:</td>" + "\n"
+//            if(attrs.unidad.id)
+//            {
+//                if(attrs.title.trim().toLowerCase() in ['aval de poa', 'reforma al poa']) {
+//
+//                    html += "<td style='background: #008080;'>${attrs.anio}-GPE</td>" + "\n"
+//                }
+//                if(attrs.title.trim().toLowerCase() in ['solicitud de reforma al poa', 'solicitud de aval de poa']) {
+//                    html += "<td style='background: #008080;'>${attrs.anio}-${unidadAutonoma?.codigo}</td>" + "\n"
+//                }
+//
+//                if(attrs.title.trim().toLowerCase() in ['aval de poa de gasto permanente', 'ajuste al poa de gasto permanente', 'reforma al poa de gasto permanente']){
+//                    html += "<td style='background: #008080;'>${attrs.anio}-GAF</td>" + "\n"
+//                }
+//
+//                if(attrs.title.toLowerCase() in ['solicitud de aval de poa permanente', 'solicitud de reforma al poa de gasto permanente']) {
+//                    if(direccionesGaf.contains(unidadEjecutora.codigo)){
+//                        html += "<td style='background: #008080;'>${attrs.anio}-${unidadEjecutora?.codigo}</td>" + "\n"
+//                    }else{
+//                        html += "<td style='background: #008080;'>${attrs.anio}-${unidadAutonoma?.codigo}</td>" + "\n"
+//                    }
+//                } else {
+//                }
+//
+//            }else{
+//            }
+//
+//            html += "<td style='background: #008080;'>No. ${attrs.numero != null ? attrs.numero.toString().padLeft(3, '0') : ''}</td>" + "\n"
+//            html += "</tr>" + "\n"
+//            html += "</table>" + "\n"
+//            html += "</div>" + "\n"
+//        }
 
         out << raw(html)
     }
@@ -292,20 +268,19 @@ class ReportesTagLib {
      * Muestra el footer para los reportes
      */
     def footerReporte = { attrs ->
+        def empresa = Empresa.get(attrs.empresa)
         def html = ""
         def h = 50
-//        def logoPath = resource(dir: 'images', file: 'logo-pdf-footer.png')
-        def logoPath = "${asset.image src: 'apli/logo.png', style:'height:${h}px; float:right; margin-left: 1cm; margin-bottom: 1cm;'}"
+//        def logoPath = "${asset.image src: 'apli/logo.png', style:'height:${h}px; float:right; margin-left: 1cm; margin-bottom: 1cm;'}"
 
         html += '<div id="footer">'
-//        html += "<div class='fechaReporte' style='font-size: 8.5pt; margin-bottom: 15px;'>Impreso el ${new Date().format('dd-MM-yyyy HH:mm')}</div>"
-//        html += "<img src='${logoPath}' style='height:${h}px; float:right; margin-left: 1cm; margin-bottom: 1cm;'/>"
-        html += "${logoPath}"
+//        html += "${logoPath}"
         html += "<div style='float:right; font-size:8pt;'>"
-        html += "Amazonas N26-146 y La Niña<br/>"
-        html += "Telf. +(593)2304 9100<br/>"
-        html += "Quito - Ecuador<br/>"
-        html += "www.yachay.gob.ec<br/>"
+        html += "${empresa?.direccion?.substring(0,50) ?: ''}<br/>"
+        html += "${empresa?.direccion?.substring(50,100) ?: ''}<br/>"
+        html += "Teléfono: ${empresa?.telefono ?: ''}<br/>"
+//        html += "Quito - Ecuador<br/>"
+        html += "Email: ${empresa?.mail ?: ''}<br/>"
         html += "</div>"
         html += "</div>"
 

@@ -1,5 +1,6 @@
 package sri
 
+import grails.util.Holders
 import inventario.Bodega
 import inventario.CentroCosto
 import retenciones.Retencion
@@ -17,6 +18,7 @@ class ProcesoController  {
     def loginService
     def utilitarioService
     def dbConnectionService
+//    def mailService
 
     def index = { redirect(action: "buscarPrcs") }
 
@@ -2352,6 +2354,34 @@ class ProcesoController  {
 
     def passwordFirma_ajax(){
 
+    }
+
+    def enviarFactura_ajax(){
+
+//        def proceso = Proceso.get(params.id)
+//        def errores = ''
+//
+//
+//        try{
+//            mailService.sendMail {
+//
+////                to proceso?.paciente?.mail
+//                to 'fegrijalva2501@hotmail.com'
+//                subject "Envio de factura electrónica"
+//                body "Datos de ingreso: " +
+//                        "\n Usuario: ${proceso?.paciente?.mail} "
+//            }
+//            println "Enviado mail a: ${proceso?.paciente?.mail}"
+//        }catch (e){
+//            println("Error al enviar el mail: " + e)
+//            errores += e
+//        }
+//
+//        if(errores == ''){
+//            return true
+//        }else{
+//            return false
+//        }
     }
 }
 

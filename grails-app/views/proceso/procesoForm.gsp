@@ -538,10 +538,10 @@
         });
     });
 
-    $("#btnImprimirFactElect").click(function () {
-        url = "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";
-        location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=facturaElectronica.pdf"
-    });
+    %{--$("#btnImprimirFactElect").click(function () {--}%
+    %{--    url = "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";--}%
+    %{--    location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=facturaElectronica.pdf"--}%
+    %{--});--}%
 
     $("#btnImprimirFactElect1").click(function () {
         %{--url = "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";--}%
@@ -549,33 +549,53 @@
         cargarPdf();
     });
 
-    $("#btnImprimirNCElect").click(function () {
-        url = "${g.createLink(controller:'reportes3' , action: 'notaCreditoElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";
-        location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=notaCreditoElectronica.pdf"
-    });
+    %{--$("#btnImprimirNCElect").click(function () {--}%
+    %{--    url = "${g.createLink(controller:'reportes3' , action: 'notaCreditoElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";--}%
+    %{--    location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=notaCreditoElectronica.pdf"--}%
+    %{--});--}%
 
-    $("#btnImprimirNDElect").click(function () {
-        url = "${g.createLink(controller:'reportes3' , action: 'notaDebitoElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";
-        location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=notaDebitoElectronica.pdf"
-    });
+    %{--$("#btnImprimirNDElect").click(function () {--}%
+    %{--    url = "${g.createLink(controller:'reportes3' , action: 'notaDebitoElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}";--}%
+    %{--    location.href = "${g.createLink(action: 'pdfLink',controller: 'pdf')}?url=" + url + "&filename=notaDebitoElectronica.pdf"--}%
+    %{--});--}%
 
     $("#btnEnviarFactElect").click(function () {
-        bootbox.confirm("<i class='fa fa-exclamation-circle fa-3x pull-left text-warning text-shadow'></i><p>¿Está " +
-            "Está seguro de enviar la factura electrónica a </br> ${proceso?.proveedor?.nombre} " +
-            ".</p>", function (result) {
-            $.ajax({
-                type: 'POST',
-                url: "${createLink(controller: 'reportes3', action: 'enviar Mail2')}",
-                data: {
-                    id: "${proceso?.id}",
-                    emp: '${session.empresa.id}',
-                    url: "${g.createLink(controller:'reportes3' , action: 'facturaElectronica')}?id=" + '${proceso?.id}' + "Wemp=${session.empresa.id}"
+        bootbox.dialog({
+            title: "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Enviar factura",
+            message: "<p>Está seguro de enviar la factura electrónica a </br> ${proceso?.paciente?.apellido + " " + proceso?.paciente?.nombre}</p>",
+            buttons: {
+                cancelar: {
+                    label: "<i class='fa fa-times'></i> Cancelar",
+                    className: "btn-primary",
+                    callback: function () {
+                    }
                 },
-                success: function (msg) {
-                    location.reload()
+                eliminar: {
+                    label: "<i class='fa fa-paper-plane'></i> Enviar",
+                    className: "btn-success",
+                    callback: function () {
+                        var bta = cargarLoader("Enviando..");
+                        $.ajax({
+                            type: 'POST',
+                            url: '${createLink(controller: 'proceso', action: 'enviarFactura_ajax')}',
+                            data: {
+                                id: "${proceso?.id}",
+                                empresa: '${session.empresa.id}'
+                            },
+                            success: function (msg) {
+                                bta.modal("hide");
+                                var parts = msg.split("_");
+                                if (parts[0] === 'ok') {
+                                    log(parts[1], "success");
+                                } else {
+                                    log(parts[1], "error");
+                                }
+                            }
+                        });
+                    }
                 }
-            });
-        })
+            }
+        });
     });
 
     $("#btnDocRetencion").click(function () {

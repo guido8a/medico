@@ -215,7 +215,6 @@ class ReportesController {
     def _gestorContable() {
         def gestor = cuentasService.getGestor(params.cont, params.empresa)
         def cuentas = cuentasService.getCuentas(params.cont, params.empresa)
-//        def genera = cuentasService.getGenera(7)
 
         def genera = []
         gestor.each { g ->
@@ -228,7 +227,6 @@ class ReportesController {
             def nombre = generas.gestor.nombre
             def fecha = generas.gestor.fecha
 
-//            def descripcion = generas.gestor.descripcion
             def descripcion = generas.gestor.nombre
 
             if (!res.containsKey(nombre)) {
@@ -250,10 +248,7 @@ class ReportesController {
             res[nombre].items.add(m)
         }
 
-
         renderPdf(template:'/reportes/gestorContable', model: [gestor: gestor, genera: genera, cuentas: cuentas, res: res, empresa: params.empresa, contabilidad: params.cont], filename: 'gestorContable.pdf')
-
-//        [gestor: gestor, genera: genera, cuentas: cuentas, res: res, empresa: params.empresa]
     }
 
     def reporteOrdenCompra() {
@@ -874,7 +869,6 @@ order by rplnnmro
 
         return[proceso: proceso, empresa: empresa, comprobante: comprobante]
     }
-
 
 }
 

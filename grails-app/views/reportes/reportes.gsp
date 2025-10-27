@@ -99,8 +99,9 @@
 %{--<ul class="nav nav-tabs">--}%
 <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#generales">Generales</a></li>
-%{--    <li><a data-toggle="pill" href="#obra">POA</a></li>--}%
-%{--    <li><a data-toggle="pill" href="#cont">Datos geográficos</a></li>--}%
+    <li class=""><a data-toggle="pill" href="#contabilidad">Contabilidad</a></li>
+    %{--    <li><a data-toggle="pill" href="#obra">POA</a></li>--}%
+    %{--    <li><a data-toggle="pill" href="#cont">Datos geográficos</a></li>--}%
 </ul>
 
 <div class="tab-content">
@@ -114,75 +115,54 @@
                         <i class="fa fa-print fa-4x text-success"></i>
                         <br/> Citas por paciente
                     </a>
-%{--                    <a href="#" id="btnSocios" class="btn btn-info btn-ajax example_c item" texto="dire">--}%
-%{--                        <i class="fa fa-users fa-4x text-success"></i>--}%
-%{--                        <br/> Socios--}%
-%{--                    </a>--}%
-%{--                    <a href="#" id="btnEncuestas" class="btn btn-info btn-ajax example_c item" texto="undd">--}%
-%{--                        <i class="fa fa-paste fa-4x text-success"></i>--}%
-%{--                        <br/> Encuestas--}%
-%{--                    </a>--}%
+                    %{--                    <a href="#" id="btnSocios" class="btn btn-info btn-ajax example_c item" texto="dire">--}%
+                    %{--                        <i class="fa fa-users fa-4x text-success"></i>--}%
+                    %{--                        <br/> Socios--}%
+                    %{--                    </a>--}%
+                    %{--                    <a href="#" id="btnEncuestas" class="btn btn-info btn-ajax example_c item" texto="undd">--}%
+                    %{--                        <i class="fa fa-paste fa-4x text-success"></i>--}%
+                    %{--                        <br/> Encuestas--}%
+                    %{--                    </a>--}%
                 </p>
             </div>
         </div>
 
-%{--        <div class="row">--}%
-%{--            <div class="col-md-12 col-xs-5">--}%
-%{--                <p>--}%
-%{--                    <a href="#" id="btnTalleres" class="btn btn-info btn-ajax example_c item" texto="func">--}%
-%{--                        <i class="fa fa-book-medical fa-4x text-success"></i>--}%
-%{--                        <br/> Talleres--}%
-%{--                    </a>--}%
-%{--                    <a href="#" id="btnCapacitaciones" class="btn btn-info btn-ajax example_c item" texto="ddlb">--}%
-%{--                        <i class="fa fa-atlas fa-4x text-success"></i>--}%
-%{--                        <br/> Capacitaciones--}%
-%{--                    </a>--}%
-%{--                    <a href="#" id="btnConvenios" class="btn btn-info btn-ajax example_c item" texto="auxl">--}%
-%{--                        <i class="fa fa-handshake fa-4x text-success"></i>--}%
-%{--                        <br/> Convenios--}%
-%{--                    </a>--}%
-%{--                </p>--}%
-%{--            </div>--}%
-%{--        </div>--}%
+        %{--        <div class="row">--}%
+        %{--            <div class="col-md-12 col-xs-5">--}%
+        %{--                <p>--}%
+        %{--                    <a href="#" id="btnTalleres" class="btn btn-info btn-ajax example_c item" texto="func">--}%
+        %{--                        <i class="fa fa-book-medical fa-4x text-success"></i>--}%
+        %{--                        <br/> Talleres--}%
+        %{--                    </a>--}%
+        %{--                    <a href="#" id="btnCapacitaciones" class="btn btn-info btn-ajax example_c item" texto="ddlb">--}%
+        %{--                        <i class="fa fa-atlas fa-4x text-success"></i>--}%
+        %{--                        <br/> Capacitaciones--}%
+        %{--                    </a>--}%
+        %{--                    <a href="#" id="btnConvenios" class="btn btn-info btn-ajax example_c item" texto="auxl">--}%
+        %{--                        <i class="fa fa-handshake fa-4x text-success"></i>--}%
+        %{--                        <br/> Convenios--}%
+        %{--                    </a>--}%
+        %{--                </p>--}%
+        %{--            </div>--}%
+        %{--        </div>--}%
     </div>
+    <div id="contabilidad" class="tab-pane fade in">
+        <div class="row">
+            <div class="col-md-12 col-xs-5">
+                <p>
 
-%{--    <div id="obra" class="tab-pane fade">--}%
-%{--        <div class="row">--}%
-%{--            <div class="col-md-12 col-xs-5">--}%
-%{--                <p>--}%
-%{--                    <a href="#" id="btnPoaFuente" class="btn btn-info btn-ajax example_c item" texto="tpob">--}%
-%{--                        <i class="fa fa-list-alt fa-4x text-success"></i>--}%
-%{--                        <br/> POA por fuente--}%
-%{--                    </a>--}%
-%{--                    <a href="#" id="btnPoaComponente" class="btn btn-info btn-ajax example_c item" texto="prsp">--}%
-%{--                        <i class="fa fa-list-ol fa-4x text-success"></i>--}%
-%{--                        <br/> POA por componente--}%
-%{--                    </a>--}%
-%{--                    <a href="#" id="btnPoaGrupo" class="btn btn-info btn-ajax example_c item" texto="crit">--}%
-%{--                        <i class="fa fa-th-list fa-4x text-success"></i>--}%
-%{--                        <br/> POA por grupo de gasto--}%
-%{--                    </a>--}%
-%{--                    <a href="#" id="btnReporteAsignacionesCrono" class="btn btn-info btn-ajax example_c item" texto="anua">--}%
-%{--                        <i class="fa fa-calendar-check fa-4x text-success"></i>--}%
-%{--                        <br/> Cronograma valorado--}%
-%{--                    </a>--}%
-%{--                </p>--}%
-%{--            </div>--}%
-%{--        </div>--}%
-%{--    </div>--}%
-
-%{--    <div id="cont" class="tab-pane fade">--}%
-%{--        <div class="row">--}%
-%{--            <div class="col-md-12 col-xs-5">--}%
-%{--                <p>--}%
-%{--                    <g:link class="link btn btn-info btn-ajax example_c item" texto="grgf"  controller="reportes" action="mapa">--}%
-%{--                        <i class="fa fa-map-marked-alt fa-4x text-success"></i>--}%
-%{--                        <br/> Localización de proyectos--}%
-%{--                    </g:link>--}%
-%{--                </p>--}%
-%{--            </div>--}%
-%{--        </div>--}%
-%{--    </div>--}%
+                    <a href="#" id="btnPlanCuentas" class="btn btn-info btn-ajax example_c item" texto="plan">
+                        <i class="fa fa-sitemap fa-4x text-success"></i>
+                        <br/> Plan de Cuentas
+                    </a>
+                    <a href="#" id="btnGestorContable" class="btn btn-info btn-ajax example_c item" texto="gestor">
+                        <i class="fa fa-building fa-4x text-success"></i>
+                        <br/>  Gestor Contable
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div id="tool" style="margin-left: 350px; width: 300px; height: 160px; display: none;padding:25px;"
          class="ui-widget-content ui-corner-all mensaje">
@@ -190,17 +170,84 @@
 
 </div>
 
-<div id="trnp" style="display:none">
-    <h3>Reporte Semáforo</h3><br>
-    <p>Listado de cantones con su respectivo semáforo</p>
-</div>
-
 <div id="fnca" style="display:none">
     <h3>Reporte de citas por pacientes</h3><br>
     <p>Listado de todos las citas por paciente</p>
 </div>
 
+<div id="plan" style="display:none">
+    <h3>Plan de Cuentas</h3><br>
+    <p>Listado de plan de cuenta</p>
+</div>
+
+<div id="gestor" style="display:none">
+    <h3>Gestor Contable</h3><br>
+    <p>Listado de gestores contables</p>
+</div>
+
 <script type="text/javascript">
+
+    $("#btnPlanCuentas").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'reportes', action:'planCuentas_ajax')}",
+            data: {  },
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    title: "Plan de cuentas",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        },
+                        crear: {
+                            label: "<i class='fa fa-print'></i> Imprimir",
+                            className: "btn-success",
+                            callback: function () {
+                                var cont = $("#contCuentas").val();
+                                location.href = "${g.createLink(controller:'reportes' , action: '_planDeCuentas')}?cont=" + cont + "&empresa=${session.empresa?.id}";
+                            }
+                        }
+                    }
+                }); //dialog
+            } //success
+        });
+    });
+
+    $("#btnGestorContable").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'reportes', action:'gestorContable_ajax')}",
+            data: {  },
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    title: "Gestor contable",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        },
+                        crear: {
+                            label: "<i class='fa fa-print'></i> Imprimir",
+                            className: "btn-success",
+                            callback: function () {
+                                var cont = $("#contCuentas").val();
+                                location.href = "${g.createLink(controller:'reportes' , action: '_gestorContable')}?cont=" + cont + "&empresa=${session.empresa?.id}";
+                            }
+                        }
+                    }
+                }); //dialog
+            } //success
+        });
+    });
 
     $("#btnReporteCitas").click(function () {
         $.ajax({

@@ -1802,4 +1802,12 @@ class ReportesController {
         response.getOutputStream().write(b)
     }
 
+    def planCuentas_ajax(){
+
+    }
+
+    def gestorContable_ajax(){
+
+    }
+
 }
