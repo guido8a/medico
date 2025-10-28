@@ -870,5 +870,75 @@ order by rplnnmro
         return[proceso: proceso, empresa: empresa, comprobante: comprobante]
     }
 
+
+    def _libroMayor () {
+//        println("params lm " + params)
+        def desde = new Date().parse("dd-MM-yyyy", params.desde)
+        def hasta = new Date().parse("dd-MM-yyyy", params.hasta)
+        def cuenta = Cuenta.get(params.cnta)
+        def empresa = Empresa.get(params.emp)
+        def contabilidad = Contabilidad.get(params.cont)
+
+        def cn = dbConnectionService.getConnection()
+        def sql = "select * from libro_mayor(${params.emp}, ${params.cont}, ${params.cnta}, '${params.desde}', '${params.hasta}');"
+//        println("sql " + sql)
+        def res =  cn.rows(sql.toString())
+
+        renderPdf(template:'/reportes/libroMayor', model: [res: res,empresa: params.emp, desde: desde, hasta: hasta, cuenta: cuenta, contabilidad: contabilidad], filename: 'libroMayor.pdf')
+    }
+
+    def libroMayor_ajax(){
+
+    }
+
+    def revisarFecha_ajax() {
+        if(params.desde && params.hasta){
+            def desde = new Date().parse("dd-MM-yyyy", params.desde)
+            def hasta = new Date().parse("dd-MM-yyyy", params.hasta)
+
+            if(desde > hasta){
+                render "no"
+            }else{
+                render "ok"
+            }
+        }else{
+            render "ok"
+        }
+    }
+
+    def libroDiario_ajax(){
+
+    }
+
+    def _libroDiario () {
+        def contabilidad = Contabilidad.get(params.cont)
+        def periodo = Periodo.get(params.periodo)
+        def empresa = Empresa.get(params.empresa)
+
+        def comprobantes = Comprobante.withCriteria {
+
+            proceso{
+                eq("empresa",empresa)
+                eq("estado",'R')
+            }
+
+            and{
+                le("fecha", periodo.fechaFin)
+                ge("fecha", periodo.fechaInicio)
+            }
+
+        }
+
+        renderPdf(template:'/reportes/libroDiario', model: [comprobantes: comprobantes, empresa: params.empresa, contabilidad: contabilidad], filename: 'libroDiario.pdf')
+    }
+
+    def periodo_ajax(){
+
+        def cont = Contabilidad.get(params.contabilidad)
+        def periodos = Periodo.findAllByContabilidad(cont, [sort: 'fechaInicio'])
+
+        return [periodos:periodos]
+    }
+
 }
 

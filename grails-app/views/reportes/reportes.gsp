@@ -159,6 +159,14 @@
                         <i class="fa fa-building fa-4x text-success"></i>
                         <br/>  Gestor Contable
                     </a>
+                    <a href="#" id="btnLibroDiario" class="btn btn-info btn-ajax example_c item" texto="diario">
+                        <i class="fa fa-bookmark fa-4x text-success"></i>
+                        <br/>  Libro diario
+                    </a>
+                    <a href="#" id="btnLibroMayor" class="btn btn-info btn-ajax example_c item" texto="mayor">
+                        <i class="fa fa-book fa-4x text-success"></i>
+                        <br/>  Libro mayor
+                    </a>
                 </p>
             </div>
         </div>
@@ -185,7 +193,113 @@
     <p>Listado de gestores contables</p>
 </div>
 
+<div id="mayor" style="display:none">
+    <h3>Libro mayor</h3><br>
+    <p>Libro mayor</p>
+</div>
+
+<div id="diario" style="display:none">
+    <h3>Libro diario</h3><br>
+    <p>Libro diario</p>
+</div>
+
 <script type="text/javascript">
+
+    var bca, dlm;
+
+    $("#btnLibroDiario").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'reportes', action:'libroDiario_ajax')}",
+            data: {  },
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    title: "Libro diario",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        },
+                        crear: {
+                            label: "<i class='fa fa-print'></i> Imprimir",
+                            className: "btn-success",
+                            callback: function () {
+                                var cont = $("#contabilidadDiario option:selected").val();
+                                var per = $("#periodoLibroDiario option:selected").val();
+                                location.href = "${g.createLink(controller: 'reportes', action: '_libroDiario')}?cont=" + cont + "&periodo=" + per + "&empresa=${session.empresa.id}";
+                            }
+                        }
+                    }
+                }); //dialog
+            } //success
+        });
+    });
+
+
+    $("#btnLibroMayor").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'reportes', action:'libroMayor_ajax')}",
+            data: {  },
+            success: function (msg) {
+                dlm = bootbox.dialog({
+                    title: "Libro Mayor",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        },
+                        crear: {
+                            label: "<i class='fa fa-print'></i> Imprimir",
+                            className: "btn-success",
+                            callback: function () {
+                                var fechaDesde = $("#fechaDesde").val();
+                                var fechaHasta = $("#fechaHasta").val();
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '${createLink(controller: 'reportes', action: 'revisarFecha_ajax')}',
+                                    data:{
+                                        desde: fechaDesde,
+                                        hasta: fechaHasta
+                                    },
+                                    success: function (msg){
+                                        var cont = $("#contCuentas").val();
+                                        var cnta = $("#idCntaLibro").val();
+                                        if(msg === 'ok'){
+                                            if(cont){
+                                                if(cnta){
+                                                    location.href = "${g.createLink(controller:'reportes' , action: '_libroMayor')}?cont=" + cont + "&emp=${session.empresa.id}" + "&cnta=" + cnta + "&desde=" + fechaDesde + "&hasta=" + fechaHasta;
+                                                    cerrarImprimirLibroMayor();
+                                                }else{
+                                                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-info text-shadow'></i> <strong style='font-size: 14px'> Seleccione una cuenta </strong> ");
+                                                    return false;
+                                                }
+                                            }else{
+                                                bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-info text-shadow'></i> <strong style='font-size: 14px'> Seleccione una contabilidad </strong> ");
+                                                return false;
+                                            }
+                                        }else{
+                                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-info text-shadow'></i> <strong style='font-size: 14px'> La fecha ingresada en 'Hasta' es menor a la fecha ingresada en 'Desde' </strong> ");
+                                            return false;
+                                        }
+                                    }
+                                });
+                                return false
+                            }
+                        }
+                    }
+                }); //dialog
+            } //success
+        });
+    });
 
     $("#btnPlanCuentas").click(function () {
         $.ajax({
@@ -306,6 +420,39 @@
             $('#tool').hide();
         });
     });
+
+    function buscarCuentas() {
+        $.ajax({
+            type: 'POST',
+            url:'${createLink(controller: 'cuenta', action: 'buscadorCuentas_ajax')}',
+            data:{ },
+            success: function (msg){
+               bca = bootbox.dialog({
+                    title: 'Buscar cuenta',
+                    message: msg,
+                    class: 'long',
+                    buttons:{
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+    function cerrarBuscarCuenta() {
+        bca.modal("hide");
+    }
+
+    function cerrarImprimirLibroMayor() {
+        dlm.modal("hide");
+    }
+
+
 </script>
 </body>
 </html>
