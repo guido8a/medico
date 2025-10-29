@@ -62,13 +62,13 @@
                    placeholder="RUC" idP="${proceso?.paciente?.id}"/>
         </div>
 
-        <div class="col-xs-7" style="margin-left: -15px">
+        <div class="col-xs-6" style="margin-left: -15px">
             <input type="text" name="proveedor?.nombre" class="form-control label-shared proveedor" id="prve_nombre"
                    readonly value="${proceso?.paciente?.nombre}" title="Nombre del proveedor o cliente"
                    style="width: 350px; font-weight: bold" placeholder="Nombre"/>
         </div>
 
-        <div class="col-xs-4">
+        <div class="col-xs-3">
             <g:if test="${proceso?.estado != 'R'}">
 
                 <g:if test="${!paciente}">

@@ -34,13 +34,13 @@
             <i class="fa fa-arrow-left"></i> Proceso
         </g:link>
     </div>
-    <div class="btn-group">
-        <g:if test="${!truncar}">
-            <g:link class="btn btn-success btn-ajax" id="${proceso?.id}" controller="proceso" action="actlProceso">
-                <i class="fa fa-save"></i> Guardar
-            </g:link>
-        </g:if>
-    </div>
+%{--    <div class="btn-group">--}%
+%{--        <g:if test="${!truncar}">--}%
+%{--            <g:link class="btn btn-success btn-ajax" id="${proceso?.id}" controller="proceso" action="actlProceso">--}%
+%{--                <i class="fa fa-save"></i> Guardar--}%
+%{--            </g:link>--}%
+%{--        </g:if>--}%
+%{--    </div>--}%
     <div class="btn-group">
         <g:if test="${proceso?.tipoProceso?.codigo?.trim() == 'V'}">
             <a href="#" class="btn btn-info" id="btnImprimirDetalle">

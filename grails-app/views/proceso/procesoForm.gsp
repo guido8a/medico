@@ -87,13 +87,13 @@
         </g:if>
         <g:if test="${proceso}">
             <g:if test="${proceso?.estado == 'R'}">
-                <g:form action="borrarProceso" class="br_prcs" style="display: inline">
-                    <input type="hidden" name="id" value="${proceso?.id}">
-                    <a class="btn btn-danger" id="btn-br-prcs" action="borrarProceso">
-                        <i class="fa fa-trash"></i>
-                        Anular
-                    </a>
-                </g:form>
+            %{--                <g:form action="borrarProceso" class="br_prcs" style="display: inline">--}%
+            %{--                    <input type="hidden" name="id" value="${proceso?.id}">--}%
+            %{--                <a class="btn btn-danger" id="btn-br-prcs" data-id="${proceso?.id}">--}%
+            %{--                    <i class="fa fa-trash"></i>--}%
+            %{--                    Anular--}%
+            %{--                </a>--}%
+            %{--                </g:form>--}%
 
 
                 <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V', 'NC', 'ND']}">
@@ -166,7 +166,7 @@
             <g:if test="${proceso?.estado == 'R'}">
                 <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">
                     <a href="#" class="btn btn-success" id="btnImprimirFactElect1">
-                        <i class="fa fa-print"></i> Factura
+                        <i class="fa fa-print"></i> Imprimir Factura
                     </a>
                 </g:if>
 
@@ -180,6 +180,16 @@
             </g:if>
         </g:if>
     </div>
+    <g:if test="${proceso}">
+        <g:if test="${proceso?.estado == 'R'}">
+            <div class="btn-group">
+                <a class="btn btn-danger" id="btn-br-prcs" data-id="${proceso?.id}">
+                    <i class="fa fa-trash"></i>
+                    Anular
+                </a>
+            </div>
+        </g:if>
+    </g:if>
 </div>
 
 <div style="padding: 0.7em; margin-top:5px; display: none; font-weight: bold; font-size: 14px" class="alert alert-danger ui-corner-all" id="divErrores">
@@ -1020,15 +1030,47 @@
         });
     }
 
-    $(function () {
-        $("#btn-br-prcs").click(function () {
-            bootbox.confirm("Está seguro? si esta transacción tiene un comprobante, este será anulado. " +
-                "Esta acción es irreversible", function (result) {
-                if (result) {
-                    $(".br_prcs").submit()
+    $("#btn-br-prcs").click(function () {
+        var id = $(this).data("id");
+        bootbox.confirm({
+            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro que desea anular la transacción? </br> Si esta transacción tiene un comprobante, este también será anulado.</strong>",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancelar',
+                    className: 'btn-primary'
+                },
+                confirm: {
+                    label: '<i class="fa fa-trash"></i> Anular',
+                    className: 'btn-danger'
                 }
-            })
+            },
+            callback: function (result) {
+                if(result){
+                    $.ajax({
+                        type: 'POST',
+                        url: '${createLink(controller: 'proceso', action: 'borrarProceso')}',
+                        data: {
+                            id: id
+                        },
+                        success: function (msg) {
+                            var parts = msg.split("_");
+                            if (parts[0] === 'ok') {
+                                log(parts[1], "success");
+                                setTimeout(function () {
+                                    location.href="${createLink(controller: 'proceso', action: 'buscarPrcs')}/" + '${paciente?.id}'
+                                }, 1000)
+                            } else {
+                                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                                return false;
+                            }
+                        }
+                    });
+                }
+            }
         });
+    });
+
+    $(function () {
 
         $("#btn_buscar").click(function () {
             $('#modal-proveedor').modal('show')

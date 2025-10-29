@@ -287,18 +287,18 @@ class ProcesoController  {
 
     def registrar = {
 //        if (request.method == 'POST') {
-            println "registrar " + params
-            def proceso = Proceso.get(params.id)
-            if (proceso.estado == "R") {
-                render("no_El proceso ya ha sido registrado previamente")
+        println "registrar " + params
+        def proceso = Proceso.get(params.id)
+        if (proceso.estado == "R") {
+            render("no_El proceso ya ha sido registrado previamente")
+        } else {
+            def lista = procesoService.registrar(proceso)
+            if (lista[0] != false) {
+                render("ok_Proceso registrado exitosamente")
             } else {
-                def lista = procesoService.registrar(proceso)
-                if (lista[0] != false) {
-                    render("ok_Proceso registrado exitosamente")
-                } else {
-                    render("no_No se ha podido registrar el proceso")
-                }
+                render("no_No se ha podido registrar el proceso")
             }
+        }
 //        } else {
 //            redirect(controller: "shield", action: "ataques")
 //        }
@@ -819,44 +819,38 @@ class ProcesoController  {
         render "prueba"
     }
 
-
     def borrarProceso() {
-        println("LOG: borrar proceso " + params)
+        println("params anular proceso " + params)
         def proceso = Proceso.get(params.id)
         def comprobante = Comprobante.findByProceso(proceso)
-        def asiento
-        if (comprobante) {
-            asiento = Asiento.findAllByComprobante(comprobante)
-        }
+//        def asiento
+//        if (comprobante) {
+//            asiento = Asiento.findAllByComprobante(comprobante)
+//        }
         if (comprobante) {
             if (comprobante.registrado == 'N') {
-                println "LOG: anulando el comprobante ${comprobante.id} "
+                println "anulando el comprobante ${comprobante.id} "
                 try {
                     def log = new LogMayorizacion()
-                    log.usuario = cratos.seguridad.Persona.get(session.usuario?.id)
+                    log.usuario = Persona.get(session.usuario?.id)
                     log.comprobante = comprobante
                     log.tipo = "B"
                     log.save(flush: true)
                 } catch (e) {
-                    println "LOG: error del login de mayorizar " + e
+                    println "error del login de mayorizar " + e
                 }
                 proceso.estado = "B"
                 proceso.save(flush: true)
                 comprobante.registrado = "B"
                 comprobante.save(flush: true)
-                flash.message = "Proceso Anulado!"
-                redirect(action: 'buscarPrcs')
+                render "ok_Proceso anulado correctamente"
             } else {
-                flash.message = "No se puede anular el proceso, el proceso ya se encuentra registrado!"
-                flash.tipo = "error"
-                redirect(action: 'nuevoProceso', id: proceso.id)
+                render "no_Error al anular el proceso"
             }
-
         } else {
             proceso.estado = "B"
             proceso.save(flush: true)
-            flash.message = "Proceso Borrado!"
-            redirect(action: 'buscarPrcs')
+            render "ok_Proceso anulado correctamente"
         }
     }
 
