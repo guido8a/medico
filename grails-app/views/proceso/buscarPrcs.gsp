@@ -45,9 +45,9 @@
             <a href="#" class="btn btn-success" id="btnNuevaTransaccion" style="margin-left: -15px;">
                 <i class="fa fa-edit"></i> Nueva Transacción
             </a>
-            <g:link class="btn btn-primary" action="procesosAnulados">
+            <a href="#" class="btn btn-primary" id="btnProcesosAnulados" >
                 <i class="fa fa-times-circle"></i> Ir a Anulados
-            </g:link>
+            </a>
         </div>
         <div style="margin-top: 2px; margin-right: 5px; text-align: right">
             <span class="text-info" style="font-size: 15px"><strong>${session?.contabilidad?.descripcion ?: 'No existe contabilidad asignada'}</strong></span>
@@ -174,6 +174,10 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
 </div>
 
 <script type="text/javascript">
+
+    $("#btnProcesosAnulados").click(function () {
+        location.href="${createLink(controller: 'proceso', action: 'procesosAnulados')}?paciente=" + '${paciente?.id}'
+    });
 
     $("#btnNuevaTransaccion").click(function () {
         location.href="${createLink(controller: 'proceso', action: 'procesoForm')}?paciente=" + '${paciente?.id}'

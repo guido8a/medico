@@ -854,18 +854,16 @@ class ProcesoController  {
         }
     }
 
-
     def procesosAnulados() {
-//        println "proc anulados "+params
         def contabilidad
+        def paciente = Paciente.get(params.paciente)
         if (!params.contabilidad) {
             contabilidad = session.contabilidad
         } else {
             contabilidad = Contabilidad.get(params.contabilidad)
         }
-//        println "contabilidad "+contabilidad
         def procesos = Proceso.findAllByEstadoAndContabilidad("B", contabilidad, [sort: "fecha"])
-        [procesos: procesos, contabilidad: contabilidad]
+       return [procesos: procesos, contabilidad: contabilidad, paciente: paciente]
     }
 
     def verComprobante() {
@@ -873,7 +871,6 @@ class ProcesoController  {
         def asientos = Asiento.findAllByComprobante(comp)
         [asientos: asientos, comp: comp]
     }
-
 
     def detalleSri() {
 //        println "detalleSri: $params"
