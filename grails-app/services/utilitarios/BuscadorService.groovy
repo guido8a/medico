@@ -404,5 +404,12 @@ class BuscadorService {
         ]
     }
 
+    def parmEgrs () {
+        [[campo: 'egrsdscr', nombre: 'Concepto',      operador: "contiene:contiene,inicia:inicia con"],
+         [campo: 'prvenmbr', nombre: 'Proveedor',     operador: "contiene:contiene,inicia:inicia con"],
+         [campo: 'egrsvlor', nombre: 'Valor',         operador: "gteq:mayor a,lteq:menor a"],
+         [campo: 'egrssldo', nombre: 'Saldo',         operador: "gteq:mayor a,lteq:menor a"]
+        ]
+    }
 
 }

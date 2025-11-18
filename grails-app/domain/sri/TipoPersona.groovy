@@ -18,8 +18,8 @@ class TipoPersona implements Serializable {
         }
     }
     static constraints = {
-        codigo(size: 1..1, blank: false, attributes: [title: 'codigo'])
-        descripcion(blank: false, maxSize: 15, attributes: [title: 'descripcion'])
+        codigo(size: 1..4, blank: false, attributes: [title: 'codigo'])
+        descripcion(blank: false, maxSize: 63, attributes: [title: 'descripcion'])
         codigoSri(blank: false, maxSize: 2, attributes: [title: 'código SRI'])
     }
 }

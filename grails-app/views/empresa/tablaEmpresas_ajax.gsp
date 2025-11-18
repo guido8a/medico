@@ -4,10 +4,10 @@
         <tr>
             <th style="width: 10%">RUC</th>
             <th style="width: 28%">Nombre</th>
-            <th style="width: 20%">Tipo de Consultorio</th>
+            <th style="width: 18%">Tipo de Consultorio</th>
             <th style="width: 15%">Provincia</th>
             <th style="width: 13%">Acciones</th>
-            <th style="width: 14%">Contabilidad</th>
+            <th style="width: 16%">Contabilidad</th>
         </tr>
         </thead>
     </table>
@@ -20,7 +20,7 @@
             <tr data-id="${empresa.empr__id}">
                 <td style="width: 10%">${empresa.empr_ruc}</td>
                 <td style="width: 28%">${empresa.emprnmbr}</td>
-                <td style="width: 20%">${seguridad.TipoEmpresa.get(empresa.tpem__id)}</td>
+                <td style="width: 18%">${seguridad.TipoEmpresa.get(empresa.tpem__id)}</td>
                 <td style="width: 15%">${geografia.Canton.get(empresa.cntn__id)?.provincia?.nombre}</td>
                 <td style="width: 13%; text-align: center">
                     <a href="#" class="btn btn-xs btn-success btnEditar" data-id="${empresa.empr__id}" title="Editar">
@@ -36,7 +36,7 @@
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>
-                <td style="width: 14%; text-align: center">
+                <td style="width: 16%; text-align: center">
                     <a href="#" class="btn btn-xs btn-info btnContabilidad" data-id="${empresa.empr__id}" title="Datos de la contabilidad">
                         <i class="fas fa-book"></i>
                     </a>
@@ -48,6 +48,9 @@
                     </a>
                     <a href="#" class="btn btn-xs btn-success btnProductos" data-id="${empresa.empr__id}" title="Productos">
                         <i class="fa fa-copy"></i>
+                    </a>
+                    <a href="#" class="btn btn-xs btn-warning btnProveedores" data-id="${empresa.empr__id}" title="Proveedores">
+                        <i class="fa fa-truck"></i>
                     </a>
                     <a href="#" class="btn btn-xs btn-info btnCargarFirma" data-id="${empresa.empr__id}" title="Firma electrónica">
                         <i class="fa fa-key"></i>
@@ -61,6 +64,11 @@
 
 <script type="text/javascript">
     var fe;
+
+    $(".btnProveedores").click(function () {
+        var empresa = $(this).data("id");
+        location.href="${createLink(controller: 'proveedor', action: 'list')}/" + empresa
+    });
 
     $(".btnCargarFirma").click(function () {
         var id = $(this).data("id");

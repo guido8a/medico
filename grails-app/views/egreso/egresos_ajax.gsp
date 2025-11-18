@@ -1,0 +1,60 @@
+
+<style type="text/css">
+
+.derecha{
+    text-align: right;
+}
+
+.azul{
+    color: #353acb;
+}
+
+.verde{
+    color: #53cf6d;
+}
+
+.letra{
+    font-size: 11px;
+}
+
+</style>
+
+
+
+<div class="" style="width: 100%;height: 600px; overflow-y: auto;">
+    <table class="table-bordered table-condensed table-hover letra" width="100%">
+        <g:each in="${egresos}" status="i" var="egreso">
+            <g:set var="saldo" value="${egreso?.valor?.toDouble() - (condominio.PagoEgreso.findAllByEgreso(egreso).valor?.sum()?.toDouble() ?: 0)}"/>
+            <tr class="trEgreso" egr="${egreso?.id}">
+                <td>${egreso?.descripcion}</td>
+                <td>${egreso?.proveedor?.nombre + " " + (egreso?.proveedor?.apellido ?: '')}</td>
+                <td class="derecha"><g:formatNumber number="${egreso?.valor}" format="##,##0" locale="en" maxFractionDigits="2" minFractionDigits="2"/></td>
+            </tr>
+        </g:each>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+
+    cargarPagosE(${egresos[0]?.id});
+
+    function cargarPagosE (egreso) {
+        $.ajax({
+            type: 'POST',
+            url:'${createLink(controller: 'egreso', action: 'pagoEgresos_ajax')}',
+            data:{
+                egreso: egreso
+            },
+            success: function (msg){
+                $("#tdPagosEgresos").html(msg)
+            }
+        });
+    }
+
+    $(".trEgreso").click(function () {
+        var egreso = $(this).attr("egr");
+        cargarPagosE(egreso)
+    });
+
+</script>

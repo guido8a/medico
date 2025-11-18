@@ -1,35 +1,46 @@
 package sri
 
+import seguridad.Empresa
 import seguridad.Persona
 
 class ProveedorController {
 
-    def list(){
+    def dbConnectionService
 
+    def list(){
+        println("parmas " + params)
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa, tipo: params.tipo]
     }
 
     def tablaProveedor_ajax(){
 
-        def usuario = Persona.get(session.usuario?.id)
-        def empresa = usuario.empresa
+        def empresa = Empresa.get(params.empresa)
 
-        def proveedores = Proveedor.withCriteria {
-            eq("empresa",empresa)
+        def listaItems = ['prve_ruc', 'prvenmbr']
+        def bsca
+        def sqlTx = ""
 
-            and{
-                ilike("ruc", "%" + params.ruc + "%")
-                ilike("nombre", "%" + params.nombre + "%")
-            }
-
-            order("nombre", "asc")
+        if(params.buscarPor){
+            bsca = listaItems[params.buscarPor?.toInteger()-1]
+        }else{
+            bsca = listaItems[0]
         }
+        def select = "select * from prve "
+        def txwh = " where prve__id  is not null and " +
+                " $bsca ilike '%${params.criterio}%' "
+        sqlTx = "${select} ${txwh} order by prvenmbr ".toString()
+        def cn = dbConnectionService.getConnection()
+        def datos = cn.rows(sqlTx)
 
-//        println("pro " + proveedores)
+        println("-- " + sqlTx)
 
-        return[proveedores: proveedores]
+        return [datos: datos]
     }
 
     def form_ajax(){
+
+        def empresa = Empresa.get(session.empresa.id)
 
         def proveedorInstance = new Proveedor(params)
         if (params.id) {
@@ -60,7 +71,7 @@ class ProveedorController {
 
         }
 
-        return [proveedorInstance: proveedorInstance, paises: countries, lectura: soloLectura, tipoIdentificacion: tipoIdentificacion]
+        return [proveedorInstance: proveedorInstance, paises: countries, lectura: soloLectura, tipoIdentificacion: tipoIdentificacion, empresa: empresa]
     }
 
     def ruc_ajax(){
@@ -125,7 +136,7 @@ class ProveedorController {
         def empresa = usuario.empresa
 
         params.empresa = empresa
-        params.pais = params."pais.id"
+        params.pais = Pais.get(params."pais.id")
 
         def proveedor
 
@@ -140,9 +151,9 @@ class ProveedorController {
 
         if(!proveedor.save(flush:true)){
             println("error al guardar el proveedor " + proveedor.errors)
-            render "no"
+            render "no_Error al guardar el proveedor"
         }else{
-            render "ok"
+            render "ok_Guardado correctamente"
         }
 
     }
@@ -160,22 +171,15 @@ class ProveedorController {
         }
     } //show para cargar con ajax en un dialog
 
-
-    protected void notFound_ajax() {
-        render "NO_No se encontró Proveedor."
-    } //notFound para ajax
-
-
     def delete_ajax(){
-
         def proveedor = Proveedor.get(params.id)
 
         try{
             proveedor.delete(flush:true)
-            render "ok"
+            render "ok_Borrado correctamente"
         }catch(e){
             println("error al borrar el proveedor " + proveedor.errors)
-            render "no"
+            render "no_Error al borrar el proveedor"
         }
 
     }
