@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-2">
             <b>    Desde: </b>
-            <input name="fechaDesde" id='fechaDesde' type='text' class="form-control fechaD" required="" value="${new Date().format("dd-MM-yyyy")}" />
+            <input name="fechaDesde" id='fechaDesde' type='text' class="form-control fechaD" required="" value="${new Date().format("MM")?.toInteger() - 1}" />
         </div>
 
         <div class="col-md-2">
@@ -191,11 +191,11 @@
 
     </div>
 
-%{--    <div class="alert alert-danger hidden" id="mensaje" style="text-align: center">--}%
-%{--    </div>--}%
+    %{--    <div class="alert alert-danger hidden" id="mensaje" style="text-align: center">--}%
+    %{--    </div>--}%
 
-%{--    <div id="tabla">--}%
-%{--    </div>--}%
+    %{--    <div id="tabla">--}%
+    %{--    </div>--}%
 </div>
 
 
@@ -232,7 +232,6 @@
     cargarBusqueda();
 
     function cargarBusqueda() {
-        // $("#bandeja").html("").append($("<div style='width:100%; text-align: center;'/>").append(spinnerSquare64));
         var desde = $(".fechaD").val();
         var hasta = $(".fechaH").val();
         $.ajax({
@@ -275,7 +274,6 @@
     });
 
     $("#buscador_con").change(function () {
-        %{--var anterior = "${params.operador}";--}%
         var opciones = $(this).find("option:selected").attr("class").split(",");
         poneOperadores(opciones);
     });
@@ -334,7 +332,7 @@
     function submitFormNuevoEgreso() {
         var $form = $("#frmEgreso");
         if ($form.valid()) {
-          var cd =  cargarLoader("Guardando...");
+            var cd =  cargarLoader("Guardando...");
             $.ajax({
                 type    : "POST",
                 url     : '${createLink(action:'save_ajax')}',
@@ -422,11 +420,10 @@
         } //else
     }
 
-    function eliminar (id){
+    function eliminarEgreso(id){
         bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-trash-o fa-3x pull-left text-danger text-shadow'></i><p>" +
-                "¿Está seguro que desea eliminar el Egreso seleccionado? Esta acción no se puede deshacer.</p>",
+            title   : "<i class='fa fa-trash fa-2x pull-left text-danger text-shadow'></i> Alerta",
+            message : "<p style='font-weight: bold; font-size: 14px'> ¿Está seguro que desea eliminar el Egreso seleccionado?</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -435,10 +432,10 @@
                     }
                 },
                 eliminar : {
-                    label     : "<i class='fa fa-trash-o'></i> Eliminar",
+                    label     : "<i class='fa fa-trash'></i> Eliminar",
                     className : "btn-danger",
                     callback  : function () {
-                        openLoader("Eliminando Egreso");
+                        var ee = cargarLoader("Eliminando...");
                         $.ajax({
                             type    : "POST",
                             url     : '${createLink(controller:'egreso', action:'delete_ajax')}',
@@ -446,13 +443,12 @@
                                 id : id
                             },
                             success : function (msg) {
+                                ee.modal("hide");
                                 var parts = msg.split("*");
                                 log(parts[1], parts[0] === "SUCCESS" ? "success" : "error"); // log(msg, type, title, hide)
                                 if (parts[0] === "SUCCESS") {
                                     closeLoader();
                                     cargarBusqueda();
-                                } else {
-                                    closeLoader();
                                 }
                             }
                         });
@@ -553,7 +549,7 @@
             icon: "fa fa-trash",
             action: function ($element) {
                 var id = $element.data("id");
-                eliminar(id);
+                eliminarEgreso(id);
             }
         };
 

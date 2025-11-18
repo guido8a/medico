@@ -1,20 +1,20 @@
 <style type="text/css">
 
-    .centro{
-        text-align: center;
-    }
+.centro{
+    text-align: center;
+}
 
-    .derecha{
-        text-align: right;
-    }
+.derecha{
+    text-align: right;
+}
 
-    .cajachica {
-        color: #4040af;
-        background-color: #efefdf !important;
-    }
-    .normal {
-        background-color: #ffffff !important;
-    }
+.cajachica {
+    color: #4040af;
+    background-color: #efefdf !important;
+}
+.normal {
+    background-color: #ffffff !important;
+}
 
 </style>
 
@@ -88,36 +88,6 @@
     });
 
     var id = null;
-    function submitFormEgreso() {
-        var $form = $("#frmEgreso");
-        var $btn = $("#dlgCreateEdit").find("#btnSave");
-        if ($form.valid()) {
-            $btn.replaceWith(spinner);
-            openLoader("Guardando Egreso");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : $form.serialize(),
-                success : function (msg) {
-                    var parts = msg.split("*");
-                    log(parts[1], parts[0] === "SUCCESS" ? "success" : "error"); // log(msg, type, title, hide)
-                    setTimeout(function() {
-                        if (parts[0] === "SUCCESS") {
-//                            location.reload(true);
-                            closeLoader();
-                            cargarBusqueda();
-                        } else {
-                            closeLoader();
-                            spinner.replaceWith($btn);
-                            return false;
-                        }
-                    }, 1000);
-                }
-            });
-        } else {
-            return false;
-        } //else
-    }
 
     function createEditRow(id) {
         var title = id ? "Editar" : "Nuevo";
@@ -149,12 +119,33 @@
                         } //guardar
                     } //buttons
                 }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 500);
             } //success
         }); //ajax
     } //createEdit
+
+    function submitFormEgreso() {
+        var $form = $("#frmEgreso");
+        if ($form.valid()) {
+            openLoader("Guardando Egreso");
+            $.ajax({
+                type    : "POST",
+                url     : $form.attr("action"),
+                data    : $form.serialize(),
+                success : function (msg) {
+                    var parts = msg.split("*");
+                    log(parts[1], parts[0] === "SUCCESS" ? "success" : "error"); // log(msg, type, title, hide)
+                    if (parts[0] === "SUCCESS") {
+                        cargarBusqueda();
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        } else {
+            return false;
+        } //else
+    }
+
 
     //pagos
 
@@ -284,8 +275,8 @@
                     }else{
                         if(msg === 'di'){
                             closeLoader();
-                            bootbox.alert("<i class='fa fa-warning fa-3x pull-left text-warning text-shadow'></i> " +
-                                "¡El abono ingresado supera el valor del saldo!")
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i> " +
+                                "<strong style='font-size: 14px'> El abono ingresado supera el valor del saldo! </strong>")
                         }
                         else{
                             log("Error al guardar el pago","error");
@@ -294,6 +285,7 @@
                     }
                 }
             });
+            return false
         } else {
             return false;
         } //else

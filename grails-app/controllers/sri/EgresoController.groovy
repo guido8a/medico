@@ -139,10 +139,10 @@ class EgresoController {
                 println("entro egreso")
                 egresoInstance.refresh()
 //                def sql = "select * from generar(${egresoInstance?.id}, 3, null, ${tipoGasto?.id}, ${contabilidad?.id})"
-//                def sql = "select * from genera_eg(${egresoInstance?.id}, 3, ${tipoGasto?.id}, ${contabilidad?.id})"
-//                println "sql: $sql"
-//                def cn = dbConnectionService.getConnection()
-//                cn.execute(sql.toString())
+                def sql = "select * from genera_eg(${egresoInstance?.id}, 3, ${tipoGasto?.id}, ${contabilidad?.id})"
+                println "sql: $sql"
+                def cn = dbConnectionService.getConnection()
+                cn.execute(sql.toString())
 
                 if(params.pagar && !pagos){
                     println("entro")
@@ -163,13 +163,13 @@ class EgresoController {
                     pagos.cajaChica = params.pagar_CC
                     pagos.save(flush: true)
                     pagos.refresh()
-//                    sql = "select * from generar(${pagos?.id}, 2, null, ${tipoGasto?.id}, ${contabilidad?.id})"
-//                    sql = "select * from genera_eg(${pagos?.id}, 2, ${tipoGasto?.id}, ${contabilidad?.id})"
-//                    println "sql: $sql"
-//                    cn = dbConnectionService.getConnection()
-//                    cn.execute(sql.toString())
-                    //                cn.close()
 
+//                    sql = "select * from generar(${pagos?.id}, 2, null, ${tipoGasto?.id}, ${contabilidad?.id})"
+                    sql = "select * from genera_eg(${pagos?.id}, 2, ${tipoGasto?.id}, ${contabilidad?.id})"
+                    println "sql: $sql"
+                    cn = dbConnectionService.getConnection()
+                    cn.execute(sql.toString())
+                    cn.close()
 
                 }
                 render "ok_${params.id ? 'Actualización' : 'Creación'} de Egreso exitosa."
@@ -189,20 +189,17 @@ class EgresoController {
         if(params.id) {
             def egresoInstance = Egreso.get(params.id)
             if (!egresoInstance) {
-                render "ERROR*No se encontró Egreso."
+                render "ERROR*No se encontró el Egreso."
                 return
             }
             try {
                 egresoInstance.delete(flush: true)
-                render "SUCCESS*Eliminación de Egreso exitosa."
-                return
+                render "SUCCESS*Borrado correctamente"
             } catch (DataIntegrityViolationException e) {
-                render "ERROR*Ha ocurrido un error al eliminar Egreso"
-                return
+                render "ERROR*Error al eliminar el Egreso"
             }
         } else {
             render "ERROR*No se encontró Egreso."
-            return
         }
     } //delete para eliminar via ajax
 
@@ -252,7 +249,7 @@ class EgresoController {
             pago = new PagoEgreso()
         }
 
-        params.fecha = new Date().parse("dd-MM-yyyy", params.fechaPago_input)
+        params.fecha = new Date().parse("dd-MM-yyyy", params.fechaPago)
 
         pago.egreso = egreso
         pago.valor = params.abono.toDouble()
@@ -377,7 +374,6 @@ class EgresoController {
     }
 
     def egresos() {
-//        params.ordenar = "prsndpto"
         def empresa = Empresa.get(session.empresa.id)
         return [empresa: empresa]
     }
