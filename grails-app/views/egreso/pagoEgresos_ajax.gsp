@@ -19,14 +19,13 @@
 </style>
 
 <div class="alert alert-warning col-md-12">
-
-    <div class="col-md-5">
+    <div class="col-md-5" style="font-size: 16px">
         <label style="color: #1b8e36">Pagado: $
         ${g.formatNumber(number: pagos?.valor?.sum() ?: 0, format: '##,##0', maxFractionDigits: 2, minFractionDigits: 2,
                 locale: 'en_US')}
         </label>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5" style="font-size: 16px">
         <label style="color: #701b19">Saldo: $
         ${g.formatNumber(number: saldo ?: 0, format: '##,##0', maxFractionDigits: 2, minFractionDigits: 2, locale: 'en_US')}
         </label>
@@ -41,31 +40,31 @@
 </div>
 
 <g:if test="${pagos.size() > 0}">
-    <div style="text-align: center"><h3>Detalle de pagos</h3></div>
-    <table class="table table-bordered table-hover table-condensed">
+    <div style="text-align: center"><strong style="font-size: 16px"> Detalle de pagos </strong></div>
+    <table class="table table-bordered table-hover table-condensed table-striped">
         <thead>
         <tr>
-            <th class="alinear" style="width: 18%">Fecha</th>
-            <th class="alinear" style="width: 18%">Doc.</th>
-            <th class="alinear" style="width: 15%">Valor</th>
-            <th class="alinear" style="width: 29%">Obser.</th>
-            <th class="centro" style="width: 20%"><i class="fa fa-pencil"></i></th>
+            <th class="alinear" style="width: 15%">Fecha</th>
+            <th class="alinear" style="width: 45%">Doc.</th>
+            <th class="alinear" style="width: 20%">Valor</th>
+%{--            <th class="alinear" style="width: 29%">Obser.</th>--}%
+            <th class="centro" style="width: 20%">Acciones</th>
         </tr>
         </thead>
         <tbody>
         <g:each in="${pagos}" var="pagoUsuario">
             <tr data-id="${pagoUsuario.id}" style="width: 100%" class="${pagoUsuario.cajaChica == 'S' ? 'cajachica' : 'normal'}">
                 <td style="width: 15%"><g:formatDate date="${pagoUsuario?.fechaPago}" format="dd-MM-yyyy"/></td>
-                <td style="width: 20%">${pagoUsuario?.documento}</td>
-                <td class="derecha" style="width: 15%"><g:formatNumber number="${pagoUsuario?.valor}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></td>
-                <td style="width: 20%">${pagoUsuario?.observaciones}</td>
-                <td style="text-align: center; width: 15%">
+                <td style="width: 45%">${pagoUsuario?.documento}</td>
+                <td class="derecha" style="width: 20%"><g:formatNumber number="${pagoUsuario?.valor}" format="##,##0" locale="en_US" maxFractionDigits="2" minFractionDigits="2"/></td>
+%{--                <td style="width: 20%">${pagoUsuario?.observaciones}</td>--}%
+                <td style="text-align: center; width: 20%">
                     <g:if test="${pagoUsuario?.estado != 'R'}">
-                        <a href="#" class="btn btn-info btn-sm btnEditar" data-id="${pagoUsuario?.id}" data-ing="${egreso?.id}" title="Editar Pago">
-                            <i class="fa fa-pencil"></i>
+                        <a href="#" class="btn btn-success btn-xs btnEditar" data-id="${pagoUsuario?.id}" data-ing="${egreso?.id}" title="Editar Pago">
+                            <i class="fa fa-edit"></i>
                         </a>
-                        <a href="#" class="btn btn-danger btn-sm btnEliminar" data-id="${pagoUsuario?.id}" data-ing="${egreso?.id}" title="Borrar Pago">
-                            <i class="fa fa-trash-o"></i>
+                        <a href="#" class="btn btn-danger btn-xs btnEliminar" data-id="${pagoUsuario?.id}" data-ing="${egreso?.id}" title="Borrar Pago">
+                            <i class="fa fa-trash"></i>
                         </a>
                     </g:if>
                 </td>
@@ -75,19 +74,20 @@
     </table>
 </g:if>
 <g:else>
-    <div class="alert alert-danger centro">
-        No existen pagos
+    <div class="alert alert-info centro">
+        <i class="fa fa-exclamation-triangle fa-2x"></i> <strong style="font-size: 14px">No existen pagos registrados</strong>
     </div>
 </g:else>
 
 <script type="text/javascript">
 
+    var id = null;
+    var dgp;
+
     $(".btnEditarEgg").click(function () {
         var egreso = $(this).data('ing');
         createEditRow(egreso);
     });
-
-    var id = null;
 
     function createEditRow(id) {
         var title = id ? "Editar" : "Nuevo";
@@ -146,32 +146,45 @@
         } //else
     }
 
-
     //pagos
 
     $(".btnEliminar").click(function () {
         var pago = $(this).data("id");
         var egreso = $(this).data("egreso");
-        bootbox.confirm("<i class='fa fa-warning fa-3x pull-left text-danger text-shadow'></i> Está seguro que desea eliminar el pago seleccionado?", function (res) {
-            if (res) {
-                openLoader("Borrando Pago...");
-                $.ajax({
-                    type    : "POST",
-                    url : "${createLink(controller:'egreso', action:'borrarPagoEgreso_ajax')}",
-                    data    : {
-                        id: pago
-                    },
-                    success : function (msg) {
-                        if(msg === 'ok'){
-                            closeLoader();
-                            log("Pago borrado correctamente","success");
-                            cargarPagosE(egreso);
-                            cargarBusqueda();
-                        }else{
-                            log("Error al borrar el pago","error")
+        bootbox.confirm({
+            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'> Está seguro que desea eliminar el pago? </strong>",
+            buttons: {
+                cancel: {
+                    label: 'Cancelar',
+                    className: 'btn-primary'
+                },
+                confirm: {
+                    label: '<i class="fa fa-trash"></i> Borrar',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    var bp = cargarLoader("Borrando...");
+                    $.ajax({
+                        type:'POST',
+                        url:'${createLink(controller: 'egreso', action: 'borrarPagoEgreso_ajax')}',
+                        data:{
+                            id: pago
+                        },
+                        success:function(msg){
+                            bp.modal("hide");
+                            var parts = msg.split("_");
+                            if(parts[0] === 'ok'){
+                                log(parts[1],"success");
+                                cargarPagosE(egreso);
+                                cargarBusqueda();
+                            }else{
+                                log(parts[1],"error")
+                            }
                         }
-                    }
-                });
+                    })
+                }
             }
         });
     });
@@ -228,7 +241,7 @@
                 pago: pago
             },
             success : function (msg) {
-                var b = bootbox.dialog({
+                dgp = bootbox.dialog({
                     id      : "dlgCreateEdit",
                     title   : "Pago Egreso",
                     message : msg,
@@ -249,9 +262,6 @@
                         } //guardar
                     } //buttons
                 }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 500);
             } //success
         }); //ajax
     } //createEdit
@@ -261,26 +271,25 @@
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             $btn.replaceWith(spinner);
-            openLoader("Guardando Pago...");
+            var gp = cargarLoader("Guardando...");
             $.ajax({
                 type    : "POST",
                 url     : $form.attr("action"),
                 data    : $form.serialize(),
                 success : function (msg) {
+                    gp.modal("hide");
                     if(msg === 'ok'){
                         log("Pago guardado correctamente!" , "success");
-                        closeLoader();
                         cargarPagosE(egreso);
                         cargarBusqueda();
+                        cerrraGuardarPago();
                     }else{
                         if(msg === 'di'){
-                            closeLoader();
                             bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i> " +
                                 "<strong style='font-size: 14px'> El abono ingresado supera el valor del saldo! </strong>")
                         }
                         else{
                             log("Error al guardar el pago","error");
-                            closeLoader();
                         }
                     }
                 }
@@ -289,6 +298,10 @@
         } else {
             return false;
         } //else
+    }
+
+    function cerrraGuardarPago() {
+        dgp.modal("hide")
     }
 
 </script>

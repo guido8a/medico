@@ -280,10 +280,10 @@ class EgresoController {
 
         try{
             pago.delete(flush: true)
-            render "ok"
+            render "ok_Borrado correctamente"
         }catch (e){
             println("error al borrar el pago " + e)
-            render "no"
+            render "no_Error al borrar el pago"
         }
     }
 

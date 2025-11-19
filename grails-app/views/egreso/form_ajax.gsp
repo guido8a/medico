@@ -46,7 +46,7 @@
                     Valor
                 </label>
                 <span class="col-md-3">
-                    <g:textField name="valor" value="${egresoInstance?.valor}" class="number form-control required"/>
+                    <g:textField name="valor" value="${egresoInstance?.valor}" readonly="${pago ? true : false}" class="number form-control required"/>
                 </span>
             </span>
             <span class="grupo">

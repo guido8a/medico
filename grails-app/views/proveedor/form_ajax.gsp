@@ -18,12 +18,38 @@
             </span>
         </div>
 
+        <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'tipoPersona', 'error')} required">
+            <span class="grupo">
+                <label class="col-md-3 control-label text-info">
+                    Tipo Persona
+                </label>
+
+                <span class="col-md-8" id="divTipoPersona">
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="col2" style="margin-bottom: 10px">
         <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'ruc', 'error')} required">
             <span class="grupo">
                 <label class="col-md-3 control-label text-info">
                     Ruc
                 </label>
-                <span class="col-md-8" id="divRuc"> </span>
+                <span class="col-md-9" id="divRuc"> </span>
+            </span>
+        </div>
+        <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'tipoProveedor', 'error')} ">
+            <span class="grupo">
+                <label for="tipoProveedor" class="col-md-3 control-label text-info">
+                    Tipo Proveedor
+                </label>
+
+                <span class="col-md-8">
+                    <g:select id="tipoProveedor" name="tipoProveedor.id" from="${sri.TipoProveedor.list()}" optionKey="id"
+                              value="${proveedorInstance?.tipoProveedor?.id}" optionValue="descripcion" class="many-to-one form-control"
+                    />
+                </span>
             </span>
         </div>
     </div>
@@ -47,7 +73,7 @@
                     Apellido
                 </label>
                 <span class="col-md-8">
-                    <g:textField name="apellido" maxlength="31" class=" form-control" value="${proveedorInstance?.apellido}"/>
+                    <g:textField name="apellido" maxlength="31" class="form-control" value="${proveedorInstance?.apellido}"/>
                 </span>
             </span>
         </div>
@@ -76,8 +102,7 @@
                 <span class="col-md-8">
                     <span class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                        <g:textField name="telefono" maxlength="63" class=" form-control required"
-                                     value="${proveedorInstance?.telefono}"/>
+                        <g:textField name="telefono" maxlength="63" class=" form-control required" value="${proveedorInstance?.telefono}"/>
                     </span>
                 </span>
             </span>
@@ -123,32 +148,6 @@
                 <g:textArea name="direccion" maxlength="127" class="form-control required"  value="${proveedorInstance?.direccion}" style="resize: none;"/>
             </span>
         </span>
-    </div>
-
-    <div class="col2">
-        <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'tipoProveedor', 'error')} ">
-            <span class="grupo">
-                <label for="tipoProveedor" class="col-md-3 control-label text-info">
-                    Tipo Proveedor
-                </label>
-
-                <span class="col-md-9">
-                    <g:select id="tipoProveedor" name="tipoProveedor.id" from="${sri.TipoProveedor.list()}" optionKey="id"
-                              value="${proveedorInstance?.tipoProveedor?.id}" optionValue="descripcion" class="many-to-one form-control"
-                    />
-                </span>
-            </span>
-        </div>
-        <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'tipoPersona', 'error')} required">
-            <span class="grupo">
-                <label class="col-md-3 control-label text-info">
-                    Tipo Persona
-                </label>
-
-                <span class="col-md-8" id="divTipoPersona">
-                </span>
-            </span>
-        </div>
     </div>
 
     <div class="col2">
@@ -244,11 +243,11 @@
 
     <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'observaciones', 'error')} ">
         <span class="grupo">
-            <label for="observaciones" class="col-md-1 control-label text-info" style="margin-left: 40px">
+            <label for="observaciones" class="col-md-2 control-label text-info">
                 Observaciones
             </label>
 
-            <span class="col-md-10">
+            <span class="col-md-9">
                 <g:textArea name="observaciones" maxlength="127" class="form-control"
                             value="${proveedorInstance?.observaciones}" style="resize: none"/>
             </span>
