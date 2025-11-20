@@ -1,6 +1,6 @@
 package sri
 
-class Base implements Serializable {
+class Base_brre implements Serializable {
     double impuestosFraccion
     double excesoHasta
     double fraccionBasica

@@ -24,7 +24,7 @@ class TarifaIVA implements Serializable {
     static constraints = {
         codigo(blank:false, nullable: false, size: 1..1)
         valor(blank:false, nullable: false)
-        descripcion(blank:false, nullable: false, size: 1..15)
+        descripcion(blank:false, nullable: false, size: 1..31)
         tipoIVA(blank:false, nullable: false, size: 1..15)
     }
 

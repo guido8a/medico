@@ -5,6 +5,8 @@ class Periodo implements Serializable {
     Date fechaInicio
     Integer numero
     Contabilidad contabilidad
+    String estado
+
     static mapping = {
         table 'prdo'
         cache usage: 'read-write', include: 'non-lazy'
@@ -17,6 +19,7 @@ class Periodo implements Serializable {
             fechaInicio column: 'prdofcin'
             numero column: 'prdonmro'
             contabilidad column: 'cont__id'
+            estado column: 'prdoetdo'
         }
     }
     static constraints = {
@@ -24,6 +27,7 @@ class Periodo implements Serializable {
         fechaInicio(blank: true, nullable: true, attributes: [title: 'fechaInicio'])
         numero(blank: true, nullable: true, attributes: [title: 'numero'])
         contabilidad(blank: true, nullable: true, attributes: [title: 'contabilidad'])
+        estado(size: 1..1, blank: true, nullable: true, attributes: [title: 'contabilidad'])
     }
 
     String toString() {
