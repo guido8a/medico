@@ -62,7 +62,7 @@
             <b>Bodega</b>
         </div>
         <div class="col-xs-5" style="text-align: center">
-            <g:select from="${bodegas}" name="bodegasName" id="bodegas" class="form-control" optionValue="descripcion" optionKey="id"/>
+            <g:select from="${bodegas}" name="bodegasName" id="bodegas" class="form-control" optionValue="nombre" optionKey="id"/>
         </div>
 
         %{--        <div class="col-xs-5" style="text-align: center">--}%

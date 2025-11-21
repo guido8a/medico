@@ -124,9 +124,6 @@
 </div>
 
 <div style="margin-top: 30px; min-height: 650px" class="vertical-container">
-    %{--    <p class="css-vertical-text">Procesos encontrados</p>--}%
-
-    %{--    <div class="linea"></div>--}%
     <table class="table table-bordered table-hover table-condensed" style="width: 100%">
         <thead>
         <tr style="width: 100%">
@@ -141,7 +138,6 @@
         </tr>
         </thead>
     </table>
-
 
     <div class="alert alert-danger hidden" id="mensaje" style="text-align: center">
     </div>
@@ -197,9 +193,9 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
     </g:else>
 
     function cargarBusqueda () {
+      var cb = cargarLoader("Cargando...");
         var id = parseInt(${session?.contabilidad?.id});
         if(id > 0) {
-            $("#bandeja").html("").append($("<div style='width:100%; text-align: center;'/>").append(spinnerSquare64));
             var desde = $(".fechaD").val();
             var hasta = $(".fechaH").val();
             $.ajax({
@@ -215,9 +211,11 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
                     pcnt: "${paciente?.id}"
                 },
                 success: function (msg) {
+                    cb.modal("hide");
                     $("#bandeja").html(msg);
                 },
                 error: function (msg) {
+                    cb.modal("hide");
                     $("#bandeja").html("Ha ocurrido un error");
                 }
             });
@@ -364,15 +362,15 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
             items.retencion = rtcnVentas;
         }
 
-        if(tp == 'Compras' && cm == '41'){
+        if(tp === 'Compras' && cm === '41'){
             items.reembolso = reembolso
         }
 
 //        console.log('estado:', etdo[0]);
-        if(etdo[0] == 'R') {
+        if(etdo[0] === 'R') {
             items.comprobante = comprobante;
-            items.imprimir = imprimir;
-            if(tp == 'Ventas'){
+            // items.imprimir = imprimir;
+            if(tp === 'Ventas'){
                 items.enviarMail = enviarMail
             }
         }
@@ -434,10 +432,6 @@ como máximo 30 <span style="margin-left: 40px; color: #0b2c89">Se ordena por fe
         $("#buscador_con").change();
     });
 
-
-
-
 </script>
-
 </body>
 </html>

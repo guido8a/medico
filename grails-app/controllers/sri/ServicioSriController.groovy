@@ -114,7 +114,15 @@ class ServicioSriController {
 
 
        if(verificarCertificadoFirma(empresa_id)){
-           firmaSri(archivo, params.clave)
+
+           try{
+               firmaSri(archivo, params.clave)
+           }catch(e){
+               println("error al firmar: " + e)
+               render "firma"
+               return
+           }
+
            println "finaliza firma..."
            //se envía al SRI y si todo va bien se pone TipoEmision = 1, caso contrario 2
 

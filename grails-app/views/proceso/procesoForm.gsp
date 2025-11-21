@@ -170,18 +170,18 @@
                     </a>
                 </g:if>
 
-                <g:if test="${proceso?.claveAcceso != null}">
-                    <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">
-                        <a href="#" class="btn btn-primary" id="btnEnviarFactElect">
-                            <i class="fa fa-envelope"></i> Enviar Factura
-                        </a>
-                    </g:if>
-                </g:if>
+%{--                <g:if test="${proceso?.claveAcceso != null}">--}%
+%{--                    <g:if test="${proceso?.tipoProceso?.codigo?.trim() in ['V']}">--}%
+%{--                        <a href="#" class="btn btn-primary" id="btnEnviarFactElect">--}%
+%{--                            <i class="fa fa-envelope"></i> Enviar Factura--}%
+%{--                        </a>--}%
+%{--                    </g:if>--}%
+%{--                </g:if>--}%
             </g:if>
         </g:if>
     </div>
     <g:if test="${proceso}">
-        <g:if test="${proceso?.estado == 'R'}">
+        <g:if test="${proceso?.estado != 'R'}">
             <div class="btn-group">
                 <a class="btn btn-danger" id="btn-br-prcs" data-id="${proceso?.id}">
                     <i class="fa fa-trash"></i>
@@ -366,47 +366,47 @@
 %{--</div><!-- /.modal -->--}%
 
 <!-- Modal -->
-<div class="modal fade" id="modal-proveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel-proveedor">Seleccione el Proveedor</h4>
-            </div>
+%{--<div class="modal fade" id="modal-proveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"--}%
+%{--     aria-hidden="true">--}%
+%{--    <div class="modal-dialog">--}%
+%{--        <div class="modal-content">--}%
+%{--            <div class="modal-header">--}%
+%{--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}%
+%{--                <h4 class="modal-title" id="myModalLabel-proveedor">Seleccione el Proveedor</h4>--}%
+%{--            </div>--}%
 
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-2 negrilla" style="width: 140px">
-                        <select id="tipoPar" style="margin-right: 5px;" class="form-control">
-                            <option value="2">Nombre</option>
-                            <option value="1">RUC</option>
+%{--            <div class="modal-body">--}%
+%{--                <div class="row">--}%
+%{--                    <div class="col-xs-2 negrilla" style="width: 140px">--}%
+%{--                        <select id="tipoPar" style="margin-right: 5px;" class="form-control">--}%
+%{--                            <option value="2">Nombre</option>--}%
+%{--                            <option value="1">RUC</option>--}%
 
-                        </select>
-                    </div>
+%{--                        </select>--}%
+%{--                    </div>--}%
 
-                    <div class="col-xs-5 negrilla" style="margin-left: -20px">
-                        <input type="text" id="parametro" class="form-control" style="margin-right: 10px;">
-                    </div>
+%{--                    <div class="col-xs-5 negrilla" style="margin-left: -20px">--}%
+%{--                        <input type="text" id="parametro" class="form-control" style="margin-right: 10px;">--}%
+%{--                    </div>--}%
 
-                    <div class="col-xs-1 negrilla" style="width: 140px">
-                        <a href="#" id="buscarPrve" class="btn btn-azul">
-                            <i class="fa fa-search"></i>
-                            Buscar
-                        </a>
-                    </div>
-                </div>
-                <div class="ui-corner-all"
-                     style="height: 400px;border: 1px solid #000000; width: 100%;margin-left: 0px;margin-top: 20px;overflow-y: auto"
-                     id="resultados"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+%{--                    <div class="col-xs-1 negrilla" style="width: 140px">--}%
+%{--                        <a href="#" id="buscarPrve" class="btn btn-azul">--}%
+%{--                            <i class="fa fa-search"></i>--}%
+%{--                            Buscar--}%
+%{--                        </a>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--                <div class="ui-corner-all"--}%
+%{--                     style="height: 400px;border: 1px solid #000000; width: 100%;margin-left: 0px;margin-top: 20px;overflow-y: auto"--}%
+%{--                     id="resultados"></div>--}%
+%{--            </div>--}%
+%{--            <div class="modal-footer">--}%
+%{--                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar--}%
+%{--                </button>--}%
+%{--            </div>--}%
+%{--        </div><!-- /.modal-content -->--}%
+%{--    </div><!-- /.modal-dialog -->--}%
+%{--</div><!-- /.modal -->--}%
 
 
 <script type="text/javascript">
@@ -522,7 +522,12 @@
                                                                             bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "No existe un certificado de firma electrónica cargado" + '</strong>');
                                                                             return false
                                                                         }else{
-                                                                            log("Error al enviar la factura al SRI","error");
+                                                                            if(msg === 'firma'){
+                                                                                bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + "La clave ingresada no es la correcta" + '</strong>');
+                                                                                return false
+                                                                            }else{
+                                                                                log("Error al enviar la factura al SRI","error");
+                                                                            }
                                                                         }
                                                                     }
                                                                 }

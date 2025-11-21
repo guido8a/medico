@@ -845,7 +845,7 @@ class ProcesoController  {
                 comprobante.save(flush: true)
                 render "ok_Proceso anulado correctamente"
             } else {
-                render "no_Error al anular el proceso"
+                render "no_El proceso ya se encuentra registrado, no puede ser anulado"
             }
         } else {
             proceso.estado = "B"
@@ -1708,8 +1708,6 @@ class ProcesoController  {
 //        println "sql: $sqlSelect $sqlWhere $sqlOrder"
         "$sqlSelect $sqlWhere $sqlOrder".toString()
     }
-
-
 
     def tablaBuscarPrcs() {
 //        println "buscar .... $params"
