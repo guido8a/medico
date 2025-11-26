@@ -370,6 +370,7 @@ class GestorController {
         def fuente = Fuente.get(params.fuente)
         def empresa = session.empresa
         def tipoProceso = TipoProceso.get(params.tipoProceso)
+        def tipoGasto = TipoGasto.get(params.tipoGasto)
 
         if(params.gestor){
             gestor = Gestor.get(params.gestor)
@@ -382,6 +383,8 @@ class GestorController {
 
         gestor.nombre = params.nombre
         gestor.tipoProceso = tipoProceso
+        gestor.tipoGasto = tipoGasto
+
         if(tipoProceso.codigo.trim() == 'A'){
             if(params.saldoInicial == 'true'){
                 gestor.codigo = 'SLDO'
@@ -393,19 +396,18 @@ class GestorController {
         }
         gestor.observaciones = params.observacion
         gestor.fuente = fuente
+
         if(params.tipo != '-1') {
             gestor.tipo = params.tipo
         } else {
             gestor.tipo = null
         }
 
-
-        try{
-            gestor.save(flush: true)
-            render "ok_" + gestor?.id
-        }catch (e){
-            render "no"
+        if(!gestor.save(flush: true)){
+            render "no_Error al guardar el gestor"
             println("error " + gestor.errors)
+        }else{
+            render "ok_Gestor guardado correctamente_" + gestor?.id
         }
     }
 

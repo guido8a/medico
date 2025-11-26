@@ -8,7 +8,7 @@
     <style type="text/css">
 
     .tab-content, .left, .right {
-        height : 450px;
+        height : 500px;
     }
 
     .tab-content {
@@ -88,6 +88,18 @@
     <div class="tab-pane fade in active" id="generales">
         <div class="left pull-left">
             <ul class="fa-ul">
+                <li>
+                    <i class="fa-li ${iconGen}"></i>
+                    <span id="gestor">
+                        <g:link controller="gestor" action="buscarGstr" class="tamano"> Gestores
+                        </g:link>
+                        Gestores Contables
+                    </span>
+                    <div class="descripcion hide">
+                        <h4> Gestores Contables</h4>
+                        <p> Gestores Contables</p>
+                    </div>
+                </li>
                 <li>
                     <i class="fa-li ${iconGen}"></i>
                     <span id="nivel">
