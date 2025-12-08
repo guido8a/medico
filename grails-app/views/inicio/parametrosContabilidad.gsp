@@ -102,6 +102,18 @@
                 </li>
                 <li>
                     <i class="fa-li ${iconGen}"></i>
+                    <span id="periodo">
+                        <g:link controller="periodo" action="list" class="tamano"> Período
+                        </g:link>
+                        Períodos Contables
+                    </span>
+                    <div class="descripcion hide">
+                        <h4> Períodos Contables</h4>
+                        <p> Períodos Contables</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-li ${iconGen}"></i>
                     <span id="nivel">
                         <g:link controller="nivel" action="list" class="tamano"> Nivel
                         </g:link>

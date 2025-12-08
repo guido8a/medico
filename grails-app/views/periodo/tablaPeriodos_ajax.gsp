@@ -1,30 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 22/10/20
-  Time: 16:58
---%>
 
-
-
-<table class="table table-condensed table-hover table-striped table-bordered">
-    <thead>
-    <tr>
-        <th style="width: 10%">Número</th>
-        <th style="width: 45%">Fecha Desde</th>
-        <th style="width: 45%">Fecha Hasta</th>
-    </tr>
-    </thead>
-</table>
+%{--<table class="table table-condensed table-hover table-striped table-bordered">--}%
+%{--    <thead>--}%
+%{--    <tr>--}%
+%{--        <th style="width: 10%">Número</th>--}%
+%{--        <th style="width: 45%">Fecha Desde</th>--}%
+%{--        <th style="width: 45%">Fecha Hasta</th>--}%
+%{--    </tr>--}%
+%{--    </thead>--}%
+%{--</table>--}%
 
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto;float: right; margin-top: -20px">
-    <table id="tablaB" class="table-bordered table-condensed table-hover" width="100%">
+    <table id="tablaB" class="table-bordered table-condensed table-hover table-striped" style="width: 100%">
         <tbody>
         <g:each status="i" in="${periodos}" var="periodo" >
-            <tr style="text-align: center" data-id="${periodo?.id}">
-                <td style="width: 10%">${total-i}</td>
-                <td style="width: 44%">${periodo?.fechaDesde?.format("dd-MM-yyyy")}</td>
-                <td style="width: 44%">${periodo?.fechaHasta?.format("dd-MM-yyyy")}</td>
+            <tr style="text-align: center; width: 100%" data-id="${periodo?.id}" >
+                <td style="width: 20%">${periodo?.numero}</td>
+                <td style="width: 30%">${periodo?.fechaInicio?.format("dd-MM-yyyy")}</td>
+                <td style="width: 30%">${periodo?.fechaFin?.format("dd-MM-yyyy")}</td>
+                <td style="width: 20%">
+                    <a href="#" data-id="${periodo.id}" class="btn btn-success btn-xs btnEditarPeriodo btn-ajax" title="Editar">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="#" data-id="${periodo.id}" class="btn btn-danger btn-xs btnBorrarPeriodo btn-ajax" title="Eliminar">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
             </tr>
         </g:each>
         </tbody>
@@ -33,16 +33,14 @@
 
 <script type="text/javascript">
 
-    $(function () {
-        $("tr").contextMenu({
-            items  : createContextMenu,
-            onShow : function ($element) {
-                $element.addClass("trHighlight");
-            },
-            onHide : function ($element) {
-                $(".trHighlight").removeClass("trHighlight");
-            }
-        });
-    });
+   $(".btnEditarPeriodo").click(function (){
+       var id = $(this).data("id");
+       createEditPeriodo(id)
+   });
+
+   $(".btnBorrarPeriodo").click(function (){
+       var id = $(this).data("id");
+       borrarPeriodo(id)
+   });
 
 </script>
