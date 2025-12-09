@@ -17,27 +17,20 @@
             </span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ${hasErrors(bean: examen, field: 'grupoExamen', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    Buscar
+                    Grupo de examen
                 </label>
                 <span class="col-md-4">
-                    <g:textField name="buscar" id="textoExamenBuscar" type="search" class="form-control" />
+                    <g:select name="grupoExamen" from="${grupo}" optionKey="id" class="form-control" value="${examen?.tipoExamen?.grupoExamen?.id}"   optionValue="descripcion"/>
+                    <p class="help-block ui-helper-hidden"></p>
                 </span>
-                <span class="col-md-2">
-                    <a href="#" id="btnBusquedaExamen" class="btn btn-info" title="Buscar">
-                        <i  class="fa fa-search"></i>
-                    </a>
-                    <a href="#" id="btnLimpiarBusquedaExamen" title="Limpiar Búsqueda" class="btn btn-warning">
-                        <i  class="fa fa-eraser"></i>
-                    </a>
-                </span>
+
+                <div id="divTipoExamen">
+
+                </div>
             </span>
-        </div>
-
-        <div class="form-group" id="divExamen">
-
         </div>
 
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
@@ -56,30 +49,24 @@
 
 <script type="text/javascript">
 
-    $("#btnBusquedaExamen").click(function () {
-        cargarExamen();
+    cargarTipoExamen($("#grupoExamen option:selected").val())
+
+    $("#grupoExamen").change(function () {
+        var grupo = $(this).val();
+        cargarTipoExamen(grupo);
     });
 
-    $("#btnLimpiarBusquedaExamen").click(function () {
-        $("#textoExamenBuscar").val('');
-        cargarExamen();
-    });
-
-    cargarExamen();
-
-    function cargarExamen(){
+    function cargarTipoExamen(grupo){
         var examen = '${examen?.id}';
-        var texto = $("#textoExamenBuscar").val();
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'examen', action: 'examen_ajax')}',
+            url: '${createLink(controller: 'examen', action: 'tipoExamen_ajax')}',
             data:{
-                texto: texto,
-                examen: examen,
-                tipo: '${tipo}'
+                grupo: grupo,
+                examen: examen
             },
             success: function (msg){
-                $("#divExamen").html(msg)
+                $("#divTipoExamen").html(msg)
             }
         })
     }
@@ -91,6 +78,7 @@
         icons: {
         }
     });
+
 
     $("#frmExamen").validate({
         errorClass     : "help-block",
@@ -106,13 +94,11 @@
             label.parents(".grupo").removeClass('has-error');
         }
     });
-
-    $("#textoExamenBuscar").keydown(function (ev) {
+    $(".form-control").keydown(function (ev) {
         if (ev.keyCode === 13) {
-            cargarExamen();
+            submitFormExamen();
             return false;
         }
         return true;
     });
-
 </script>

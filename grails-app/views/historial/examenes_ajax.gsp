@@ -1,19 +1,7 @@
 
-
 <div class="tituloTree">
     Exámenes ${tipo == '1' ? ' de Imagen ' : ''} del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
 </div>
-
-<g:if test="${flash.message}">
-    <div class="row">
-        <div class="span12">
-            <div class="alert ${flash.clase ?: 'alert-info'}" role="status">
-                <a class="close" data-dismiss="alert" href="#">×</a>
-                ${flash.message}
-            </div>
-        </div>
-    </div>
-</g:if>
 
 <div class="row" style="margin-bottom: 10px">
     <div class="col-md-2 btn-group" role="navigation">

@@ -254,7 +254,7 @@ class HistorialController {
         return [historial: historial, tipo: params.tipo]
     }
 
-    def formExamenes_ajax(){
+    def formExamenes_ajax_old(){
         def historial = Historial.get(params.cita)
         def examen
         if(params.id){
@@ -272,6 +272,26 @@ class HistorialController {
         }
 
         return [examen: examen, historial: historial, grupo: grupo]
+    }
+
+    def formExamenes_ajax(){
+        def historial = Historial.get(params.cita)
+        def examen
+        if(params.id){
+            examen = ExamenComplementario.get(params.id)
+        }else{
+            examen = new ExamenComplementario()
+        }
+
+        def grupo
+
+        if(params.tipo == '1'){
+            grupo = GrupoExamen.findAllById(6, [sort: 'descripcion'])
+        }else{
+            grupo = GrupoExamen.findAllByIdNotEqual(6, [sort: 'descripcion'])
+        }
+
+        return [examen: examen, historial: historial, grupo: grupo, tipo: params.tipo]
     }
 
     def saveExamen_ajax(){
