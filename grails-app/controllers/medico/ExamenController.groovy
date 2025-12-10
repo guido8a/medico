@@ -73,16 +73,19 @@ class ExamenController {
         def grupo = GrupoExamen.get(6)
         def tipo = TipoExamen.findAllByGrupoExamen(grupo)
         def tipoSin = TipoExamen.findAllByGrupoExamenNotEqual(grupo)
-        def examenes
-
-        if(params.tipo == '1'){
-            examenes = Examen.findAllByDescripcionIlikeAndTipoExamenInList('%' + params.texto + '%', tipo).sort{it.numero}
-        }else{
-            examenes = Examen.findAllByDescripcionIlikeAndTipoExamenInList('%' + params.texto + '%', tipoSin).sort{it.numero}
-        }
-
         def examen = ExamenComplementario.get(params.examen)
         def chequeados = DetalleExamen.findAllByExamenComplementario(examen)
+        def examenes
+
+        if(params.examen){
+            examenes = Examen.findAllByIdInList(chequeados?.examen?.id).sort{it.tipoExamen.grupoExamen.descripcion}
+        }else{
+            if(params.tipo == '1'){
+                examenes = Examen.findAllByDescripcionIlikeAndTipoExamenInList('%' + params.texto + '%', tipo).sort{it.tipoExamen.grupoExamen.descripcion}
+            }else{
+                examenes = Examen.findAllByDescripcionIlikeAndTipoExamenInList('%' + params.texto + '%', tipoSin).sort{it.tipoExamen.grupoExamen.descripcion}
+            }
+        }
 
         return [examenes:examenes, examenComplementario: examen, chequeados: chequeados?.examen]
     }

@@ -65,11 +65,14 @@
         cargarExamen();
     });
 
+    <g:if test="${examen?.id}">
     cargarExamen();
+    </g:if>
 
     function cargarExamen(){
         var examen = '${examen?.id}';
         var texto = $("#textoExamenBuscar").val();
+       var ar = cargarLoader("Cargando...");
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'examen', action: 'examen_ajax')}',
@@ -79,6 +82,7 @@
                 tipo: '${tipo}'
             },
             success: function (msg){
+                ar.modal("hide");
                 $("#divExamen").html(msg)
             }
         })
