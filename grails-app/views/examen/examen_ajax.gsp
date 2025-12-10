@@ -23,6 +23,8 @@
                         <tr style="max-width: 50%">
                             <td >
                                 <g:checkBox class="c1" name="c2_${examen?.id}" checked="${chequeados?.contains(examen) ? 'true' : 'false'}"/> ${examen?.descripcion}
+                                <strong style="color: #ff5234"> ${ ' GRUPO: ' + examen?.tipoExamen?.grupoExamen?.descripcion} </strong>
+                                <strong style="color: #0c6cc2"> ${ ' - TIPO: ' + examen?.tipoExamen?.descripcion} </strong>
                             </td>
                         </tr>
                     </g:each>
