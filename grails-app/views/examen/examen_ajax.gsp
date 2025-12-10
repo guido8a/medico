@@ -1,12 +1,12 @@
 
 <style>
 
-.wrap {
-    height: 310px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
+/*.wrap {*/
+/*    height: 310px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
 </style>
 
