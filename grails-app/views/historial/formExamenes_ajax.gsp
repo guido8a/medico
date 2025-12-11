@@ -17,24 +17,26 @@
             </span>
         </div>
 
-        <div class="form-group">
-            <span class="grupo">
-                <label class="col-md-2 control-label text-info">
-                    Buscar
-                </label>
-                <span class="col-md-4">
-                    <g:textField name="buscar" id="textoExamenBuscar" type="search" class="form-control" />
+        <g:if test="${!examen?.id}">
+            <div class="form-group">
+                <span class="grupo">
+                    <label class="col-md-2 control-label text-info">
+                        Buscar
+                    </label>
+                    <span class="col-md-4">
+                        <g:textField name="buscar" id="textoExamenBuscar" type="search" class="form-control" />
+                    </span>
+                    <span class="col-md-2">
+                        <a href="#" id="btnBusquedaExamen" class="btn btn-info" title="Buscar">
+                            <i  class="fa fa-search"></i>
+                        </a>
+                        <a href="#" id="btnLimpiarBusquedaExamen" title="Limpiar Búsqueda" class="btn btn-warning">
+                            <i  class="fa fa-eraser"></i>
+                        </a>
+                    </span>
                 </span>
-                <span class="col-md-2">
-                    <a href="#" id="btnBusquedaExamen" class="btn btn-info" title="Buscar">
-                        <i  class="fa fa-search"></i>
-                    </a>
-                    <a href="#" id="btnLimpiarBusquedaExamen" title="Limpiar Búsqueda" class="btn btn-warning">
-                        <i  class="fa fa-eraser"></i>
-                    </a>
-                </span>
-            </span>
-        </div>
+            </div>
+        </g:if>
 
         <div class="form-group" id="divExamen">
 
@@ -72,7 +74,7 @@
     function cargarExamen(){
         var examen = '${examen?.id}';
         var texto = $("#textoExamenBuscar").val();
-       var ar = cargarLoader("Cargando...");
+        var ar = cargarLoader("Cargando...");
         $.ajax({
             type: 'POST',
             url: '${createLink(controller: 'examen', action: 'examen_ajax')}',

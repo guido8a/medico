@@ -16,7 +16,7 @@
             Exámenes
         </label>
         <g:if test="${examenes.size() > 0}">
-            <span class="col-md-9" style=" border-style: solid; border-color: #AAA; border-width: 2px; height: 320px; overflow-y: auto; margin-left: 25px">
+            <span class="col-md-9" style=" border-style: solid; border-color: #AAA; border-width: 2px; height: ${examenComplementario ? '60px' : '320px'} ; overflow-y: auto; margin-left: 25px">
                 <table style="width: 100%">
                     <tbody class="wrap">
                     <g:each in="${examenes}" status="i" var="examen">

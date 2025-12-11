@@ -1,6 +1,6 @@
 
-<div class="tituloTree">
-    Exámenes ${tipo == '1' ? ' de Imagen ' : ''} del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 12px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
+<div class="tituloTree breadcrumb" style="font-size: 14px">
+    Exámenes ${tipo == '1' ? ' de Imagen ' : ''} del  paciente: <span style="font-weight: bold; font-style: italic; font-size: 14px">${historial?.paciente?.apellido + " " + historial?.paciente?.nombre}</span>
 </div>
 
 <div class="row" style="margin-bottom: 10px">
