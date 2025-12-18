@@ -1758,12 +1758,31 @@ class ReportesController {
                 }else{
                     addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny2), prmsLeft)
                 }
-                addCellTabla(tablaDatosClinicos, new Paragraph(  p?.observaciones ?  (e?.examen?.descripcion + " : " + p?.observaciones) : '', fontThTiny2), prmsLeft)
+                addCellTabla(tablaDatosClinicos, new Paragraph(  p?.datosClinicos ?  (e?.examen?.descripcion + " : " + p?.datosClinicos) : '', fontThTiny2), prmsLeft)
             }
         }
 
         tablaDatosClinicos.setSpacingBefore(25f);
-        tablaDatosClinicos.setSpacingAfter(60f);
+
+        PdfPTable tablaObservaciones = new PdfPTable(2);
+        tablaObservaciones.setWidthPercentage(100);
+        tablaObservaciones.setWidths(arregloEnteros([17, 83]))
+
+        addCellTabla(tablaObservaciones, new Paragraph("", fontTitulo), prmsLeft)
+        addCellTabla(tablaObservaciones, new Paragraph("", fontThTiny), prmsLeft)
+
+        examenes.eachWithIndex {p, q->
+            DetalleExamen.findAllByExamenComplementario(p).each { e->
+                if(q == 0){
+                    addCellTabla(tablaObservaciones, new Paragraph("OBSERVACIONES:", fontTitulo2), prmsLeft)
+                }else{
+                    addCellTabla(tablaObservaciones, new Paragraph("", fontThTiny2), prmsLeft)
+                }
+                addCellTabla(tablaObservaciones, new Paragraph(  p?.observaciones ?  (e?.examen?.descripcion + " : " + p?.observaciones) : '', fontThTiny2), prmsLeft)
+            }
+        }
+
+        tablaObservaciones.setSpacingAfter(80f);
 
         PdfPTable tablaFirmas = new PdfPTable(3);
         tablaFirmas.setWidthPercentage(100);
@@ -1792,6 +1811,7 @@ class ReportesController {
         document.add(tablaCabeceraExamen);
         document.add(tablaExamen);
         document.add(tablaDatosClinicos);
+        document.add(tablaObservaciones);
         document.add(tablaFirmas);
         document.close();
         pdfw.close()
