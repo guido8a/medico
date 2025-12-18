@@ -9,6 +9,7 @@ class ExamenComplementario implements Auditable {
     Date fecha
     String path
     String observaciones
+    String datosClinicos
 
     static mapping = {
         table 'excm'
@@ -22,6 +23,7 @@ class ExamenComplementario implements Auditable {
             fecha column: 'excmfcha'
             path column: 'excmpath'
             observaciones column: 'excmobsr'
+            datosClinicos column: 'excmdtcl'
         }
     }
 
@@ -32,5 +34,6 @@ class ExamenComplementario implements Auditable {
         fecha(blank: true, nullable: true)
         path(blank: true, nullable: true, size: 0..255)
         observaciones(blank: true, nullable: true, size: 0..511)
+        datosClinicos(blank: true, nullable: true, size: 0..511)
     }
 }
