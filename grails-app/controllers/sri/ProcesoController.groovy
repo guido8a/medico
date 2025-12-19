@@ -368,7 +368,7 @@ class ProcesoController  {
                     "where tcsr.tcsr__id = tcst.tcsr__id and titt @> '{${titt}}' and " +
                     "sstr @> '{${params.sstr}}' order by tcsrcdgo"
         }
-//        println "sql2: $sql"
+        println "sql2: $sql"
         def data = cn.rows(sql.toString())
 
         println("data " + data)

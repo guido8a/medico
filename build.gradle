@@ -54,6 +54,7 @@ dependencies {
     compile 'org.grails.plugins:ckeditor:4.5.9.0'
 //    compile "org.grails.plugins:mail:2.0.1"
 //    compile "org.grails.plugins:mail:4.0.1"
+    compile "org.grails.plugins:mail:2.0.0.RC6"
     runtime "org.postgresql:postgresql:42.2.5"
     console "org.grails:grails-console"
     profile "org.grails.profiles:web"

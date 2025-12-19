@@ -19,7 +19,7 @@
 
 <div style="text-align: center; margin-top: 22px; height: ${(flash.message) ? '640' : '570'}px;" class="well">
 
-    <g:if test="${seguridad.Empresa.findByNombreIlike("Cemov")}" >
+    <g:if test="${seguridad.Empresa.findByNombreIlike("Cemov")}">
         <h1 class="titl" style="font-size: 24px; color: #06a">SALIS HEALTH SYSTEM</h1>
     </g:if>
     <g:else>
@@ -30,11 +30,7 @@
                       clase="${flash.clase}">${flash.message}</elm:flashMessage>
 
     <div class="dialog ui-corner-all" style="height: 295px;padding: 10px;width: 910px;margin: auto;margin-top: 5px">
-        <a href= "${createLink(controller:'provincia', action: 'mapa', id:-1)}" style="text-decoration: none">
-            <div>
-                <asset:image src="apli/portada.png" style="padding: 30px;"/>
-            </div>
-        </a>
+        <asset:image src="apli/portada.png" style="padding: 30px;"/>
 
 
         <div style="width: 100%;height: 60px;float: left; margin-bottom:5px; margin-top: 20px; text-align: center">
@@ -42,7 +38,6 @@
                style="width: 120px; margin: auto">
                 Ingresar <i class="fas fa-user-times"></i></a>
         </div>
-
 
 
         <div>
@@ -61,10 +56,11 @@
 
         %{--        <p class="text-info pull-right" style="font-size: 10px; margin-top: -80px">--}%
         <p class="text-info" style="font-size: 10px; margin-top: -85px; float: right">
-            <a href="https://www.tedein.com.ec">Desarrollado por: <strong>Tedein S.A.</strong>
+            <a href="http://www.tedein.com.ec">Desarrollado por: <strong>Tedein S.A.</strong>
                 %{--<asset:image src="logo tedein pq.jpeg" style="height: 22px; width: 22px; margin-left: 10px"/>--}%
             </a>
         </p>
+
         <p class="text-info pull-left" style="font-size: 10px; margin-top: -80px; float: left">
             Versión ${message(code: 'version', default: '1.1.0x')}
         </p>
@@ -124,8 +120,8 @@
         var recargar = true
 
         function timedRefresh(timeoutPeriod) {
-            if(recargar) {
-                setTimeout("location.reload(true);",timeoutPeriod);
+            if (recargar) {
+                setTimeout("location.reload(true);", timeoutPeriod);
             }
             recargar = false
         }
