@@ -35,6 +35,7 @@ class Empresa implements Auditable{
     String prefijoDiario
     String prefijoEgreso
     String prefijoIngreso
+    String factura
 
     static mapping = {
         table 'empr'
@@ -72,6 +73,7 @@ class Empresa implements Auditable{
             prefijoDiario column: 'emprprdr'
             prefijoEgreso column: 'emprpreg'
             prefijoIngreso column: 'emprprin'
+            factura column: 'emprfctr'
         }
     }
     static constraints = {
@@ -104,6 +106,7 @@ class Empresa implements Auditable{
         prefijoDiario(blank: true, nullable: true, size: 1..20)
         prefijoEgreso(blank: true, nullable: true, size: 1..20)
         prefijoIngreso(blank: true, nullable: true, size: 1..20)
+        factura(blank: true, nullable: true, size: 0..1)
     }
 
     String toString() {

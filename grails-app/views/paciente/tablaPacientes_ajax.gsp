@@ -67,10 +67,12 @@ th, td {
                         </a>
                     </td>
                     <td style="width: 6%; text-align: center">
-                        <a href="#" class="btn btn-xs btn-success btnFacturas" data-id="${paciente?.pcnt__id}"
-                           title="Facturas del paciente">
-                            <i class="fa fa-money-bill"></i>
-                        </a>
+                        <g:if test="${seguridad.Paciente.get(paciente?.pcnt__id)?.empresa?.factura == 'S'}">
+                            <a href="#" class="btn btn-xs btn-success btnFacturas" data-id="${paciente?.pcnt__id}"
+                               title="Facturas del paciente">
+                                <i class="fa fa-money-bill"></i>
+                            </a>
+                        </g:if>
                     </td>
                     <td style="width: 6%; text-align: center">
                         <a href="#" class="btn btn-xs btn-danger btnBorrarPaciente" data-id="${paciente?.pcnt__id}" title="Borrar paciente">

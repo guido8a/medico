@@ -37,7 +37,7 @@ class PacienteController {
     }
 
     def tablaPacientes_ajax() {
-        println "tablaPacientes_ajax: $params"
+//        println "tablaPacientes_ajax: $params"
         def cn = dbConnectionService.getConnection()
         def usuario = Persona.get(session.usuario?.id)
         def empresa = usuario.empresa
@@ -71,7 +71,7 @@ class PacienteController {
                     "(pcntnmbr ilike '%${criterio}%' or pcntapll ilike '%${criterio}%')"
         }
         sqlTx = "${select} ${txwh} ${bscaEmp} order by pcntapll limit 25".toString()
-        println "sql: ${sqlTx}"
+//        println "sql: ${sqlTx}"
         def datos = cn.rows(sqlTx)
 //        println datos
 

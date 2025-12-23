@@ -63,16 +63,6 @@
                 </span>
             </span>
         </div>
-        <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'contribuyenteEspecial', 'error')} ">
-            <span class="grupo">
-                <label for="contribuyenteEspecial" class="col-xs-4 control-label text-info">
-                    Contribuyente Especial
-                </label>
-                <span class="col-xs-4">
-                    <g:checkBox name="contribuyenteEspecial_name" id="contribuyenteEspecial" class="form-control" data-on-Label="Si" checked="${empresaInstance?.contribuyenteEspecial == 'S' ?: false}"/>
-                </span>
-            </span>
-        </div>
         <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'fechaInicio', 'error')} ">
             <span class="grupo">
                 <label for="datetimepicker1" class="col-xs-4 control-label text-info">
@@ -172,6 +162,16 @@
                 </span>
             </span>
         </div>
+        <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'contribuyenteEspecial', 'error')} ">
+            <span class="grupo">
+                <label for="contribuyenteEspecial" class="col-xs-6 control-label text-info">
+                    Contribuyente Especial
+                </label>
+                <span class="col-xs-4">
+                    <g:checkBox name="contribuyenteEspecial_name" id="contribuyenteEspecial" class="form-control" data-on-Label="Si" checked="${empresaInstance?.contribuyenteEspecial == 'S' ?: false}"/>
+                </span>
+            </span>
+        </div>
         <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'establecimientos', 'error')} ">
             <span class="grupo">
                 <label for="tipoEmision" class="col-xs-6 control-label text-info">
@@ -194,6 +194,16 @@
                 </span>
             </span>
         </div>
+        <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'factura', 'error')} ">
+            <span class="grupo">
+                <label for="factura" class="col-xs-6 control-label text-info">
+                    Emite facturas
+                </label>
+                <span class="col-xs-6">
+                    <g:checkBox name="factura_name" id="factura" class="form-control" data-on-Label="Si" checked="${empresaInstance?.factura == 'S' ?: false}"/>
+                </span>
+            </span>
+        </div>
     </g:form>
 </div>
 
@@ -211,7 +221,7 @@
     });
 
     $(function() {
-        $("#obligadaContabilidad").checkboxpicker({
+        $("#obligadaContabilidad, #factura").checkboxpicker({
         });
 
         $("#ambiente, #contribuyenteEspecial, #tipoEmision").checkboxpicker({

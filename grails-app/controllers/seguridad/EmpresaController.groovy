@@ -481,6 +481,12 @@ h   : img?.getHeight(),
             params.ambiente = '1'
         }
 
+        if(params."factura_name"){
+            params.factura = 'S'
+        }else{
+            params.factura = 'N'
+        }
+
         empresa.properties = params
 
 
