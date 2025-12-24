@@ -35,6 +35,8 @@ class EmpresaController {
 
     def tablaEmpresas_ajax(){
 
+        def perfilActual = Prfl.get(session.perfil.id)
+
         def listaItems = ['empr_ruc', 'emprnmbr']
         def bsca
         def sqlTx = ""
@@ -51,7 +53,7 @@ class EmpresaController {
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
-        [datos: datos, tipo: params.tipo]
+        [datos: datos, tipo: params.tipo, actual: perfilActual]
     }
 
     def canton_ajax () {
@@ -451,7 +453,9 @@ h   : img?.getHeight(),
 
         def empresa = Empresa.get(params.id)
 
-        params.fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio)
+        if(params.fechaInicio){
+            params.fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio)
+        }
 
         if(params.fechaFin){
             params.fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin)
@@ -488,7 +492,6 @@ h   : img?.getHeight(),
         }
 
         empresa.properties = params
-
 
         if(!empresa.save(flush:true)){
             println("error al guardar los datos de la contabilidad de la empresa " + empresa.errors)
@@ -640,4 +643,8 @@ h   : img?.getHeight(),
         }
     }
 
+    def emiteFactura_ajax(){
+        def empresa = Empresa.get(params.id)
+        return [empresa: empresa]
+    }
 }

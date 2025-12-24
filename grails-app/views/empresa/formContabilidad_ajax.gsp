@@ -194,16 +194,16 @@
                 </span>
             </span>
         </div>
-        <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'factura', 'error')} ">
-            <span class="grupo">
-                <label for="factura" class="col-xs-6 control-label text-info">
-                    Emite facturas
-                </label>
-                <span class="col-xs-6">
-                    <g:checkBox name="factura_name" id="factura" class="form-control" data-on-Label="Si" checked="${empresaInstance?.factura == 'S' ?: false}"/>
-                </span>
-            </span>
-        </div>
+%{--        <div class="form-group keeptogether ${hasErrors(bean: empresaInstance, field: 'factura', 'error')} ">--}%
+%{--            <span class="grupo">--}%
+%{--                <label for="factura" class="col-xs-6 control-label text-info">--}%
+%{--                    Emite facturas--}%
+%{--                </label>--}%
+%{--                <span class="col-xs-6">--}%
+%{--                    <g:checkBox name="factura_name" id="factura" class="form-control" data-on-Label="Si" checked="${empresaInstance?.factura == 'S' ?: false}"/>--}%
+%{--                </span>--}%
+%{--            </span>--}%
+%{--        </div>--}%
     </g:form>
 </div>
 
