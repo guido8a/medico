@@ -18,7 +18,8 @@ class EmpresaController {
     def dbConnectionService
 
     def list(){
-        return [tipo: params.tipo]
+        def perfilActual = Prfl.get(session.perfil.id)
+        return [tipo: params.tipo, actual: perfilActual]
     }
 
     def form_ajax(){
