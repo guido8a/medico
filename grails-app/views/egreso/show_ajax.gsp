@@ -1,5 +1,5 @@
 
-<%@ page import="geografia.Egreso" %>
+<%@ page import="sri.Egreso" %>
 
 <g:if test="${!egresoInstance}">
     <elm:notFound elem="Egreso" genero="o" />
