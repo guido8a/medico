@@ -1,5 +1,5 @@
 
-<%@ page import="condominio.Egreso" %>
+<%@ page import="geografia.Egreso" %>
 
 <g:if test="${!egresoInstance}">
     <elm:notFound elem="Egreso" genero="o" />
@@ -29,7 +29,7 @@
                 <div class="col-md-4">
                     <g:fieldValue bean="${egresoInstance}" field="abono"/>
                 </div>
-                
+
             </div>
         </g:if>
         
