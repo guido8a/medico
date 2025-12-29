@@ -7,7 +7,8 @@
                 <th style="width: 10%">Tipo </th>
                 <th style="width: 18%">Examen </th>
                 <th style="width: 9%">Fecha </th>
-                <th style="width: 15%">Observaciones</th>
+%{--                <th style="width: 15%">Observaciones</th>--}%
+                <th style="width: 15%">Datos clínicos</th>
                 <th style="width: 10%">Documento</th>
                 <th style="width:14%">Acciones</th>
             </tr>

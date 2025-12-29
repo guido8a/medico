@@ -46,7 +46,8 @@
             <div class="form-group ${hasErrors(bean: examen, field: 'datosClinicos', 'error')} ">
                 <span class="grupo">
                     <label class="col-md-2 control-label text-info">
-                        Datos clínicos
+                        %{--                        Datos clínicos--}%
+                        Tipo de examen
                     </label>
                     <span class="col-md-9">
                         <g:textArea name="datosClinicos" maxlength="511" class="form-control" value="${examen?.datosClinicos}"  style="resize: none; height: 60px;" />
@@ -59,7 +60,8 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    Observaciones
+                    %{--                    Observaciones--}%
+                    Datos clínicos
                 </label>
                 <span class="col-md-9">
                     <g:textArea name="observaciones" maxlength="511" class="form-control" value="${examen?.observaciones}"  style="resize: none; height: 60px;" />
