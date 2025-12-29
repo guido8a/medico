@@ -10,9 +10,11 @@ class AgendaController {
     def dbConnectionService
 
     def agenda() {
+        println "agenda"
         def usuario = Persona.get(session.usuario?.id)
         def tipoPersona = TipoMedico.findAllByCodigoInList(['E', 'M'])
         def consultorio = usuario.empresa
+        println "tpmd: ${tipoPersona.id}"
         [paciente: params.paciente, consultorio: consultorio, usuario: usuario, tipo: tipoPersona, cita_actual: params.cita]
     }
 
