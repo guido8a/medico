@@ -1765,6 +1765,27 @@ class ReportesController {
 
         tablaDatosClinicos.setSpacingBefore(25f);
 
+
+        PdfPTable tablaDatosTipoExamen = new PdfPTable(2);
+        tablaDatosTipoExamen.setWidthPercentage(100);
+        tablaDatosTipoExamen.setWidths(arregloEnteros([17, 83]))
+
+        addCellTabla(tablaDatosTipoExamen, new Paragraph("", fontTitulo), prmsLeft)
+        addCellTabla(tablaDatosTipoExamen, new Paragraph("", fontThTiny), prmsLeft)
+
+        examenes.eachWithIndex {p, q->
+            DetalleExamen.findAllByExamenComplementario(p).each { e->
+                if(q == 0){
+                    addCellTabla(tablaDatosTipoExamen, new Paragraph("TIPO DE EXAMEN:", fontTitulo), prmsLeft)
+                }else{
+                    addCellTabla(tablaDatosTipoExamen, new Paragraph("", fontThTiny2), prmsLeft)
+                }
+                addCellTabla(tablaDatosTipoExamen, new Paragraph(  p?.datosTipoExamen ?  (e?.examen?.descripcion + " : " + p?.datosTipoExamen) : '', fontThTiny2), prmsLeft)
+            }
+        }
+
+        tablaDatosTipoExamen.setSpacingBefore(25f);
+
         PdfPTable tablaObservaciones = new PdfPTable(2);
         tablaObservaciones.setWidthPercentage(100);
         tablaObservaciones.setWidths(arregloEnteros([17, 83]))
@@ -1813,6 +1834,7 @@ class ReportesController {
         document.add(tablaCabeceraExamen);
         document.add(tablaExamen);
         document.add(tablaDatosClinicos);
+        document.add(tablaDatosTipoExamen);
         document.add(tablaObservaciones);
         document.add(tablaFirmas);
         document.close();
