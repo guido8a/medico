@@ -99,6 +99,15 @@ class ExamenController {
         return [examenes:examenes, examenComplementario: examen, chequeados: chequeados?.examen]
     }
 
+    def examenLaboratorio_ajax(){
+        def tipo = TipoExamen.get(params.tipo)
+        def examenes = Examen.findAllByTipoExamen(tipo).sort{it.numero}
+        def examen = ExamenComplementario.get(params.examen)
+        def chequeados = DetalleExamen.findAllByExamenComplementario(examen)
+
+        return [examenes:examenes, examenComplementario: examen, chequeados: chequeados?.examen]
+    }
+
     def prueba() {
         def cn = dbConnectionService.getConnection()
         def id = 4

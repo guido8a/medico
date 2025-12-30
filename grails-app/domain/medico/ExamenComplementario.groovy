@@ -10,6 +10,7 @@ class ExamenComplementario implements Auditable {
     String path
     String observaciones
     String datosClinicos
+    String datosTipoExamen
 
     static mapping = {
         table 'excm'
@@ -24,9 +25,9 @@ class ExamenComplementario implements Auditable {
             path column: 'excmpath'
             observaciones column: 'excmobsr'
             datosClinicos column: 'excmdtcl'
+            datosTipoExamen column: 'excmdtte'
         }
     }
-
 
     static constraints = {
         tipoExamen(blank: false, nullable: false)
@@ -35,5 +36,6 @@ class ExamenComplementario implements Auditable {
         path(blank: true, nullable: true, size: 0..255)
         observaciones(blank: true, nullable: true, size: 0..511)
         datosClinicos(blank: true, nullable: true, size: 0..511)
+        datosTipoExamen(blank: true, nullable: true, size: 0..511)
     }
 }

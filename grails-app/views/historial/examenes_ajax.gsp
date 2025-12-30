@@ -53,9 +53,11 @@
             id: id,
             tipo: '${tipo}'
         };
+        var urlExamenes = '${tipo == '1' ? createLink(action:'formExamenes_ajax') : createLink(action:'formExamenesLaboratorio_ajax')}';
         $.ajax({
             type    : "POST",
-            url: "${createLink(action:'formExamenes_ajax')}",
+            %{--url: "${createLink(action:'formExamenes_ajax')}",--}%
+            url: urlExamenes,
             data    : data,
             success : function (msg) {
                 fe = bootbox.dialog({

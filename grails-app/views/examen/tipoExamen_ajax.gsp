@@ -28,7 +28,7 @@
         var examen = '${examenComplementario?.id}';
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'examen', action: 'examen_ajax')}',
+            url: '${createLink(controller: 'examen', action: 'examenLaboratorio_ajax')}',
             data:{
                 tipo: tipo,
                 examen: examen

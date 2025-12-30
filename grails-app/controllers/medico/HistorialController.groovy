@@ -274,6 +274,26 @@ class HistorialController {
         return [examen: examen, historial: historial, grupo: grupo]
     }
 
+    def formExamenesLaboratorio_ajax(){
+        def historial = Historial.get(params.cita)
+        def examen
+        if(params.id){
+            examen = ExamenComplementario.get(params.id)
+        }else{
+            examen = new ExamenComplementario()
+        }
+
+        def grupo
+
+        if(params.tipo == '1'){
+            grupo = GrupoExamen.findAllById(6, [sort: 'descripcion'])
+        }else{
+            grupo = GrupoExamen.findAllByIdNotEqual(6, [sort: 'descripcion'])
+        }
+
+        return [examen: examen, historial: historial, grupo: grupo]
+    }
+
     def formExamenes_ajax(){
         def historial = Historial.get(params.cita)
         def examen
@@ -442,6 +462,83 @@ class HistorialController {
 //            render "err_Seleccione un examen"
 //        }
 //    }
+
+
+
+
+
+
+
+    def saveExamenLaboratorio_ajax(){
+        println("params save examen" + params)
+
+        def examenesChequeados = []
+
+        params.each{
+//            println("k " + it.key + "--- " + it.value)
+            if(it.value == 'on'){
+                println("ck " + it.key)
+                def s = it.key.split("_")[1]
+                examenesChequeados += s
+            }
+        }
+
+        println("examenes chqueados " + examenesChequeados)
+
+        if(examenesChequeados.size() > 0){
+            def historial = Historial.get(params.historial)
+            def examen
+            if (params.id) {
+                examen = ExamenComplementario.get(params.id)
+            }//es edit
+            else {
+                examen = new ExamenComplementario()
+            } //es create
+
+            if(params.fechaExamen){
+                params.fecha = new Date().parse("dd-MM-yyyy", params.fechaExamen)
+            }
+
+            examen.properties = params
+
+            if (!examen.save(flush: true)) {
+                println("Error al guardar el examen" +  examen.errors)
+                render "no_Error al guardar el examen"
+            }else{
+
+                if(examenesChequeados.size() > 0){
+
+                    def examenesExistentes = DetalleExamen.findAllByExamenComplementario(examen)
+
+                    if(examenesExistentes.size() > 0) {
+                        examenesExistentes.each{
+                            it.delete(flush:true)
+                        }
+                    }
+
+                    examenesChequeados.each{
+                        def registroExamen = Examen.get(it)
+                        def nuevoExamen = new DetalleExamen()
+                        nuevoExamen.examen = registroExamen
+                        nuevoExamen.examenComplementario = examen
+
+                        if(!nuevoExamen.save(flush:true)){
+                            println("error al guardar el examen " + nuevoExamen.errors)
+                            render "no_Error al guardar el examen"
+                        }else{
+                            render "ok_Examen guardado correctamente"
+                        }
+                    }
+                }else{
+                    render "ok_Examen guardado correctamente"
+                }
+            }
+        }else{
+            render "err_Seleccione un examen"
+        }
+    }
+
+
 
     def formDocExamenes_ajax(){
         def examen = ExamenComplementario.get(params.id)

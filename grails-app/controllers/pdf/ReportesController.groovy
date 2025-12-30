@@ -1754,8 +1754,8 @@ class ReportesController {
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
                 if(q == 0){
-//                    addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo), prmsLeft)
-                    addCellTabla(tablaDatosClinicos, new Paragraph("TIPO DE EXAMEN:", fontTitulo), prmsLeft)
+                    addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo), prmsLeft)
+//                    addCellTabla(tablaDatosClinicos, new Paragraph("TIPO DE EXAMEN:", fontTitulo), prmsLeft)
                 }else{
                     addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny2), prmsLeft)
                 }
@@ -1775,8 +1775,8 @@ class ReportesController {
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
                 if(q == 0){
-//                    addCellTabla(tablaObservaciones, new Paragraph("OBSERVACIONES:", fontTitulo2), prmsLeft)
-                    addCellTabla(tablaObservaciones, new Paragraph("DATOS CLÍNICOS:", fontTitulo2), prmsLeft)
+                    addCellTabla(tablaObservaciones, new Paragraph("OBSERVACIONES:", fontTitulo2), prmsLeft)
+//                    addCellTabla(tablaObservaciones, new Paragraph("DATOS CLÍNICOS:", fontTitulo2), prmsLeft)
                 }else{
                     addCellTabla(tablaObservaciones, new Paragraph("", fontThTiny2), prmsLeft)
                 }

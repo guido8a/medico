@@ -46,8 +46,7 @@
             <div class="form-group ${hasErrors(bean: examen, field: 'datosClinicos', 'error')} ">
                 <span class="grupo">
                     <label class="col-md-2 control-label text-info">
-                        %{--                        Datos clínicos--}%
-                        Tipo de examen
+                        Datos clínicos
                     </label>
                     <span class="col-md-9">
                         <g:textArea name="datosClinicos" maxlength="511" class="form-control" value="${examen?.datosClinicos}"  style="resize: none; height: 60px;" />
@@ -57,11 +56,24 @@
             </div>
         </g:if>
 
+        <g:if test="${tipo == '1'}">
+            <div class="form-group ${hasErrors(bean: examen, field: 'datosTipoExamen', 'error')} ">
+                <span class="grupo">
+                    <label class="col-md-2 control-label text-info">
+                        Tipo de Examen
+                    </label>
+                    <span class="col-md-9">
+                        <g:textArea name="datosTipoExamen" maxlength="511" class="form-control" value="${examen?.datosTipoExamen}"  style="resize: none; height: 60px;" />
+                        <p class="help-block ui-helper-hidden"></p>
+                    </span>
+                </span>
+            </div>
+        </g:if>
+
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    %{--                    Observaciones--}%
-                    Datos clínicos
+                    Observaciones
                 </label>
                 <span class="col-md-9">
                     <g:textArea name="observaciones" maxlength="511" class="form-control" value="${examen?.observaciones}"  style="resize: none; height: 60px;" />
@@ -83,9 +95,9 @@
         cargarExamen();
     });
 
-    <g:if test="${examen?.id}">
+    %{--    <g:if test="${examen?.id}">--}%
     cargarExamen();
-    </g:if>
+    %{--    </g:if>--}%
 
     function cargarExamen(){
         var examen = '${examen?.id}';
