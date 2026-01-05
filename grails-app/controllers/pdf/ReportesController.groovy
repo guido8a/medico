@@ -1833,8 +1833,8 @@ class ReportesController {
         document.add(tablaDatos2);
         document.add(tablaCabeceraExamen);
         document.add(tablaExamen);
-        document.add(tablaDatosClinicos);
         document.add(tablaDatosTipoExamen);
+        document.add(tablaDatosClinicos);
         document.add(tablaObservaciones);
         document.add(tablaFirmas);
         document.close();
