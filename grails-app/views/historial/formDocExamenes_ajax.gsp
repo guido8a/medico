@@ -135,10 +135,21 @@
                     cargarHistoricoExamens();
                     </g:if>
                     <g:else>
+                    <g:if test="${tipo == '2'}">
+
+                    </g:if>
+                    <g:else>
                     cargarTablaExamenes();
                     </g:else>
+                    </g:else>
 
-                    cargarUltimaCita('${examen?.historial?.id}');
+                    <g:if test="${citaActual}">
+                    cargarUltimaCita('${citaActual?.id}');
+                    </g:if>
+                    <g:else>
+                    %{--cargarUltimaCita('${examen?.historial?.id}');--}%
+                    </g:else>
+
                 }else{
                     bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                     return false;

@@ -1517,7 +1517,7 @@ class ReportesController {
         addCellTabla(tablaCabecera, new Paragraph("SEXO: ", fontTitulo), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph(paciente?.sexo == 'F' ? 'Femenino' : 'Masculino', fontThTiny), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph("FECHA: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(new Date().format("dd-MM-yyy"), fontThTiny), prmsHeaderHoja)
+        addCellTabla(tablaCabecera, new Paragraph(cita?.fecha ? cita?.fecha?.format("dd-MM-yyyy") : new Date()?.format("dd-MM-yyy"), fontThTiny), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
         addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
 
@@ -1705,7 +1705,7 @@ class ReportesController {
         tablaDatos.setWidthPercentage(100);
         tablaDatos.setWidths(arregloEnteros([15, 85]))
         addCellTabla(tablaDatos, new Paragraph("FECHA:", fontTitulo), prmsLeft)
-        addCellTabla(tablaDatos, new Paragraph(new Date().format("dd-MM-yyy"), fontThTiny), prmsLeft)
+        addCellTabla(tablaDatos, new Paragraph(cita?.fecha ? cita?.fecha?.format("dd-MM-yyyy") : new Date()?.format("dd-MM-yyy"), fontThTiny), prmsLeft)
 
         addCellTabla(tablaDatos, new Paragraph("PACIENTE:", fontTitulo), prmsLeft)
         addCellTabla(tablaDatos, new Paragraph(paciente?.apellido + " " + paciente?.nombre , fontThTiny), prmsLeft)
@@ -1730,7 +1730,7 @@ class ReportesController {
 
         PdfPTable tablaExamen = new PdfPTable(3);
         tablaExamen.setWidthPercentage(100);
-        tablaExamen.setWidths(arregloEnteros([15, 20, 65 ]))
+        tablaExamen.setWidths(arregloEnteros([17, 20, 63 ]))
 
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
@@ -1810,9 +1810,9 @@ class ReportesController {
         PdfPTable tablaFirmas = new PdfPTable(3);
         tablaFirmas.setWidthPercentage(100);
 
-        addCellTabla(tablaFirmas, new Paragraph("...................................................", fontThTiny), prmsCenter)
+        addCellTabla(tablaFirmas, new Paragraph("______________________________", fontThTiny), prmsCenter)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph("...................................................", fontThTiny), prmsCenter)
+        addCellTabla(tablaFirmas, new Paragraph("______________________________", fontThTiny), prmsCenter)
 
         addCellTabla(tablaFirmas, new Paragraph("Médico Solicitante", fontTitulo), prmsCenter)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)

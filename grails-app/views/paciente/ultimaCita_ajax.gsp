@@ -180,7 +180,6 @@
 
             </div>
 
-%{--            <h4>Exámenes Cita Anterior</h4>--}%
             <div id="divExamenesAnteriores">
 
             </div>
@@ -375,7 +374,9 @@
         }); //ajax
     }
 
+    <g:if test="${cita?.id}">
     cargarExamenesAnteriores('${cita?.id}');
+    </g:if>
 
     function cargarExamenesAnteriores(cita) {
         var d = cargarLoader("Cargando...");

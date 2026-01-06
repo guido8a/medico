@@ -491,6 +491,7 @@ class ExamenController {
 //        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
 //        def examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(citaAnterior, tipoExamen, [sort: "id"])
         def examenes = ExamenComplementario.findAllByHistorial(citaAnterior, [sort: "id"])
+
         return [examenes: examenes, cita: cita, citaAnterior: citaAnterior]
         
     }

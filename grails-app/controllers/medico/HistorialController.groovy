@@ -542,7 +542,13 @@ class HistorialController {
 
     def formDocExamenes_ajax(){
         def examen = ExamenComplementario.get(params.id)
-        return[examen: examen, tipo: params.tipo]
+        def citaActual = null
+
+        if(params.idActual){
+            citaActual = Historial.get(params.idActual)
+        }
+
+        return[examen: examen, tipo: params.tipo, citaActual: citaActual]
     }
 
     def uploadFileExamen() {
