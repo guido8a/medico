@@ -180,6 +180,11 @@
 
             </div>
 
+%{--            <h4>Exámenes Cita Anterior</h4>--}%
+            <div id="divExamenesAnteriores">
+
+            </div>
+
             <div id="comentario">
 
             </div>
@@ -368,6 +373,23 @@
                 }); //dialog
             } //success
         }); //ajax
+    }
+
+    cargarExamenesAnteriores('${cita?.id}');
+
+    function cargarExamenesAnteriores(cita) {
+        var d = cargarLoader("Cargando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'examen', action: 'examenAnterior_ajax')}',
+            data:{
+                id: cita
+            },
+            success: function (msg){
+                d.modal("hide");
+                $("#divExamenesAnteriores").html(msg)
+            }
+        })
     }
 
     $("#btnTratamiento").click(function () {

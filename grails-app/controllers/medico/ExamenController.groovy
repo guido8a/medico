@@ -471,5 +471,27 @@ class ExamenController {
         return [tipos: tipos]
     }
 
+    def examenAnterior_ajax(){
+        def cita = Historial.get(params.id)
+        def citas = Historial.findAllByPacienteAndEstadoNotEqual(cita.paciente, 'N', [sort: 'fecha', order: 'desc'])
+        def posicionCitaAnterior
+        def citaAnterior
 
+        citas.eachWithIndex{ c, i ->
+            if(c == cita){
+                posicionCitaAnterior = (i+1 ?: 999)
+            }
+        }
+
+        citaAnterior = posicionCitaAnterior == 999 ?  null : citas[posicionCitaAnterior]
+
+        println("cita an " + citaAnterior)
+
+//        def grupoExamen = GrupoExamen.get(6)
+//        def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
+//        def examenes = ExamenComplementario.findAllByHistorialAndTipoExamenInList(citaAnterior, tipoExamen, [sort: "id"])
+        def examenes = ExamenComplementario.findAllByHistorial(citaAnterior, [sort: "id"])
+        return [examenes: examenes, cita: cita, citaAnterior: citaAnterior]
+        
+    }
 }
