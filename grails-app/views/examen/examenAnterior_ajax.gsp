@@ -1,4 +1,7 @@
-<h4>Exámenes Cita Anterior - <strong style="font-style: italic"> ${citaAnterior ?  ("Motivo: " +  citaAnterior?.motivo +  " - Fecha: " + citaAnterior?.fecha?.format("dd-MM-yyyy"))  :  ''} </strong></h4>
+<h4>Exámenes Cita Anterior - <span style="font-style: italic">  ${citaAnterior ?  ("Motivo: " )  :  ''}
+    <span class="text-info">${citaAnterior ?  citaAnterior?.motivo :  ''}</span>
+    <span> ${citaAnterior ?  " - Fecha: "  :  ''}  </span>
+    <span class="text-info"> ${citaAnterior ?  (citaAnterior?.fecha?.format("dd-MM-yyyy"))  :  ''} </span> </span> </h4>
 <div class="" style="width: 99.7%; overflow-y: auto;float: right; margin-top: 10px; margin-bottom: 20px">
     <div style="width:96%; float: right">
         <table class="table-bordered table-condensed table-success" style="width: 100%">

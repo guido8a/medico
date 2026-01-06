@@ -1469,11 +1469,13 @@ class ReportesController {
         def name = "pedidoExamenes_${paciente?.apellido}_" + new Date().format("ddMMyyyy_hhmm") + ".pdf";
         def titulo = new java.awt.Color(40, 140, 180)
         com.lowagie.text.Font fontTitulo = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 12, com.lowagie.text.Font.BOLD, titulo);
+        com.lowagie.text.Font fontTitulo2 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 10, com.lowagie.text.Font.NORMAL);
         com.lowagie.text.Font fontThTiny = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.BOLD);
         com.lowagie.text.Font fontThTiny3 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 9, com.lowagie.text.Font.BOLD);
         com.lowagie.text.Font fontThTiny2 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 11, com.lowagie.text.Font.NORMAL);
         com.lowagie.text.Font times8normal = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL);
         def prmsHeaderHoja = [border: java.awt.Color.WHITE]
+        def prmsCenter = [border: java.awt.Color.WHITE, align: Element.ALIGN_CENTER]
 
         Document document
         document = new Document(PageSize.A4);
@@ -1498,10 +1500,18 @@ class ReportesController {
         preface.add(new Paragraph("PEDIDO DE EXÁMENES", fontTitulo));
         addEmptyLine(preface, 1);
 
-        PdfPTable tablaImagen = new PdfPTable(1);
+//        PdfPTable tablaImagen = new PdfPTable(1);
+//        tablaImagen.setWidthPercentage(100);
+//        tablaImagen.setWidths(arregloEnteros([100]))
+//        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+//        tablaImagen.setSpacingAfter(20f);
+
+        PdfPTable tablaImagen = new PdfPTable(3);
         tablaImagen.setWidthPercentage(100);
-        tablaImagen.setWidths(arregloEnteros([100]))
-        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        tablaImagen.setWidths(arregloEnteros([15,70,15]))
+        addCellTabla(tablaImagen, new Paragraph("", fontTitulo), prmsHeaderHoja)
+        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_MIDDLE, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaImagen, new Paragraph("", fontTitulo), prmsHeaderHoja)
         tablaImagen.setSpacingAfter(20f);
 
         PdfPTable tablaCabecera = new PdfPTable(4);
@@ -1547,8 +1557,8 @@ class ReportesController {
                 tablaExamen.setWidthPercentage(100);
                 tablaExamen.setWidths(arregloEnteros([100]))
 
-                addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.grupoExamen?.descripcion, fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
-                addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.descripcion, fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
+                addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.grupoExamen?.descripcion, fontTitulo2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
+                addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.descripcion, fontTitulo2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
 
                 DetalleExamen.findAllByExamenComplementario(p).each { e->
                     addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString() + (p?.observaciones ? (" : " + p?.observaciones) : ''), fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
@@ -1573,7 +1583,7 @@ class ReportesController {
         addCellTabla(tablaFirmas, new Paragraph("_____________________________", fontThTiny2), prmsHeaderHoja)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
-        addCellTabla(tablaFirmas, new Paragraph("AUTORIZACIÓN", fontThTiny2), prmsHeaderHoja)
+        addCellTabla(tablaFirmas, new Paragraph("AUTORIZACIÓN", fontThTiny2), prmsCenter)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
         addCellTabla(tablaFirmas, new Paragraph("", fontThTiny2), prmsHeaderHoja)
 
@@ -1655,7 +1665,8 @@ class ReportesController {
         Image logo = Image.getInstance(path);
         def longitud = logo.getHeight()
         logo.scalePercent( (100/longitud * 100).toInteger() )
-        logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
+//        logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
+        logo.setAlignment(Image.ALIGN_MIDDLE)
 
         def fondoTotal = new java.awt.Color(250, 250, 240);
         def baos = new ByteArrayOutputStream()
@@ -1694,10 +1705,12 @@ class ReportesController {
         preface.add(new Paragraph("PEDIDO DE EXÁMENES", fontTitulo));
         addEmptyLine(preface, 1);
 
-        PdfPTable tablaImagen = new PdfPTable(1);
+        PdfPTable tablaImagen = new PdfPTable(3);
         tablaImagen.setWidthPercentage(100);
-        tablaImagen.setWidths(arregloEnteros([100]))
-        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        tablaImagen.setWidths(arregloEnteros([15,70,15]))
+        addCellTabla(tablaImagen, new Paragraph("", fontTitulo), prmsLeft)
+        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_MIDDLE, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaImagen, new Paragraph("", fontTitulo), prmsLeft)
         tablaImagen.setSpacingAfter(20f);
 
         PdfPTable tablaDetalles = null
@@ -1719,14 +1732,11 @@ class ReportesController {
         addCellTabla(tablaDatos2, new Paragraph("C.I.:", fontTitulo), prmsLeft)
         addCellTabla(tablaDatos2, new Paragraph(paciente?.cedula, fontThTiny), prmsLeft)
 
-        PdfPTable tablaCabeceraExamen = new PdfPTable(2);
+        PdfPTable tablaCabeceraExamen = new PdfPTable(1);
         tablaCabeceraExamen.setWidthPercentage(100);
-        tablaCabeceraExamen.setWidths(arregloEnteros([15, 85]))
+        tablaCabeceraExamen.setWidths(arregloEnteros([100]))
 
-        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
-        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontThTiny), prmsLeft)
-        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontTitulo), prmsLeft)
-        addCellTabla(tablaCabeceraExamen, new Paragraph("", fontThTiny), prmsLeft)
+        addCellTabla(tablaCabeceraExamen, new Paragraph("____________________________________________________________________________________________", fontThTiny), prmsLeft)
 
         PdfPTable tablaExamen = new PdfPTable(3);
         tablaExamen.setWidthPercentage(100);
@@ -1735,7 +1745,7 @@ class ReportesController {
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
                 if(q == 0){
-                    addCellTabla(tablaExamen, new Paragraph("EXAMEN:", fontTitulo), prmsLeft)
+                    addCellTabla(tablaExamen, new Paragraph("EXAMEN", fontTitulo2), prmsLeft)
                 }else{
                     addCellTabla(tablaExamen, new Paragraph("", fontThTiny2), prmsLeft)
                 }
@@ -1743,6 +1753,8 @@ class ReportesController {
                 addCellTabla(tablaExamen, new Paragraph("", fontThTiny2), prmsLeft)
             }
         }
+
+        tablaExamen.setSpacingBefore(15f);
 
         PdfPTable tablaDatosClinicos = new PdfPTable(2);
         tablaDatosClinicos.setWidthPercentage(100);
@@ -1754,8 +1766,7 @@ class ReportesController {
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
                 if(q == 0){
-                    addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS:", fontTitulo), prmsLeft)
-//                    addCellTabla(tablaDatosClinicos, new Paragraph("TIPO DE EXAMEN:", fontTitulo), prmsLeft)
+                    addCellTabla(tablaDatosClinicos, new Paragraph("DATOS CLÍNICOS", fontTitulo2), prmsLeft)
                 }else{
                     addCellTabla(tablaDatosClinicos, new Paragraph("", fontThTiny2), prmsLeft)
                 }
@@ -1764,7 +1775,6 @@ class ReportesController {
         }
 
         tablaDatosClinicos.setSpacingBefore(25f);
-
 
         PdfPTable tablaDatosTipoExamen = new PdfPTable(2);
         tablaDatosTipoExamen.setWidthPercentage(100);
@@ -1776,7 +1786,7 @@ class ReportesController {
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
                 if(q == 0){
-                    addCellTabla(tablaDatosTipoExamen, new Paragraph("TIPO DE EXAMEN:", fontTitulo), prmsLeft)
+                    addCellTabla(tablaDatosTipoExamen, new Paragraph("TIPO DE EXAMEN", fontTitulo2), prmsLeft)
                 }else{
                     addCellTabla(tablaDatosTipoExamen, new Paragraph("", fontThTiny2), prmsLeft)
                 }
@@ -1796,8 +1806,7 @@ class ReportesController {
         examenes.eachWithIndex {p, q->
             DetalleExamen.findAllByExamenComplementario(p).each { e->
                 if(q == 0){
-                    addCellTabla(tablaObservaciones, new Paragraph("OBSERVACIONES:", fontTitulo2), prmsLeft)
-//                    addCellTabla(tablaObservaciones, new Paragraph("DATOS CLÍNICOS:", fontTitulo2), prmsLeft)
+                    addCellTabla(tablaObservaciones, new Paragraph("OBSERVACIONES", fontTitulo2), prmsLeft)
                 }else{
                     addCellTabla(tablaObservaciones, new Paragraph("", fontThTiny2), prmsLeft)
                 }
@@ -1805,6 +1814,7 @@ class ReportesController {
             }
         }
 
+        tablaObservaciones.setSpacingBefore(25f);
         tablaObservaciones.setSpacingAfter(80f);
 
         PdfPTable tablaFirmas = new PdfPTable(3);
