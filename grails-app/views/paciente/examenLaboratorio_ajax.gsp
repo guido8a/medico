@@ -7,21 +7,22 @@
             <i class="fas fa-print"></i>
         </a>
     </div>
-    <div style="width:96%; float: left">
-        <table class="table-bordered table-condensed table-success" style="width: 100%">
+    <div style="width:96%; float: left" >
+        <table class="table-bordered table-condensed table-success"  style="width: 100%">
             <tbody>
             <tr style="font-size: 16px">
                 <td style="width: 80%; background-color:#b7d6a9">
                     <g:if test="${examenes.size() > 0}">
                         <table class="table table-bordered table-striped table-condensed table-hover table-success">
                             <thead>
-                            <tr style="width: 100%">
+                            <tr style="width: 100%" id="divTablaEL">
                                 <th style="width: 15%">Grupo </th>
                                 <th style="width: 15%">Tipo </th>
                                 <th style="width: 15%">Examen</th>
                                 <th style="width: 10%">Fecha </th>
-                                <th style="width: 25%">Observaciones</th>
+                                <th style="width: 22%">Observaciones</th>
                                 <th style="width: 10%">Documento</th>
+                                <th style="width: 3%"></th>
                             </tr>
                             </thead>
                             <tbody >
@@ -44,10 +45,20 @@
                                         <g:if test="${examen?.path}">
                                             ${examen?.path}
                                         </g:if>
+%{--                                        <g:if test="${examen?.path}">--}%
+%{--                                            <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${examen.id}">--}%
+%{--                                                <i class="fa fa-download"></i>--}%
+%{--                                            </g:link>--}%
+%{--                                            <a class="btn btn-warning btn-xs btnDescargarDocumentoELTabla" href="#" rel="tooltip" title="Descargar documento" data-id="${examen.id}">--}%
+%{--                                                <i class="fa fa-download"></i>--}%
+%{--                                            </a>--}%
+%{--                                        </g:if>--}%
+                                    </td>
+                                    <td style="width: 3%">
                                         <g:if test="${examen?.path}">
-                                            <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${examen.id}">
+                                            <a class="btn btn-warning btn-xs btnDescargarDocumentoELTabla" href="#" rel="tooltip" title="Descargar documento" data-id="${examen.id}">
                                                 <i class="fa fa-download"></i>
-                                            </g:link>
+                                            </a>
                                         </g:if>
                                     </td>
                                 </tr>
@@ -66,6 +77,30 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnDescargarDocumentoELTabla").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'historial', action:'downloadFile')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'no' ){
+                    // setTimeout(function () {
+                    //     $("#divTablaEL").focus();
+                    // }, 500);
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }else{
+                    location.href="${createLink(controller: 'historial', action: 'downloadFile')}?id=" + id
+                }
+
+            } //success
+        }); //ajax
+    });
 
     $("#btnImprimirPedido").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
