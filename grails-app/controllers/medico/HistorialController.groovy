@@ -709,9 +709,7 @@ class HistorialController {
             response.setContentLength(b.length)
             response.getOutputStream().write(b)
         } else {
-            flash.clase = "alert-error"
-            flash.message = "No se encontró el archivo " + " '" + examen.path + "'"
-            redirect(action: "errores")
+            render "no_No se encontró el archivo " + "_ " + examen?.path
         }
     }
 

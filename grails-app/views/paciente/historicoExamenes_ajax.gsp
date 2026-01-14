@@ -41,9 +41,12 @@ th, td {
                                 <a class="btn btn-info btn-xs btnCargarDocumento" href="#" rel="tooltip" title="Subir documento" data-id="${cita?.excm__id}">
                                     <i class="fa fa-upload"></i>
                                 </a>
-                                <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${cita?.excm__id}">
+                                <a class="btn btn-warning btn-xs btnDescargarDocumento" href="#" rel="tooltip" title="Descargar documento" data-id="${cita?.excm__id}">
                                     <i class="fa fa-download"></i>
-                                </g:link>
+                                </a>
+                                %{--                                <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${cita?.excm__id}">--}%
+                                %{--                                    <i class="fa fa-download"></i>--}%
+                                %{--                                </g:link>--}%
                             </td>
                             <td style="width: 1%"></td>
                         </tr>
@@ -61,6 +64,27 @@ th, td {
 <script type="text/javascript">
 
     var cd;
+
+    $(".btnDescargarDocumento").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'historial', action:'downloadFile')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'no' ){
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }else{
+                    location.href="${createLink(controller: 'historial', action: 'downloadFile')}?id=" + id
+                }
+
+            } //success
+        }); //ajax
+    });
 
     $(".btnCargarDocumento").click(function () {
         var id = $(this).data("id");
