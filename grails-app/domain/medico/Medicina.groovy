@@ -44,7 +44,7 @@ class Medicina implements Auditable{
     static constraints = {
         padre(blank: true, nullable: true)
         tipo(size:0..4,blank: true, nullable: true)
-        descripcion(size:0..255,blank: false, nullable: false)
+        descripcion(size:0..255,blank: true, nullable: true)
         codigo(size:0..15,blank: true, nullable: true)
         forma(size:0..255,blank: true, nullable: true)
         estado(size:0..1,blank: true, nullable: true)
