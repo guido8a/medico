@@ -19,7 +19,7 @@
                 Alergias
             </label>
             <span class="col-md-10">
-                <g:textField name="alergias" maxlength="255" class="form-control"
+                <g:textArea name="alergias" maxlength="254" class="form-control" style="resize: none; height: 100px"
                             value="${paciente?.alergias}"/>
             </span>
         </span>

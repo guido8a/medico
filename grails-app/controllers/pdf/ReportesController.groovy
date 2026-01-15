@@ -788,6 +788,7 @@ class ReportesController {
         def cita = Historial.get(params.cita)
         def edadCalculada = calculaEdad( new Date().format('yyyy-MM-dd'), cita?.paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
         def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+
         def tratamientos = Tratamiento.findAllByHistorial(cita, [sort: 'orden'])
         def diagnosticos = ''
         def usuario = Persona.get(session.usuario?.id)
@@ -798,6 +799,9 @@ class ReportesController {
         def cantidadCaracteres = 0
         def altura = 0
         def adicional = 0
+        def cantidadCarateresAlergias = 0
+        def alturaAlergias = 0
+        def adicionalAlergias = 0
 
 //        println "prox. cita: ${cita?.paciente} --> ${cita?.fecha}"
 //        def citasMayores = Historial.findAllByPacienteAndFechaGreaterThan(cita?.paciente, cita.fecha,
@@ -825,16 +829,52 @@ class ReportesController {
 
         println "--> $cantidadCaracteres  long: ${diagnosticos.length()}"
 
+//        if(cantidadCaracteres > 0){
+//            altura = cantidadCaracteres / 40
+//            altura = Math.ceil(altura)
+//            println("aaa " + altura)
+//            altura = altura <= 1 ? 1 : altura.toInteger()
+//            adicional = altura*5
+//            altura = (altura * 80 ) > 240 ? (240 + adicional) : 240
+//
+//        }else{
+//            altura = 240
+//        }
+
         if(cantidadCaracteres > 0){
-            altura = cantidadCaracteres / 50
+            altura = cantidadCaracteres / 55
             altura = Math.ceil(altura)
+            println("aaa " + altura)
             altura = altura <= 1 ? 1 : altura.toInteger()
-            adicional = altura*5
-            altura = (altura * 80 ) > 240 ? (240 + adicional) : 240
+            adicional = 50
+            altura = altura*25 + adicional
 
         }else{
-            altura = 240
+            altura = 75
         }
+
+        cantidadCarateresAlergias = cita?.paciente?.alergias?.length()
+
+        if(cantidadCarateresAlergias > 0){
+            alturaAlergias = cantidadCarateresAlergias / 55
+            alturaAlergias = Math.ceil(alturaAlergias)
+            println("aaa " + alturaAlergias)
+            alturaAlergias = alturaAlergias <= 4 ? 4 : alturaAlergias.toInteger()
+            adicionalAlergias = 75
+            alturaAlergias = alturaAlergias * 25 + adicionalAlergias
+        }else{
+            alturaAlergias = 100
+        }
+
+       println("alergias lenght" + cita.paciente.alergias.length() )
+
+        println("altura" + altura )
+        println("alturaAlergias" + alturaAlergias )
+
+       altura = altura + alturaAlergias
+
+        println("altura" + altura )
+
 
         if(cita?.paciente?.edad <= 5){
             edad = " (" + cita?.paciente?.getNinoNina() + ")"
@@ -1297,7 +1337,7 @@ class ReportesController {
         addCellTabla(tablaHeaderDetalles, new Paragraph(diagnosticos, fontThTiny4), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
 
         addCellTabla(tablaHeaderDetalles, new Paragraph("Alergias:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaHeaderDetalles, new Paragraph(cita?.paciente?.alergias, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaHeaderDetalles, new Paragraph(cita?.paciente?.alergias, fontThTiny4), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_CENTER, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
         addCellTabla(tablaHeaderDetalles, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
