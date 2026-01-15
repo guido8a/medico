@@ -598,9 +598,10 @@ class PacienteController {
             response.setContentLength(b.length)
             response.getOutputStream().write(b)
         } else {
-            flash.clase = "alert-error"
-            flash.message = "No se encontró el documento " + " '" + paciente.path + "'"
-            redirect(action: "errores")
+//            flash.clase = "alert-error"
+//            flash.message = "No se encontró el documento " + " '" + paciente.path + "'"
+//            redirect(action: "errores")
+            render "no_No se encontró el archivo "
         }
     }
 

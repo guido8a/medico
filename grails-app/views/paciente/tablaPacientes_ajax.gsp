@@ -46,9 +46,12 @@ th, td {
                     <td style="width: 13%">${paciente.pcntmail}</td>
                     <td style="width: 7%; text-align: center">
                         <g:if test="${paciente?.pcntpath}">
-                            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">
+%{--                            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">--}%
+%{--                                <i class="fa fa-download"></i>--}%
+%{--                            </g:link>--}%
+                            <a class="btn btn-warning btn-xs btnDescargarDocCitasAnteriores" href="#" rel="tooltip" title="Descargar documento" data-id="${paciente?.pcnt__id}">
                                 <i class="fa fa-download"></i>
-                            </g:link>
+                            </a>
                         </g:if>
                         <g:else>
                             <i class="fas fa-times text-danger fa-2x"></i>
@@ -92,6 +95,26 @@ th, td {
 <script type="text/javascript">
 
     var cd;
+
+    $(".btnDescargarDocCitasAnteriores").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'paciente', action:'downloadDocumentoCitasAnteriores')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'no' ){
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }else{
+                    location.href="${createLink(controller: 'paciente', action: 'downloadDocumentoCitasAnteriores')}?id=" + id
+                }
+            } //success
+        }); //ajax
+    });
 
     $(".btnFacturas").click(function () {
         var id = $(this).data("id");

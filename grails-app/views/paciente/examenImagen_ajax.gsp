@@ -20,9 +20,9 @@
                                 <th style="width: 15%">Tipo </th>
                                 <th style="width: 15%">Examen</th>
                                 <th style="width: 10%">Fecha </th>
-                                <th style="width: 25%">Observaciones</th>
-%{--                                <th style="width: 25%">Datos clínicos</th>--}%
+                                <th style="width: 22%">Observaciones</th>
                                 <th style="width: 10%">Documento</th>
+                                <th style="width: 3%"></th>
                             </tr>
                             </thead>
                             <tbody >
@@ -40,15 +40,22 @@
                                         </ul>
                                     </td>
                                     <td style="width: 10%">${examen?.fecha?.format("dd-MM-yyyy")}</td>
-                                    <td style="width: 25%">${examen?.observaciones}</td>
+                                    <td style="width: 22%">${examen?.observaciones}</td>
                                     <td style="width: 10%; text-align: center">
                                         <g:if test="${examen?.path}">
                                             ${examen?.path}
                                         </g:if>
+%{--                                        <g:if test="${examen?.path}">--}%
+%{--                                            <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${examen.id}">--}%
+%{--                                                <i class="fa fa-download"></i>--}%
+%{--                                            </g:link>--}%
+%{--                                        </g:if>--}%
+                                    </td>
+                                    <td style="width: 3%">
                                         <g:if test="${examen?.path}">
-                                            <g:link controller="historial" action="downloadFile" class="btn btn-warning btn-xs btn-docs" rel="tooltip" title="Descargar" id="${examen.id}">
+                                            <a class="btn btn-warning btn-xs btnDescargarDocumentoEITabla" href="#" rel="tooltip" title="Descargar documento" data-id="${examen.id}">
                                                 <i class="fa fa-download"></i>
-                                            </g:link>
+                                            </a>
                                         </g:if>
                                     </td>
                                 </tr>
@@ -67,6 +74,26 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnDescargarDocumentoEITabla").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'historial', action:'downloadFile')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var parts = msg.split("_");
+                if(parts[0] === 'no' ){
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }else{
+                    location.href="${createLink(controller: 'historial', action: 'downloadFile')}?id=" + id
+                }
+            } //success
+        }); //ajax
+    });
 
     $("#btnImprimirPedidoImagen").click(function () {
         var cita = $("#citaSeleccionada option:selected").val();
