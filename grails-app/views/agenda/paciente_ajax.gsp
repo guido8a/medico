@@ -1,9 +1,11 @@
+<%@ page import="medico.Historial" %>
 <g:form class="form-horizontal" name="frmAgenda" role="form" controller="agenda" action="saveAgenda_ajax" method="POST">
     <g:hiddenField name="semana" value="${semana?.id}" />
     <g:hiddenField name="persona" value="${persona?.id}" />
     <g:hiddenField name="dias" value="${dia?.id}" />
     <g:hiddenField name="hora" value="${hora?.id}" />
     <g:hiddenField name="id" value="${agenda?.id}" />
+    <g:hiddenField name="idCita" value="${ agenda?.id ? medico.Historial.findByAgenda(agenda)?.id : null}" />
 
     <div class="form-group">
         <span class="grupo">
@@ -31,6 +33,17 @@
             </label>
             <span class="col-md-6">
                <g:select name="tipo" from="${['C' : 'Consulta Médica' ,'E' : 'Examen de Laboratorio']}" class="form-control" optionKey="key" optionValue="value" value="${agenda?.tipo}" />
+            </span>
+        </span>
+    </div>
+
+    <div class="form-group">
+        <span class="grupo">
+            <label for="motivo" class="col-md-2 control-label text-info">
+                Motivo
+            </label>
+            <span class="col-md-10">
+                <g:textField name="motivo" minlength="5" required="" maxlength="255" class="form-control required" value="${agenda?.id ? medico.Historial.findByAgenda(agenda)?.motivo : ''}" />
             </span>
         </span>
     </div>

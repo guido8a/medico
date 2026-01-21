@@ -312,22 +312,26 @@
 
     function submitFormAgendar() {
         var $form = $("#frmAgenda");
-        var dialog = cargarLoader("Guardando...");
-        $.ajax({
-            type: "POST",
-            url: $form.attr("action"),
-            data: $form.serialize(),
-            success: function (msg) {
-                dialog.modal("hide");
-                var parts = msg.split("_");
-                if (parts[0] === 'ok') {
-                    log(parts[1], "success");
-                    cargaTabla($("#semana option:selected").val(), $("#doctor option:selected").val());
-                } else {
-                    log(parts[1], "error")
+        if($form.valid()){
+            var dialog = cargarLoader("Guardando...");
+            $.ajax({
+                type: "POST",
+                url: $form.attr("action"),
+                data: $form.serialize(),
+                success: function (msg) {
+                    dialog.modal("hide");
+                    var parts = msg.split("_");
+                    if (parts[0] === 'ok') {
+                        log(parts[1], "success");
+                        cargaTabla($("#semana option:selected").val(), $("#doctor option:selected").val());
+                    } else {
+                        log(parts[1], "error")
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            return false
+        }
     }
 
     function cargaTabla(semana, doctor) {

@@ -61,6 +61,8 @@ class AgendaController {
 
     def saveAgenda_ajax() {
 
+        println("params " + params)
+
         def existe
         def semana = Semana.get(params.semana)
         def agenda
@@ -97,7 +99,14 @@ class AgendaController {
             render "no_Error al agendar la cita"
         } else {
             if (params.id) {
-                render "ok_Cita agendada correctamente"
+                cita = Historial.get(params.idCita)
+                cita.motivo = params.motivo
+                if(!cita.save(flush:true)){
+                    println("error al agendar la cita " + cita.errors)
+                    render "no_Error al agendar la cita"
+                }else{
+                    render "ok_Cita agendada correctamente"
+                }
             } else {
 
                 def consultorio = Persona.get(agenda.persona.id)?.empresa
@@ -110,7 +119,7 @@ class AgendaController {
                 cita.hora = fecha.format('HH:mm')
                 cita.paciente = agenda.paciente
                 cita.persona = agenda.persona
-                cita.motivo = 'Cita médica agendada'
+                cita.motivo = params.motivo
                 cita.numero = numeroActual + 1
                 if (!cita.save(flush: true)) {
                     agenda.delete(flush: true)
