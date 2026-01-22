@@ -48,6 +48,16 @@ class WardInterceptor {
             println("entro")
             return true
         } else {
+            if (!session?.usuario || !session?.perfil) {
+                println "...sin sesión"
+                if(controllerName != "inicio" && actionName != "index") {
+//                    flash.message = "Usted ha superado el tiempo de inactividad máximo de la sesión"
+                }
+                render "<script type='text/javascript'> window.location.href = '${app}' </script>"
+                session.finalize()
+                return false
+            }
+
 //            if (!session?.usuario && !session?.perfil) {
 //                if(controllerName != "inicio" && actionName != "index") {
 ////                    flash.message = "Usted ha superado el tiempo de inactividad máximo de la sesión"
