@@ -72,6 +72,11 @@ class AgendaController {
         def fecha = semana.fechaInicio + (dias.numero - 1)
         def paciente = Paciente.get(params.paciente)
 
+        if(!paciente){
+            render "no_Seleccione un paciente"
+            return false
+        }
+
         def parte = hora.descripcion.split("-")
         def parte2 = parte[0].split(":")
 

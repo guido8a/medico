@@ -119,6 +119,7 @@
 
 <script type="text/javascript">
     var id = null;
+    var ac;
 
     $('#fecha').datetimepicker({
         locale: 'es',
@@ -286,7 +287,7 @@
                 id: id
             },
             success: function (msg) {
-                var b = bootbox.dialog({
+                ac= bootbox.dialog({
                     title: "Agendar cita",
                     closeButton: false,
                     message: msg,
@@ -324,14 +325,21 @@
                     if (parts[0] === 'ok') {
                         log(parts[1], "success");
                         cargaTabla($("#semana option:selected").val(), $("#doctor option:selected").val());
+                        cerrarAgendarCita();
                     } else {
-                        log(parts[1], "error")
+                        bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                        return false;
                     }
                 }
             });
+            return false
         }else{
             return false
         }
+    }
+
+    function cerrarAgendarCita() {
+        ac.modal("hide");
     }
 
     function cargaTabla(semana, doctor) {
