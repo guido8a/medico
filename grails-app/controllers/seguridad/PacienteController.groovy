@@ -18,6 +18,10 @@ import sri.Establecimiento
 import sri.Proceso
 
 import javax.imageio.ImageIO
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class PacienteController {
 
@@ -428,8 +432,15 @@ class PacienteController {
     def comboCitas_ajax() {
         println "comboCitas_ajax: $params"
         def paciente = Paciente.get(params.id)
+        LocalDateTime fechaActual = LocalDateTime.now()
+        fechaActual = fechaActual.plusHours(2)
+        ZonedDateTime zonedDateTime = fechaActual.atZone(ZoneId.systemDefault());
+        Instant instant = zonedDateTime.toInstant();
+        println "fecha: $fechaActual"
+        def fecha = Date.from(instant)
 //        def citas = Historial.findAllByPacienteAndEstadoNotEqual(paciente, 'N', [sort: 'fecha', order: 'desc'])
-        def citas = Historial.findAllByPacienteAndEstadoNotEqualAndFechaLessThanEquals(paciente, 'N',  new Date(),[sort: 'fecha', order: 'desc'])
+//        def citas = Historial.findAllByPacienteAndEstadoNotEqualAndFechaLessThanEquals(paciente, 'N',  new Date(),[sort: 'fecha', order: 'desc'])
+        def citas = Historial.findAllByPacienteAndEstadoNotEqualAndFechaLessThanEquals(paciente, 'N',  fecha, [sort: 'fecha', order: 'desc'])
         def cita = Historial.get(params.cita)
         if(params.cita_anterior) {
             cita = Historial.get(params.cita_anterior)

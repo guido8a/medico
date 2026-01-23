@@ -806,8 +806,9 @@ class ReportesController {
 
         def hora = "${cita?.fecha?.format('yyyy-MM-dd')} ${cita?.hora}"
         def sql = "select hsclfcha, hsclhora from hscl where pcnt__id = ${cita.paciente.id} and " +
-                "hsclfcha > '${hora}'::timestamp + interval '1 hour' " +
+                "hsclfcha > '${hora}'::timestamp + interval '1 hour' and hscletdo <> 'N'" +
                 "order by 1 limit 1"
+        println "sql receta: $sql"
 
         cn.eachRow(sql.toString()) { d ->
             citaProxima = d.hsclfcha
