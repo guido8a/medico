@@ -433,7 +433,7 @@ class PacienteController {
         println "comboCitas_ajax: $params"
         def paciente = Paciente.get(params.id)
         LocalDateTime fechaActual = LocalDateTime.now()
-        fechaActual = fechaActual.plusHours(2)
+        fechaActual = fechaActual.plusHours(8)               /** hasta 8 horas de anticipación **/
         ZonedDateTime zonedDateTime = fechaActual.atZone(ZoneId.systemDefault());
         Instant instant = zonedDateTime.toInstant();
         println "fecha: $fechaActual"
