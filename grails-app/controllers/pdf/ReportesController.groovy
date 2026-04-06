@@ -1424,7 +1424,7 @@ class ReportesController {
         com.lowagie.text.Font fontTitulo8 = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL, titulo);
         com.lowagie.text.Font fontTitulo8d = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL, titulo);
 
-        def path = "/var/medico/empresa/emp_${empresa}/logo.jpeg"
+        def path = "/var/medico/empresa/emp_${empresa}/${Empresa.get(empresa)?.logo}"
 
         println("part " + path)
 
@@ -1434,7 +1434,6 @@ class ReportesController {
 
         if(src.exists()){
             logo = Image.getInstance(path);
-
             def longitud = logo.getHeight()
             logo.scalePercent( (100/longitud * 100).toInteger() )
             logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
@@ -1443,10 +1442,7 @@ class ReportesController {
             logo = null
         }
 
-
-
         def baos = new ByteArrayOutputStream()
-
 
         PdfPTable tablaFooter = new PdfPTable(3);
         tablaFooter.setWidthPercentage(100);
