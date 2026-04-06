@@ -1425,10 +1425,25 @@ class ReportesController {
         com.lowagie.text.Font fontTitulo8d = new com.lowagie.text.Font(com.lowagie.text.Font.TIMES_ROMAN, 8, com.lowagie.text.Font.NORMAL, titulo);
 
         def path = "/var/medico/empresa/emp_${empresa}/logo.jpeg"
-        Image logo = Image.getInstance(path);
-        def longitud = logo.getHeight()
-        logo.scalePercent( (100/longitud * 100).toInteger() )
-        logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
+
+        println("part " + path)
+
+        def src = new File(path)
+
+        Image logo;
+
+        if(src.exists()){
+            logo = Image.getInstance(path);
+
+            def longitud = logo.getHeight()
+            logo.scalePercent( (100/longitud * 100).toInteger() )
+            logo.setAlignment(Image.MIDDLE | Image.TEXTWRAP)
+
+        }else{
+            logo = null
+        }
+
+
 
         def baos = new ByteArrayOutputStream()
 
@@ -1446,12 +1461,6 @@ class ReportesController {
 //        document.setMargins(36, 36, 36, 100)
 
         def pdfw = com.lowagie.text.pdf.PdfWriter.getInstance(document, baos);
-
-//        com.lowagie.text.HeaderFooter footer1 = new com.lowagie.text.HeaderFooter( new com.lowagie.text.Phrase(textoFooter + "                  " + textoFooter, new com.lowagie.text.Font(fontTitulo8)), false);
-//        footer1.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
-//        footer1.setBorder(com.lowagie.text.Rectangle.TOP);
-//        footer1.setAlignment(com.lowagie.text.Element.ALIGN_CENTER);
-//        document.setFooter(footer1);
         document.open();
 
         com.lowagie.text.pdf.PdfContentByte cb = pdfw.getDirectContent();
@@ -1504,9 +1513,17 @@ class ReportesController {
         PdfPTable tablaImagen = new PdfPTable(3);
         tablaImagen.setWidthPercentage(100);
         tablaImagen.setWidths(arregloEnteros([45,10,45]))
-        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        if(logo){
+            addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        }else{
+            addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+            addCellTabla(tablaImagen, new Paragraph("", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        }
+
 
         addCellTabla(tablaDetalles, tablaImagen, [border: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE, colspan: 4, pl: 0])
 
