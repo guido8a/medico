@@ -1,9 +1,11 @@
 package medico
 
 import audita.Auditable
+import seguridad.Empresa
 
 class Diagnostico implements Auditable{
 
+    Empresa empresa
     String codigo
     String descripcion
 
@@ -16,6 +18,7 @@ class Diagnostico implements Auditable{
         columns {
             codigo column: 'diagcdgo'
             descripcion column: 'diagdscr'
+            empresa column: 'empr__id'
         }
     }
 
