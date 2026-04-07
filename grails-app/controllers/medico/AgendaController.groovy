@@ -95,7 +95,7 @@ class AgendaController {
             existe = Agenda.findByDiasAndHoraAndPacienteAndSemana(dias, hora, paciente, semana)
 
             if (existe) {
-                render "no_El día y horario ya se encuentran agendados para ese paciente"
+                render "no_El día y horario ya se encuentran agendados para ese paciente. </br> Revise también en el agendamiento de otros doctores"
                 return
             } else {
                 agenda = new Agenda()
