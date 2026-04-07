@@ -1,9 +1,11 @@
 package medico
 
 import audita.Auditable
+import seguridad.Empresa
 
 class Medicina implements Auditable{
 
+    Empresa empresa
     Medicina padre
     Laboratorio laboratorio
     String tipo
@@ -25,6 +27,7 @@ class Medicina implements Auditable{
         id generator: 'identity'
         version false
         columns {
+            empresa column: 'empr__id'
             padre column: 'mdcnpdre'
             tipo column: 'mdcntipo'
             descripcion column: 'mdcndscr'
@@ -42,6 +45,7 @@ class Medicina implements Auditable{
     }
 
     static constraints = {
+        empresa(blank: false, nullable: false)
         padre(blank: true, nullable: true)
         tipo(size:0..4,blank: true, nullable: true)
         descripcion(size:0..255,blank: true, nullable: true)

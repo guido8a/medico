@@ -23,6 +23,7 @@ class Diagnostico implements Auditable{
     }
 
     static constraints = {
+        empresa(blank: false, nullable: false)
         codigo(size: 0..7, blank: false, nullable: false)
         descripcion(size: 0..255, blank: false, nullable: false)
     }
