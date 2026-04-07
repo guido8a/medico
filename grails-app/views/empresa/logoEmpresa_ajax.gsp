@@ -7,12 +7,12 @@
     <style>
 
     .imag_pq {
-        width: 250px;
+        /*width: 250px;*/
         margin-right: auto;
         margin-left: auto;
         display: block;
         max-width: 100%;
-        height: 250px;
+        /*height: 250px;*/
     }
     </style>
 
@@ -54,13 +54,10 @@
             </g:if>
         </div>
     </g:uploadForm>
+    <div class="col-md-10 alert alert-warning" style="font-size: 14px; font-weight: bold; margin-top: 10px">La imagen a cargar debe tener un tamaño de 1092 x 328 pixeles.</div>
 </fieldset>
 
 <g:if test="${empresa?.logo}">
-    <p class="css-vertical-text">
-        Logo
-    </p>
-    <div class="linea" style="height: 40%;"></div>
     <img src="${createLink(controller: 'empresa', action: 'getImage', params: [id:empresa?.id] )}" class="imag_pq" style="margin-top: 10px"/>
 </g:if>
 <g:else>

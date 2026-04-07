@@ -27,7 +27,7 @@
                         <i class="fas fa-edit"></i>
                     </a>
                     <a href="#" class="btn btn-xs btn-warning btnLogo" data-id="${empresa.empr__id}" title="Logo">
-                        <i class="fa fa-file"></i>
+                        <i class="fa fa-image"></i>
                     </a>
                     <a href="#" class="btn btn-xs btn-info btnPacientes" data-id="${empresa.empr__id}" title="Pacientes">
                         <i class="fas fa-users"></i>

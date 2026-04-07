@@ -37,6 +37,7 @@ class EmpresaController {
     def tablaEmpresas_ajax(){
 
         def perfilActual = Prfl.get(session.perfil.id)
+        def usuario = Persona.get(session.usuario.id)
 
         def listaItems = ['empr_ruc', 'emprnmbr']
         def bsca
@@ -50,7 +51,8 @@ class EmpresaController {
         def select = "select * from empr "
         def txwh = " where empr__id  is not null and " +
                 " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by emprnmbr ".toString()
+        def verificaPerfil = perfilActual?.codigo != 'ADMN' ? (" and empr__id = ${usuario?.empresa?.id}") : ""
+        sqlTx = "${select} ${txwh} ${verificaPerfil} order by emprnmbr ".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 

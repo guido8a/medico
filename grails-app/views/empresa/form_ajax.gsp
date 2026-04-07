@@ -87,7 +87,7 @@
                 Dirección
             </label>
             <span class="col-md-10">
-                <g:textField name="direccion" style="resize: none" maxlength="255" class="form-control" value="${empresa?.direccion}"/>
+                <g:textField name="direccion" style="resize: none" required="" maxlength="255" class="form-control required" value="${empresa?.direccion}"/>
             </span>
         </span>
     </div>
