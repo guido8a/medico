@@ -345,7 +345,7 @@
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
                     class   : "modal-lg",
-                    title   : title + " Usuario - Médico",
+                    title   : title + " Usuario",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -370,89 +370,6 @@
             } //success
         }); //ajax
     } //createEdit
-
-    %{--function createContextMenu(node) {--}%
-    %{--    var $tr = $(node);--}%
-
-    %{--    var items = {--}%
-    %{--        header : {--}%
-    %{--            label  : "Acciones",--}%
-    %{--            header : true--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var id = $tr.data("id");--}%
-
-    %{--    var estaActivo = $tr.hasClass("activo");--}%
-    %{--    var estaInactivo = $tr.hasClass("inactivo");--}%
-    %{--    var puedeEliminar = $tr.hasClass("eliminar");--}%
-
-    %{--    puedeEliminar = true;--}%
-
-    %{--    var ver = {--}%
-    %{--        label  : 'Ver',--}%
-    %{--        icon   : "fa fa-search",--}%
-    %{--        action : function () {--}%
-    %{--            $.ajax({--}%
-    %{--                type    : "POST",--}%
-    %{--                url     : "${createLink(controller: 'persona', action:'show_ajax')}",--}%
-    %{--                data    : {--}%
-    %{--                    id : id--}%
-    %{--                },--}%
-    %{--                success : function (msg) {--}%
-    %{--                    bootbox.dialog({--}%
-    %{--                        title   : "Ver Persona",--}%
-    %{--                        message : msg,--}%
-    %{--                        buttons : {--}%
-    %{--                            ok : {--}%
-    %{--                                label     : "Aceptar",--}%
-    %{--                                className : "btn-primary",--}%
-    %{--                                callback  : function () {--}%
-    %{--                                }--}%
-    %{--                            }--}%
-    %{--                        }--}%
-    %{--                    });--}%
-    %{--                }--}%
-    %{--            });--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var editar = {--}%
-    %{--        label           : 'Editar',--}%
-    %{--        icon            : "fa fa-pen text-success",--}%
-    %{--        separator_after : true,--}%
-    %{--        action          : function (e) {--}%
-    %{--            createEditRow(id, "persona");--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    var config = {--}%
-    %{--        label           : 'Perfiles',--}%
-    %{--        icon            : "fa fa-address-card text-info",--}%
-    %{--        separator_after : true,--}%
-    %{--        url             : "${createLink(controller: 'persona', action: 'config')}/" + id--}%
-    %{--    };--}%
-
-    %{--    var eliminar = {--}%
-    %{--        label            : 'Eliminar Usuario',--}%
-    %{--        icon             : "fa fa-times-circle text-danger",--}%
-    %{--        action           : function (e) {--}%
-    %{--            deleteRow(id);--}%
-    %{--        }--}%
-    %{--    };--}%
-
-    %{--    items.ver = ver;--}%
-    %{--    items.editar = editar;--}%
-    %{--    if (estaActivo) {--}%
-    %{--        items.config = config;--}%
-    %{--    }--}%
-
-    %{--    if (puedeEliminar) {--}%
-    %{--        items.eliminar = eliminar;--}%
-    %{--    }--}%
-
-    %{--    return items;--}%
-    %{--}--}%
 
     $(function () {
 
