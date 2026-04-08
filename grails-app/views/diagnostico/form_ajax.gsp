@@ -1,6 +1,7 @@
 
 <g:form class="form-horizontal" name="frmDiagnostico" role="form" controller="diagnostico" action="saveDiagnostico_ajax" method="POST">
     <g:hiddenField name="id" value="${diagnostico?.id}" />
+    <g:hiddenField name="empresa" value="${usuario?.empresa?.id}" />
 
     <div class="form-group ${hasErrors(bean: diagnostico, field: 'codigo', 'error')} required">
         <span class="grupo">

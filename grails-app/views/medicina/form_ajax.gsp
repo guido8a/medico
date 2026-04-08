@@ -4,6 +4,7 @@
     <g:hiddenField name="id" value="${medicina?.id}" />
     <g:hiddenField name="padre" value="${medicina?.padre?.id}" />
     <g:hiddenField name="ultimo" value="${medicina?.ultimo}" />
+    <g:hiddenField name="empresa" value="${usuario?.empresa?.id}" />
 
     <div class="form-group ${hasErrors(bean: medicina, field: 'tipoMedicamento', 'error')} required">
         <span class="grupo">

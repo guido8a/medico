@@ -1,3 +1,15 @@
+<style type="text/css">
+table {
+    table-layout: fixed;
+    overflow-x: scroll;
+}
+th, td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+</style>
+
 <div role="main" style="margin-top: 10px;">
     <table class="table table-bordered table-striped table-condensed table-hover">
         <thead>
@@ -14,7 +26,7 @@
     <table class="table-bordered table-striped table-condensed table-hover" style="width: 100%">
         <tbody>
         <g:each in="${datos}" status="i" var="diagnostico">
-            <tr data-id="${diagnostico.diag__id}">
+            <tr data-id="${diagnostico.diag__id}" style="width: 100%">
                 <td style="width: 10%">${diagnostico.diagcdgo}</td>
                 <td style="width: 80%">${diagnostico.diagdscr}</td>
                 <td style="width: 10%; text-align: center">

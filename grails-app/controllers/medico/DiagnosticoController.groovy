@@ -1,5 +1,7 @@
 package medico
 
+import seguridad.Persona
+
 
 class DiagnosticoController {
 
@@ -11,11 +13,13 @@ class DiagnosticoController {
 
     def tablaDiagnostico_ajax(){
         println "buscar: $params"
+        def usuario = Persona.get(session.usuario.id)
         def sqlTx
         def select = "select * from diag d "
         def txwh = " where d.diag__id  is not null and " +
                 "(d.diagdscr ilike '%${params.criterio}%' or d.diagcdgo ilike '%${params.criterio}%') "
-        sqlTx = "${select} ${txwh} order by diagcdgo limit 100".toString()
+        def porEmpresa = " and empr__id = ${usuario?.empresa?.id}"
+        sqlTx = "${select} ${txwh} ${porEmpresa} order by diagcdgo limit 100".toString()
         println "sql: $sqlTx"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
@@ -24,6 +28,7 @@ class DiagnosticoController {
     }
 
     def form_ajax(){
+        def usuario = Persona.get(session.usuario.id)
         def diagnostico
         def codigo
         def cn = dbConnectionService.getConnection()
@@ -39,7 +44,7 @@ class DiagnosticoController {
             println "código: $codigo"
         }
 
-        return [diagnostico: diagnostico]
+        return [diagnostico: diagnostico, usuario: usuario]
     }
 
     def saveDiagnostico_ajax(){

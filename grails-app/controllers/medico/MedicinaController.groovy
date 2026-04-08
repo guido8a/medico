@@ -1,5 +1,7 @@
 package medico
 
+import seguridad.Persona
+
 
 class MedicinaController {
 
@@ -10,6 +12,7 @@ class MedicinaController {
     }
 
     def form_ajax(){
+        def usuario = Persona.get(session.usuario.id)
         def medicina
 
         if(params.id){
@@ -18,11 +21,12 @@ class MedicinaController {
             medicina = new Medicina()
         }
 
-        return [medicina: medicina]
+        return [medicina: medicina, usuario: usuario]
     }
 
 
     def tablaMedicinas_ajax(){
+        def usuario = Persona.get(session.usuario.id)
         def listaItems = ['m.mdcnnmbr', 'm.mdcndscr', 'm.mdcncdgo']
         def bsca
         def sqlTx = ""
@@ -40,11 +44,12 @@ class MedicinaController {
         def select = "select m.mdcn__id, m.mdcnpdre, m.mdcntipo, m.mdcndscr, m.mdcncdgo, m.mdcnfrma, m.mdcncnct, " +
                 "m.mdcnetdo, m.mdcnobsr, m.mdcntpmd, m.labt__id, m.mdcncntd, p.mdcndscr pdredscr, p.mdcncdgo pdrecdgo " +
                 "from mdcn m left join mdcn p on p.mdcn__id = m.mdcnpdre "
+        def porEmpresa = " and m.empr__id = ${usuario?.empresa?.id} "
         def txwh = " where m.mdcn__id is not null and " +
                 " (m.mdcndscr ilike '%${params.criterio}%' or m.mdcnnmbr ilike '%${params.criterio}%') "
 
-        sqlTx = "${select} ${txwh} order by m.mdcndscr limit 100".toString()
-//        println "sql: $sqlTx"
+        sqlTx = "${select} ${txwh} ${porEmpresa} order by m.mdcndscr limit 100".toString()
+        println "sql: $sqlTx"
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
         cn.close()
@@ -116,32 +121,13 @@ class MedicinaController {
     }
 
     def tablaPadres_ajax(){
-//        def listaItems = ['mdcndscr', 'mdcncdgo', 'mdcntipo']
-//        def bsca
-//        def sqlTx = ""
-//
-//        if(params.buscarPor){
-//            bsca = listaItems[params.buscarPor?.toInteger()-1]
-//        }else{
-//            bsca = listaItems[0]
-//        }
-//
-//        def select = "select * from mdcn "
-//        def txwh = " where mdcn__id  is not null and mdcnpdre is null and mdcntpmd = 'G' and " +
-//                " $bsca ilike '%${params.criterio}%' "
-//        sqlTx = "${select} ${txwh} order by mdcndscr ".toString()
-//        def cn = dbConnectionService.getConnection()
-//        def datos = cn.rows(sqlTx)
-//
-//        [datos: datos]
-
-
+        def usuario = Persona.get(session.usuario.id)
         def sqlTx = ""
-
         def select = "select * from mdcn "
         def txwh = " where mdcntpmd = 'G' and " +
                 " (mdcndscr ilike '%${params.criterio}%' or mdcncdgo ilike '%${params.criterio}%') "
-        sqlTx = "${select} ${txwh} order by mdcndscr limit 100".toString()
+        def porEmpresa = " and empr__id= ${usuario?.empresa?.id} "
+        sqlTx = "${select} ${txwh} ${porEmpresa} order by mdcndscr limit 100".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 

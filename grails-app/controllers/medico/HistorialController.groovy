@@ -89,6 +89,7 @@ class HistorialController {
     }
 
     def tablaBuscarDiagnostico_ajax(){
+        def usuario = Persona.get(session.usuario.id)
         def listaItems = ['diagdscr', 'diagcdgo']
         def bsca
         def sqlTx = ""
@@ -102,7 +103,8 @@ class HistorialController {
         def select = "select * from diag "
         def txwh = " where diag__id is not null and " +
                 " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by diagdscr limit 100 ".toString()
+        def porEmpresa = " and empr__id = ${usuario?.empresa?.id} "
+        sqlTx = "${select} ${txwh} ${porEmpresa} order by diagdscr limit 100 ".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
 
