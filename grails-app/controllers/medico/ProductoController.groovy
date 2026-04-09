@@ -1,6 +1,7 @@
 package medico
 
 import seguridad.Empresa
+import seguridad.Persona
 
 class ProductoController {
 
@@ -17,6 +18,7 @@ class ProductoController {
 
     def makeBasicTree(params) {
 //        println "makeTreeNode.. $params"
+        def usuario = Persona.get(session.usuario.id)
         def id = params.id
         def tipo = ""
         def liId = ""
@@ -62,14 +64,14 @@ class ProductoController {
                         liId = "sg_"
                         ico = ", \"icon\":\"fa fa-parking text-success\""
                         hijos.each { h ->
-                            clase = Producto.findBySubgrupo(h) ? "jstree-closed hasChildren" : ""
+                            clase = Producto.findBySubgrupoAndEmpresa(h, usuario.empresa) ? "jstree-closed hasChildren" : ""
                             tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-tipo='${Grupo.get(params.tipo)?.id}' data-jstree='{\"type\":\"${"subgrupo"}\" ${ico}}'>"
                             tree += "<a href='#' class='label_arbol'>"  +  "<strong>" + " "  + "</strong>" +  h.descripcion + "</a>"
                             tree += "</li>"
                         }
                         break
                     case "sg":
-                        hijos = Producto.findAllBySubgrupo(Subgrupo.get(id), [sort: 'numero'])
+                        hijos = Producto.findAllBySubgrupoAndEmpresa(Subgrupo.get(id), usuario.empresa, [sort: 'numero'])
                         liId = "dp_"
                         ico = ", \"icon\":\"fa fa-registered text-warning\""
                         hijos.each { h ->
@@ -155,11 +157,8 @@ class ProductoController {
     }
 
     def formProducto_ajax(){
-
-        println("producto " + params)
-
         def subgrupo = Subgrupo.get(params.padre)
-        def empresa = Empresa.get(params.empresa)
+        def usuario = Persona.get(session.usuario.id)
         def producto
 
         if(params.id){
@@ -168,7 +167,7 @@ class ProductoController {
             producto = new Producto()
         }
 
-        return [subgrupo: subgrupo, producto: producto, empresa: empresa]
+        return [subgrupo: subgrupo, producto: producto, empresa: usuario.empresa]
     }
 
     def saveProducto_ajax(){

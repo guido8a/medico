@@ -17,7 +17,6 @@
                 </span>
             </span>
         </div>
-
         <div class="form-group ${hasErrors(bean: proveedorInstance, field: 'tipoPersona', 'error')} required">
             <span class="grupo">
                 <label class="col-md-3 control-label text-info">
@@ -312,15 +311,15 @@
          */
         return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
             (ev.keyCode >= 96 && ev.keyCode <= 105) ||
-            ev.keyCode == 8 || ev.keyCode == 46 || ev.keyCode == 9 ||
-            ev.keyCode == 37 || ev.keyCode == 39);
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39);
     }
 
     function validarNumDec(ev) {
         return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
             (ev.keyCode >= 96 && ev.keyCode <= 105) ||
-            ev.keyCode == 8 || ev.keyCode == 46 || ev.keyCode == 9 ||
-            ev.keyCode == 37 || ev.keyCode == 39 || ev.keyCode == 190 || ev.keyCode == 110);
+            ev.keyCode === 8 || ev.keyCode === 46 || ev.keyCode === 9 ||
+            ev.keyCode === 37 || ev.keyCode === 39 || ev.keyCode === 190 || ev.keyCode === 110);
     }
 
     $("#ruc").keydown(function (ev) {
@@ -348,11 +347,11 @@
     $("#descuento").keydown(function (ev) {
         var val = $(this).val();
         var dec = 2;
-        if (ev.keyCode == 110 || ev.keyCode == 190) {
+        if (ev.keyCode === 110 || ev.keyCode === 190) {
             if (!dec) {
                 return false;
             } else {
-                if (val.length == 0) {
+                if (val.length === 0) {
                     $(this).val("0");
                 }
                 if (val.indexOf(".") > -1) {
@@ -407,7 +406,7 @@
         }
     });
     $(".form-control").keydown(function (ev) {
-        if (ev.keyCode == 13) {
+        if (ev.keyCode === 13) {
             submitForm();
             return false;
         }

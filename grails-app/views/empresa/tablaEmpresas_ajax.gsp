@@ -54,7 +54,7 @@
                         <i class="fa fa-building"></i>
                     </a>
                     <a href="#" class="btn btn-xs btn-success btnProductos" data-id="${empresa.empr__id}" title="Productos">
-                        <i class="fa fa-copy"></i>
+                        <i class="fa fa-tree"></i>
                     </a>
                     <a href="#" class="btn btn-xs btn-warning btnProveedores" data-id="${empresa.empr__id}" title="Proveedores">
                         <i class="fa fa-truck"></i>

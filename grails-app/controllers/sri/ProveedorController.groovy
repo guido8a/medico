@@ -8,15 +8,12 @@ class ProveedorController {
     def dbConnectionService
 
     def list(){
-        println("parmas " + params)
         def empresa = Empresa.get(params.id)
         return [empresa: empresa, tipo: params.tipo]
     }
 
     def tablaProveedor_ajax(){
-
-        def empresa = Empresa.get(params.empresa)
-
+        def usuario = Persona.get(session.usuario.id)
         def listaItems = ['prve_ruc', 'prvenmbr']
         def bsca
         def sqlTx = ""
@@ -29,18 +26,17 @@ class ProveedorController {
         def select = "select * from prve "
         def txwh = " where prve__id  is not null and " +
                 " $bsca ilike '%${params.criterio}%' "
-        sqlTx = "${select} ${txwh} order by prvenmbr ".toString()
+        def porEmpresa = " and empr__id = ${usuario?.empresa?.id} "
+        sqlTx = "${select} ${txwh} ${porEmpresa} order by prvenmbr ".toString()
         def cn = dbConnectionService.getConnection()
         def datos = cn.rows(sqlTx)
-
-        println("-- " + sqlTx)
 
         return [datos: datos]
     }
 
     def form_ajax(){
 
-        def empresa = Empresa.get(session.empresa.id)
+        def usuario = Persona.get(session.usuario.id)
 
         def proveedorInstance = new Proveedor(params)
         if (params.id) {
@@ -50,7 +46,6 @@ class ProveedorController {
                 return
             }
         }
-
 
         def countries = [] as SortedSet
 
@@ -71,7 +66,7 @@ class ProveedorController {
 
         }
 
-        return [proveedorInstance: proveedorInstance, paises: countries, lectura: soloLectura, tipoIdentificacion: tipoIdentificacion, empresa: empresa]
+        return [proveedorInstance: proveedorInstance, paises: countries, lectura: soloLectura, tipoIdentificacion: tipoIdentificacion, empresa: usuario.empresa]
     }
 
     def ruc_ajax(){
