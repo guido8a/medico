@@ -43,7 +43,7 @@
     <div class="row" style="border-style: solid; border-radius:6px; border-width: 1px; height: 40px; border-color: #0c6cc2; margin-left: 10px;">
         <div class="col-xs-5" style="margin-left: 5px; margin-top: 2px;">
             <a href="#" class="btn btn-success" id="btnNuevaTransaccion" style="margin-left: -15px;">
-                <i class="fa fa-edit"></i> Nueva Transacción
+                <i class="fa fa-edit"></i> Nueva Factura Electrónica
             </a>
             <a href="#" class="btn btn-primary" id="btnProcesosAnulados" >
                 <i class="fa fa-times-circle"></i> Ir a Anulados
