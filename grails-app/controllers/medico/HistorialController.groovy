@@ -583,9 +583,8 @@ class HistorialController {
                 def file = new File(pathFile)
                 println "subiendo archivo: $fileName"
 
-                f.transferTo(file)
-
                 def old = examen.path
+
                 if (old && old.trim() != "") {
                     def oldPath = "/var/medico/empresa/emp_${historial?.paciente?.empresa?.id}/paciente/pac_${historial?.paciente?.id}/citas/cita_" +
                             historial?.id  + "/" + old
@@ -594,6 +593,8 @@ class HistorialController {
                         oldFile.delete()
                     }
                 }
+
+                f.transferTo(file)
 
                 examen.path = fileName
                 examen.save(flush: true)
@@ -607,7 +608,7 @@ class HistorialController {
             return
         }
 
-        render "ok_Subido correctamente"
+        render "ok_Subido correctamente_${examen?.id}"
     }
 
     def tablaExamenes_ajax(){
@@ -860,6 +861,34 @@ class HistorialController {
     def comboExterno_ajax(){
         def cita = Historial.get(params.id)
         return [cita: cita]
+    }
+
+    def verPdf_ajax(){
+        def examen = ExamenComplementario.get(params.id)
+        def extension = examen?.path?.split("\\.")[1]
+        println("examen path " + extension)
+        return [examen: examen, extension: extension]
+    }
+
+    def getImageExamen() {
+        def examen = ExamenComplementario.get(params.id)
+
+        def nombreArchivo = examen?.path?.split("\\.")[0]
+        def extensionArchivo = examen?.path?.split("\\.")[1]
+
+        byte[] imageInBytes = imExamen(nombreArchivo, extensionArchivo , examen)
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/${extensionArchivo}" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] imExamen(nombre,ext,examen) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${examen?.historial?.paciente?.empresa?.id}/paciente/pac_${examen?.historial?.paciente?.id}/citas/cita_${examen?.historial?.id}/${nombre}" + "." + ext)), ext.toString(), baos)
+        baos.toByteArray()
     }
 
 }

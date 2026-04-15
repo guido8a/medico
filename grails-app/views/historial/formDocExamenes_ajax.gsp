@@ -127,28 +127,50 @@
                 dialog.modal('hide');
                 var parts = msg.split("_");
                 if(parts[0] === 'ok'){
-                    log(parts[1], "success");
+                    bootbox.confirm({
+                        message: '<strong style="font-size: 14px; font-weight: bold"> <i class="fa fa-check text-success"></i> Archivo cargado correctamente</strong>',
+                        buttons: {
+                            confirm: {
+                                label: '<i class="fa fa-check"></i> Comprobar',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: '<i class="fa fa-times"></i> Cerrar',
+                                className: ''
+                            }
+                        },
+                        callback: function (result) {
 
-                    cerrarCD();
-                    <g:if test="${tipo == '1'}">
-                    cerrarHistoricoExamenes();
-                    cargarHistoricoExamens();
-                    </g:if>
-                    <g:else>
-                    <g:if test="${tipo == '2'}">
+                            cerrarCD();
+                            <g:if test="${tipo == '1'}">
+                            cerrarHistoricoExamenes();
+                            cargarHistoricoExamens();
+                            </g:if>
+                            <g:else>
+                            <g:if test="${tipo == '2'}">
 
-                    </g:if>
-                    <g:else>
-                    cargarTablaExamenes();
-                    </g:else>
-                    </g:else>
+                            </g:if>
+                            <g:else>
+                            cargarTablaExamenes();
+                            </g:else>
+                            </g:else>
 
-                    <g:if test="${citaActual}">
-                    cargarUltimaCita('${citaActual?.id}');
-                    </g:if>
-                    <g:else>
-                    %{--cargarUltimaCita('${examen?.historial?.id}');--}%
-                    </g:else>
+                            <g:if test="${citaActual}">
+                            cargarUltimaCita('${citaActual?.id}');
+                            </g:if>
+                            <g:else>
+                            %{--cargarUltimaCita('${examen?.historial?.id}');--}%
+                            </g:else>
+
+                            if(result){
+                                cerrarCD();
+                                cerrarHistoricoExamenes();
+                                setTimeout(function () {
+                                    cargarPdf(parts[2])
+                                }, 100)
+                            }
+                        }
+                    });
 
                 }else{
                     bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
@@ -157,6 +179,32 @@
             }
         });
     }
+
+    function cargarPdf(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'historial', action:'verPdf_ajax')}",
+            data    : {
+                id:id
+            },
+            success : function (msg) {
+                var di = bootbox.dialog({
+                    id      : "dlgVerPdf",
+                    title   : "Ver archivo cargado del examen",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cerrar",
+                            className : "btn-primary",
+                            callback  : function () {
+
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
 
 </script>
 
