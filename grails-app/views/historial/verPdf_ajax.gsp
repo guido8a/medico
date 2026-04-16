@@ -4,7 +4,9 @@
             <embed src="${createLink(controller: 'historial', action: 'downloadFile', id: examen?.id)}" style="width: 100%; height: 600px" type='application/pdf'>
         </g:if>
         <g:else>
-            <img alt="" src="${createLink(controller: 'historial', action: 'getImageExamen', params: [id:examen?.id] )}" class="imag_pq" style="margin-top: 10px; width: 500px; height: 500px"/>
+%{--            <img alt="" src="${createLink(controller: 'historial', action: 'getImageExamen', params: [id:examen?.id] )}" class="imag_pq" style="margin-top: 10px; width: 500px; height: 500px"/>--}%
+%{--            <img alt="" src="${createLink(controller: 'historial', action: 'leerImagen', params: [id:examen?.id] )}" class="imag_pq" style="margin-top: 10px; width: 500px; height: 500px"/>--}%
+            <img alt="Examen" src="data:image/${extension};base64,${base64Image}" style="margin-top: 10px; width: 500px; height: 500px" />
         </g:else>
     </fieldset>
 </div>

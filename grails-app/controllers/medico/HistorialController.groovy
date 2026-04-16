@@ -9,6 +9,7 @@ import seguridad.Paciente
 import seguridad.Persona
 
 import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 
 class HistorialController {
 
@@ -865,8 +866,21 @@ class HistorialController {
 
     def verPdf_ajax(){
         def examen = ExamenComplementario.get(params.id)
-        def extension = examen?.path?.split("\\.")[1]
-        return [examen: examen, extension: extension]
+        def nombre = examen?.path?.split("\\.")[0]
+        def ext = examen?.path?.split("\\.")[1]
+
+        if(ext != 'pdf'){
+            BufferedImage image = ImageIO.read(new File("/var/medico/empresa/emp_${examen?.historial?.paciente?.empresa?.id}/paciente/pac_${examen?.historial?.paciente?.id}/citas/cita_${examen?.historial?.id}/${nombre}" + "." + ext));
+            ByteArrayOutputStream outStreamObj = new ByteArrayOutputStream();
+            ImageIO.write(image, ext?.toString(), outStreamObj);
+            byte [] byteArray = outStreamObj.toByteArray();
+
+            String base64Image = byteArray.encodeBase64().toString()
+
+            return [examen: examen, extension: ext, base64Image: base64Image]
+        }else{
+            return [examen: examen, extension: ext]
+        }
     }
 
     def getImageExamen() {
@@ -890,5 +904,28 @@ class HistorialController {
         ImageIO.write(ImageIO.read(new File("/var/medico/empresa/emp_${examen?.historial?.paciente?.empresa?.id}/paciente/pac_${examen?.historial?.paciente?.id}/citas/cita_${examen?.historial?.id}/${nombre}" + "." + ext)), ext.toString(), baos)
         baos.toByteArray()
     }
+
+
+//    def leerImagen(){
+//        def examen = ExamenComplementario.get(params.id)
+//        def nombre = examen?.path?.split("\\.")[0]
+//        def ext = examen?.path?.split("\\.")[1]
+//        BufferedImage image = ImageIO.read(new File("/var/medico/empresa/emp_${examen?.historial?.paciente?.empresa?.id}/paciente/pac_${examen?.historial?.paciente?.id}/citas/cita_${examen?.historial?.id}/${nombre}" + "." + ext));
+//        ByteArrayOutputStream outStreamObj = new ByteArrayOutputStream();
+//        ImageIO.write(image, ext?.toString(), outStreamObj);
+//        byte [] byteArray = outStreamObj.toByteArray();
+//
+////        ByteArrayInputStream inStreambj = new ByteArrayInputStream(byteArray);
+////        BufferedImage newImage = ImageIO.read(inStreambj);
+////        ImageIO.write(newImage, ext?.toString(), new File("outputImage.jpg"));
+//
+//        outStreamObj.close();
+//        response.setHeader('Content-length', byteArray.length.toString())
+//        response.contentType = "image/${ext}" // or the appropriate image content type
+//        response.outputStream << outStreamObj
+//        response.outputStream.flush()
+//    }
+
+
 
 }
