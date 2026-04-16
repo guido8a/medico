@@ -866,7 +866,6 @@ class HistorialController {
     def verPdf_ajax(){
         def examen = ExamenComplementario.get(params.id)
         def extension = examen?.path?.split("\\.")[1]
-        println("examen path " + extension)
         return [examen: examen, extension: extension]
     }
 
@@ -877,6 +876,7 @@ class HistorialController {
         def extensionArchivo = examen?.path?.split("\\.")[1]
 
         byte[] imageInBytes = imExamen(nombreArchivo, extensionArchivo , examen)
+
         response.with{
             setHeader('Content-length', imageInBytes.length.toString())
             contentType = "image/${extensionArchivo}" // or the appropriate image content type

@@ -181,29 +181,29 @@
     }
 
     function cargarPdf(id) {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller: 'historial', action:'verPdf_ajax')}",
-            data    : {
-                id:id
-            },
-            success : function (msg) {
-                var di = bootbox.dialog({
-                    id      : "dlgVerPdf",
-                    title   : "Ver archivo cargado del examen",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-primary",
-                            callback  : function () {
+            $.ajax({
+                type    : "POST",
+                url     : "${createLink(controller: 'historial', action:'verPdf_ajax')}",
+                data    : {
+                    id:id
+                },
+                success : function (msg) {
+                    var di = bootbox.dialog({
+                        id      : "dlgVerPdf",
+                        title   : "Ver archivo cargado del examen",
+                        message : msg,
+                        buttons : {
+                            cancelar : {
+                                label     : "<i class='fa fa-times'></i> Cerrar",
+                                className : "btn-primary",
+                                callback  : function () {
 
+                                }
                             }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
+                        } //buttons
+                    }); //dialog
+                } //success
+            }); //ajax
     } //createEdit
 
 </script>
