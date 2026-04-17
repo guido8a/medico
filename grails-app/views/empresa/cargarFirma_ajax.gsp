@@ -20,7 +20,7 @@
             <span class="col-md-12">
                 <g:if test="${empresa?.firma}">
                     <div class=" alert alert-success" style="margin-top: 10px">
-                        <i class="fa fa-exclamation-triangle fa-2x"></i>  <strong style="font-size: 14px"> Una certificado de firma electronica está cargado.</strong>
+                        <i class="fa fa-check-circle fa-2x"></i>  <strong style="font-size: 14px"> Un certificado de firma electronica está cargado.</strong>
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn btn-danger btnBorrarArchivoFirma">
@@ -31,7 +31,7 @@
                 <g:else>
                     <div class="alert alert-info" style="margin-top: 10px; font-size: 16px">
                         <i class="fa fa-exclamation-triangle fa-2x"></i>
-                        No existe ningún certificado cargado.
+                        No existe un certificado cargado.
                     </div>
                 </g:else>
             </span>
@@ -60,10 +60,8 @@
                 dialog.modal('hide');
                 var parts = msg.split("_");
                 if(parts[0] === 'ok'){
-                    log(parts[1], "success");
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1000);
+                    bootbox.alert('<i class="fa fa-check text-success fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    cerrarCargarCertificado();
                 }else{
                     bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                     return false;
@@ -104,9 +102,7 @@
                                 var parts = msg.split("_");
                                 if(parts[0] === 'ok'){
                                     log(parts[1],"success");
-                                    setTimeout(function () {
-                                        location.reload();
-                                    }, 1000);
+                                    cerrarCargarCertificado();
                                 }else{
                                     log(parts[1],"error")
                                 }

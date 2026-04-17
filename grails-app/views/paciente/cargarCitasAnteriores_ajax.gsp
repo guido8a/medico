@@ -1,19 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-
-    <style>
-
-    .imag_pq {
-        width: 250px;
-        margin-right: auto;
-        margin-left: auto;
-        display: block;
-        max-width: 100%;
-        height: 250px;
-    }
-    </style>
-
+        <title>Citas anteriores</title>
 </head>
 
 <body style="padding: 20px;">
@@ -36,11 +24,19 @@
         <div class="fieldcontain required">
             <b>Cargar archivo:</b>
             <input type="file" id="file" name="file" class="" multiple accept=".pdf"/>
-
             <div class="btn-group" style="margin-top: 20px;">
                 <a href="#" id="submit" class="btn btn-success">
                     <i class="fa fa-save"></i> Guardar
                 </a>
+            </div>
+            <div class="btn-group" style="margin-top: 20px;">
+                <g:if test="${paciente?.path}">
+                    <div class="btn-group" style="">
+                        <a href="#" class="btn btn-danger btn-delete">
+                            <i class="fa fa-trash"></i> Borrar
+                        </a>
+                    </div>
+                </g:if>
             </div>
         </div>
     </g:uploadForm>
@@ -50,11 +46,7 @@
     <div class="alert alert-info" style="margin-top: 10px">
         Documento actualmente cargado:   <strong style="font-size: 14px">${paciente?.path}</strong>
     </div>
-    <div class="btn-group" style="margin-top: 0px; margin-left: 52px">
-        <a href="#" class="btn btn-danger btn-delete">
-            <i class="fa fa-trash"></i> Borrar
-        </a>
-    </div>
+    <embed src="${createLink(controller: 'paciente', action: 'downloadDocumentoCitasAnteriores', id: paciente?.id)}" style="width: 100%; height: 600px" type='application/pdf'>
 </g:if>
 <g:else>
     <div class="alert alert-warning" style="margin-top: 10px">

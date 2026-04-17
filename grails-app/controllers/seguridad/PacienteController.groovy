@@ -540,8 +540,6 @@ class PacienteController {
                 def file = new File(pathFile)
                 println "subiendo archivo: $fileName"
 
-                f.transferTo(file)
-
                 def old = paciente.path
                 if (old && old.trim() != "") {
                     def oldPath = "/var/medico/empresa/emp_${paciente?.empresa?.id}/paciente/pac_${paciente?.id}/" + old
@@ -550,6 +548,8 @@ class PacienteController {
                         oldFile.delete()
                     }
                 }
+
+                f.transferTo(file)
 
                 paciente.path = fileName
                 paciente.save(flush: true)
@@ -562,7 +562,6 @@ class PacienteController {
             render "no_Seleccione un archivo PDF"
             return
         }
-
         render "ok_Subido correctamente"
     }
 
@@ -610,10 +609,7 @@ class PacienteController {
             response.setContentLength(b.length)
             response.getOutputStream().write(b)
         } else {
-//            flash.clase = "alert-error"
-//            flash.message = "No se encontró el documento " + " '" + paciente.path + "'"
-//            redirect(action: "errores")
-            render "no_No se encontró el archivo "
+            render "no_No se encontró el archivo " + paciente?.path
         }
     }
 

@@ -2,7 +2,6 @@ package seguridad
 
 import geografia.Canton
 import geografia.Provincia
-import groovy.io.FileType
 import sri.Establecimiento
 
 import javax.imageio.ImageIO
@@ -399,8 +398,6 @@ h   : img?.getHeight(),
                 def file = new File(pathFile)
                 println "subiendo archivo: $fileName"
 
-                f.transferTo(file)
-
                 def old = empresa.logo
                 if (old && old.trim() != "") {
                     def oldPath = "/var/medico/empresa/emp_" + empresa.id + "/" + old
@@ -410,25 +407,37 @@ h   : img?.getHeight(),
                     }
                 }
 
+                f.transferTo(file)
+
                 empresa.logo = fileName
                 empresa.save(flush: true)
 
             } else {
-                flash.clase = "alert-error"
-                flash.message = "Error: Los formatos permitidos son: JPG, JPEG, PNG"
+                render "no_Seleccione un archivo con formato JPG, JPEG, PNG"
             }
         } else {
-            flash.clase = "alert-error"
-            flash.message = "Error: Seleccione un archivo JPG, JPEG, PNG"
+            render "no_Seleccione un archivo con formato JPG, JPEG, PNG"
         }
-
-        redirect(action: "list")
-        return
+        render "ok_Logo guardado correctamente"
     }
 
     def logoEmpresa_ajax () {
         def empresa = Empresa.get(params.id)
-        return[empresa: empresa]
+        def ext = null
+        String base64Image = ''
+
+        if(empresa?.logo){
+            def nombre = empresa?.logo?.split("\\.")[0]
+            ext = empresa?.logo?.split("\\.")[1]
+
+            BufferedImage image = ImageIO.read(new File("/var/medico/empresa/emp_${empresa?.id}/${nombre}" + "." + ext));
+            ByteArrayOutputStream outStreamObj = new ByteArrayOutputStream();
+            ImageIO.write(image, ext?.toString(), outStreamObj);
+            byte [] byteArray = outStreamObj.toByteArray();
+            base64Image = byteArray.encodeBase64().toString()
+        }
+
+        return[empresa: empresa, base64Image: base64Image, extension: ext]
     }
 
     def deleteImagen_ajax() {
@@ -585,7 +594,6 @@ h   : img?.getHeight(),
                 def pathFile = path + fileName
                 def file = new File(pathFile)
 
-                f.transferTo(file)
 
                 def old = empresa?.firma
                 if (old && old.trim() != "") {
@@ -595,6 +603,8 @@ h   : img?.getHeight(),
                         oldFile.delete()
                     }
                 }
+
+                f.transferTo(file)
 
                 empresa?.firma = fileName
                 empresa.save(flush: true)
@@ -607,7 +617,7 @@ h   : img?.getHeight(),
             render "no_Seleccione un archivo"
             return
         }
-        render "ok_Subido correctamente"
+        render "ok_Certificado de firma electrónica subido correctamente"
     }
 
     def borrarArchivoFirma_ajax(){

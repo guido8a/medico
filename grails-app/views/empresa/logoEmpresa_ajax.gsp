@@ -4,18 +4,6 @@
     <title>
         Logo
     </title>
-    <style>
-
-    .imag_pq {
-        /*width: 250px;*/
-        margin-right: auto;
-        margin-left: auto;
-        display: block;
-        max-width: 100%;
-        /*height: 250px;*/
-    }
-    </style>
-
 </head>
 
 <body style="padding: 20px;">
@@ -44,7 +32,6 @@
                     <i class="fa fa-save"></i> Guardar
                 </a>
             </div>
-
             <g:if test="${empresa?.logo}">
                 <div class="btn-group" style="margin-top: 20px;">
                     <a href="#" class="btn btn-danger btn-delete">
@@ -54,14 +41,18 @@
             </g:if>
         </div>
     </g:uploadForm>
-    <div class="col-md-10 alert alert-warning" style="font-size: 14px; font-weight: bold; margin-top: 10px">La imagen a cargar debe tener un tamaño de 1092 x 328 pixeles.</div>
+    <div class="col-md-10 alert alert-warning" style="font-size: 14px; font-weight: bold; margin-top: 10px">
+    <i class="fa fa-exclamation-triangle fa-2x"></i> La imagen a cargar debe tener un tamaño de 1092 x 328 pixeles.
+    </div>
 </fieldset>
 
 <g:if test="${empresa?.logo}">
-    <img src="${createLink(controller: 'empresa', action: 'getImage', params: [id:empresa?.id] )}" class="imag_pq" style="margin-top: 10px"/>
+    <div style="text-align: center">
+        <img alt="Examen" src="data:image/${extension};base64,${base64Image}" style="margin-top: 10px; width: 100%; height: 100%" />
+    </div>
 </g:if>
 <g:else>
-    <div class="alert alert-warning" style="margin-top: 10px">
+    <div class="alert alert-warning" style="margin-top: 10px; text-align: center; font-size: 14px; font-weight: bold">
         <i class="fa fa-exclamation-triangle fa-2x"></i>
         No existe una imagen cargada.
     </div>
@@ -70,20 +61,47 @@
 <script type="text/javascript">
 
     $("#submit").click(function () {
-        $("#frmUpload").submit();
+        return submitFormLogo()
     });
+
+    function submitFormLogo() {
+        var $form = $("#frmUpload");
+        var formData = new FormData($("#frmUpload")[0]);
+        var dialog = cargarLoader("Guardando...");
+        $.ajax({
+            type    : "POST",
+            url     : $form.attr("action"),
+            data    : formData,
+            processData: false,
+            contentType: false,
+            success : function (msg) {
+                dialog.modal('hide');
+                var parts = msg.split("_");
+                if(parts[0] === 'ok'){
+                    log(parts[1], "success");
+                    cerrarDialogoImagen();
+                    setTimeout(function () {
+                        cargarLogo('${empresa?.id}')
+                    },300)
+                }else{
+                    bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
+                    return false;
+                }
+            }
+        });
+    }
 
     $(".btn-delete").click(function () {
         bootbox.confirm({
-            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro que desea borrar la imagen? </strong>",
+            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro que desea borrar el logo? </strong>",
             buttons: {
                 confirm: {
-                    label: 'Borrar',
-                    className: 'btn-success'
+                    label: '<i class="fa fa-trash"></i> Borrar',
+                    className: 'btn-danger'
                 },
                 cancel: {
-                    label: 'Cancelar',
-                    className: 'btn-danger'
+                    label: '<i class="fa fa-times"></i> Cancelar',
+                    className: 'btn-primary'
                 }
             },
             callback: function (result) {
@@ -97,13 +115,13 @@
                         success: function (msg) {
                             var parts = msg.split("_");
                             if(parts[0] === 'ok'){
-                                log("Imagen borrada correctamente","success");
+                                log("Logo borrado correctamente","success");
                                 cerrarDialogoImagen();
                             }else{
                                 if(parts[0] === 'er'){
                                     bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
                                 }else{
-                                    log("Error al borrar la imagen","error")
+                                    log("Error al borrar el logo","error")
                                 }
 
                             }
@@ -114,8 +132,6 @@
         });
     });
 
-
 </script>
-
 </body>
 </html>

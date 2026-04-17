@@ -46,9 +46,6 @@ th, td {
                     <td style="width: 13%">${paciente.pcntmail}</td>
                     <td style="width: 7%; text-align: center">
                         <g:if test="${paciente?.pcntpath}">
-%{--                            <g:link action="downloadDocumentoCitasAnteriores" class="btn btn-success btn-xs btnDescargarDocCitasAnteriores" rel="tooltip" title="Descargar" id="${paciente?.pcnt__id}">--}%
-%{--                                <i class="fa fa-download"></i>--}%
-%{--                            </g:link>--}%
                             <a class="btn btn-warning btn-xs btnDescargarDocCitasAnteriores" href="#" rel="tooltip" title="Descargar documento" data-id="${paciente?.pcnt__id}">
                                 <i class="fa fa-download"></i>
                             </a>

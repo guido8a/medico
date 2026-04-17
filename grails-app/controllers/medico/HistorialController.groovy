@@ -546,12 +546,27 @@ class HistorialController {
     def formDocExamenes_ajax(){
         def examen = ExamenComplementario.get(params.id)
         def citaActual = null
+        def ext = null
+        String base64Image = ''
+
+        if(examen?.path){
+            def nombre = examen?.path?.split("\\.")[0]
+            ext = examen?.path?.split("\\.")[1]
+
+            if(ext != 'pdf'){
+                BufferedImage image = ImageIO.read(new File("/var/medico/empresa/emp_${examen?.historial?.paciente?.empresa?.id}/paciente/pac_${examen?.historial?.paciente?.id}/citas/cita_${examen?.historial?.id}/${nombre}" + "." + ext));
+                ByteArrayOutputStream outStreamObj = new ByteArrayOutputStream();
+                ImageIO.write(image, ext?.toString(), outStreamObj);
+                byte [] byteArray = outStreamObj.toByteArray();
+                base64Image = byteArray.encodeBase64().toString()
+            }
+        }
 
         if(params.idActual){
             citaActual = Historial.get(params.idActual)
         }
 
-        return[examen: examen, tipo: params.tipo, citaActual: citaActual]
+        return[examen: examen, tipo: params.tipo, citaActual: citaActual, base64Image: base64Image, extension: ext]
     }
 
     def uploadFileExamen() {
@@ -608,7 +623,6 @@ class HistorialController {
             render "no_Seleccione un archivo JPG, JPEG, PNG, PDF"
             return
         }
-
         render "ok_Subido correctamente_${examen?.id}"
     }
 

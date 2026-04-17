@@ -115,6 +115,10 @@
 
     $(".btnCargarFirma").click(function () {
         var id = $(this).data("id");
+        cargarCertificadoFirma(id)
+    });
+
+    function cargarCertificadoFirma(id){
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'empresa', action:'cargarFirma_ajax')}",
@@ -137,7 +141,11 @@
                 }); //dialog
             } //success
         }); //ajax
-    });
+    }
+
+    function cerrarCargarCertificado(){
+        fe.modal("hide");
+    }
 
     $(".btnContabilidad").click(function () {
         var id = $(this).data("id");
