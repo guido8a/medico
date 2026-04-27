@@ -1705,14 +1705,25 @@ class ReportesController {
         return table;
     }
 
-
-
-
     def pedidoExamen(){
 
         def cita = Historial.get(params.cita)
         def paciente = cita.paciente
         def examenes
+        def diagnosticos = ''
+        def edadCalculada = calculaEdad( new Date().format('yyyy-MM-dd'), cita?.paciente?.fechaNacimiento?.format('yyyy-MM-dd'))
+        def listaDiagnosticos = DiagnosticoxHistorial.findAllByHistorial(cita)
+
+        if(listaDiagnosticos?.size()?:0 > 0){
+            listaDiagnosticos.each {
+                diagnosticos += (it.diagnostico.codigo + " - " + it.diagnostico.descripcion)
+                if(listaDiagnosticos?.size() > 1){
+                    diagnosticos += ", "
+                }
+            }
+        }else{
+            diagnosticos = ''
+        }
 
         def grupoExamen = GrupoExamen.get(6)
         def tipoExamen = TipoExamen.findAllByGrupoExamen(grupoExamen)
@@ -1764,16 +1775,9 @@ class ReportesController {
         document.addCreator("Tedein SA");
 
         Paragraph preface = new Paragraph();
-//        addEmptyLine(preface, 1);
         preface.setAlignment(Element.ALIGN_CENTER);
         preface.add(new Paragraph("PEDIDO DE EXÁMENES", fontTitulo));
         addEmptyLine(preface, 1);
-
-//        PdfPTable tablaImagen = new PdfPTable(1);
-//        tablaImagen.setWidthPercentage(100);
-//        tablaImagen.setWidths(arregloEnteros([100]))
-//        addCellTabla(tablaImagen, logo, [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
-//        tablaImagen.setSpacingAfter(20f);
 
         PdfPTable tablaImagen = new PdfPTable(3);
         tablaImagen.setWidthPercentage(100);
@@ -1783,24 +1787,51 @@ class ReportesController {
         addCellTabla(tablaImagen, new Paragraph("", fontTitulo), prmsHeaderHoja)
         tablaImagen.setSpacingAfter(20f);
 
-        PdfPTable tablaCabecera = new PdfPTable(4);
-        tablaCabecera.setWidthPercentage(100);
-        tablaCabecera.setWidths(arregloEnteros([20, 30, 20, 30]))
 
-        addCellTabla(tablaCabecera, new Paragraph("NOMBRES: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(paciente?.nombre, fontThTiny), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph("APELLIDOS: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(paciente?.apellido, fontThTiny), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph("EDAD: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(edad?.toString(), fontThTiny), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph("SEXO: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(paciente?.sexo == 'F' ? 'Femenino' : 'Masculino', fontThTiny), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph("FECHA: ", fontTitulo), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph(cita?.fecha ? cita?.fecha?.format("dd-MM-yyyy") : new Date()?.format("dd-MM-yyy"), fontThTiny), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
-        addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
+        PdfPTable tablaCabeceraDatos= new PdfPTable(2);
+        tablaCabeceraDatos.setWidthPercentage(100);
+        tablaCabeceraDatos.setWidths(arregloEnteros([15, 85]))
 
-        tablaCabecera.setSpacingAfter(10f);
+        addCellTabla(tablaCabeceraDatos, new Paragraph("CI:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(cita?.paciente?.cedula, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        addCellTabla(tablaCabeceraDatos, new Paragraph("Nombre:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(cita?.paciente?.apellido + " " + cita?.paciente?.nombre, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        addCellTabla(tablaCabeceraDatos, new Paragraph("Diagnóstico:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(diagnosticos, fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        addCellTabla(tablaCabeceraDatos, new Paragraph("Alergias:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(cita?.paciente?.alergias?.trim(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        addCellTabla(tablaCabeceraDatos, new Paragraph("Sexo:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(cita?.paciente?.sexo == 'F' ? 'Femenino' : 'Masculino', fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        addCellTabla(tablaCabeceraDatos, new Paragraph("Edad:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(edadCalculada?.toString(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+        addCellTabla(tablaCabeceraDatos, new Paragraph("Fecha:", fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.WHITE, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+        addCellTabla(tablaCabeceraDatos, new Paragraph(new Date().format("dd-MM-yyyy")?.toString(), fontThTiny), [border: java.awt.Color.WHITE, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_MIDDLE])
+
+
+//        PdfPTable tablaCabecera = new PdfPTable(4);
+//        tablaCabecera.setWidthPercentage(100);
+//        tablaCabecera.setWidths(arregloEnteros([20, 30, 20, 30]))
+//
+//        addCellTabla(tablaCabecera, new Paragraph("NOMBRES: ", fontTitulo), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph(paciente?.nombre, fontThTiny), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph("APELLIDOS: ", fontTitulo), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph(paciente?.apellido, fontThTiny), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph("EDAD: ", fontTitulo), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph(edad?.toString(), fontThTiny), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph("SEXO: ", fontTitulo), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph(paciente?.sexo == 'F' ? 'Femenino' : 'Masculino', fontThTiny), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph("FECHA: ", fontTitulo), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph(cita?.fecha ? cita?.fecha?.format("dd-MM-yyyy") : new Date()?.format("dd-MM-yyy"), fontThTiny), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
+//        addCellTabla(tablaCabecera, new Paragraph("", fontThTiny), prmsHeaderHoja)
+
+        tablaCabeceraDatos.setSpacingAfter(20f);
 
         PdfPTable tablaDetalles = null
         def printHeaderDetalle = {
@@ -1821,7 +1852,6 @@ class ReportesController {
             tablaCitas.setWidths(arregloEnteros([20, 20, 60]))
 
             examenes.eachWithIndex {p, q->
-
                 def tablaExamen = new PdfPTable(1);
                 tablaExamen.setWidthPercentage(100);
                 tablaExamen.setWidths(arregloEnteros([100]))
@@ -1863,7 +1893,8 @@ class ReportesController {
 
         document.add(tablaImagen)
         document.add(preface);
-        document.add(tablaCabecera)
+        document.add(tablaCabeceraDatos)
+//        document.add(tablaCabecera)
         printHeaderDetalle();
         printCitas();
         document.add(tablaDetalles)
