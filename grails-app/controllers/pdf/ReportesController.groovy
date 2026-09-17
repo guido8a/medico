@@ -1851,7 +1851,15 @@ class ReportesController {
                 addCellTabla(tablaCitas, new Paragraph(p?.tipoExamen?.descripcion, fontTitulo2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
 
                 DetalleExamen.findAllByExamenComplementario(p).each { e->
-                    addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString() + (p?.observaciones ? (" : " + p?.observaciones) : ''), fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
+                    def otroExamen = ""
+                    if(e?.examen?.descripcion?.toString() == 'OTROS'){
+                        otroExamen = ': ' + p?.otroExamen + ( p?.observaciones ? (', obsr: ' + p?.observaciones) : '')
+                    } else {
+                        otroExamen = ( p?.observaciones ? (" obsr: " + p?.observaciones) : '')
+                    }
+
+//                    addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString() + (p?.observaciones ? (" : " + p?.observaciones) : ''), fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
+                    addCellTabla(tablaExamen, new Paragraph(e?.examen?.descripcion?.toString() + otroExamen, fontThTiny2), [border: java.awt.Color.BLACK, bwb: 0.1, bcb: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP])
                 }
                 addCellTabla(tablaCitas, tablaExamen, [border: java.awt.Color.BLACK, align: Element.ALIGN_LEFT, valign: Element.ALIGN_TOP, colspan: 1, pl: 0])
                 tablaCitas.setSpacingAfter(10f);

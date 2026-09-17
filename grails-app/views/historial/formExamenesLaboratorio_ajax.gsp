@@ -36,7 +36,19 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    Observaciones
+                    Detalle del "otro" examen
+                </label>
+                <span class="col-md-9">
+                    <g:textField name="otroExamen" id="otroExamen" type="search" class="form-control" value="${examen?.otroExamen}" />
+                    %{--<g:textArea name="observaciones" maxlength="511" class="form-control" value="${examen?.observaciones}"  style="resize: none; height: 60px;" />--}%
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+        <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
+            <span class="grupo">
+                <label class="col-md-2 control-label text-info">
+                    Observaciones para todos los exámenes seleccionados
                 </label>
                 <span class="col-md-9">
                     <g:textArea name="observaciones" maxlength="511" class="form-control" value="${examen?.observaciones}"  style="resize: none; height: 60px;" />
