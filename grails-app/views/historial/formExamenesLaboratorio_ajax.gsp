@@ -36,7 +36,7 @@
         <div class="form-group ${hasErrors(bean: examen, field: 'observaciones', 'error')} ">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
-                    Detalle del "otro" examen
+                    Detalle del examen "Otros"
                 </label>
                 <span class="col-md-9">
                     <g:textField name="otroExamen" id="otroExamen" type="search" class="form-control" value="${examen?.otroExamen}" />
