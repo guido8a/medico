@@ -34,7 +34,7 @@
                                         <ul>
                                             <g:each in="${medico.DetalleExamen.findAllByExamenComplementario(examen)}">
                                                 <li>
-                                                    ${it?.examen?.descripcion}
+                                                    ${it?.examen?.descripcion == 'OTROS' ? (it?.examen?.descripcion + " : " + it?.examenComplementario?.otroExamen) : it?.examen?.descripcion}
                                                 </li>
                                             </g:each>
                                         </ul>
