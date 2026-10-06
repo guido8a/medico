@@ -349,7 +349,7 @@
             </div>
         </a>
 
-%{--        <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">--}%
+        <a href= "${createLink(controller:'reportes', action: 'reportes')}" style="text-decoration: none">
         <a href= "#" style="text-decoration: none">
             <div class="col-lg-6 mbr-col-md-10">
                 <div class="wrap">
